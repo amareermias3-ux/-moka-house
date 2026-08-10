@@ -1,0 +1,13 @@
+services:
+  - type: web
+    name: moka-house
+    runtime: node
+    buildCommand: npm install
+    startCommand: npm start
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: GOOGLE_CLIENT_ID
+        sync: false    # በ Render dashboard ላይ እራስህ ትጨምራለህ
+      - key: ADMIN_PASSWORD
+        sync: false

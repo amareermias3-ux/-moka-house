@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Staff entrance — Moka House</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..900;1,9..144,300..900&family=Space+Grotesk:wght@400;500;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<script src="https://accounts.google.com/gsi/client" async defer></script>
+<style>
+:root{--bg:#171110;--panel:#221a15;--line:rgba(241,230,212,.13);--line2:rgba(241,230,212,.28);--cream:#f1e6d4;--cream-dim:#c6b79e;--cream-mute:#93866f;--copper:#d98e32;--copper-soft:#e8b56b;--leaf:#8fa87e;--tomato:#cf5636;--disp:"Fraunces",serif;--mono:"Space Mono",monospace}
+*{margin:0;padding:0;box-sizing:border-box}
+body{min-height:100svh;background:var(--bg);background-image:radial-gradient(900px 500px at 70% -10%,rgba(217,142,50,.1),transparent 60%);color:var(--cream);font-family:"Space Grotesk",sans-serif;display:grid;place-items:center;padding:24px;overflow-x:hidden}
+::selection{background:var(--copper);color:#191008}
+.noise{position:fixed;inset:0;pointer-events:none;opacity:.05;mix-blend-mode:overlay;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)'/%3E%3C/svg%3E")}
+.gate{position:relative;width:min(410px,94vw)}
+.steam{position:absolute;top:-46px;left:50%;transform:translateX(-50%);display:flex;gap:12px;z-index:0}
+.steam i{width:8px;height:56px;border-radius:50%;background:rgba(241,230,212,.45);filter:blur(6px);animation:rise 3.2s ease-in-out infinite}
+.steam i:nth-child(2){animation-delay:1s;height:70px}
+.steam i:nth-child(3){animation-delay:2s}
+@keyframes rise{0%{transform:translateY(18px) scaleX(1);opacity:0}30%{opacity:.8}100%{transform:translateY(-52px) scaleX(2);opacity:0}}
+.door{position:relative;z-index:1;background:var(--panel);border:1px solid var(--line2);border-radius:12px;padding:2.6rem 2.3rem 2.2rem;box-shadow:0 24px 60px -20px rgba(0,0,0,.7)}
+.door.shake{animation:shake .35s}
+@keyframes shake{20%{transform:translateX(-8px)}40%{transform:translateX(7px)}60%{transform:translateX(-5px)}80%{transform:translateX(4px)}}
+.mark{font-size:2rem;margin-bottom:.6rem}
+h1{font-family:var(--disp);font-weight:900;font-size:1.9rem;letter-spacing:-.02em}
+.sub{font-family:var(--mono);font-size:.64rem;letter-spacing:.28em;text-transform:uppercase;color:var(--copper);margin:.4rem 0 1.9rem}
+label{display:block;font-family:var(--mono);font-size:.62rem;letter-spacing:.2em;text-transform:uppercase;color:var(--cream-mute);margin-bottom:1.1rem}
+input{width:100%;margin-top:.45rem;background:var(--bg);border:1.5px solid var(--line2);border-radius:6px;padding:.85em 1em;color:var(--cream);font-family:var(--mono);font-size:.9rem;transition:border-color .2s}
+input:focus{outline:none;border-color:var(--copper)}
+.pw-wrap{position:relative;display:block;margin-top:.45rem}
+.pw-wrap input{margin-top:0;padding-right:3em}
+.peek{position:absolute;right:6px;top:50%;transform:translateY(-50%);background:none;border:none;font-size:1rem;opacity:.6;transition:opacity .2s}
+.peek:hover{opacity:1}
+.err{font-family:var(--mono);font-size:.7rem;color:var(--tomato);letter-spacing:.06em;margin:-.3rem 0 1rem}
+.go{width:100%;background:var(--copper);color:#191008;border:none;font-family:var(--mono);font-weight:700;font-size:.78rem;letter-spacing:.16em;text-transform:uppercase;padding:1.05em;border-radius:6px;transition:background .2s,transform .2s}
+.go:hover{background:var(--copper-soft);transform:translateY(-1px)}
+.go[disabled]{opacity:.5;transform:none}
+.divider{display:flex;align-items:center;gap:1em;margin:1.4rem 0 1.1rem;color:var(--cream-mute);font-family:var(--mono);font-size:.58rem;letter-spacing:.26em;text-transform:uppercase}
+.divider::before,.divider::after{content:"";flex:1;border-top:1px dashed var(--line2)}
+.gbtn{display:flex;justify-content:center;min-height:44px}
+.alt{text-align:center;margin-top:1.3rem;font-size:.82rem;color:var(--cream-mute)}
+.alt a{color:var(--copper);text-decoration:none;border-bottom:1px dashed var(--copper)}
+.alt a:hover{color:var(--copper-soft)}
+.foot{font-family:var(--mono);font-size:.58rem;letter-spacing:.18em;text-transform:uppercase;color:var(--cream-mute);text-align:center;margin-top:1.3rem}
+.back-shop{position:relative;z-index:1;display:inline-block;margin-top:1.3rem;font-family:var(--mono);font-size:.68rem;letter-spacing:.14em;color:var(--cream-dim);text-decoration:none;transition:color .2s}
+.back-shop:hover{color:var(--copper-soft)}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}.steam{display:none}}
+</style>
+</head>
+<body>
+<div class="noise" aria-hidden="true"></div>
+<main style="display:grid;justify-items:center">
+  <div class="gate">
+    <div class="steam" aria-hidden="true"><i></i><i></i><i></i></div>
+    <div class="door" id="door">
+      <div class="mark">☕</div>
+      <h1>MOKA HOUSE</h1>
+      <p class="sub">Back door · የአስተዳደር መግቢያ</p>
+      <form id="loginForm" autocomplete="off">
+        <label>Username
+          <input id="user" type="text" spellcheck="false" autofocus>
+        </label>
+        <label>Password
+          <span class="pw-wrap">
+            <input id="pass" type="password">
+            <button type="button" class="peek" id="peek" aria-label="Show password">👁</button>
+          </span>
+        </label>
+        <p class="err" id="err" hidden></p>
+        <button class="go" id="goBtn" type="submit">Unlock the back room ◆</button>
+      </form>
+      <div class="divider" id="divider" hidden><span>or</span></div>
+      <div class="gbtn" id="gBtn"></div>
+      <p class="alt">New here? <a href="/register.html">Create a staff account</a></p>
+      <p class="foot">Staff only · sessions last 12 hours</p>
+    </div>
+  </div>
+  <a class="back-shop" href="/">← Back to the shop</a>
+</main>
+<script>
+const $ = s => document.querySelector(s);
+
+function fail(msg) {
+  const door = $('#door'), err = $('#err');
+  err.textContent = msg; err.hidden = false;
+  door.classList.remove('shake'); void door.offsetWidth; door.classList.add('shake');
+}
+
+/* አስቀድሞ ገብቶ ከሆነ በቀጥታ ወደ admin */
+fetch('/api/admin/check').then(r => { if (r.ok) location.replace('/admin.html'); });
+
+$('#peek').onclick = () => {
+  const p = $('#pass');
+  p.type = p.type === 'password' ? 'text' : 'password';
+};
+
+/* ---------- username + password ---------- */
+$('#loginForm').addEventListener('submit', async e => {
+  e.preventDefault();
+  const btn = $('#goBtn'), err = $('#err');
+  btn.disabled = true; btn.textContent = 'Checking…'; err.hidden = true;
+  try {
+    const r = await fetch('/api/admin/login', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ user: $('#user').value.trim(), pass: $('#pass').value })
+    });
+    if (r.ok) { location.replace('/admin.html'); return; }
+    const data = await r.json().catch(() => ({}));
+    fail(data.error || 'Wrong username or password');
+  } catch (_) {
+    fail('Server unreachable — is it running?');
+  }
+  btn.disabled = false; btn.textContent = 'Unlock the back room ◆';
+});
+
+/* ---------- Google ---------- */
+async function onGoogle(response) {
+  try {
+    const r = await fetch('/api/auth/google', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ credential: response.credential })
+    });
+    if (r.ok) { location.replace('/admin.html'); return; }
+    const d = await r.json().catch(() => ({}));
+    fail(d.error || 'Google sign-in failed');
+  } catch (_) { fail('Google sign-in failed'); }
+}
+(async function initGoogle() {
+  try {
+    const cfg = await fetch('/api/auth/google-config').then(r => r.json());
+    if (!cfg.enabled) return;
+    $('#divider').hidden = false;
+    const tryRender = () => {
+      if (!window.google || !google.accounts) { setTimeout(tryRender, 150); return; }
+      google.accounts.id.initialize({ client_id: cfg.clientId, callback: onGoogle });
+      google.accounts.id.renderButton($('#gBtn'), {
+        theme: 'filled_black', size: 'large', shape: 'pill',
+        text: 'continue_with', width: 330, logo_alignment: 'center'
+      });
+    };
+    tryRender();
+  } catch (_) { /* ዝም ብሎ ይቀጥላል */ }
+})();
+</script>
+</body>
+</html>

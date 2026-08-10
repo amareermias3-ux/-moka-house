@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Join the crew — Moka House</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..900;1,9..144,300..900&family=Space+Grotesk:wght@400;500;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<script src="https://accounts.google.com/gsi/client" async defer></script>
+<style>
+:root{--bg:#171110;--panel:#221a15;--line:rgba(241,230,212,.13);--line2:rgba(241,230,212,.28);--cream:#f1e6d4;--cream-dim:#c6b79e;--cream-mute:#93866f;--copper:#d98e32;--copper-soft:#e8b56b;--leaf:#8fa87e;--tomato:#cf5636;--disp:"Fraunces",serif;--mono:"Space Mono",monospace}
+*{margin:0;padding:0;box-sizing:border-box}
+body{min-height:100svh;background:var(--bg);background-image:radial-gradient(900px 500px at 30% -10%,rgba(143,168,126,.09),transparent 60%),radial-gradient(700px 400px at 90% 110%,rgba(217,142,50,.08),transparent 60%);color:var(--cream);font-family:"Space Grotesk",sans-serif;display:grid;place-items:center;padding:24px}
+::selection{background:var(--copper);color:#191008}
+.noise{position:fixed;inset:0;pointer-events:none;opacity:.05;mix-blend-mode:overlay;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)'/%3E%3C/svg%3E")}
+.gate{position:relative;width:min(410px,94vw)}
+.door{position:relative;z-index:1;background:var(--panel);border:1px solid var(--line2);border-radius:12px;padding:2.6rem 2.3rem 2.2rem;box-shadow:0 24px 60px -20px rgba(0,0,0,.7)}
+.door.shake{animation:shake .35s}
+@keyframes shake{20%{transform:translateX(-8px)}40%{transform:translateX(7px)}60%{transform:translateX(-5px)}80%{transform:translateX(4px)}}
+.mark{font-size:2rem;margin-bottom:.6rem}
+h1{font-family:var(--disp);font-weight:900;font-size:1.9rem;letter-spacing:-.02em}
+.sub{font-family:var(--mono);font-size:.64rem;letter-spacing:.28em;text-transform:uppercase;color:var(--leaf);margin:.4rem 0 1.9rem}
+label{display:block;font-family:var(--mono);font-size:.62rem;letter-spacing:.2em;text-transform:uppercase;color:var(--cream-mute);margin-bottom:1.1rem}
+input{width:100%;margin-top:.45rem;background:var(--bg);border:1.5px solid var(--line2);border-radius:6px;padding:.85em 1em;color:var(--cream);font-family:var(--mono);font-size:.9rem;transition:border-color .2s}
+input:focus{outline:none;border-color:var(--copper)}
+.hint{font-family:var(--mono);font-size:.56rem;letter-spacing:.06em;color:var(--cream-mute);margin-top:.4em;text-transform:none}
+.err{font-family:var(--mono);font-size:.7rem;color:var(--tomato);letter-spacing:.06em;margin:-.3rem 0 1rem}
+.go{width:100%;background:var(--leaf);color:#191008;border:none;font-family:var(--mono);font-weight:700;font-size:.78rem;letter-spacing:.16em;text-transform:uppercase;padding:1.05em;border-radius:6px;transition:filter .2s,transform .2s}
+.go:hover{filter:brightness(1.12);transform:translateY(-1px)}
+.go[disabled]{opacity:.5;transform:none}
+.divider{display:flex;align-items:center;gap:1em;margin:1.4rem 0 1.1rem;color:var(--cream-mute);font-family:var(--mono);font-size:.58rem;letter-spacing:.26em;text-transform:uppercase}
+.divider::before,.divider::after{content:"";flex:1;border-top:1px dashed var(--line2)}
+.gbtn{display:flex;justify-content:center;min-height:44px}
+.alt{text-align:center;margin-top:1.3rem;font-size:.82rem;color:var(--cream-mute)}
+.alt a{color:var(--copper);text-decoration:none;border-bottom:1px dashed var(--copper)}
+.alt a:hover{color:var(--copper-soft)}
+.back-shop{position:relative;z-index:1;display:inline-block;margin-top:1.3rem;font-family:var(--mono);font-size:.68rem;letter-spacing:.14em;color:var(--cream-dim);text-decoration:none}
+.back-shop:hover{color:var(--copper-soft)}
+</style>
+</head>
+<body>
+<div class="noise" aria-hidden="true"></div>
+<main style="display:grid;justify-items:center">
+  <div class="gate">
+    <div class="door" id="door">
+      <div class="mark">🫘</div>
+      <h1>JOIN THE CREW</h1>
+      <p class="sub">Staff account · አዲስ የሠራተኛ መለያ</p>
+      <form id="regForm" autocomplete="off">
+        <label>Username
+          <input id="user" type="text" spellcheck="false" autofocus>
+          <span class="hint">3–20 characters · letters, numbers, _ . -</span>
+        </label>
+        <label>Password
+          <input id="pass" type="password">
+          <span class="hint">At least 6 characters</span>
+        </label>
+        <label>Confirm password
+          <input id="pass2" type="password">
+        </label>
+        <p class="err" id="err" hidden></p>
+        <button class="go" id="goBtn" type="submit">Create account ◆</button>
+      </form>
+      <div class="divider" id="divider" hidden><span>or</span></div>
+      <div class="gbtn" id="gBtn"></div>
+      <p class="alt">Already have an account? <a href="/login.html">Log in</a></p>
+    </div>
+  </div>
+  <a class="back-shop" href="/">← Back to the shop</a>
+</main>
+<script>
+const $ = s => document.querySelector(s);
+
+function fail(msg) {
+  const door = $('#door'), err = $('#err');
+  err.textContent = msg; err.hidden = false;
+  door.classList.remove('shake'); void door.offsetWidth; door.classList.add('shake');
+}
+
+fetch('/api/admin/check').then(r => { if (r.ok) location.replace('/admin.html'); });
+
+/* ---------- username + password ---------- */
+$('#regForm').addEventListener('submit', async e => {
+  e.preventDefault();
+  const btn = $('#goBtn');
+  $('#err').hidden = true;
+  const user = $('#user').value.trim();
+  const pass = $('#pass').value, pass2 = $('#pass2').value;
+
+  if (!/^[a-zA-Z0-9_.-]{3,20}$/.test(user)) return fail('Username: 3–20 letters, numbers, _ . -');
+  if (pass.length < 6) return fail('Password must be at least 6 characters');
+  if (pass !== pass2) return fail('Passwords do not match — የይለፍ ቃላት አይመሳሰሉም');
+
+  btn.disabled = true; btn.textContent = 'Creating…';
+  try {
+    const r = await fetch('/api/admin/register', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ user, pass })
+    });
+    if (r.ok) { location.replace('/admin.html'); return; }
+    const data = await r.json().catch(() => ({}));
+    fail(data.error || 'Registration failed');
+  } catch (_) { fail('Server unreachable — is it running?'); }
+  btn.disabled = false; btn.textContent = 'Create account ◆';
+});
+
+/* ---------- Google ---------- */
+async function onGoogle(response) {
+  try {
+    const r = await fetch('/api/auth/google', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ credential: response.credential })
+    });
+    if (r.ok) { location.replace('/admin.html'); return; }
+    const d = await r.json().catch(() => ({}));
+    fail(d.error || 'Google sign-in failed');
+  } catch (_) { fail('Google sign-in failed'); }
+}
+(async function initGoogle() {
+  try {
+    const cfg = await fetch('/api/auth/google-config').then(r => r.json());
+    if (!cfg.enabled) return;
+    $('#divider').hidden = false;
+    const tryRender = () => {
+      if (!window.google || !google.accounts) { setTimeout(tryRender, 150); return; }
+      google.accounts.id.initialize({ client_id: cfg.clientId, callback: onGoogle });
+      google.accounts.id.renderButton($('#gBtn'), {
+        theme: 'filled_black', size: 'large', shape: 'pill',
+        text: 'signup_with', width: 330, logo_alignment: 'center'
+      });
+    };
+    tryRender();
+  } catch (_) {}
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Back of House — Moka House</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..900;1,9..144,300..900&family=Space+Grotesk:wght@400;500;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#171110;--bg2:#1c1512;--panel:#221a15;--panel2:#281e17;--line:rgba(241,230,212,.13);--line2:rgba(241,230,212,.28);--cream:#f1e6d4;--cream-dim:#c6b79e;--cream-mute:#93866f;--copper:#d98e32;--copper-soft:#e8b56b;--leaf:#8fa87e;--tomato:#cf5636;--gblue:#4285F4;--disp:"Fraunces",serif;--mono:"Space Mono",monospace}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--bg);color:var(--cream);font-family:"Space Grotesk",sans-serif;font-size:16px;line-height:1.5}
+::selection{background:var(--copper);color:#191008}
+.topbar{position:sticky;top:0;z-index:50;display:flex;justify-content:space-between;align-items:center;gap:1rem;flex-wrap:wrap;padding:.9rem 1.6rem;background:rgba(23,17,16,.94);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.brand{font-family:var(--disp);font-weight:900;font-size:1.2rem;display:flex;gap:.7em;align-items:baseline}
+.brand small{font-family:var(--mono);font-size:.58rem;letter-spacing:.26em;text-transform:uppercase;color:var(--copper)}
+.top-right{display:flex;gap:.9rem;align-items:center;font-family:var(--mono);font-size:.74rem;flex-wrap:wrap}
+.who{color:var(--copper-soft);letter-spacing:.08em}
+.pill{border:1.5px solid var(--copper);color:var(--copper);padding:.4em 1em;border-radius:100px;letter-spacing:.1em;text-transform:uppercase}
+.clock{color:var(--cream-mute);letter-spacing:.12em}
+.link{color:var(--cream-dim);letter-spacing:.1em;text-transform:uppercase;text-decoration:none;border-bottom:1px solid var(--line2);padding-bottom:2px;transition:color .2s}
+.link:hover{color:var(--copper-soft)}
+.logout{font-family:var(--mono);font-size:.68rem;letter-spacing:.12em;text-transform:uppercase;background:none;border:1.5px solid var(--line2);color:var(--cream-dim);padding:.55em 1.1em;border-radius:5px;transition:all .2s}
+.logout:hover{border-color:var(--tomato);color:var(--tomato)}
+main{max-width:1440px;margin:0 auto;padding:1.6rem}
+.sec-head{display:flex;justify-content:space-between;align-items:center;margin:1.8rem 0 1rem}
+.sec-head h2{font-family:var(--disp);font-weight:800;font-size:1.5rem}
+.refresh{font-family:var(--mono);font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;background:none;border:1.5px solid var(--line2);color:var(--cream-dim);padding:.6em 1.2em;border-radius:5px;transition:all .2s}
+.refresh:hover{border-color:var(--copper);color:var(--copper)}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:1rem}
+.stat{background:var(--panel);border:1px solid var(--line);border-radius:9px;padding:1.1rem 1.3rem}
+.stat b{font-family:var(--disp);font-size:2rem;font-weight:800;color:var(--copper-soft);display:block;line-height:1.15}
+.stat span{font-family:var(--mono);font-size:.6rem;letter-spacing:.22em;text-transform:uppercase;color:var(--cream-mute)}
+.board{display:grid;grid-template-columns:repeat(4,1fr);gap:1rem;align-items:start}
+.col{background:var(--bg2);border:1px solid var(--line);border-radius:9px;padding:.8rem;min-height:220px}
+.col-head{display:flex;justify-content:space-between;font-family:var(--mono);font-size:.66rem;letter-spacing:.2em;text-transform:uppercase;color:var(--cream-dim);padding:.2rem .3rem .7rem;border-bottom:1px dashed var(--line);margin-bottom:.8rem}
+.col-head b{color:var(--copper)}
+.ocard{background:var(--panel);border:1px solid var(--line);border-radius:7px;padding:.8rem .9rem;margin-bottom:.7rem;transition:transform .2s,border-color .2s}
+.ocard:hover{transform:translateY(-2px);border-color:rgba(217,142,50,.45)}
+.ocard.fresh{animation:freshIn 1.6s ease}
+@keyframes freshIn{0%{border-color:var(--copper);box-shadow:0 0 0 4px rgba(217,142,50,.35);transform:scale(1.03)}100%{box-shadow:none}}
+.ocard-top{display:flex;justify-content:space-between;font-family:var(--mono);font-size:.8rem}
+.ocard-top b{color:var(--copper)}
+.ocard-top span{color:var(--cream-mute)}
+.ocard ul{list-style:none;margin:.5rem 0;font-size:.82rem;color:var(--cream-dim)}
+.ocard ul li{padding:.12em 0;border-bottom:1px dotted var(--line)}
+.pickup{font-family:var(--mono);font-size:.64rem;letter-spacing:.08em;color:var(--cream-mute);margin-bottom:.6rem}
+.ocard-actions{display:flex;gap:.5rem;align-items:center}
+.adv{flex:1;font-family:var(--mono);font-size:.62rem;letter-spacing:.12em;text-transform:uppercase;background:var(--copper);color:#191008;border:none;padding:.6em;border-radius:4px;font-weight:700;transition:background .2s}
+.adv:hover{background:var(--copper-soft)}
+.void{background:none;border:1px solid var(--line2);border-radius:4px;color:var(--cream-mute);padding:.4em .6em;transition:all .2s}
+.void:hover{border-color:var(--tomato);color:var(--tomato)}
+.ocard.muted{opacity:.45}
+.done-flag{font-family:var(--mono);font-size:.64rem;color:var(--leaf)}
+.empty-col{font-family:var(--mono);font-size:.64rem;color:var(--cream-mute);text-align:center;padding:1.6rem 0;letter-spacing:.12em}
+.bottom-grid{display:grid;grid-template-columns:1.3fr .7fr;gap:1rem;margin-top:1.8rem;align-items:start}
+.panel{background:var(--panel);border:1px solid var(--line);border-radius:9px;padding:1.2rem 1.3rem;margin-bottom:1rem}
+.panel h3{font-family:var(--disp);font-size:1.1rem;font-weight:800;margin-bottom:.9rem;display:flex;justify-content:space-between;align-items:baseline}
+.panel h3 span{font-family:var(--mono);font-size:.66rem;color:var(--copper)}
+table{width:100%;border-collapse:collapse}
+th{text-align:left;font-family:var(--mono);font-size:.58rem;letter-spacing:.2em;text-transform:uppercase;color:var(--cream-mute);padding:.4em 0;border-bottom:1px solid var(--line)}
+td{padding:.55em 0;border-bottom:1px dashed var(--line);font-size:.86rem}
+td small{display:block;color:var(--cream-mute);font-size:.7rem}
+td input[type=number]{width:78px;background:var(--bg2);border:1px solid var(--line2);color:var(--cream);border-radius:4px;padding:.4em .5em;font-family:var(--mono);font-size:.78rem}
+td input[type=number]:focus{outline:none;border-color:var(--copper)}
+tr.off td:first-child{opacity:.45;text-decoration:line-through}
+tr.off td small{text-decoration:none;opacity:1}
+.switch{position:relative;width:38px;height:21px;appearance:none;background:#3a2b1e;border-radius:20px;cursor:pointer;border:1px solid var(--line2);transition:background .2s;vertical-align:middle}
+.switch:checked{background:var(--copper)}
+.switch::after{content:"";position:absolute;top:2px;left:2px;width:15px;height:15px;border-radius:50%;background:var(--cream);transition:left .2s}
+.switch:checked::after{left:19px}
+.ev-row{display:flex;justify-content:space-between;align-items:center;gap:1rem;padding:.7rem 0;border-bottom:1px dashed var(--line)}
+.ev-row b{font-size:.85rem;display:block}
+.ev-row>div:first-child span{font-family:var(--mono);font-size:.62rem;color:var(--cream-mute);letter-spacing:.1em}
+.ev-ctrl{display:flex;align-items:center;gap:.5rem}
+.ev-ctrl button{width:24px;height:24px;border:1px solid var(--line2);background:none;border-radius:4px;color:var(--cream-dim);transition:all .2s}
+.ev-ctrl button:hover{border-color:var(--copper);color:var(--copper)}
+.ev-seats{font-family:var(--mono);min-width:2ch;text-align:center;color:var(--copper)}
+.ev-ctrl small{font-family:var(--mono);font-size:.58rem;color:var(--cream-mute);letter-spacing:.14em;text-transform:uppercase}
+#teamList{list-style:none}
+#teamList li{display:flex;align-items:center;gap:.6rem;padding:.7em 0;border-bottom:1px dotted var(--line);font-size:.84rem;flex-wrap:wrap}
+#teamList li .u-name{font-family:var(--mono);font-size:.82rem;font-weight:700;min-width:120px}
+#teamList li .u-meta{font-family:var(--mono);font-size:.62rem;color:var(--cream-mute);margin-left:.3rem}
+#teamList li .date{margin-left:auto;font-family:var(--mono);font-size:.6rem;color:var(--cream-mute)}
+.prov{width:17px;height:17px;border-radius:50%;background:var(--gblue);color:#fff;font-family:var(--mono);font-size:.55rem;font-weight:700;display:inline-grid;place-items:center;flex:none}
+.role{font-family:var(--mono);font-size:.54rem;letter-spacing:.14em;text-transform:uppercase;padding:.3em .7em;border-radius:100px;border:1px solid var(--line2)}
+.role.admin{border-color:var(--copper);color:var(--copper)}
+.role.staff{border-color:var(--leaf);color:var(--leaf)}
+.u-actions{display:flex;gap:.35rem;flex-wrap:wrap}
+.u-btn{font-family:var(--mono);font-size:.58rem;letter-spacing:.1em;text-transform:uppercase;background:none;border:1px solid var(--line2);color:var(--cream-dim);padding:.4em .7em;border-radius:4px;transition:all .2s;cursor:pointer}
+.u-btn:hover{border-color:var(--copper);color:var(--copper)}
+.u-btn.danger:hover{border-color:var(--tomato);color:var(--tomato)}
+.u-btn.promote:hover{border-color:var(--leaf);color:var(--leaf)}
+.u-btn.me{border-color:var(--copper);color:var(--copper-soft)}
+.u-btn[disabled]{opacity:.3;cursor:not-allowed;pointer-events:none}
+#subList,#actList{list-style:none}
+#subList li,#actList li{font-size:.8rem;padding:.45em 0;border-bottom:1px dotted var(--line);color:var(--cream-dim);display:flex;justify-content:space-between;gap:1rem}
+#subList li span,#actList li span{font-family:var(--mono);font-size:.64rem;color:var(--cream-mute);white-space:nowrap}
+.dim{color:var(--cream-mute)!important}
+#blip{position:fixed;bottom:20px;right:20px;background:var(--cream);color:#191008;font-family:var(--mono);font-size:.72rem;padding:.8em 1.2em;border-radius:5px;opacity:0;transform:translateY(10px);transition:.3s;pointer-events:none;z-index:99}
+#blip.show{opacity:1;transform:none}
+#blip.err{background:var(--tomato);color:#fff}
+@media(max-width:1100px){.board{grid-template-columns:1fr 1fr}.bottom-grid{grid-template-columns:1fr}.stats{grid-template-columns:1fr 1fr}}
+@media(max-width:620px){.board,.stats{grid-template-columns:1fr}#teamList li{font-size:.78rem}}
+</style>
+</head>
+<body>
+
+<header class="topbar">
+  <div class="brand">MOKA HOUSE <small>Back of House</small></div>
+  <div class="top-right">
+    <span class="who" id="whoAmI">☕ …</span>
+    <span class="pill" id="queuePill">0 queued</span>
+    <span class="clock" id="clock">--:--:--</span>
+    <a class="link" href="/">Shopfront ↗</a>
+    <button class="logout" id="logoutBtn">Logout ⎋</button>
+  </div>
+</header>
+
+<main>
+  <section class="stats">
+    <div class="stat"><b id="statOrders">0</b><span>Orders today</span></div>
+    <div class="stat"><b id="statRev">$0.00</b><span>Revenue today</span></div>
+    <div class="stat"><b id="statAvg">$0.00</b><span>Avg ticket</span></div>
+    <div class="stat"><b id="statTop">—</b><span>Top seller</span></div>
+  </section>
+
+  <div class="sec-head">
+    <h2>Orders board</h2>
+    <button class="refresh" id="refreshBtn">Refresh ⟳</button>
+  </div>
+  <section class="board" id="board"></section>
+
+  <section class="bottom-grid">
+    <div class="panel">
+      <h3>Menu manager <span id="saveBlip"></span></h3>
+      <table id="menuTable"></table>
+    </div>
+    <div>
+      <div class="panel">
+        <h3>Team <span id="teamCount"></span></h3>
+        <p style="font-family:var(--mono);font-size:.6rem;color:var(--cream-mute);letter-spacing:.08em;margin:-.5rem 0 1rem">Admins can delete, promote/demote and force-logout. At least one admin must exist.</p>
+        <ul id="teamList"></ul>
+      </div>
+      <div class="panel"><h3>Events — seats</h3><div id="evList"></div></div>
+      <div class="panel"><h3>Roast list <span id="subCount">0</span></h3><ul id="subList"></ul></div>
+      <div class="panel"><h3>Activity</h3><ul id="actList"></ul></div>
+    </div>
+  </section>
+</main>
+
+<div id="blip"></div>
+
+<script>
+const $ = s => document.querySelector(s);
+
+/* ---------- auth ፍተሻ + logout ---------- */
+fetch('/api/admin/check').then(r => { if (r.status === 401) location.href = '/login.html'; });
+let ME = null;
+fetch('/api/admin/whoami').then(r => r.ok ? r.json() : null)
+  .then(d => { if (d) { ME = d.user; $('#whoAmI').textContent = `☕ ${d.user} · ${d.role}`; loadTeam(); } });
+$('#logoutBtn').onclick = async () => {
+  await fetch('/api/admin/logout', { method: 'POST' });
+  location.href = '/login.html';
+};
+
+const jfetch = (url, opt) => fetch(url, opt).then(async r => {
+  if (r.status === 401) { location.href = '/login.html'; return new Promise(() => {}); }
+  const data = await r.json().catch(() => ({}));
+  if (!r.ok) { blip(data.error || 'Request failed', true); throw new Error(data.error || 'fail'); }
+  return data;
+});
+
+let blipT;
+function blip(msg, isErr){
+  const b=$('#blip'); b.textContent = msg; b.classList.add('show');
+  b.classList.toggle('err', !!isErr);
+  clearTimeout(blipT); blipT = setTimeout(() => b.classList.remove('show'), isErr ? 4500 : 2200);
+}
+
+/* ---------- የትዕዛዝ ሰሌዳ ---------- */
+const COLS=[['queued','Queued'],['brewing','Brewing'],['ready','Ready'],['picked-up','Picked up']];
+const NEXT={queued:'brewing',brewing:'ready',ready:'picked-up'};
+const LABEL={brewing:'→ Start brewing',ready:'→ Mark ready','picked-up':'→ Handed over'};
+let known=new Set(), firstLoad=true;
+
+function card(o,key){
+  const t=new Date(o.created).toLocaleTimeString('en-GB',{hour:'2-digit',minute:'2-digit'});
+  return `<article class="ocard ${key==='picked-up'?'muted':''}" data-no="${o.no}">
+    <div class="ocard-top"><b>${o.no}</b><span>${t}</span></div>
+    <ul>${o.items.map(i=>`<li>${i.qty}× ${i.name}</li>`).join('')}</ul>
+    <p class="pickup">◈ ${o.pickup} · $${o.subtotal.toFixed(2)}</p>
+    <div class="ocard-actions">
+      ${NEXT[key]?`<button class="adv" data-no="${o.no}" data-next="${NEXT[key]}">${LABEL[NEXT[key]]}</button>`:'<span class="done-flag">✓ served</span>'}
+      <button class="void" data-no="${o.no}" title="Void order">✕</button>
+    </div>
+  </article>`;
+}
+function renderBoard(orders){
+  $('#board').innerHTML=COLS.map(([key,label])=>{
+    const list=orders.filter(o=>o.status===key);
+    return `<div class="col"><div class="col-head"><span>${label}</span><b>${list.length}</b></div>
+      ${list.map(o=>card(o,key)).join('')||'<p class="empty-col">No tickets</p>'}</div>`;
+  }).join('');
+  if(firstLoad){ orders.forEach(o=>known.add(o.no)); firstLoad=false; }
+  else orders.forEach(o=>{
+    if(!known.has(o.no)){
+      known.add(o.no);
+      const el=document.querySelector(`[data-no="${o.no}"]`);
+      if(el)el.classList.add('fresh');
+      blip('New ticket — '+o.no);
+    }
+  });
+}
+$('#board').addEventListener('click',async e=>{
+  const adv=e.target.closest('.adv'), voidB=e.target.closest('.void');
+  try{
+    if(adv){ await jfetch(`/api/orders/${adv.dataset.no}`,{method:'PATCH',headers:{'Content-Type':'application/json'},body:JSON.stringify({status:adv.dataset.next})}); poll(); }
+    if(voidB && confirm(`Void order ${voidB.dataset.no}?`)){ await jfetch(`/api/orders/${voidB.dataset.no}`,{method:'DELETE'}); poll(); blip(voidB.dataset.no+' voided'); }
+  }catch(_){}
+});
+
+/* ---------- ስታቲስቲክስ እና እንቅስቃሴ ---------- */
+function renderStats(s){
+  $('#statOrders').textContent=s.orders;
+  $('#statRev').textContent='$'+s.revenue.toFixed(2);
+  $('#statAvg').textContent='$'+s.avg.toFixed(2);
+  $('#statTop').textContent=s.top?`${s.top.name} ×${s.top.qty}`:'—';
+  $('#queuePill').textContent=s.queued+' queued';
+}
+function renderAct(list){
+  $('#actList').innerHTML=list.slice(0,12).map(a=>
+    `<li>${a.msg}<span>${new Date(a.t).toLocaleTimeString('en-GB',{hour:'2-digit',minute:'2-digit'})}</span></li>`
+  ).join('')||'<li class="dim">Quiet so far…</li>';
+}
+async function poll(){
+  try{
+    const [orders,stats,act]=await Promise.all([
+      jfetch('/api/orders'), jfetch('/api/stats'), jfetch('/api/activity')
+    ]);
+    renderBoard(orders); renderStats(stats); renderAct(act);
+  }catch(_){ blip('Sync error — retrying…', true); }
+}
+
+/* ---------- ሜኑ አስተዳደር ---------- */
+async function loadMenu(){
+  const menu=await jfetch('/api/menu');
+  $('#menuTable').innerHTML=`<tr><th>Item</th><th>Price</th><th>On the board</th></tr>`+menu.map(m=>`
+    <tr class="${m.available===false?'off':''}">
+      <td>${m.name}<small>${m.cat}</small></td>
+      <td><input type="number" step="0.10" min="0.5" value="${m.price.toFixed(2)}" data-price="${m.id}"></td>
+      <td><input type="checkbox" class="switch" data-avail="${m.id}" ${m.available===false?'':'checked'}></td>
+    </tr>`).join('');
+}
+$('#menuTable').addEventListener('change',async e=>{
+  const p=e.target.closest('[data-price]'), a=e.target.closest('[data-avail]');
+  try{
+    if(p){ await jfetch(`/api/menu/${p.dataset.price}`,{method:'PATCH',headers:{'Content-Type':'application/json'},body:JSON.stringify({price:+p.value})}); $('#saveBlip').textContent='saved ✓'; setTimeout(()=>$('#saveBlip').textContent='',1800); }
+    if(a){ await jfetch(`/api/menu/${a.dataset.avail}`,{method:'PATCH',headers:{'Content-Type':'application/json'},body:JSON.stringify({available:a.checked})}); a.closest('tr').classList.toggle('off',!a.checked); blip(a.checked?'Back on the board':'86’d'); }
+  }catch(_){ }
+});
+
+/* ---------- ቡድን (users) — delete / promote / demote / force-logout ---------- */
+async function loadTeam(){
+  if (!ME) return;
+  const users = await jfetch('/api/users');
+  $('#teamCount').textContent = `${users.length} accounts · ${users.filter(u=>u.role==='admin').length} admins`;
+  $('#teamList').innerHTML = users.map(u => {
+    const isMe = u.user === ME;
+    const providerBadge = u.provider === 'google' ? `<span class="prov" title="Google — ${u.email||''}">G</span>` : '';
+    const emailHint = u.email ? ` · ${u.email}` : '';
+    const sessions = u.sessions > 0 ? ` · ${u.sessions} active` : '';
+    const promoteBtn = u.role === 'staff'
+      ? `<button class="u-btn promote" data-act="promote" data-user="${u.user}" ${isMe?'disabled':''} title="${isMe?'Cannot change own role':'Promote to admin'}">↑ admin</button>`
+      : `<button class="u-btn promote" data-act="demote" data-user="${u.user}" ${isMe?'disabled':''} title="${isMe?'Cannot change own role':'Demote to staff'}">↓ staff</button>`;
+    return `<li>
+      <b class="u-name">${u.user}</b>${providerBadge}<span class="role ${u.role}">${u.role}</span>
+      <span class="u-meta">${emailHint}${sessions}</span>
+      <span class="date">${new Date(u.created).toLocaleDateString()}</span>
+      <div class="u-actions">
+        ${promoteBtn}
+        <button class="u-btn" data-act="kick" data-user="${u.user}" ${u.sessions===0?'disabled':''} title="Force logout all sessions">⏻ kick</button>
+        <button class="u-btn danger" data-act="delete" data-user="${u.user}" ${isMe?'disabled':''} title="Delete account permanently">✕ delete</button>
+        ${isMe ? '<span class="u-btn me">you</span>' : ''}
+      </div>
+    </li>`;
+  }).join('');
+}
+$('#teamList').addEventListener('click', async e => {
+  const btn = e.target.closest('[data-act]');
+  if (!btn || btn.disabled) return;
+  const user = btn.dataset.user, act = btn.dataset.act;
+  try {
+    if (act === 'delete') {
+      if (!confirm(`Delete user "${user}" permanently? All their sessions will be killed.`)) return;
+      await jfetch(`/api/users/${encodeURIComponent(user)}`, { method: 'DELETE' });
+      blip(`${user} deleted`);
+    } else if (act === 'promote' || act === 'demote') {
+      const role = act === 'promote' ? 'admin' : 'staff';
+      await jfetch(`/api/users/${encodeURIComponent(user)}`, { method: 'PATCH', headers:{'Content-Type':'application/json'}, body: JSON.stringify({ role }) });
+      blip(`${user} is now ${role}`);
+    } else if (act === 'kick') {
+      const r = await jfetch(`/api/users/${encodeURIComponent(user)}/logout`, { method: 'POST' });
+      blip(`${user} — ${r.killed} session(s) killed`);
+    }
+    loadTeam();
+  } catch (_) { /* error shown by jfetch */ }
+});
+
+/* ---------- ዝግጅቶች እና ተመዝጋቢዎች ---------- */
+async function loadEvents(){
+  const evs=await jfetch('/api/events');
+  $('#evList').innerHTML=evs.map(ev=>`
+    <div class="ev-row">
+      <div><b>${ev.title}</b><span>${ev.day} ${ev.mon} · ${ev.time}</span></div>
+      <div class="ev-ctrl">
+        <button data-evdec="${ev.id}">−</button><b class="ev-seats">${ev.seats}</b><button data-evinc="${ev.id}">+</button><small>seats</small>
+      </div>
+    </div>`).join('');
+}
+$('#evList').addEventListener('click',async e=>{
+  const inc=e.target.closest('[data-evinc]'), dec=e.target.closest('[data-evdec]');
+  if(!inc&&!dec)return;
+  const id=inc?inc.dataset.evinc:dec.dataset.evdec;
+  try{
+    const ev=await jfetch(`/api/events/${id}`,{method:'PATCH',headers:{'Content-Type':'application/json'},body:JSON.stringify({delta:inc?1:-1})});
+    e.target.closest('.ev-ctrl').querySelector('.ev-seats').textContent=ev.seats;
+  }catch(_){}
+});
+async function loadSubs(){
+  const subs=await jfetch('/api/newsletter');
+  $('#subCount').textContent=subs.length+' signed up';
+  $('#subList').innerHTML=subs.slice(0,8).map(s=>
+    `<li>${s.email}<span>${new Date(s.t).toLocaleDateString()}</span></li>`).join('')||'<li class="dim">No signups yet</li>';
+}
+
+/* ---------- ማስጀመሪያ ---------- */
+setInterval(()=>$('#clock').textContent=new Date().toLocaleTimeString('en-GB'),1000);
+$('#clock').textContent=new Date().toLocaleTimeString('en-GB');
+$('#refreshBtn').onclick=()=>{ poll(); loadMenu(); loadEvents(); loadSubs(); loadTeam(); blip('Refreshed'); };
+poll(); loadMenu(); loadEvents(); loadSubs();
+setInterval(poll,3000);
+setInterval(loadSubs,30000);
+setInterval(loadTeam,15000);
+</script>
+</body>
+</html>
