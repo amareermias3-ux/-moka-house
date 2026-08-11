@@ -150,6 +150,18 @@ function requirePerm(perm) {
 }
 
 /* ---------- 🤖 smart bot ---------- */
+
+/* ---------- 🤖 smart bot (LIVE knowledge — አዲስ ነገር ሲጨመር ወዲያውኑ ያውቃል) ---------- */
+const BOT_EXTRA = {
+en:{register:'To create an account: open Register and fill name, email, phone & password — or use "Sign up with Google".',login:'Log in with your username or email + password, or continue with Google.',wallet:'We accept Telebirr, M-Pesa, PayPal, cards, bank transfer and crypto.',stamps:'Stamp card: one stamp per drink — buy 7, the 8th is free.',new:'Latest news: ',langs:'The site speaks 8 languages — switch anytime from the top-right.',delivery:'We don\'t deliver yet — pick up at any of our three shops.'},
+am:{register:'መለያ ለመጠር፦ Register ገጽ ላይ ስም፣ ኢሜይል፣ ስልክ እና የይለፍ ቃል ሞላ — ወይም "በGoogle ተመዝገ"።',login:'በተጠቃሚ ስም ወይም ኢሜይል + የይለፍ ቃል ግባ — ወይም በGoogle።',wallet:'ቴሌ ር፣ ም-ፔሳ፣ PayPal ካርድ፣ ባንክ እና ክሪቶ እንቀበላለን።',stamps:'ስታምፕ ካርድ፦ በእያንዳንዱ መጠጥ አንድ ስታምፕ — 7 ገዝተህ 8ኛው ነፃ።',new:'አዲስ ዜና ',langs:'ይቱ በ8 ንቋዎች ይናገራል — ከላይ ቀ መቀየር ትችላለህ።',delivery:'እስካሁን አናደርስም — በሦስቱም ሱቆቻችን ተረብ።'},
+ar:{register:'لإنشاء حساب: افتح التسجيل واملأ الاسم والبريد والهاتف وكلمة المرور — أو عبر Google.',login:'ادخل باسم المستخدم أو البريد + كلمة المرور، أو عبر Google.',wallet:'نقبل تيلي بير، إم-بيسا، باي بال، البطاقات، البنك والعملات المشفرة.',stamps:'بطاقة الختم: ختم لكل مشروب — اشترِ 7 والثامنة مجانية.',new:'آخر الأخبار: ',langs:'الموقع يتحدث 8 لغات — بدّلها من الأعلى.',delivery:'لا توصيل بعد — استلم من فروعنا الثلاثة.'},
+fr:{register:'Pour créer un compte : page Register — nom, e-mail, téléphone, mot de passe — ou via Google.',login:'Connectez-vous avec nom/e-mail + mot de passe, ou via Google.',wallet:'Nous acceptons Telebirr, M-Pesa, PayPal, cartes, banque et crypto.',stamps:'Carte : un tampon par boisson — 7 achats, le 8e offert.',new:'Dernières nouvelles : ',langs:'Le site parle 8 langues — changez en haut à droite.',delivery:'Pas de livraison — retrait dans nos trois boutiques.'},
+es:{register:'Para crear una cuenta: en Register escribe nombre, correo, teléfono y contraseña — o usa Google.',login:'Entra con usuario o correo + contraseña, o con Google.',wallet:'Aceptamos Telebirr, M-Pesa, PayPal, tarjetas, banco y cripto.',stamps:'Tarjeta: un sello por bebida — compra 7, la 8ª gratis.',new:'Últimas noticias: ',langs:'El sitio habla 8 idiomas — cámbialo arriba.',delivery:'Aún no entregamos — recoge en nuestras tres tiendas.'},
+om:{register:'Herrega uumuuf: Register irratti maqaa, imeelii, bilbila fi jecha darbii guuti — ykn Google fayyadami.',login:'Maqaa ykn imeelii + jecha darbiin seeni, ykn Google.',wallet:'Telebirr, M-Pesa, PayPal, kaardii, baankii fi crypto fudhanna.',stamps:'Kaardii: dhugaata tokkoon stampii — 7 bitadhu 8ffaan bilisaa.',new:'Oduu haaraa: ',langs:'Siteen afaan 8 dubbata — ol mirgaan jijjiiri.',delivery:'Hin geenyu — suuqiiwwan keenya saddetti fudhadhu.'},
+ti:{register:'ሕሳብ ምፍር፡ ኣ Register ስም፡ ኢመይል፡ ስልክን ፓስዎርድን መላእ — ወይ ብGoogle።',login:'ብስም ወይ ኢመይል + ፓስዎርድ እቶ፡ ወይ ብGoogle።',wallet:'Telebirr, M-Pesa, PayPal, ካርድ, ባንክን ክሪቶን ቕበል።',stamps:'ካርዲ፡ ንነፍሲወከፍ  ስታም — 7 ዛእ 8ይ ነጻ',new:'ድሽ ዜና፦ ',langs:'እቲ ሳይት 8 ቋንቋታት ይዛረብ — ካብ ላዕ ቀያይር።',delivery:'ኣየብጽሕን — ኣብ ሰለስተ ዱኳናትና ተቐበል።'},
+so:{register:'Xisaab samee: Register — magac, iimayl, telefoon, fur — ama Google.',login:'Ku gal magac ama iimayl + fur, ama Google.',wallet:'Waxaan aqbalnaa Telebirr, M-Pesa, PayPal, kaarar, bangi iyo crypto.',stamps:'Kaarka: shaabad cabitaan kasta — 7 iibso 8aad bilaash.',new:'Wararkii u dambeeyay: ',langs:'Siteku wuxuu ku hadlaa 8 luqadood — kor midig ka beddel.',delivery:'Weli ma keenno — saddexdayada dukaan ka qaado.'}
+};
 function findItem(t) {
   let best = null, bs = 0;
   for (const m of db.menu) {
@@ -161,18 +173,45 @@ function findItem(t) {
   }
   return bs >= 2 ? best : null;
 }
+/* 🔎 LIVE search — posts/events/menu ውስጥ አዲስ የገውን ወያውኑ ያገኛል */
+function searchContent(t, lang) {
+  const d = I18N[lang] || I18N.en;
+  const words = t.split(/[^a-z0-9\u1200-\u137F\u0600-\u06FF]+/).filter(w => w.length > 3);
+  if (!words.length) return null;
+  for (const p of db.posts) {
+    const hay = (p.title + ' ' + p.body).toLowerCase();
+    if (words.some(w => hay.includes(w))) return `📰 ${p.title} — ${p.body}`;
+  }
+  for (const e of db.events) {
+    const hay = (e.title + ' ' + e.desc).toLowerCase();
+    if (words.some(w => hay.includes(w))) return `🎟️ ${e.title} (${e.day} ${e.mon} · ${e.time}) — ${e.desc} · ${e.seats} ${d.seats || 'seats left'}`;
+  }
+  for (const m of db.menu) {
+    const hay = (m.name + ' ' + m.desc).toLowerCase();
+    if (words.some(w => hay.includes(w))) return `${m.name} — ${d.bot_price || 'costs'} $${m.price.toFixed(2)}. ${m.desc}`;
+  }
+  return null;
+}
 function botReply(raw, lang) {
   const d = I18N[lang] || I18N.en;
+  const x = BOT_EXTRA[lang] || BOT_EXTRA.en;
   const t = String(raw || '').toLowerCase();
   for (const k of db.knowledge) { if (k.keywords.some(kw => t.includes(kw.toLowerCase()))) return k.answer; }
   if (/(hello|hi|hey|selam|ሰላም|bonjour|hola|salam|akkaam|salaan)/.test(t)) return d.chat_greet;
   if (/(hour|open|close|when|time|ሰዓት|ክፍት|saacad|horario|horaire)/.test(t)) return `${d.bot_hours}: ${HOURS_TEXT}`;
   if (/(where|location|address|find|shop|store|አድራሻ|ቦታ|bakka|meesha|dirección|adresse)/.test(t)) return `${d.bot_loc}: ${SHOPS_TEXT}`;
-  if (/(pay|payment|telebirr|mpesa|paypal|card|bank|crypto|ክፍያ|ቴሌ|bixinta|pago|paiement)/.test(t)) return `${d.bot_pay}: Telebirr · M-Pesa · PayPal · Visa/MasterCard · Bank · Crypto.`;
-  if (/(language|translate|ቋን|afaan|luqad|idioma|langue)/.test(t)) return `${d.bot_langs}: አማርኛ · English · العربية · Français · Español · Afaan Oromoo · ትግርኛ · Soomaali.`;
-  if (/(stamp|free|ነፃ|ብላሽ|bilaash|kaard|gratis)/.test(t)) return d.bot_stamp;
+  if (/(register|signup|sign up|create|account|መመዝገብ|ተመዝገብ|መለያ|galmaa|diiwaan|registrar)/.test(t)) return x.register;
+  if (/(login|log in|signin|sign in|ግባ|እቶ|soo gal|entrer)/.test(t)) return x.login;
+  if (/(pay|payment|telebirr|mpesa|paypal|card|bank|crypto|ክፍያ|ቴሌ|bixinta|pago|paiement|wallet)/.test(t)) return `${d.bot_pay}: Telebirr · M-Pesa · PayPal · Visa/MasterCard · Bank · Crypto. ${x.wallet}`;
+  if (/(language|translate|ቋን|afaan|luqad|idioma|langue)/.test(t)) return x.langs;
+  if (/(stamp|free|ነፃ|ብላሽ|bilaash|kaard|gratis)/.test(t)) return x.stamps;
+  if (/(deliver|delivery|ship|አድርስ|geenyu)/.test(t)) return x.delivery;
   if (/(event|cupping|workshop|tasting|ዝግጅት|munaabad|evento)/.test(t)) return db.events.length ? `${d.bot_events}: ` + db.events.map(e => `${e.title} (${e.day} ${e.mon})`).join(' · ') : d.bot_fallback;
-  if (/(news|post|story|update|ዜና|war|noticia)/.test(t)) return db.posts.length ? `${d.s6_title.replace(/<[^>]+>/g, '')}: ` + db.posts.slice(0, 3).map(p => p.title).join(' · ') : d.bot_fallback;
+  if (/(news|post|story|update|new|አዲስ|ዜና|war|noticia|nouveau)/.test(t)) {
+    const hit = searchContent(t, lang);
+    if (hit && hit.startsWith('📰')) return hit;
+    return db.posts.length ? x.new + db.posts.slice(0, 3).map(p => `${p.title} — ${p.body}`).join(' ◆ ') : d.bot_fallback;
+  }
   if (/(who|made|creator|contact|email|phone|ermias|ማን|የተሰራ|sameeyay|quién)/.test(t)) return `${d.bot_credit} Ermias Amare — amareermias3@gmail.com · +251 976 021 007`;
   if (/(brew|v60|chemex|aeropress|ratio|recipe|ማፍያ|qophii)/.test(t)) {
     if (t.includes('chemex')) return 'Chemex: 1:16 · 94°C · ~4:30 · medium-coarse.';
@@ -185,6 +224,8 @@ function botReply(raw, lang) {
   if (/(recommend|best|favorite|suggest|ምክር)/.test(t)) { const s = db.menu.filter(m => m.tags.includes('signature')); return s.length ? `★ ${s.map(m => m.name).join(' · ')}` : d.bot_fallback; }
   const item = findItem(t);
   if (item) return `${item.name} — ${d.bot_price} $${item.price.toFixed(2)}. ${item.desc}`;
+  const live = searchContent(t, lang);
+  if (live) return live;
   if (/(price|cost|how much|ዋጋ|qiimo|precio|prix)/.test(t)) return db.menu.slice(0, 5).map(m => `${m.name} $${m.price.toFixed(2)}`).join(' · ');
   return d.bot_fallback;
 }

@@ -25,10 +25,11 @@ body{min-height:100svh;background:var(--bg);background-image:radial-gradient(900
 h1{font-family:var(--disp);font-weight:900;font-size:1.8rem}
 .sub{font-family:var(--mono);font-size:.62rem;letter-spacing:.28em;text-transform:uppercase;color:var(--copper);margin:.4rem 0 1.7rem}
 label{display:block;font-family:var(--mono);font-size:.6rem;letter-spacing:.2em;text-transform:uppercase;color:var(--cream-mute);margin-bottom:1rem}
-input{width:100%;margin-top:.4rem;background:var(--bg);border:1.5px solid var(--line2);border-radius:6px;padding:.8em 1em;color:var(--cream);font-family:var(--mono);font-size:.9rem}
+label span.lbl{display:block;margin-bottom:.4rem}
+input{width:100%;background:var(--bg);border:1.5px solid var(--line2);border-radius:6px;padding:.8em 1em;color:var(--cream);font-family:var(--mono);font-size:.9rem;text-transform:none}
 input:focus{outline:none;border-color:var(--copper)}
-.pw-wrap{position:relative;display:block;margin-top:.4rem}
-.pw-wrap input{margin-top:0;padding-right:3em}
+.pw-wrap{position:relative;display:block}
+.pw-wrap input{padding-right:3em}
 .peek{position:absolute;right:6px;top:50%;transform:translateY(-50%);background:none;border:none;font-size:1rem;opacity:.6;cursor:pointer}
 .err{font-family:var(--mono);font-size:.7rem;color:var(--tomato);margin:-.2rem 0 .9rem}
 .gstatus{display:none;font-family:var(--mono);font-size:.66rem;line-height:1.7;color:var(--copper-soft);background:rgba(217,142,50,.08);border:1px dashed var(--copper);border-radius:6px;padding:.8em 1em;margin:.9rem 0}
@@ -58,10 +59,10 @@ input:focus{outline:none;border-color:var(--copper)}
     <div class="door" id="door">
       <div class="mark">☕</div>
       <h1>MOKA HOUSE</h1>
-      <p class="sub">Back door · የአስተዳደር መግቢያ</p>
+      <p class="sub">Back door · የአስተዳደር መግያ</p>
       <form id="loginForm" autocomplete="off">
-        <label data-i18n="user_email">Username or Email<input id="user" type="text" spellcheck="false" autofocus></label>
-        <label data-i18n="password">Password
+        <label><span class="lbl" data-i18n="user_email">Username or Email</span><input id="user" type="text" spellcheck="false" autofocus></label>
+        <label><span class="lbl" data-i18n="password">Password</span>
           <span class="pw-wrap">
             <input id="pass" type="password">
             <button type="button" class="peek" id="peek" aria-label="Show password">👁</button>
@@ -81,16 +82,14 @@ input:focus{outline:none;border-color:var(--copper)}
 </main>
 <script>
 const $ = s => document.querySelector(s);
-
-/* ===== i18n ===== */
 const LOGIN_I18N={
 en:{user_email:'Username or Email',unlock:'Unlock the back room ◆',new_here:'New here?'},
-am:{user_email:'የተጠቃሚ ስም ወይም ኢሜይል',unlock:'የኋላውን ክፍል ክፈት ◆',new_here:'አዲስ ነ?'},
+am:{user_email:'የተጠቃሚ ስም ወይም ኢሜይል',unlock:'የኋላውን ክፍል ክፈት ◆',new_here:'አዲስ ነህ?'},
 ar:{user_email:'اسم المستخدم أو البريد',unlock:'افتح الغرفة الخلفية ◆',new_here:'جديد هنا؟'},
 fr:{user_email:'Nom d\'utilisateur ou e-mail',unlock:'Ouvrir ◆',new_here:'Nouveau ?'},
 es:{user_email:'Usuario o correo',unlock:'Abrir ◆',new_here:'¿Nuevo?'},
 om:{user_email:'Maqaa fayyadamaa ykn imeelii',unlock:'Bani ◆',new_here:'Haaraa?'},
-ti:{user_email:'ስም ተጠቃሚ ወይ ኢመይል',unlock:'ክፈት ◆',new_here:'ሓድሽ?'},
+ti:{user_email:'ስም ተጠቃሚ ይ ኢመይል',unlock:'ክፈት ◆',new_here:'ሓድሽ?'},
 so:{user_email:'Magaca isticmaale ama iimayl',unlock:'Fur ◆',new_here:'Cusub?'}
 };
 let LANG=localStorage.getItem('moka-lang')||'en';
@@ -114,7 +113,7 @@ function googleHelp(extra){
   s.innerHTML=(extra?'<b>'+extra+'</b><br>':'')+
     'Google ችግር ከሆነ በ console.cloud.google.com ላይ፦<br>'+
     '1) OAuth consent screen → External → Test users ውስጥ Gmailህን ጨምር<br>'+
-    '2) Credentials → Client ID → Authorized JavaScript origins → የሳይቱን URL ጨምር<br>'+
+    '2) Credentials → Client ID → Authorized JavaScript origins → የሳይን URL ጨምር<br>'+
     '3) Save → 5 ደቂቃ ጠብቅ';
 }
 fetch('/api/admin/check').then(r=>{if(r.ok)location.replace('/admin.html');});

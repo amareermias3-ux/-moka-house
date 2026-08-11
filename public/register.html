@@ -20,9 +20,10 @@ body{min-height:100svh;background:var(--bg);background-image:radial-gradient(900
 h1{font-family:var(--disp);font-weight:900;font-size:1.7rem}
 .sub{font-family:var(--mono);font-size:.6rem;letter-spacing:.26em;text-transform:uppercase;color:var(--leaf);margin:.4rem 0 1.5rem}
 label{display:block;font-family:var(--mono);font-size:.58rem;letter-spacing:.18em;text-transform:uppercase;color:var(--cream-mute);margin-bottom:.9rem}
-input,select{width:100%;margin-top:.35rem;background:var(--bg);border:1.5px solid var(--line2);border-radius:6px;padding:.75em 1em;color:var(--cream);font-family:var(--mono);font-size:.88rem}
+label span.lbl{display:block;margin-bottom:.35rem}
+input,select{width:100%;background:var(--bg);border:1.5px solid var(--line2);border-radius:6px;padding:.75em 1em;color:var(--cream);font-family:var(--mono);font-size:.88rem;text-transform:none}
 input:focus,select:focus{outline:none;border-color:var(--copper)}
-.hint{font-family:var(--mono);font-size:.52rem;color:var(--cream-mute);margin-top:.3em;text-transform:none;letter-spacing:.06em}
+.hint{font-family:var(--mono);font-size:.52rem;color:var(--cream-mute);margin-top:.3em;text-transform:none;letter-spacing:.06em;display:block}
 .row2{display:grid;grid-template-columns:1fr 1fr;gap:.9rem}
 .err{font-family:var(--mono);font-size:.7rem;color:#cf5636;margin:-.2rem 0 .9rem}
 .gstatus{display:none;font-family:var(--mono);font-size:.66rem;line-height:1.7;color:#e8b56b;background:rgba(217,142,50,.08);border:1px dashed var(--copper);border-radius:6px;padding:.8em 1em;margin:.9rem 0}
@@ -49,23 +50,23 @@ input:focus,select:focus{outline:none;border-color:var(--copper)}
     <div class="door" id="door">
       <div class="mark">🫘</div>
       <h1>JOIN THE CREW</h1>
-      <p class="sub">Create your account · መለያ ፍር</p>
+      <p class="sub">Create your account · መለያ ፍጠር</p>
       <form id="regForm" autocomplete="off">
-        <label data-i18n="full_name">Full name<input id="name" type="text" placeholder="Ermias Amare"></label>
-        <label data-i18n="email_l">Email<input id="email" type="email" placeholder="you@example.com"></label>
+        <label><span class="lbl" data-i18n="full_name">Full name</span><input id="name" type="text" placeholder="Ermias Amare"></label>
+        <label><span class="lbl" data-i18n="email_l">Email</span><input id="email" type="email" placeholder="you@example.com"></label>
         <div class="row2">
-          <label data-i18n="phone_l">Phone number<input id="phone" type="tel" placeholder="+2519..."></label>
-          <label data-i18n="gender">Gender (optional)
+          <label><span class="lbl" data-i18n="phone_l">Phone number</span><input id="phone" type="tel" placeholder="+2519..."></label>
+          <label><span class="lbl" data-i18n="gender">Gender (optional)</span>
             <select id="gender">
-              <option value="" data-i18n="g_skip">—</option>
+              <option value="">—</option>
               <option value="male" data-i18n="g_male">Male</option>
               <option value="female" data-i18n="g_female">Female</option>
               <option value="other" data-i18n="g_other">Other</option>
             </select>
           </label>
         </div>
-        <label data-i18n="password">Password<input id="pass" type="password"><span class="hint">At least 6 characters</span></label>
-        <label data-i18n="confirm_password">Confirm password<input id="pass2" type="password"></label>
+        <label><span class="lbl" data-i18n="password">Password</span><input id="pass" type="password"><span class="hint">At least 6 characters</span></label>
+        <label><span class="lbl" data-i18n="confirm_password">Confirm password</span><input id="pass2" type="password"></label>
         <p class="err" id="err" hidden></p>
         <button class="go" id="goBtn" type="submit" data-i18n="create_account">Create account ◆</button>
       </form>
@@ -79,17 +80,15 @@ input:focus,select:focus{outline:none;border-color:var(--copper)}
 </main>
 <script>
 const $ = s => document.querySelector(s);
-
-/* ===== i18n (server dict + local reg dict) ===== */
 const REG_I18N={
-en:{full_name:'Full name',email_l:'Email',phone_l:'Phone number',gender:'Gender (optional)',g_skip:'—',g_male:'Male',g_female:'Female',g_other:'Other'},
-am:{full_name:'ሙሉ ስም',email_l:'ኢሜይል',phone_l:'ስልክ ቁጥር',gender:'ጾታ (አማራጭ)',g_skip:'—',g_male:'ተባዕላይ',g_female:'ሴት',g_other:'ሌላ'},
-ar:{full_name:'الاسم الكامل',email_l:'البريد الإلكتروني',phone_l:'رقم الهاتف',gender:'الجنس (اختياري)',g_skip:'—',g_male:'ذكر',g_female:'أنثى',g_other:'آخر'},
-fr:{full_name:'Nom complet',email_l:'E-mail',phone_l:'Téléphone',gender:'Genre (optionnel)',g_skip:'—',g_male:'Homme',g_female:'Femme',g_other:'Autre'},
-es:{full_name:'Nombre completo',email_l:'Correo',phone_l:'Teléfono',gender:'Género (opcional)',g_skip:'—',g_male:'Hombre',g_female:'Mujer',g_other:'Otro'},
-om:{full_name:'Maqaa guutuu',email_l:'Imeelii',phone_l:'Bilbila',gender:'Saala (filannoo)',g_skip:'—',g_male:'Dhala',g_female:'Dubra',g_other:'Kan biro'},
-ti:{full_name:'ምሉእ ስም',email_l:'ኢመይል',phone_l:'ስልኪ',gender:'ጾታ (ኣማራጺ)',g_skip:'—',g_male:'ተባዕላይ',g_female:'ሰበይ',g_other:'ልእ'},
-so:{full_name:'Magaca oo dhan',email_l:'Iimayl',phone_l:'Telefoon',gender:'Jinsi (ikhtiyaari)',g_skip:'—',g_male:'Nin',g_female:'Dumar',g_other:'Kale'}
+en:{full_name:'Full name',email_l:'Email',phone_l:'Phone number',gender:'Gender (optional)',g_male:'Male',g_female:'Female',g_other:'Other'},
+am:{full_name:'ሙሉ ስም',email_l:'ኢሜይል',phone_l:'ስልክ ቁር',gender:'ታ (አማራጭ)',g_male:'ተባዕላይ',g_female:'ሴት',g_other:'ሌላ'},
+ar:{full_name:'الاسم الكامل',email_l:'البريد الإلكتروني',phone_l:'رقم الهاتف',gender:'الجنس (اختياري)',g_male:'ذكر',g_female:'أنثى',g_other:'آخر'},
+fr:{full_name:'Nom complet',email_l:'E-mail',phone_l:'Téléphone',gender:'Genre (optionnel)',g_male:'Homme',g_female:'Femme',g_other:'Autre'},
+es:{full_name:'Nombre completo',email_l:'Correo',phone_l:'Teléfono',gender:'Género (opcional)',g_male:'Hombre',g_female:'Mujer',g_other:'Otro'},
+om:{full_name:'Maqaa guutuu',email_l:'Imeelii',phone_l:'Bilbila',gender:'Saala (filannoo)',g_male:'Dhala',g_female:'Dubra',g_other:'Kan biro'},
+ti:{full_name:'ምሉእ ስም',email_l:'ኢመይል',phone_l:'ስልኪ',gender:'ጾታ (ኣማራጺ)',g_male:'ተባዕላይ',g_female:'ሰበይቲ',g_other:'ካልእ'},
+so:{full_name:'Magaca oo dhan',email_l:'Iimayl',phone_l:'Telefoon',gender:'Jinsi (ikhtiyaari)',g_male:'Nin',g_female:'Dumar',g_other:'Kale'}
 };
 let LANG=localStorage.getItem('moka-lang')||'en';
 function applyLang(lang){
@@ -107,10 +106,6 @@ function fail(msg){
   err.textContent=msg;err.hidden=false;
   door.classList.remove('shake');void door.offsetWidth;door.classList.add('shake');
 }
-function googleHelp(extra){
-  const s=$('#gStatus');s.style.display='block';
-  s.innerHTML=(extra?'<b>'+extra+'</b><br>':'')+'Google ችግር ከሆነ ንሽ ብቅ ይም በኢሜይል ተመዝገ።';
-}
 $('#regForm').addEventListener('submit', async e => {
   e.preventDefault();
   const btn=$('#goBtn');$('#err').hidden=true;
@@ -118,9 +113,9 @@ $('#regForm').addEventListener('submit', async e => {
         gender=$('#gender').value, pass=$('#pass').value, pass2=$('#pass2').value;
   if(name.length<2)return fail('Full name required — ሙሉ ስምህን ጻፍ');
   if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email))return fail('Valid email required — ትክክለኛ ኢሜይል ጻፍ');
-  if(phone && !/^\+?[0-9]{7,15}$/.test(phone.replace(/\s/g,'')))return fail('Valid phone required — ትክክለኛ ስል ቁጥር ጻፍ');
+  if(phone && !/^\+?[0-9]{7,15}$/.test(phone.replace(/\s/g,'')))return fail('Valid phone required — ትክለኛ ልክ ጥር ጻፍ');
   if(pass.length<6)return fail('Password must be at least 6 characters');
-  if(pass!==pass2)return fail('Passwords do not match — የይለፍ ላት አይመሳሰሉም');
+  if(pass!==pass2)return fail('Passwords do not match — የይለፍ ቃላት አይመሳሰሉም');
   btn.disabled=true;btn.textContent='Creating…';
   try{
     const r=await fetch('/api/admin/register',{method:'POST',headers:{'Content-Type':'application/json'},
@@ -128,7 +123,7 @@ $('#regForm').addEventListener('submit', async e => {
     const d=await r.json().catch(()=>({}));
     if(r.ok){location.replace('/');return;}
     fail(d.error||'Registration failed');
-  }catch(_){fail('Server unreachable — is the site online?');}
+  }catch(_){fail('Server unreachable');}
   btn.disabled=false;
 });
 
@@ -137,18 +132,13 @@ async function onGoogle(response){
     const r=await fetch('/api/auth/google',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({credential:response.credential})});
     const d=await r.json().catch(()=>({}));
     if(r.ok){location.replace('/');return;}
-    fail(d.error||'Google sign-in failed');googleHelp(d.error);
-  }catch(_){fail('Server unreachable');googleHelp();}
+    fail(d.error||'Google sign-in failed');
+  }catch(_){fail('Server unreachable');}
 }
-function onGoogleError(e){
-  let msg='';try{msg=e&&e.getMessage?e.getMessage():(e.type||'blocked');}catch(_){msg='blocked';}
-  googleHelp('Google error: '+msg);
-}
+function onGoogleError(e){let m='';try{m=e&&e.getMessage?e.getMessage():'blocked';}catch(_){m='blocked';}fail('Google error: '+m);}
 (async function initGoogle(){
-  const status=$('#gStatus');
   let cfg;
-  try{cfg=await fetch('/api/auth/google-config').then(r=>r.json());}
-  catch(_){return;}
+  try{cfg=await fetch('/api/auth/google-config').then(r=>r.json());}catch(_){return;}
   if(!cfg.enabled)return;
   $('#divider').hidden=false;
   let tries=0;
@@ -157,7 +147,7 @@ function onGoogleError(e){
       try{
         google.accounts.id.initialize({client_id:cfg.clientId,callback:onGoogle,error_callback:onGoogleError});
         google.accounts.id.renderButton($('#gBtn'),{theme:'filled_black',size:'large',shape:'pill',text:'signup_with',width:380,logo_alignment:'center'});
-      }catch(_){googleHelp('Button render failed');}
+      }catch(_){}
     }else if(tries++<40)setTimeout(tryRender,250);
   };
   tryRender();
