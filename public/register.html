@@ -50,7 +50,7 @@ input:focus,select:focus{outline:none;border-color:var(--copper)}
     <div class="door" id="door">
       <div class="mark">🫘</div>
       <h1>JOIN THE CREW</h1>
-      <p class="sub">Create your account · መለያ ፍጠር</p>
+      <p class="sub">Create your account · መለያ ፍር</p>
       <form id="regForm" autocomplete="off">
         <label><span class="lbl" data-i18n="full_name">Full name</span><input id="name" type="text" placeholder="Ermias Amare"></label>
         <label><span class="lbl" data-i18n="email_l">Email</span><input id="email" type="email" placeholder="you@example.com"></label>
@@ -82,7 +82,7 @@ input:focus,select:focus{outline:none;border-color:var(--copper)}
 const $ = s => document.querySelector(s);
 const REG_I18N={
 en:{full_name:'Full name',email_l:'Email',phone_l:'Phone number',gender:'Gender (optional)',g_male:'Male',g_female:'Female',g_other:'Other'},
-am:{full_name:'ሙሉ ስም',email_l:'ኢሜይል',phone_l:'ስልክ ቁር',gender:'ታ (አማራጭ)',g_male:'ተባዕላይ',g_female:'ሴት',g_other:'ሌላ'},
+am:{full_name:'ሙሉ ስም',email_l:'ኢሜይል',phone_l:'ስልክ ቁጥር',gender:'ጾታ (አማራጭ)',g_male:'ተባዕላይ',g_female:'ሴት',g_other:'ሌላ'},
 ar:{full_name:'الاسم الكامل',email_l:'البريد الإلكتروني',phone_l:'رقم الهاتف',gender:'الجنس (اختياري)',g_male:'ذكر',g_female:'أنثى',g_other:'آخر'},
 fr:{full_name:'Nom complet',email_l:'E-mail',phone_l:'Téléphone',gender:'Genre (optionnel)',g_male:'Homme',g_female:'Femme',g_other:'Autre'},
 es:{full_name:'Nombre completo',email_l:'Correo',phone_l:'Teléfono',gender:'Género (opcional)',g_male:'Hombre',g_female:'Mujer',g_other:'Otro'},
@@ -112,8 +112,8 @@ $('#regForm').addEventListener('submit', async e => {
   const name=$('#name').value.trim(), email=$('#email').value.trim(), phone=$('#phone').value.trim(),
         gender=$('#gender').value, pass=$('#pass').value, pass2=$('#pass2').value;
   if(name.length<2)return fail('Full name required — ሙሉ ስምህን ጻፍ');
-  if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email))return fail('Valid email required — ትክክለኛ ኢሜይል ጻፍ');
-  if(phone && !/^\+?[0-9]{7,15}$/.test(phone.replace(/\s/g,'')))return fail('Valid phone required — ትክለኛ ልክ ጥር ጻፍ');
+  if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email))return fail('Valid email required — ትክለኛ ሜይል ጻፍ');
+  if(phone && !/^\+?[0-9]{7,15}$/.test(phone.replace(/\s/g,'')))return fail('Valid phone required — ትክክለኛ ስልክ ቁጥር ጻፍ');
   if(pass.length<6)return fail('Password must be at least 6 characters');
   if(pass!==pass2)return fail('Passwords do not match — የይለፍ ቃላት አይመሳሰሉም');
   btn.disabled=true;btn.textContent='Creating…';
@@ -121,7 +121,7 @@ $('#regForm').addEventListener('submit', async e => {
     const r=await fetch('/api/admin/register',{method:'POST',headers:{'Content-Type':'application/json'},
       body:JSON.stringify({name,email,phone,gender,pass})});
     const d=await r.json().catch(()=>({}));
-    if(r.ok){location.replace('/');return;}
+    if(r.ok){location.replace('/admin.html');return;}
     fail(d.error||'Registration failed');
   }catch(_){fail('Server unreachable');}
   btn.disabled=false;
@@ -131,7 +131,7 @@ async function onGoogle(response){
   try{
     const r=await fetch('/api/auth/google',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({credential:response.credential})});
     const d=await r.json().catch(()=>({}));
-    if(r.ok){location.replace('/');return;}
+    if(r.ok){location.replace('/admin.html');return;}
     fail(d.error||'Google sign-in failed');
   }catch(_){fail('Server unreachable');}
 }
