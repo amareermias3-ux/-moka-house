@@ -8,7 +8,8 @@ import crypto from 'crypto';
 import { fileURLToPath } from 'url';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
-const DB_PATH = path.join(__dirname, 'data', 'db.json');
+const IS_VERCEL = !!process.env.VERCEL;
+const DB_PATH = IS_VERCEL ? '/tmp/db.json' : path.join(__dirname, 'data', 'db.json');
 const FLOW = ['queued', 'brewing', 'ready', 'picked-up'];
 const PERMS = ['can_menu', 'can_orders', 'can_events', 'can_posts', 'can_wallet'];
 const ROLES = ['admin', 'moderator', 'staff', 'customer'];
@@ -395,4 +396,7 @@ app.get('/api/stats', requireLogin, (req, res) => {
 app.get('/api/activity', requireLogin, (req, res) => res.json(db.activity));
 app.get('/health', (req, res) => res.json({ ok: true, env: NODE_ENV, users: db.users.length }));
 
-app.listen(PORT, () => console.log(`\n   ☕ MOKA HOUSE · ${NODE_ENV}\n   → http://localhost:${PORT}\n   🌍 8 langs (82 keys) · 🤖 smart bot · ✍️ Ermias Amare\n`));
+if (!IS_VERCEL) {
+  app.listen(PORT, () => console.log(`\n   ☕ MOKA HOUSE · ${NODE_ENV}\n   → http://localhost:${PORT}\n   🌍 8 langs · 🤖 smart bot · ✍️ Ermias Amare\n`));
+}
+export default app;
