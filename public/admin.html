@@ -80,7 +80,7 @@ td{padding:.55em .5em;border-bottom:1px dashed var(--line);font-size:.85rem;vert
     <select class="lang-sel" id="langSwitch" aria-label="Language">
       <option value="am">አማርኛ</option><option value="en">English</option><option value="ar">العربية</option>
       <option value="fr">Français</option><option value="es">Español</option><option value="om">Afaan Oromoo</option>
-      <option value="ti">ትግር</option><option value="so">Soomaali</option>
+      <option value="ti">ትግርኛ</option><option value="so">Soomaali</option>
     </select>
     <a class="link-btn" href="/">Shopfront ↗</a>
     <button class="logout" id="logoutBtn" data-i18n="logout">Logout ⎋</button>
@@ -133,6 +133,14 @@ td{padding:.55em .5em;border-bottom:1px dashed var(--line);font-size:.85rem;vert
         <div class="stat-box"><div class="lbl" data-i18n="subscribers">Newsletter</div><div class="val" id="dSubs">0</div></div>
       </div>
     </div>
+    <div class="panel">
+      <h3>⬇ Export / Backup</h3>
+      <div class="row">
+        <button class="btn ghost sm" id="expOrders" data-i18n="exp_orders">Orders CSV</button>
+        <button class="btn ghost sm" id="expUsers" data-i18n="exp_users">Users CSV</button>
+        <button class="btn ghost sm" id="expJson" data-i18n="exp_backup">Full backup (JSON)</button>
+      </div>
+    </div>
   </div>
 
   <div class="tab-panel" id="tab-orders">
@@ -142,6 +150,7 @@ td{padding:.55em .5em;border-bottom:1px dashed var(--line);font-size:.85rem;vert
         <button class="btn ghost sm" id="refreshOrders" data-i18n="refresh">Refresh ⟳</button>
         <span class="pill" id="queuePill">0 queued</span>
       </div>
+      <input id="orderSearch" data-i18n-ph="search_orders" placeholder="Search order # / item…" style="max-width:280px;margin-bottom:.9rem">
       <div id="ordersBoard"></div>
     </div>
   </div>
@@ -262,16 +271,25 @@ function myPerms(){
   return{};
 }
 
+/* ===== ⬇ export helpers ===== */
+function download(name,mime,text){
+  const a=document.createElement('a');
+  a.href=URL.createObjectURL(new Blob([text],{type:mime}));
+  a.download=name;a.click();URL.revokeObjectURL(a.href);
+}
+const csvEsc=v=>{v=String(v??'');return /[",\n]/.test(v)?'"'+v.replace(/"/g,'""')+'"':v;};
+const toCSV=rows=>rows.map(r=>r.map(csvEsc).join(',')).join('\n');
+
 /* ===== 🌍 i18n ===== */
 const ADMIN_I18N={
-en:{tab_dash:'📊 Dashboard',tab_orders:'Orders',tab_menu:'Menu',tab_posts:'Posts',tab_events:'Events',tab_team:'Team & Permissions',tab_ai:'AI Knowledge',tab_wallet:'💰 Wallet',tab_testai:'Test AI',last7:'Last 7 days revenue',activity:'Recent activity',today_orders:'Orders today',today_revenue:'Revenue today',avg_order:'Avg order',top_item:'Top item',total_users:'Users',total_orders:'All orders',all_revenue:'All revenue',subscribers:'Newsletter',orders_board:'Orders board',refresh:'Refresh ⟳',add_item:'Add new item',current_board:'Current board',publish_post:'Publish a post',published:'Published',events_seats:'Events — seats',team_title:'Team, roles & moderator permissions',teach_bot:'Teach the bot',known_answers:'Known answers',test_bot:'Test Barista Bot',f_name:'Name',f_cat:'Category',f_price:'Price',f_desc:'Description',f_title:'Title',f_body:'Body',f_keys:'Keywords (comma separated)',f_ans:'Answer',add:'+ Add',publish:'Publish ◆',send:'Send'},
-am:{tab_dash:'📊 ዳሽቦርድ',tab_orders:'ትዕዛዞች',tab_menu:'ሜኑ',tab_posts:'ፖስቶች',tab_events:'ዝግጅቶች',tab_team:'ቡድን እና ፈቃች',tab_ai:'AI እውቀት',tab_wallet:'💰 ዋሌት',tab_testai:'AI ሞክር',last7:'ያለፉት 7 ቀናት ገ',activity:'የቅርብ እንቅስቃሴ',today_orders:'የዛሬ ትዛዞች',today_revenue:'የዛሬ ገቢ',avg_order:'አማካይ ትዕዛዝ',top_item:'ተወዳጅ ምርት',total_users:'ተጠሚዎች',total_orders:'ሁሉም ትዕዛዞች',all_revenue:'ጠቅላላ ገቢ',subscribers:'ዜና ደንበኞች',orders_board:'የትዕዛዝ ሌዳ',refresh:'አድስ ⟳',add_item:'አዲስ እቃ ምር',current_board:'የአሁኑ ሜኑ',publish_post:'ፖስት አትም',published:'የታተሙ',events_seats:'ዝግጅቶች — መቀመጫ',team_title:'ቡድን፣ ሚና እና የአስተባባ ፈቃዶች',teach_bot:'ቦቱን አስተምር',known_answers:'የታወቁ መልሶች',test_bot:'Barista Bot ሞክር',f_name:'ስም',f_cat:'ምድብ',f_price:'ዋጋ',f_desc:'መግለ',f_title:'ርዕስ',f_body:'ይዘት',f_keys:'ቁልፍ ቃላት (በኮማ)',f_ans:'መልስ',add:'+ ጨምር',publish:'አትም ◆',send:'ላክ'},
-ar:{tab_dash:'📊 لوحة',tab_orders:'الطلبات',tab_menu:'القائمة',tab_posts:'المنشورات',tab_events:'الفعاليات',tab_team:'الفريق والصلاحيات',tab_ai:'معرفة AI',tab_wallet:'💰 المحفظة',tab_testai:'اختبار AI',last7:'إيراد آخر 7 أيام',activity:'النشاط الأخير',today_orders:'طلبات اليوم',today_revenue:'إيراد اليوم',avg_order:'متوسط الطلب',top_item:'الأكثر مبيعاً',total_users:'المستخدمون',total_orders:'كل الطلبات',all_revenue:'كل الإيراد',subscribers:'النشرة',orders_board:'لوحة الطلبات',refresh:'تحديث ⟳',add_item:'أضف عنصراً',current_board:'القائمة الحالية',publish_post:'انشر منشوراً',published:'منشور',events_seats:'الفعاليات — المقاعد',team_title:'الفريق والأدوار والصلاحيات',teach_bot:'علّم البوت',known_answers:'إجابات معروفة',test_bot:'اختبار البوت',f_name:'الاسم',f_cat:'الفئة',f_price:'السعر',f_desc:'الوصف',f_title:'العنوان',f_body:'المحتوى',f_keys:'كلمات مفتاحية',f_ans:'الإجابة',add:'+ أضف',publish:'انشر ◆',send:'أرسل'},
-fr:{tab_dash:'📊 Tableau',tab_orders:'Commandes',tab_menu:'Carte',tab_posts:'Articles',tab_events:'Événements',tab_team:'Équipe & permissions',tab_ai:'Savoir AI',tab_wallet:'💰 Portefeuille',tab_testai:'Tester AI',last7:'Revenu 7 jours',activity:'Activité récente',today_orders:'Commandes du jour',today_revenue:'Revenu du jour',avg_order:'Panier moyen',top_item:'Top produit',total_users:'Utilisateurs',total_orders:'Toutes commandes',all_revenue:'Revenu total',subscribers:'Newsletter',orders_board:'Tableau des commandes',refresh:'Actualiser ⟳',add_item:'Ajouter un article',current_board:'Carte actuelle',publish_post:'Publier un article',published:'Publiés',events_seats:'Événements — places',team_title:'Équipe, rôles et permissions',teach_bot:'Apprendre au bot',known_answers:'Réponses connues',test_bot:'Tester le bot',f_name:'Nom',f_cat:'Catégorie',f_price:'Prix',f_desc:'Description',f_title:'Titre',f_body:'Contenu',f_keys:'Mots-clés (virgules)',f_ans:'Réponse',add:'+ Ajouter',publish:'Publier ◆',send:'Envoyer'},
-es:{tab_dash:'📊 Panel',tab_orders:'Pedidos',tab_menu:'Carta',tab_posts:'Publicaciones',tab_events:'Eventos',tab_team:'Equipo y permisos',tab_ai:'Saber AI',tab_wallet:'💰 Billetera',tab_testai:'Probar AI',last7:'Ingreso 7 días',activity:'Actividad reciente',today_orders:'Pedidos de hoy',today_revenue:'Ingreso de hoy',avg_order:'Pedido medio',top_item:'Más vendido',total_users:'Usuarios',total_orders:'Todos los pedidos',all_revenue:'Ingreso total',subscribers:'Boletín',orders_board:'Tablero de pedidos',refresh:'Actualizar ⟳',add_item:'Añadir artículo',current_board:'Carta actual',publish_post:'Publicar',published:'Publicados',events_seats:'Eventos — asientos',team_title:'Equipo, roles y permisos',teach_bot:'Enseñar al bot',known_answers:'Respuestas conocidas',test_bot:'Probar bot',f_name:'Nombre',f_cat:'Categoría',f_price:'Precio',f_desc:'Descripción',f_title:'Título',f_body:'Contenido',f_keys:'Palabras clave',f_ans:'Respuesta',add:'+ Añadir',publish:'Publicar ◆',send:'Enviar'},
-om:{tab_dash:'📊 Daashboordii',tab_orders:'Ajajoota',tab_menu:'Menu',tab_posts:'Maxxansoota',tab_events:'Ayyaantota',tab_team:'Garee fi hayyama',tab_ai:'Beekumsa AI',tab_wallet:'💰 Wallet',tab_testai:'AI yaali',last7:'Galii guyyaa 7',activity:'Sochii dhiyoo',today_orders:'Ajajoota har\'aa',today_revenue:'Galii har\'aa',avg_order:'Giddu-galeessa',top_item:'Kan jaallatamu',total_users:'Fayyadamtoota',total_orders:'Ajajoota hunda',all_revenue:'Galii guutuu',subscribers:'Oduu',orders_board:'Gabatee ajajootaa',refresh:'Haaromsi ⟳',add_item:'Wanta haaraa dabali',current_board:'Menu ammaa',publish_post:'Maxxansi',published:'Maxxanfaman',events_seats:'Ayyaantota — bakka',team_title:'Garee, gahee fi hayyama',teach_bot:'Bot barsiisi',known_answers:'Deebii beekaman',test_bot:'Bot yaali',f_name:'Maqaa',f_cat:'Gosa',f_price:'Gatii',f_desc:'Ibsa',f_title:'Mata-duree',f_body:'Qabiyyee',f_keys:'Jechoota ijoo',f_ans:'Deebii',add:'+ Dabali',publish:'Maxxansi ◆',send:'Ergi'},
-ti:{tab_dash:'📊 ሽቦርድ',tab_orders:'ትእዛዛት',tab_menu:'ሜኑ',tab_posts:'ሕትመት',tab_events:'መደባት',tab_team:'ጋንታን ፍቓድን',tab_ai:'ፍልት AI',tab_wallet:'💰 ዋለት',tab_testai:'AI ፈትን',last7:'እቶት 7 መዓልቲ',activity:'ናይ ቀረባ ምንቅስቓስ',today_orders:'ትእዛዛት ሎሚ',today_revenue:'እቶት ሎሚ',avg_order:'ማእከላይ',top_item:'ዝለዓለ',total_users:'ተጠቀምቲ',total_orders:'ኩሉ ትእዛዛት',all_revenue:'ጠቕላላ እቶት',subscribers:'ዜና',orders_board:'ሰሌዳ ትእዛዛት',refresh:'ሓድስ ⟳',add_item:'ሓድሽ ስኽ',current_board:'ህሉው ሜኑ',publish_post:'ሓትም',published:'ዝተሙ',events_seats:'መደባት — መቐመጢ',team_title:'ጋንታ፡ ተራን ፍቓድን',teach_bot:'ቦት ኣምህር',known_answers:'ዝተልጡ መልስታት',test_bot:'ቦት ፈትን',f_name:'ስም',f_cat:'ዓይነት',f_price:'ዋጋ',f_desc:'መብርሂ',f_title:'ኣርእስቲ',f_body:'ትሕዝቶ',f_keys:'ቃላት መፍትሕ',f_ans:'መልሲ',add:'+ ወስኽ',publish:'ሓትም ◆',send:'ስደድ'},
-so:{tab_dash:'📊 Dashboard',tab_orders:'Amarro',tab_menu:'Liis',tab_posts:'Daabacaad',tab_events:'Munaabado',tab_team:'Koox & ogolaansho',tab_ai:'Aqoon AI',tab_wallet:'💰 Wallet',tab_testai:'Tijaabi AI',last7:'Dakhli 7 maalmood',activity:'Dhaqdhaqaaq dhow',today_orders:'Amarrada maanta',today_revenue:'Dakhliga maanta',avg_order:'Celcelis',top_item:'Ugu iib badan',total_users:'Isticmaaleyaal',total_orders:'Dhammaan amarrada',all_revenue:'Dakhli guud',subscribers:'Wargeys',orders_board:'Saxarka amarrada',refresh:'Cusboonaysii ⟳',add_item:'Ku dar wax',current_board:'Liiska hadda',publish_post:'Daabac',published:'La daabacay',events_seats:'Munaabado — kuraas',team_title:'Koox, door & ogolaansho',teach_bot:'Bot bar',known_answers:'Jawaabo la yaqaan',test_bot:'Tijaabi bot',f_name:'Magac',f_cat:'Nooc',f_price:'Qiimo',f_desc:'Sharaxaad',f_title:'Cinwaan',f_body:'Nuxur',f_keys:'Erayo furahaal',f_ans:'Jawaab',add:'+ Ku dar',publish:'Daabac ◆',send:'Dir'}
+en:{tab_dash:'📊 Dashboard',tab_orders:'Orders',tab_menu:'Menu',tab_posts:'Posts',tab_events:'Events',tab_team:'Team & Permissions',tab_ai:'AI Knowledge',tab_wallet:'💰 Wallet',tab_testai:'Test AI',last7:'Last 7 days revenue',activity:'Recent activity',today_orders:'Orders today',today_revenue:'Revenue today',avg_order:'Avg order',top_item:'Top item',total_users:'Users',total_orders:'All orders',all_revenue:'All revenue',subscribers:'Newsletter',exp_orders:'Orders CSV',exp_users:'Users CSV',exp_backup:'Full backup (JSON)',search_orders:'Search order # / item…',orders_board:'Orders board',refresh:'Refresh ⟳',add_item:'Add new item',current_board:'Current board',publish_post:'Publish a post',published:'Published',events_seats:'Events — seats',team_title:'Team, roles & moderator permissions',teach_bot:'Teach the bot',known_answers:'Known answers',test_bot:'Test Barista Bot',f_name:'Name',f_cat:'Category',f_price:'Price',f_desc:'Description',f_title:'Title',f_body:'Body',f_keys:'Keywords (comma separated)',f_ans:'Answer',add:'+ Add',publish:'Publish ◆',send:'Send'},
+am:{tab_dash:'📊 ዳሽቦርድ',tab_orders:'ትዕዛዞች',tab_menu:'ሜኑ',tab_posts:'ፖስች',tab_events:'ግጅች',tab_team:'ቡድን እና ፈቃች',tab_ai:'AI እውቀት',tab_wallet:'💰 ዋሌት',tab_testai:'AI ሞክር',last7:'ያለፉት 7 ቀናት ገ',activity:'የቅርብ እንቅስቃሴ',today_orders:'የዛሬ ትዕዛዞች',today_revenue:'የዛሬ ገቢ',avg_order:'አማካይ ትዕዛዝ',top_item:'ተወዳጅ ምርት',total_users:'ተጠሚዎች',total_orders:'ሁሉም ትዕዛዞች',all_revenue:'ጠላላ ገቢ',subscribers:'ዜና ደንበኞች',exp_orders:'ትዕዛዞች CSV',exp_users:'ተጠቃሚዎች CSV',exp_backup:'ሙሉ ጂ (JSON)',search_orders:'ትዕዛዝ ቁጥር / እቃ ፈል…',orders_board:'የትዕዛ ሰሌዳ',refresh:'አድስ ⟳',add_item:'አዲስ እቃ ጨምር',current_board:'የአሁኑ ኑ',publish_post:'ፖስት አትም',published:'የታተሙ',events_seats:'ዝግጅቶች — መቀመጫ',team_title:'ቡድን፣ ሚና እና የአስተባባ ፈቃዶች',teach_bot:'ቦቱን አስተምር',known_answers:'የታወቁ መልሶች',test_bot:'Barista Bot ሞክር',f_name:'ስም',f_cat:'ምድብ',f_price:'ዋጋ',f_desc:'መግለጫ',f_title:'ርዕስ',f_body:'ይዘት',f_keys:'ቁልፍ ቃላት (በኮማ)',f_ans:'መልስ',add:'+ ጨምር',publish:'አትም ◆',send:'ላክ'},
+ar:{tab_dash:'📊 لوحة',tab_orders:'الطلبات',tab_menu:'القائمة',tab_posts:'المنشورات',tab_events:'الفعاليات',tab_team:'الفريق والصلاحيات',tab_ai:'معرفة AI',tab_wallet:'💰 المحفظة',tab_testai:'اختبار AI',last7:'إيراد آخر 7 أيام',activity:'النشاط الأخير',today_orders:'طلبات اليوم',today_revenue:'إيراد اليوم',avg_order:'متوسط الطلب',top_item:'الأكثر مبيعاً',total_users:'المستخدمون',total_orders:'كل الطلبات',all_revenue:'كل الإيراد',subscribers:'النشرة',exp_orders:'طلبات CSV',exp_users:'مستخدمون CSV',exp_backup:'نسخة كاملة JSON',search_orders:'ابحث…',orders_board:'لوحة الطلبات',refresh:'تحديث ⟳',add_item:'أضف عنصراً',current_board:'القائمة الحالية',publish_post:'انشر منشوراً',published:'منشور',events_seats:'الفعاليات — المقاعد',team_title:'الفريق والأدوار والصلاحيات',teach_bot:'علّم البوت',known_answers:'إجابات معروفة',test_bot:'اختبار البوت',f_name:'الاسم',f_cat:'الفئة',f_price:'السعر',f_desc:'الوصف',f_title:'العنوان',f_body:'المحتوى',f_keys:'كلمات مفتاحية',f_ans:'الإجابة',add:'+ أضف',publish:'انشر ◆',send:'أرسل'},
+fr:{tab_dash:'📊 Tableau',tab_orders:'Commandes',tab_menu:'Carte',tab_posts:'Articles',tab_events:'Événements',tab_team:'Équipe & permissions',tab_ai:'Savoir AI',tab_wallet:'💰 Portefeuille',tab_testai:'Tester AI',last7:'Revenu 7 jours',activity:'Activité récente',today_orders:'Commandes du jour',today_revenue:'Revenu du jour',avg_order:'Panier moyen',top_item:'Top produit',total_users:'Utilisateurs',total_orders:'Toutes commandes',all_revenue:'Revenu total',subscribers:'Newsletter',exp_orders:'Commandes CSV',exp_users:'Utilisateurs CSV',exp_backup:'Sauvegarde JSON',search_orders:'Rechercher…',orders_board:'Tableau des commandes',refresh:'Actualiser ⟳',add_item:'Ajouter un article',current_board:'Carte actuelle',publish_post:'Publier un article',published:'Publiés',events_seats:'Événements — places',team_title:'Équipe, rôles et permissions',teach_bot:'Apprendre au bot',known_answers:'Réponses connues',test_bot:'Tester le bot',f_name:'Nom',f_cat:'Catégorie',f_price:'Prix',f_desc:'Description',f_title:'Titre',f_body:'Contenu',f_keys:'Mots-clés (virgules)',f_ans:'Réponse',add:'+ Ajouter',publish:'Publier ◆',send:'Envoyer'},
+es:{tab_dash:'📊 Panel',tab_orders:'Pedidos',tab_menu:'Carta',tab_posts:'Publicaciones',tab_events:'Eventos',tab_team:'Equipo y permisos',tab_ai:'Saber AI',tab_wallet:'💰 Billetera',tab_testai:'Probar AI',last7:'Ingreso 7 días',activity:'Actividad reciente',today_orders:'Pedidos de hoy',today_revenue:'Ingreso de hoy',avg_order:'Pedido medio',top_item:'Más vendido',total_users:'Usuarios',total_orders:'Todos los pedidos',all_revenue:'Ingreso total',subscribers:'Boletín',exp_orders:'Pedidos CSV',exp_users:'Usuarios CSV',exp_backup:'Copia JSON',search_orders:'Buscar…',orders_board:'Tablero de pedidos',refresh:'Actualizar ⟳',add_item:'Añadir artículo',current_board:'Carta actual',publish_post:'Publicar',published:'Publicados',events_seats:'Eventos — asientos',team_title:'Equipo, roles y permisos',teach_bot:'Enseñar al bot',known_answers:'Respuestas conocidas',test_bot:'Probar bot',f_name:'Nombre',f_cat:'Categoría',f_price:'Precio',f_desc:'Descripción',f_title:'Título',f_body:'Contenido',f_keys:'Palabras clave',f_ans:'Respuesta',add:'+ Añadir',publish:'Publicar ◆',send:'Enviar'},
+om:{tab_dash:'📊 Daashboordii',tab_orders:'Ajajoota',tab_menu:'Menu',tab_posts:'Maxxansoota',tab_events:'Ayyaantota',tab_team:'Garee fi hayyama',tab_ai:'Beekumsa AI',tab_wallet:'💰 Wallet',tab_testai:'AI yaali',last7:'Galii guyyaa 7',activity:'Sochii dhiyoo',today_orders:'Ajajoota har\'aa',today_revenue:'Galii har\'aa',avg_order:'Giddu-galeessa',top_item:'Kan jaallatamu',total_users:'Fayyadamtoota',total_orders:'Ajajoota hunda',all_revenue:'Galii guutuu',subscribers:'Oduu',exp_orders:'Ajajoota CSV',exp_users:'Fayyadamtoota CSV',exp_backup:'Backup JSON',search_orders:'Barbaadi…',orders_board:'Gabatee ajajootaa',refresh:'Haaromsi ⟳',add_item:'Wanta haaraa dabali',current_board:'Menu ammaa',publish_post:'Maxxansi',published:'Maxxanfaman',events_seats:'Ayyaantota — bakka',team_title:'Garee, gahee fi hayyama',teach_bot:'Bot barsiisi',known_answers:'Deebii beekaman',test_bot:'Bot yaali',f_name:'Maqaa',f_cat:'Gosa',f_price:'Gatii',f_desc:'Ibsa',f_title:'Mata-duree',f_body:'Qabiyyee',f_keys:'Jechoota ijoo',f_ans:'Deebii',add:'+ Dabali',publish:'Maxxansi ◆',send:'Ergi'},
+ti:{tab_dash:'📊 ሽቦርድ',tab_orders:'ትእዛዛት',tab_menu:'ሜኑ',tab_posts:'ሕትመት',tab_events:'መደባት',tab_team:'ጋንን ፍድን',tab_ai:'ፍልጠት AI',tab_wallet:'💰 ዋለት',tab_testai:'AI ፈትን',last7:'እቶት 7 መዓልቲ',activity:'ናይ ቀረባ ንቅስቓስ',today_orders:'ትእዛዛት ሎሚ',today_revenue:'እቶት ሎሚ',avg_order:'ማእከላይ',top_item:'ዝለዓለ',total_users:'ተጠቀምቲ',total_orders:'ኩሉ እዛዛት',all_revenue:'ጠቕላላ እቶት',subscribers:'ዜና',exp_orders:'ትእዛዛት CSV',exp_users:'ተጠቀምቲ CSV',exp_backup:'ቅ JSON',search_orders:'ድለ…',orders_board:'ሰሌዳ ትእዛዛት',refresh:'ሓድስ ⟳',add_item:'ሓድሽ ወስኽ',current_board:'ህሉው ሜኑ',publish_post:'ሓትም',published:'ዝሓተሙ',events_seats:'መደባት — መቐመጢ',team_title:'ጋንታ፡ ተራን ፍቓድን',teach_bot:'ቦት ኣምህር',known_answers:'ዝተፈል መልስት',test_bot:'ቦት ፈትን',f_name:'ስም',f_cat:'ዓይነት',f_price:'ዋጋ',f_desc:'መብርሂ',f_title:'ኣርእስቲ',f_body:'ትሕዝቶ',f_keys:'ቃላት መፍትሕ',f_ans:'መልሲ',add:'+ ወስኽ',publish:'ሓትም ◆',send:'ስደድ'},
+so:{tab_dash:'📊 Dashboard',tab_orders:'Amarro',tab_menu:'Liis',tab_posts:'Daabacaad',tab_events:'Munaabado',tab_team:'Koox & ogolaansho',tab_ai:'Aqoon AI',tab_wallet:'💰 Wallet',tab_testai:'Tijaabi AI',last7:'Dakhli 7 maalmood',activity:'Dhaqdhaqaaq dhow',today_orders:'Amarrada maanta',today_revenue:'Dakhliga maanta',avg_order:'Celcelis',top_item:'Ugu iib badan',total_users:'Isticmaaleyaal',total_orders:'Dhammaan amarrada',all_revenue:'Dakhli guud',subscribers:'Wargeys',exp_orders:'Amarrada CSV',exp_users:'Isticmaale CSV',exp_backup:'Kayd JSON',search_orders:'Raadi…',orders_board:'Saxarka amarrada',refresh:'Cusboonaysii ⟳',add_item:'Ku dar wax',current_board:'Liiska hadda',publish_post:'Daabac',published:'La daabacay',events_seats:'Munaabado — kuraas',team_title:'Koox, door & ogolaansho',teach_bot:'Bot bar',known_answers:'Jawaabo la yaqaan',test_bot:'Tijaabi bot',f_name:'Magac',f_cat:'Nooc',f_price:'Qiimo',f_desc:'Sharaxaad',f_title:'Cinwaan',f_body:'Nuxur',f_keys:'Erayo furahaal',f_ans:'Jawaab',add:'+ Ku dar',publish:'Daabac ◆',send:'Dir'}
 };
 let LANG=localStorage.getItem('moka-lang')||'en';
 function dictFor(l){return Object.assign({},(window.__I18N||{})[l]||{},ADMIN_I18N[l]||{});}
@@ -283,6 +301,7 @@ function applyLang(lang){
     if(v==null)return;
     if(v.includes('<'))el.innerHTML=v;else el.textContent=v;
   });
+  $$('[data-i18n-ph]').forEach(el=>{const v=d[el.dataset.i18nPh];if(v!=null)el.placeholder=v;});
   document.documentElement.lang=lang;
   document.documentElement.dir=(lang==='ar')?'rtl':'ltr';
   const sel=$('#langSwitch');if(sel)sel.value=lang;
@@ -315,6 +334,33 @@ async function loadDash(){
     $('#dashActivity').innerHTML=act.slice(0,20).map(a=>`<div style="padding:.25em 0;border-bottom:1px dashed var(--line)">◆ ${a.msg} <span style="color:var(--mute)">· ${new Date(a.t).toLocaleTimeString()}</span></div>`).join('')||'<p>—</p>';
   }catch{}
 }
+$('#expOrders').onclick=async()=>{
+  try{
+    const orders=await api('/api/orders');
+    const rows=[['order','items','subtotal','tx','status','created']];
+    orders.forEach(o=>rows.push([o.no,o.items.map(i=>i.qty+'x '+i.name).join(' | '),o.subtotal.toFixed(2),o.txId||'',o.status,o.created]));
+    download('moka-orders.csv','text/csv',toCSV(rows));blip('Orders CSV ✓');
+  }catch{}
+};
+$('#expUsers').onclick=async()=>{
+  try{
+    const users=await api('/api/users');
+    const rows=[['user','role','name','email','phone','provider','created']];
+    users.forEach(u=>rows.push([u.user,u.role,u.name||'',u.email||'',u.phone||'',u.provider||'',u.created||'']));
+    download('moka-users.csv','text/csv',toCSV(rows));blip('Users CSV ✓');
+  }catch{}
+};
+$('#expJson').onclick=async()=>{
+  try{
+    const [orders,users,posts,events,kn,news,wallet,txs]=await Promise.all([
+      api('/api/orders'),api('/api/users'),api('/api/posts'),api('/api/events'),
+      api('/api/knowledge'),api('/api/newsletter').catch(()=>[]),
+      api('/api/wallet/balance').catch(()=>({})),api('/api/wallet/transactions').catch(()=>[])
+    ]);
+    download('moka-backup.json','application/json',JSON.stringify({orders,users,posts,events,knowledge:kn,newsletter:news,wallet,transactions:txs,exported:new Date().toISOString()},null,2));
+    blip('Backup ✓');
+  }catch{}
+};
 
 /* ===== boot ===== */
 (async()=>{
@@ -326,7 +372,7 @@ async function loadDash(){
     $('#lockScreen').style.display='block';
     $('#mainArea').style.display='none';
     $('#lockTitle').textContent='☕ '+ME.user;
-    $('#lockMsg').innerHTML='✅ <b>Logged in</b> — ተመዝግበህ ገብተሃል (customer)።<br>Admin panel ለሠራተኞች ብቻ ነው፤ ሱቁን ግን በነፃነት ጠቀም';
+    $('#lockMsg').innerHTML='✅ <b>Logged in</b> — ተመዝግበህ ገተሃል (customer)።<br>Admin panel ለሠራተኞች ብቻ ነው፤ ሱቁን ግን በነፃነት ጠቀም';
     const lb=$('#lockLogout'); if(lb) lb.onclick=async()=>{await fetch('/api/admin/logout',{method:'POST'});location.href='/';};
     applyLang(LANG);
     return;
@@ -359,20 +405,25 @@ $('#tabNav').addEventListener('click',e=>{
   if(b.dataset.tab==='dash')loadDash();
 });
 
-/* ---------- orders ---------- */
+/* ---------- orders (+ search) ---------- */
 const NEXT={queued:'brewing',brewing:'ready',ready:'picked-up'};
-async function loadOrders(){
-  try{const orders=await api('/api/orders');
-    $('#queuePill').textContent=orders.filter(o=>o.status==='queued').length+' queued';
-    $('#ordersBoard').innerHTML=orders.length?`<table><tr><th>Order</th><th>Items</th><th>Total</th><th>TX</th><th>Status</th><th></th></tr>`+
-      orders.slice(0,30).map(o=>`<tr><td><b>${o.no}</b><br><small style="color:var(--mute)">${new Date(o.created).toLocaleTimeString()}</small></td>
-      <td>${o.items.map(i=>`${i.qty}× ${i.name}`).join(', ')}</td><td>$${o.subtotal.toFixed(2)}</td>
-      <td style="font-family:var(--mono);font-size:.66rem;color:var(--mute)">${o.txId||'—'}</td>
-      <td><span class="pill">${o.status}</span></td>
-      <td>${NEXT[o.status]?`<button class="btn sm" data-adv="${o.no}" data-next="${NEXT[o.status]}">→ ${NEXT[o.status]}</button>`:'✓'}
-      <button class="btn sm danger" data-void="${o.no}">✕</button></td></tr>`).join('')+'</table>':'<p style="color:var(--mute)">No orders yet.</p>';
-  }catch{}
+let lastOrders=[];
+function renderOrders(){
+  const q=($('#orderSearch').value||'').toLowerCase();
+  const orders=lastOrders.filter(o=>!q||o.no.toLowerCase().includes(q)||o.items.some(i=>i.name.toLowerCase().includes(q))||String(o.txId||'').toLowerCase().includes(q));
+  $('#queuePill').textContent=lastOrders.filter(o=>o.status==='queued').length+' queued';
+  $('#ordersBoard').innerHTML=orders.length?`<table><tr><th>Order</th><th>Items</th><th>Total</th><th>TX</th><th>Status</th><th></th></tr>`+
+    orders.slice(0,30).map(o=>`<tr><td><b>${o.no}</b><br><small style="color:var(--mute)">${new Date(o.created).toLocaleTimeString()}</small></td>
+    <td>${o.items.map(i=>`${i.qty}× ${i.name}`).join(', ')}</td><td>$${o.subtotal.toFixed(2)}</td>
+    <td style="font-family:var(--mono);font-size:.66rem;color:var(--mute)">${o.txId||'—'}</td>
+    <td><span class="pill">${o.status}</span></td>
+    <td>${NEXT[o.status]?`<button class="btn sm" data-adv="${o.no}" data-next="${NEXT[o.status]}">→ ${NEXT[o.status]}</button>`:'✓'}
+    <button class="btn sm danger" data-void="${o.no}">✕</button></td></tr>`).join('')+'</table>':'<p style="color:var(--mute)">No orders found.</p>';
 }
+async function loadOrders(){
+  try{lastOrders=await api('/api/orders');renderOrders();}catch{}
+}
+$('#orderSearch').addEventListener('input',renderOrders);
 $('#ordersBoard').addEventListener('click',async e=>{
   const adv=e.target.closest('[data-adv]'),vo=e.target.closest('[data-void]');
   if(adv){await api(`/api/orders/${adv.dataset.adv}`,{method:'PATCH',body:JSON.stringify({status:adv.dataset.next})});loadOrders();loadDash();}
