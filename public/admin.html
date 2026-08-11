@@ -41,7 +41,6 @@ label{font-family:var(--mono);font-size:.6rem;letter-spacing:.14em;text-transfor
 .btn{font-family:var(--mono);font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;padding:.65em 1.2em;border-radius:5px;border:1.5px solid var(--copper);background:var(--copper);color:#191008;font-weight:700;cursor:pointer;transition:.2s}
 .btn:hover{background:var(--csoft)}
 .btn.ghost{background:none;color:var(--copper)}
-.btn.ghost:hover{background:rgba(217,142,50,.12)}
 .btn.danger{border-color:var(--tomato);background:var(--tomato);color:#fff}
 .btn.sm{font-size:.58rem;padding:.4em .8em}
 .row{display:flex;gap:.6rem;flex-wrap:wrap;align-items:center}
@@ -89,27 +88,27 @@ td{padding:.55em .5em;border-bottom:1px dashed var(--line);font-size:.85rem;vert
 <div class="lock-screen" id="lockScreen" style="display:none">
   <div class="big">🔒</div>
   <h2>ለሠራተኞች ብቻ · Staff only</h2>
-  <p>መለያህ <b>customer</b> ነው — ሱን፣ ትዕዛዝን፣ ዝግጅቶችን እና AI chatን<br>በነፃነት መጠም ትችላለህ ይህ ጽ ን ለቡና ቤቱ ሠራተኞች ብቻ ው።</p>
+  <p>መለያህ <b>customer</b> ነው — ሱን በነፃነት መጠቀም ትችላለህ፤ ይ ገጽ ግን ለሠራተኞች ብቻ ው።</p>
   <a class="link-btn" href="/" data-i18n="back_shop">← Back to the shop</a>
 </div>
 
 <main id="mainArea">
   <div class="tabs" id="tabNav">
-    <button class="tab-btn active" data-tab="orders">Orders</button>
-    <button class="tab-btn" data-tab="menu">Menu</button>
-    <button class="tab-btn" data-tab="posts">Posts</button>
-    <button class="tab-btn" data-tab="events">Events</button>
-    <button class="tab-btn" data-tab="team" id="tabBtnTeam">Team &amp; Permissions</button>
-    <button class="tab-btn" data-tab="ai" id="tabBtnAi">AI Knowledge</button>
-    <button class="tab-btn" data-tab="wallet" id="tabBtnWallet">💰 Wallet</button>
-    <button class="tab-btn" data-tab="aichat">Test AI</button>
+    <button class="tab-btn active" data-tab="orders" data-i18n="tab_orders">Orders</button>
+    <button class="tab-btn" data-tab="menu" data-i18n="tab_menu">Menu</button>
+    <button class="tab-btn" data-tab="posts" data-i18n="tab_posts">Posts</button>
+    <button class="tab-btn" data-tab="events" data-i18n="tab_events">Events</button>
+    <button class="tab-btn" data-tab="team" id="tabBtnTeam" data-i18n="tab_team">Team &amp; Permissions</button>
+    <button class="tab-btn" data-tab="ai" id="tabBtnAi" data-i18n="tab_ai">AI Knowledge</button>
+    <button class="tab-btn" data-tab="wallet" id="tabBtnWallet" data-i18n="tab_wallet">💰 Wallet</button>
+    <button class="tab-btn" data-tab="aichat" data-i18n="tab_testai">Test AI</button>
   </div>
 
   <div class="tab-panel active" id="tab-orders">
     <div class="panel">
-      <h3>Orders board</h3>
+      <h3 data-i18n="orders_board">Orders board</h3>
       <div class="row" style="margin-bottom:1rem">
-        <button class="btn ghost sm" id="refreshOrders">Refresh ⟳</button>
+        <button class="btn ghost sm" id="refreshOrders" data-i18n="refresh">Refresh ⟳</button>
         <span class="pill" id="queuePill">0 queued</span>
       </div>
       <div id="ordersBoard"></div>
@@ -119,39 +118,38 @@ td{padding:.55em .5em;border-bottom:1px dashed var(--line);font-size:.85rem;vert
   <div class="tab-panel" id="tab-menu">
     <div class="grid-2">
       <div class="panel">
-        <h3>Add new item</h3>
-        <label>Name</label><input id="mi-name">
-        <label>Category</label>
+        <h3 data-i18n="add_item">Add new item</h3>
+        <label data-i18n="f_name">Name</label><input id="mi-name">
+        <label data-i18n="f_cat">Category</label>
         <select id="mi-cat"><option>Espresso</option><option>Filter</option><option>Cold</option><option>Bakes</option></select>
-        <label>Price</label><input id="mi-price" type="number" step="0.10" min="0.5" value="3.50">
-        <label>Description</label><textarea id="mi-desc" rows="2"></textarea>
-        <div style="margin-top:1rem"><button class="btn" id="addMenuBtn">+ Add item</button></div>
+        <label data-i18n="f_price">Price</label><input id="mi-price" type="number" step="0.10" min="0.5" value="3.50">
+        <label data-i18n="f_desc">Description</label><textarea id="mi-desc" rows="2"></textarea>
+        <div style="margin-top:1rem"><button class="btn" id="addMenuBtn" data-i18n="add">+ Add</button></div>
       </div>
-      <div class="panel"><h3>Current board</h3><table id="menuTable"></table></div>
+      <div class="panel"><h3 data-i18n="current_board">Current board</h3><table id="menuTable"></table></div>
     </div>
   </div>
 
   <div class="tab-panel" id="tab-posts">
     <div class="grid-2">
       <div class="panel">
-        <h3>Publish a post</h3>
-        <p class="hint">Appears on the storefront “From The Counter” section.</p>
-        <label>Title</label><input id="po-title">
-        <label>Body</label><textarea id="po-body" rows="5"></textarea>
-        <div style="margin-top:1rem"><button class="btn" id="addPostBtn">Publish ◆</button></div>
+        <h3 data-i18n="publish_post">Publish a post</h3>
+        <label data-i18n="f_title">Title</label><input id="po-title">
+        <label data-i18n="f_body">Body</label><textarea id="po-body" rows="5"></textarea>
+        <div style="margin-top:1rem"><button class="btn" id="addPostBtn" data-i18n="publish">Publish ◆</button></div>
       </div>
-      <div class="panel"><h3>Published</h3><div id="postsList"></div></div>
+      <div class="panel"><h3 data-i18n="published">Published</h3><div id="postsList"></div></div>
     </div>
   </div>
 
   <div class="tab-panel" id="tab-events">
-    <div class="panel"><h3>Events — seats</h3><div id="evList"></div></div>
+    <div class="panel"><h3 data-i18n="events_seats">Events — seats</h3><div id="evList"></div></div>
   </div>
 
   <div class="tab-panel" id="tab-team">
     <div class="panel">
-      <h3>Team, roles &amp; moderator permissions</h3>
-      <p class="hint">Role: customer → staff → moderator → admin. Moderator permissions are toggleable per person. Admins control everything.</p>
+      <h3 data-i18n="team_title">Team, roles &amp; moderator permissions</h3>
+      <p class="hint">customer → staff → moderator → admin</p>
       <table id="teamTable"></table>
     </div>
   </div>
@@ -159,12 +157,12 @@ td{padding:.55em .5em;border-bottom:1px dashed var(--line);font-size:.85rem;vert
   <div class="tab-panel" id="tab-ai">
     <div class="grid-2">
       <div class="panel">
-        <h3>Teach the bot</h3>
-        <label>Keywords (comma separated)</label><input id="kn-keys" placeholder="wifi, internet">
-        <label>Answer</label><textarea id="kn-ans" rows="3"></textarea>
-        <div style="margin-top:1rem"><button class="btn" id="addKnBtn">+ Add to AI</button></div>
+        <h3 data-i18n="teach_bot">Teach the bot</h3>
+        <label data-i18n="f_keys">Keywords (comma separated)</label><input id="kn-keys" placeholder="wifi, internet">
+        <label data-i18n="f_ans">Answer</label><textarea id="kn-ans" rows="3"></textarea>
+        <div style="margin-top:1rem"><button class="btn" id="addKnBtn" data-i18n="add">+ Add</button></div>
       </div>
-      <div class="panel"><h3>Known answers</h3><div id="knList"></div></div>
+      <div class="panel"><h3 data-i18n="known_answers">Known answers</h3><div id="knList"></div></div>
     </div>
   </div>
 
@@ -176,11 +174,10 @@ td{padding:.55em .5em;border-bottom:1px dashed var(--line);font-size:.85rem;vert
           <div class="stat-box"><div class="lbl" data-i18n="balance">Balance</div><div class="val" id="walletBalance" style="color:var(--copper)">$0.00</div></div>
           <div class="stat-box"><div class="lbl" data-i18n="total_received">Total received</div><div class="val" id="walletTotal" style="color:var(--leaf)">$0.00</div></div>
         </div>
-        <button class="btn ghost sm" id="refreshWallet">Refresh ⟳</button>
+        <button class="btn ghost sm" id="refreshWallet" data-i18n="refresh">Refresh ⟳</button>
       </div>
       <div class="panel">
         <h3>↗ <span data-i18n="transfer">Transfer</span></h3>
-        <p class="hint">Admin only — send funds to another wallet, bank, crypto, PayPal, Telebirr or M-Pesa.</p>
         <label data-i18n="transfer_to">Transfer to</label>
         <select id="tr-dest">
           <option value="wallet" data-i18n="dest_wallet">Other wallet</option>
@@ -190,8 +187,8 @@ td{padding:.55em .5em;border-bottom:1px dashed var(--line);font-size:.85rem;vert
           <option value="telebirr">Telebirr</option>
           <option value="mpesa">M-Pesa</option>
         </select>
-        <label data-i18n="destination">Destination (address / email / account)</label>
-        <input id="tr-to" placeholder="e.g. bc1q... or user@bank.com">
+        <label data-i18n="destination">Destination</label>
+        <input id="tr-to" placeholder="e.g. bc1q... / user@bank.com">
         <label data-i18n="amount">Amount ($)</label>
         <input id="tr-amt" type="number" step="0.01" min="0.01" placeholder="100.00">
         <label data-i18n="reference">Reference</label>
@@ -207,9 +204,9 @@ td{padding:.55em .5em;border-bottom:1px dashed var(--line);font-size:.85rem;vert
 
   <div class="tab-panel" id="tab-aichat">
     <div class="panel" style="max-width:520px">
-      <h3>Test Barista Bot</h3>
+      <h3 data-i18n="test_bot">Test Barista Bot</h3>
       <div class="chat-log" id="chatLog"></div>
-      <div class="row"><input id="chatIn" placeholder="Ask the bot…"><button class="btn" id="chatSend">Send</button></div>
+      <div class="row"><input id="chatIn" placeholder="Ask the bot…"><button class="btn" id="chatSend" data-i18n="send">Send</button></div>
     </div>
   </div>
 </main>
@@ -234,12 +231,27 @@ function myPerms(){
   return{};
 }
 
-/* ===== i18n ===== */
+/* ===== 🌍 i18n (server dict + admin dict) ===== */
+const ADMIN_I18N={
+en:{tab_orders:'Orders',tab_menu:'Menu',tab_posts:'Posts',tab_events:'Events',tab_team:'Team & Permissions',tab_ai:'AI Knowledge',tab_wallet:'💰 Wallet',tab_testai:'Test AI',orders_board:'Orders board',refresh:'Refresh ⟳',add_item:'Add new item',current_board:'Current board',publish_post:'Publish a post',published:'Published',events_seats:'Events — seats',team_title:'Team, roles & moderator permissions',teach_bot:'Teach the bot',known_answers:'Known answers',test_bot:'Test Barista Bot',f_name:'Name',f_cat:'Category',f_price:'Price',f_desc:'Description',f_title:'Title',f_body:'Body',f_keys:'Keywords (comma separated)',f_ans:'Answer',add:'+ Add',publish:'Publish ◆',send:'Send'},
+am:{tab_orders:'ትዕዛዞች',tab_menu:'ሜኑ',tab_posts:'ፖስቶች',tab_events:'ዝግጅቶች',tab_team:'ቡድን እና ፈቃዶች',tab_ai:'AI እውቀት',tab_wallet:'💰 ዋሌት',tab_testai:'AI ሞክር',orders_board:'የትዕዛዝ ሌዳ',refresh:'አድስ ⟳',add_item:'አዲስ እቃ ጨምር',current_board:'የአሁኑ ሜኑ',publish_post:'ፖስት አትም',published:'የታተሙ',events_seats:'ዝግጅቶች — መቀመጫ',team_title:'ቡድን፣ ሚና እና የአስተባባ ፈዶች',teach_bot:'ቦቱን አስተምር',known_answers:'የታወቁ መልሶች',test_bot:'Barista Bot ሞክር',f_name:'ስም',f_cat:'ምድብ',f_price:'ዋጋ',f_desc:'መግለጫ',f_title:'ርዕስ',f_body:'ይዘት',f_keys:'ቁል ቃላት (በኮማ)',f_ans:'መልስ',add:'+ ጨምር',publish:'አትም ◆',send:'ላክ'},
+ar:{tab_orders:'الطلبات',tab_menu:'القائمة',tab_posts:'المنشورات',tab_events:'الفعاليات',tab_team:'الفريق والصلاحيات',tab_ai:'معرفة AI',tab_wallet:'💰 المحفظة',tab_testai:'اختبار AI',orders_board:'لوحة الطلبات',refresh:'تحديث ⟳',add_item:'أضف عنصراً',current_board:'القائمة الحالية',publish_post:'انشر منشوراً',published:'منشور',events_seats:'الفعاليات — المقاعد',team_title:'الفريق والأدوار والصلاحيات',teach_bot:'علّم البوت',known_answers:'إجابات معروفة',test_bot:'اختبار البوت',f_name:'الاسم',f_cat:'الفئة',f_price:'السعر',f_desc:'الوصف',f_title:'العنوان',f_body:'المحتوى',f_keys:'كلمات مفتاحية',f_ans:'الإجابة',add:'+ أضف',publish:'انشر ◆',send:'أرسل'},
+fr:{tab_orders:'Commandes',tab_menu:'Carte',tab_posts:'Articles',tab_events:'Événements',tab_team:'Équipe & permissions',tab_ai:'Savoir AI',tab_wallet:'💰 Portefeuille',tab_testai:'Tester AI',orders_board:'Tableau des commandes',refresh:'Actualiser ⟳',add_item:'Ajouter un article',current_board:'Carte actuelle',publish_post:'Publier un article',published:'Publiés',events_seats:'Événements — places',team_title:'Équipe, rôles et permissions',teach_bot:'Apprendre au bot',known_answers:'Réponses connues',test_bot:'Tester le bot',f_name:'Nom',f_cat:'Catégorie',f_price:'Prix',f_desc:'Description',f_title:'Titre',f_body:'Contenu',f_keys:'Mots-clés (virgules)',f_ans:'Réponse',add:'+ Ajouter',publish:'Publier ◆',send:'Envoyer'},
+es:{tab_orders:'Pedidos',tab_menu:'Carta',tab_posts:'Publicaciones',tab_events:'Eventos',tab_team:'Equipo y permisos',tab_ai:'Saber AI',tab_wallet:'💰 Billetera',tab_testai:'Probar AI',orders_board:'Tablero de pedidos',refresh:'Actualizar ⟳',add_item:'Añadir artículo',current_board:'Carta actual',publish_post:'Publicar',published:'Publicados',events_seats:'Eventos — asientos',team_title:'Equipo, roles y permisos',teach_bot:'Enseñar al bot',known_answers:'Respuestas conocidas',test_bot:'Probar bot',f_name:'Nombre',f_cat:'Categoría',f_price:'Precio',f_desc:'Descripción',f_title:'Título',f_body:'Contenido',f_keys:'Palabras clave',f_ans:'Respuesta',add:'+ Añadir',publish:'Publicar ◆',send:'Enviar'},
+om:{tab_orders:'Ajajoota',tab_menu:'Menu',tab_posts:'Maxxansoota',tab_events:'Ayyaantota',tab_team:'Garee fi hayyama',tab_ai:'Beekumsa AI',tab_wallet:'💰 Wallet',tab_testai:'AI yaali',orders_board:'Gabatee ajajootaa',refresh:'Haaromsi ⟳',add_item:'Wanta haaraa dabali',current_board:'Menu ammaa',publish_post:'Maxxansi',published:'Maxxanfaman',events_seats:'Ayyaantota — bakka',team_title:'Garee, gahee fi hayyama',teach_bot:'Bot barsiisi',known_answers:'Deebii beekaman',test_bot:'Bot yaali',f_name:'Maqaa',f_cat:'Gosa',f_price:'Gatii',f_desc:'Ibsa',f_title:'Mata-duree',f_body:'Qabiyyee',f_keys:'Jechoota ijoo',f_ans:'Deebii',add:'+ Dabali',publish:'Maxxansi ◆',send:'Ergi'},
+ti:{tab_orders:'ትእዛዛት',tab_menu:'ሜኑ',tab_posts:'ሕትመት',tab_events:'መደባት',tab_team:'ጋንታን ቓድን',tab_ai:'ፍልጠት AI',tab_wallet:'💰 ዋለት',tab_testai:'AI ፈትን',orders_board:'ሰሌዳ ትእዛዛት',refresh:'ሓድስ ⟳',add_item:'ሓድሽ ወስኽ',current_board:'ህሉው ሜኑ',publish_post:'ሓትም',published:'ዝሓተሙ',events_seats:'መደባት — መቐመጢ',team_title:'ጋን፡ ተን ፍቓድን',teach_bot:'ቦት ኣምህር',known_answers:'ዝተልጡ መልስታት',test_bot:'ቦት ፈትን',f_name:'ስም',f_cat:'ዓይነት',f_price:'ዋጋ',f_desc:'መብርሂ',f_title:'ኣርእስቲ',f_body:'ትሕዝቶ',f_keys:'ቃት መፍትሕ',f_ans:'መልሲ',add:'+ ወስኽ',publish:'ሓትም ◆',send:'ስደድ'},
+so:{tab_orders:'Amarro',tab_menu:'Liis',tab_posts:'Daabacaad',tab_events:'Munaabado',tab_team:'Koox & ogolaansho',tab_ai:'Aqoon AI',tab_wallet:'💰 Wallet',tab_testai:'Tijaabi AI',orders_board:'Saxarka amarrada',refresh:'Cusboonaysii ⟳',add_item:'Ku dar wax',current_board:'Liiska hadda',publish_post:'Daabac',published:'La daabacay',events_seats:'Munaabado — kuraas',team_title:'Koox, door & ogolaansho',teach_bot:'Bot bar',known_answers:'Jawaabo la yaqaan',test_bot:'Tijaabi bot',f_name:'Magac',f_cat:'Nooc',f_price:'Qiimo',f_desc:'Sharaxaad',f_title:'Cinwaan',f_body:'Nuxur',f_keys:'Erayo furahaal',f_ans:'Jawaab',add:'+ Ku dar',publish:'Daabac ◆',send:'Dir'}
+};
 let LANG=localStorage.getItem('moka-lang')||'en';
+function dictFor(l){return Object.assign({},(window.__I18N||{})[l]||{},ADMIN_I18N[l]||{});}
 function applyLang(lang){
   LANG=lang;localStorage.setItem('moka-lang',lang);
-  const d=(window.__I18N||{})[lang]||{};
-  $$('[data-i18n]').forEach(el=>{if(d[el.dataset.i18n])el.textContent=d[el.dataset.i18n];});
+  const d=dictFor(lang);
+  $$('[data-i18n]').forEach(el=>{
+    const v=d[el.dataset.i18n];
+    if(v==null)return;
+    if(v.includes('<'))el.innerHTML=v;else el.textContent=v;
+  });
   document.documentElement.lang=lang;
   document.documentElement.dir=(lang==='ar')?'rtl':'ltr';
   const sel=$('#langSwitch');if(sel)sel.value=lang;
@@ -376,16 +388,14 @@ async function loadTeam(){
       ${['admin','moderator','staff','customer'].map(r=>`<option ${u.role===r?'selected':''}>${r}</option>`).join('')}</select>`;
     return `<tr><td><b>${u.user}</b>${u.provider==='google'?' <span class="pill" style="border-color:var(--gblue);color:var(--gblue)">G</span>':''}${isMe?' <span class="pill">you</span>':''}</td>
       <td>${roleSel}</td><td>${permCell}</td>
-      <td><button class="btn sm ghost" data-kick="${u.user}" ${(u.sessions===0)?'disabled':''}>⏻</button>
-      <button class="btn sm danger" data-deluser="${u.user}" ${isMe?'disabled':''}>✕</button></td></tr>`;
+      <td><button class="btn sm danger" data-deluser="${u.user}" ${isMe?'disabled':''}>✕</button></td></tr>`;
   }).join('');
 }
 $('#teamTable').addEventListener('click',async e=>{
-  const pm=e.target.closest('[data-perm]'),kick=e.target.closest('[data-kick]'),del=e.target.closest('[data-deluser]');
+  const pm=e.target.closest('[data-perm]'),del=e.target.closest('[data-deluser]');
   if(pm){const on=!pm.classList.contains('on');
     await api(`/api/users/${pm.dataset.user}/permissions`,{method:'PATCH',body:JSON.stringify({permissions:{[pm.dataset.perm]:on}})});
     blip(`${pm.dataset.user} → ${pm.dataset.perm} ${on?'granted':'revoked'}`);loadTeam();}
-  if(kick){await api(`/api/users/${kick.dataset.kick}/logout`,{method:'POST'});blip('Kicked');loadTeam();}
   if(del&&confirm('Delete '+del.dataset.deluser+'?')){await api(`/api/users/${del.dataset.deluser}`,{method:'DELETE'});loadTeam();}
 });
 $('#teamTable').addEventListener('change',async e=>{
@@ -415,7 +425,7 @@ $('#addKnBtn').onclick=async()=>{
   $('#kn-keys').value='';$('#kn-ans').value='';blip('AI learned ✓');loadKnowledge();
 };
 
-/* ---------- 💰 wallet ---------- */
+/* ---------- wallet ---------- */
 async function loadWallet(){
   try{
     const [bal,txs]=await Promise.all([api('/api/wallet/balance'),api('/api/wallet/transactions')]);
@@ -450,7 +460,7 @@ function cmsg(who,txt){$('#chatLog').innerHTML+=`<div class="cmsg ${who}"><b>${w
 $('#chatSend').onclick=async()=>{
   const m=$('#chatIn').value.trim();if(!m)return;
   cmsg('user',m);$('#chatIn').value='';
-  const r=await api('/api/chat',{method:'POST',body:JSON.stringify({message:m})});
+  const r=await api('/api/chat',{method:'POST',body:JSON.stringify({message:m,lang:LANG})});
   cmsg('bot',r.reply);
 };
 $('#chatIn').addEventListener('keydown',e=>{if(e.key==='Enter')$('#chatSend').click();});
