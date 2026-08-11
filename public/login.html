@@ -3,6 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<meta name="theme-color" content="#171110">
 <title>Staff entrance — Moka House</title>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..900;1,9..144,300..900&family=Space+Grotesk:wght@400;500;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
 <script src="https://accounts.google.com/gsi/client" async defer></script>
@@ -84,12 +86,12 @@ input:focus{outline:none;border-color:var(--copper)}
 const $ = s => document.querySelector(s);
 const LOGIN_I18N={
 en:{user_email:'Username or Email',unlock:'Unlock the back room ◆',new_here:'New here?'},
-am:{user_email:'የተጠቃሚ ስም ወይም ኢሜይል',unlock:'የኋላውን ክፍል ክፈት ◆',new_here:'አዲስ ነህ?'},
+am:{user_email:'የተጠሚ ስም ይም ኢሜይል',unlock:'የኋላውን ክፍል ፈት ◆',new_here:'አዲስ ነህ?'},
 ar:{user_email:'اسم المستخدم أو البريد',unlock:'افتح الغرفة الخلفية ◆',new_here:'جديد هنا؟'},
 fr:{user_email:'Nom d\'utilisateur ou e-mail',unlock:'Ouvrir ◆',new_here:'Nouveau ?'},
 es:{user_email:'Usuario o correo',unlock:'Abrir ◆',new_here:'¿Nuevo?'},
 om:{user_email:'Maqaa fayyadamaa ykn imeelii',unlock:'Bani ◆',new_here:'Haaraa?'},
-ti:{user_email:'ስም ተጠቃሚ ይ ኢመይል',unlock:'ክፈት ◆',new_here:'ሓድሽ?'},
+ti:{user_email:'ስም ተጠቃሚ ወይ ኢመይል',unlock:'ክፈት ◆',new_here:'ሓድሽ?'},
 so:{user_email:'Magaca isticmaale ama iimayl',unlock:'Fur ◆',new_here:'Cusub?'}
 };
 let LANG=localStorage.getItem('moka-lang')||'en';
@@ -113,8 +115,8 @@ function googleHelp(extra){
   s.innerHTML=(extra?'<b>'+extra+'</b><br>':'')+
     'Google ችግር ከሆነ በ console.cloud.google.com ላይ፦<br>'+
     '1) OAuth consent screen → External → Test users ውስጥ Gmailህን ጨምር<br>'+
-    '2) Credentials → Client ID → Authorized JavaScript origins → የሳይን URL ጨምር<br>'+
-    '3) Save → 5 ደቂቃ ጠብቅ';
+    '2) Credentials → Client ID → Authorized JavaScript origins → የሳይቱን URL ጨምር<br>'+
+    '3) Save → 5 ደቂ ጠብቅ';
 }
 fetch('/api/admin/check').then(r=>{if(r.ok)location.replace('/admin.html');});
 $('#peek').onclick=()=>{const p=$('#pass');p.type=p.type==='password'?'text':'password';};

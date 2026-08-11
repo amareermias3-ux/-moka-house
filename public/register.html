@@ -3,6 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<meta name="theme-color" content="#171110">
 <title>Join the crew — Moka House</title>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..900;1,9..144,300..900&family=Space+Grotesk:wght@400;500;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
 <script src="https://accounts.google.com/gsi/client" async defer></script>
@@ -50,7 +52,7 @@ input:focus,select:focus{outline:none;border-color:var(--copper)}
     <div class="door" id="door">
       <div class="mark">🫘</div>
       <h1>JOIN THE CREW</h1>
-      <p class="sub">Create your account · መለያ ፍር</p>
+      <p class="sub">Create your account · መለያ ፍጠር</p>
       <form id="regForm" autocomplete="off">
         <label><span class="lbl" data-i18n="full_name">Full name</span><input id="name" type="text" placeholder="Ermias Amare"></label>
         <label><span class="lbl" data-i18n="email_l">Email</span><input id="email" type="email" placeholder="you@example.com"></label>
@@ -113,7 +115,7 @@ $('#regForm').addEventListener('submit', async e => {
         gender=$('#gender').value, pass=$('#pass').value, pass2=$('#pass2').value;
   if(name.length<2)return fail('Full name required — ሙሉ ስምህን ጻፍ');
   if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email))return fail('Valid email required — ትክለኛ ሜይል ጻፍ');
-  if(phone && !/^\+?[0-9]{7,15}$/.test(phone.replace(/\s/g,'')))return fail('Valid phone required — ትክክለኛ ስልክ ቁጥር ጻፍ');
+  if(phone && !/^\+?[0-9]{7,15}$/.test(phone.replace(/\s/g,'')))return fail('Valid phone required — ትክለኛ ልክ ቁጥር ጻፍ');
   if(pass.length<6)return fail('Password must be at least 6 characters');
   if(pass!==pass2)return fail('Passwords do not match — የይለፍ ቃላት አይመሳሰሉም');
   btn.disabled=true;btn.textContent='Creating…';

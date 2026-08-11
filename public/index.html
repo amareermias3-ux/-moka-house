@@ -4,7 +4,23 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="author" content="Ermias Amare">
-<title>MOKA HOUSE — Roastery & Espresso Bar</title>
+<title>MOKA HOUSE — Roastery & Espresso Bar · ቡና ቤት</title>
+<meta name="description" content="Moka House — small-batch coffee roasted on site. Order online, book cuppings, 8 languages. Built by Ermias Amare.">
+<meta name="keywords" content="coffee, roastery, espresso, Moka House, ቡና, ካፌ, Addis">
+<meta name="theme-color" content="#171110">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link rel="apple-touch-icon" href="/favicon.svg">
+<link rel="manifest" href="/manifest.webmanifest">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Moka House">
+<meta property="og:title" content="MOKA HOUSE — Roastery & Espresso Bar">
+<meta property="og:description" content="Small-batch coffee, roasted on site. Order online · 8 languages · Events & cuppings. By Ermias Amare.">
+<meta property="og:url" content="https://moka-house.vercel.app/">
+<meta property="og:image" content="https://picsum.photos/seed/moka-house-og/1200/630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="MOKA HOUSE — Roastery & Espresso Bar">
+<meta name="twitter:description" content="Small-batch coffee · order online · 8 languages · By Ermias Amare">
+<meta name="twitter:image" content="https://picsum.photos/seed/moka-house-og/1200/630">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..900;1,9..144,300..900&family=Space+Grotesk:wght@400;500;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
@@ -566,7 +582,7 @@ const $=(s,c=document)=>c.querySelector(s), $$=(s,c=document)=>[...c.querySelect
 const REDUCED=matchMedia('(prefers-reduced-motion: reduce)').matches;
 const fmt=n=>'$'+n.toFixed(2);
 
-/* ===== 🌍 i18n engine (ሙሉ ጽ) ===== */
+/* ===== 🌍 i18n engine ===== */
 let LANG=localStorage.getItem('moka-lang')||'en';
 let READY=false;
 const D=()=> (window.__I18N||{})[LANG]||{};
@@ -630,7 +646,7 @@ const METHODS={
 const TICKER=['Now pouring: Ethiopia Guji — apricot · bergamot · black tea','Roasted on site every Tuesday','Honduras Santa Rita — caramel · red apple','Cold brew tonic on tap all summer','Open cupping every Friday 17:00','Oat, almond & whole — never a surcharge'];
 const DAYS=['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
 
-/* ===== clock / open status (translated) ===== */
+/* ===== clock / open status ===== */
 const hToStr=h=>{const H=Math.floor(h),M=Math.round((h-H)*60);return String(H).padStart(2,'0')+':'+String(M).padStart(2,'0')};
 function tickClock(){
   const n=new Date();
@@ -662,7 +678,7 @@ const io=new IntersectionObserver(es=>es.forEach(e=>{
 }),{threshold:.15});
 function observe(scope=document){$$('.reveal,[data-scramble],.dish,.brew-steps li',scope).forEach(el=>io.observe(el));}
 
-/* ===== menu (translated tabs + buttons) ===== */
+/* ===== menu ===== */
 const CATS=['All','Espresso','Filter','Cold','Bakes'];
 const CATK={All:'cat_all',Espresso:'cat_espresso',Filter:'cat_filter',Cold:'cat_cold',Bakes:'cat_bakes'};
 let activeCat='All';
@@ -758,7 +774,7 @@ payForms.forEach(form=>form.addEventListener('submit',async e=>{
       payForms.forEach(f=>f.style.display='none');
       $('#payTitle').style.display='none';payTotal.style.display='none';
       paySuccess.style.display='block';
-      successDetails.innerHTML=`${d.order_no||'Order'}: <b>${res.order.no}</b><br>${'TX'}: <b>${res.tx.id}</b>`;
+      successDetails.innerHTML=`${d.order_no||'Order'}: <b>${res.order.no}</b><br>TX: <b>${res.tx.id}</b>`;
       setTimeout(()=>{closePay();if(pendingOrder&&pendingOrder.onSuccess)pendingOrder.onSuccess(res);},3500);
     }else{alert(res.error||'Payment failed');btn.disabled=false;btn.textContent=d.confirm||'Confirm payment';}
   }catch(_){alert('Server unreachable');btn.disabled=false;}
@@ -863,7 +879,7 @@ $('#stampBtn').onclick=()=>{
   toast(stamps.n>=8?'★':'+'+stamps.n+'/8');
 };
 
-/* ===== events (translated) ===== */
+/* ===== events ===== */
 function renderEvents(){
   const d=D();
   $('#ticketList').innerHTML=EVENTS.map((ev,i)=>`
@@ -881,7 +897,7 @@ function renderEvents(){
 }
 $('#ticketList').addEventListener('click',async e=>{
   const b=e.target.closest('.rsvp');if(!b||b.disabled)return;
-  const i=+b.dataset.ev,ev=EVENTS[i],seatEl=$(`[data-seats="${i}"]`);
+  const i=+b.dataset.ev,ev=EVENTS[i];
   b.disabled=true;
   try{
     if(b.classList.contains('on')){
@@ -918,7 +934,7 @@ $('#newsForm').addEventListener('submit',e=>{
   e.target.hidden=true;$('#newsOk').hidden=false;
 });
 
-/* ===== ☕ AI chat (sends language) ===== */
+/* ===== ☕ AI chat ===== */
 (function(){
   const fab=$('#chatFab'),win=$('#chatWin'),log=$('#botLog'),inp=$('#botIn');
   let opened=false;
@@ -975,6 +991,22 @@ tickClock();
   renderTabs();renderMenu();renderEvents();renderStamps();updateCartUI();
   applyLang(LANG);
 })();
+</script>
+
+<!-- 📲 PWA + Install -->
+<script>
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => navigator.serviceWorker.register('/sw.js').catch(() => {}));
+}
+let deferredPrompt;
+window.addEventListener('beforeinstallprompt', e => {
+  e.preventDefault(); deferredPrompt = e;
+  const b = document.createElement('button');
+  b.textContent = '📲 Install App';
+  b.style.cssText = 'position:fixed;bottom:96px;right:24px;z-index:160;background:#d98e32;color:#191008;border:none;border-radius:100px;padding:.7em 1.2em;font-family:monospace;font-weight:700;cursor:pointer;box-shadow:0 10px 30px -8px rgba(0,0,0,.6)';
+  b.onclick = async () => { deferredPrompt.prompt(); await deferredPrompt.userChoice; b.remove(); };
+  document.body.appendChild(b);
+});
 </script>
 </body>
 </html>
