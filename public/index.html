@@ -278,7 +278,7 @@ footer{background:#120d0a;border-top:1px solid var(--line);padding:70px 0 0}
 .reveal.in{opacity:1;transform:none}
 .pay-modal{position:fixed;inset:0;background:rgba(10,7,5,.85);z-index:300;display:none;place-items:center;padding:20px}
 .pay-modal.show{display:grid}
-.pay-box{background:#201812;border:1px solid rgba(217,142,50,.4);border-radius:14px;max-width:480px;width:100%;padding:2rem;box-shadow:0 30px 80px -20px rgba(0,0,0,.7);max-height:90vh;overflow-y:auto}
+.pay-box{background:#201812;border:1px solid rgba(217,142,50,.4);border-radius:14px;max-width:520px;width:100%;padding:2rem;box-shadow:0 30px 80px -20px rgba(0,0,0,.7);max-height:90vh;overflow-y:auto}
 .pay-box h3{font-family:var(--disp);font-size:1.5rem;margin-bottom:1rem}
 .pay-methods{display:grid;grid-template-columns:repeat(2,1fr);gap:.6rem;margin:1rem 0}
 .pm-btn{background:#2a211a;border:1.5px solid rgba(241,230,212,.2);border-radius:8px;padding:.9em .5em;color:var(--cream);font-family:var(--mono);font-size:.72rem;cursor:pointer;transition:.2s;text-align:center}
@@ -298,8 +298,17 @@ footer{background:#120d0a;border-top:1px solid var(--line);padding:70px 0 0}
 .pay-cancel{background:none;border-color:rgba(241,230,212,.3);color:var(--cream-dim)}
 .pay-confirm{background:var(--copper);border-color:var(--copper);color:var(--espresso)}
 .pay-confirm:disabled{opacity:.5;cursor:not-allowed}
-.pay-success{text-align:center;padding:1.5rem 0}
-.pay-success .check{font-size:3rem;color:var(--leaf)}
+.pay-dest{background:#2a211a;border:1px dashed rgba(217,142,50,.4);border-radius:8px;padding:1rem;margin:1rem 0}
+.pay-dest .lbl{font-family:var(--mono);font-size:.6rem;letter-spacing:.18em;color:var(--copper);text-transform:uppercase;display:block;margin-bottom:.4rem}
+.pay-dest .val{font-family:var(--mono);font-size:1.05rem;color:var(--cream);word-break:break-all;display:flex;align-items:center;justify-content:space-between;gap:.5rem}
+.pay-dest .copy{font-size:.7rem;background:var(--copper);color:var(--espresso);padding:.3em .6em;border-radius:4px;cursor:pointer;border:none;font-weight:700}
+.pay-dest .note{font-size:.75rem;color:var(--cream-mute);margin-top:.5rem;font-family:var(--mono)}
+.pay-ref{background:#171110;border:1px solid rgba(217,142,50,.4);border-radius:8px;padding:.7em 1em;margin-bottom:.7rem;font-family:var(--mono);font-size:.85rem;color:var(--copper-soft);display:flex;justify-content:space-between;align-items:center}
+.pay-ref .cp{font-size:.65rem;background:var(--copper);color:var(--espresso);padding:.25em .6em;border-radius:3px;cursor:pointer;border:none;font-weight:700}
+.pending-msg{text-align:center;padding:1.5rem 0;background:rgba(143,168,126,.08);border-radius:8px;margin-top:1rem;border:1px dashed var(--leaf)}
+.pending-msg h4{font-family:var(--disp);color:var(--copper);margin-bottom:.5rem}
+.pending-msg p{color:var(--cream-dim);font-size:.85rem;font-family:var(--mono)}
+.pending-msg .orderNo{display:inline-block;font-family:var(--mono);color:var(--copper-soft);font-weight:700;margin:.3rem 0;padding:.3em .8em;background:rgba(217,142,50,.12);border-radius:4px;font-size:1.1rem;letter-spacing:.08em}
 @media(max-width:1020px){.mast-grid,.brew-grid,.club-grid{grid-template-columns:1fr}.mast-visual{min-height:440px;margin-top:1rem}.brew-panel{position:static}.shops-grid{grid-template-columns:1fr 1fr}.foot-grid{grid-template-columns:1fr 1fr}}
 @media(max-width:680px){.nav-links{display:none;position:absolute;top:100%;left:0;right:0;background:var(--bg2);border-bottom:1px solid var(--line);flex-direction:column;padding:1.4rem;gap:1.1rem;align-items:flex-start}.nav-links.open{display:flex}.burger{display:block}.shops-grid,.foot-grid{grid-template-columns:1fr}.ticket-body{flex-direction:column;align-items:flex-start}.ticket-meta{margin-left:0;align-items:flex-start;text-align:left}.stamps{grid-template-columns:repeat(4,1fr)}}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}.marquee-track{animation:none}.polaroid img{animation:none}.steam{display:none}.spin-badge{animation:none}}
@@ -490,10 +499,19 @@ footer{background:#120d0a;border-top:1px solid var(--line);padding:70px 0 0}
     </div>
     <div><h5 data-i18n="f_visit">Visit</h5><p>14 Quay Street, Old Harbor<br>3 Bridge Walk, Riverside<br>Kiosk 2, Museum Quarter</p></div>
     <div><h5 data-i18n="f_hours">Hours</h5><p>Mon–Fri · 07:30 – 18:00<br>Saturday · 08:00 – 19:00<br>Sunday · 08:00 – 16:00</p></div>
-    <div><h5 data-i18n="f_elsewhere">Elsewhere</h5><a href="/login.html" data-i18n="staff">Staff login ⚿</a><a href="/register.html" data-i18n="register">Register</a><a href="#top">Instagram ↗</a></div>
+    <div>
+      <h5 data-i18n="f_elsewhere">Elsewhere</h5>
+      <a href="/login.html" data-i18n="staff">Staff login ⚿</a>
+      <a href="/register.html" data-i18n="register">Register</a>
+      <a href="#top">Instagram ↗</a>
+    </div>
   </div>
   <div class="wrap foot-bar">
-    <span>© <span id="year">2026</span> Moka House Roasting Co.</span>
+    <span>© <span id="year">2026</span> Moka House · Built by <b style="color:#e8b56b">ERMIAS AMARE</b> ·
+      <a href="mailto:amareermias3@gmail.com" style="color:inherit">amareermias3@gmail.com</a> ·
+      <a href="tel:+251976021007" style="color:inherit">+251 976 021 007</a> ·
+      <a href="tel:+251973011231" style="color:inherit">+251 973 011 231</a>
+    </span>
     <button id="toTop">↑</button>
   </div>
 </footer>
@@ -529,13 +547,14 @@ footer{background:#120d0a;border-top:1px solid var(--line);padding:70px 0 0}
       <button class="pm-btn" data-method="bank"><span class="icon">🏦</span><span data-i18n="bank">Bank</span></button>
       <button class="pm-btn" data-method="crypto"><span class="icon">₿</span><span data-i18n="crypto">Crypto</span></button>
     </div>
+    <div id="payDest" style="display:none"></div>
     <form class="pay-form" data-for="telebirr,mpesa">
-      <label data-i18n="phone">Phone number</label><input type="tel" placeholder="+251..." required>
-      <div class="pay-actions"><button type="button" class="pay-cancel" data-i18n="cancel">Cancel</button><button type="submit" class="pay-confirm" data-i18n="confirm">Confirm payment</button></div>
+      <label data-i18n="phone">Phone number (your own)</label><input type="tel" placeholder="+251..." required>
+      <div class="pay-actions"><button type="button" class="pay-cancel" data-i18n="cancel">Cancel</button><button type="submit" class="pay-confirm" data-i18n="confirm">I sent the payment</button></div>
     </form>
     <form class="pay-form" data-for="paypal">
-      <label data-i18n="email">PayPal email</label><input type="email" placeholder="you@example.com" required>
-      <div class="pay-actions"><button type="button" class="pay-cancel" data-i18n="cancel">Cancel</button><button type="submit" class="pay-confirm" data-i18n="confirm">Confirm payment</button></div>
+      <label data-i18n="email">PayPal email (your own)</label><input type="email" placeholder="you@example.com" required>
+      <div class="pay-actions"><button type="button" class="pay-cancel" data-i18n="cancel">Cancel</button><button type="submit" class="pay-confirm" data-i18n="confirm">I sent the payment</button></div>
     </form>
     <form class="pay-form" data-for="card">
       <label data-i18n="card_number">Card number</label><input type="text" placeholder="1234 5678 9012 3456" required maxlength="19">
@@ -546,18 +565,24 @@ footer{background:#120d0a;border-top:1px solid var(--line);padding:70px 0 0}
       <div class="pay-actions"><button type="button" class="pay-cancel" data-i18n="cancel">Cancel</button><button type="submit" class="pay-confirm" data-i18n="confirm">Confirm payment</button></div>
     </form>
     <form class="pay-form" data-for="bank">
-      <label data-i18n="bank_name">Bank name</label><input type="text" placeholder="Commercial Bank..." required>
-      <label data-i18n="account">Account number</label><input type="text" placeholder="1000..." required>
-      <div class="pay-actions"><button type="button" class="pay-cancel" data-i18n="cancel">Cancel</button><button type="submit" class="pay-confirm" data-i18n="confirm">Confirm payment</button></div>
+      <label data-i18n="bank_name">Your bank</label><input type="text" placeholder="Commercial Bank..." required>
+      <label data-i18n="account">Your account number</label><input type="text" placeholder="1000..." required>
+      <div class="pay-actions"><button type="button" class="pay-cancel" data-i18n="cancel">Cancel</button><button type="submit" class="pay-confirm" data-i18n="confirm">I sent the transfer</button></div>
     </form>
     <form class="pay-form" data-for="crypto">
-      <label data-i18n="wallet_address">Wallet address</label><input type="text" placeholder="bc1q... / 0x..." required>
-      <div class="pay-actions"><button type="button" class="pay-cancel" data-i18n="cancel">Cancel</button><button type="submit" class="pay-confirm" data-i18n="confirm">Confirm payment</button></div>
+      <label data-i18n="wallet_address">Your wallet address</label><input type="text" placeholder="bc1q... / 0x..." required>
+      <div class="pay-actions"><button type="button" class="pay-cancel" data-i18n="cancel">Cancel</button><button type="submit" class="pay-confirm" data-i18n="confirm">I sent the tx</button></div>
     </form>
     <div class="pay-success" id="paySuccess" style="display:none">
-      <div class="check">✓</div>
-      <h3 data-i18n="success">Payment successful!</h3>
-      <p style="color:var(--cream-dim);margin-top:.5rem;font-family:var(--mono);font-size:.8rem" id="successDetails"></p>
+      <div class="mark" style="font-size:3rem;color:var(--leaf)">✓</div>
+      <h4 style="font-family:var(--disp);margin:.6rem 0 .3rem" data-i18n="success">Payment successful!</h4>
+      <p style="color:var(--cream-dim);font-size:.9rem;font-family:var(--mono)" id="successDetails"></p>
+    </div>
+    <div class="pending-msg" id="pendingMsg" style="display:none">
+      <h4>⏳ <span data-i18n="pending_title">Verifying your payment</span></h4>
+      <p data-i18n="pending_note">We'll confirm manually once your payment lands. Your order is in the queue.</p>
+      <p style="margin-top:.6rem">Order: <span class="orderNo" id="pendingNo"></span></p>
+      <div style="margin-top:1rem"><a href="/track.html" class="btn btn-solid" style="display:inline-flex">Track order 📦</a></div>
     </div>
   </div>
 </div>
@@ -582,7 +607,7 @@ const $=(s,c=document)=>c.querySelector(s), $$=(s,c=document)=>[...c.querySelect
 const REDUCED=matchMedia('(prefers-reduced-motion: reduce)').matches;
 const fmt=n=>'$'+n.toFixed(2);
 
-/* ===== 🌍 i18n engine ===== */
+/* ===== 🌍 i18n ===== */
 let LANG=localStorage.getItem('moka-lang')||'en';
 let READY=false;
 const D=()=> (window.__I18N||{})[LANG]||{};
@@ -646,7 +671,6 @@ const METHODS={
 const TICKER=['Now pouring: Ethiopia Guji — apricot · bergamot · black tea','Roasted on site every Tuesday','Honduras Santa Rita — caramel · red apple','Cold brew tonic on tap all summer','Open cupping every Friday 17:00','Oat, almond & whole — never a surcharge'];
 const DAYS=['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
 
-/* ===== clock / open status ===== */
 const hToStr=h=>{const H=Math.floor(h),M=Math.round((h-H)*60);return String(H).padStart(2,'0')+':'+String(M).padStart(2,'0')};
 function tickClock(){
   const n=new Date();
@@ -661,7 +685,6 @@ setInterval(tickClock,1000);
 
 (()=>{const half=TICKER.map(t=>`<span>◆ ${t}</span>`).join('');$('#marqueeTrack').innerHTML=half+half;})();
 
-/* ===== scramble + reveal ===== */
 function scramble(el){
   const final=el.textContent,glyphs='MOKAHUSE◆·/#%&';
   if(REDUCED){el.textContent=final;return}
@@ -678,7 +701,6 @@ const io=new IntersectionObserver(es=>es.forEach(e=>{
 }),{threshold:.15});
 function observe(scope=document){$$('.reveal,[data-scramble],.dish,.brew-steps li',scope).forEach(el=>io.observe(el));}
 
-/* ===== menu ===== */
 const CATS=['All','Espresso','Filter','Cold','Bakes'];
 const CATK={All:'cat_all',Espresso:'cat_espresso',Filter:'cat_filter',Cold:'cat_cold',Bakes:'cat_bakes'};
 let activeCat='All';
@@ -707,7 +729,6 @@ function renderMenu(){
 }
 $('#menuTabs').addEventListener('click',e=>{const b=e.target.closest('.tab');if(!b)return;activeCat=b.dataset.cat;renderTabs();renderMenu();});
 
-/* ===== cart ===== */
 let cart={};
 try{cart=JSON.parse(localStorage.getItem('moka-cart'))||{}}catch(e){cart={}}
 const cartSave=()=>localStorage.setItem('moka-cart',JSON.stringify(cart));
@@ -747,15 +768,30 @@ $('#drawerBody').addEventListener('click',e=>{
   if(inc||dec||del){cartSave();updateCartUI();}
 });
 
-/* ===== 💳 payment ===== */
-const payModal=$('#payModal'),payTotal=$('#payTotal'),paySuccess=$('#paySuccess'),successDetails=$('#successDetails');
+/* ===== 💳 payment (real manual-verify) ===== */
+const payModal=$('#payModal'),payTotal=$('#payTotal'),paySuccess=$('#paySuccess'),pendingMsg=$('#pendingMsg'),payDest=$('#payDest');
 const payForms=$$('.pay-form',payModal),methodBtns=$$('.pm-btn',payModal);
-let currentMethod=null,pendingOrder=null;
+let currentMethod=null,pendingOrder=null,payInfo={};
+(async()=>{try{payInfo=await fetch('/api/payments-info').then(r=>r.json());}catch(_){}})();
+
 methodBtns.forEach(btn=>btn.addEventListener('click',()=>{
   methodBtns.forEach(b=>b.classList.remove('selected'));
   btn.classList.add('selected');
   currentMethod=btn.dataset.method;
   payForms.forEach(f=>f.classList.toggle('active',f.dataset.for.split(',').includes(currentMethod)));
+  if(pendingOrder&&payInfo[currentMethod]){
+    payDest.style.display='block';
+    const orderNo=pendingOrder._orderNo||'MH-????';
+    payDest.innerHTML=`
+      <div class="pay-ref"><span>Order #: <b>${orderNo}</b></span><button class="cp" onclick="navigator.clipboard.writeText('${orderNo}').then(()=>{this.textContent='Copied ✓';setTimeout(()=>this.textContent='Copy',1200)})">Copy</button></div>
+      <div class="pay-dest">
+        <span class="lbl">Send payment to</span>
+        <div class="val"><span>${payInfo[currentMethod]||'—'}</span><button class="cp" onclick="navigator.clipboard.writeText('${payInfo[currentMethod]||''}').then(()=>{this.textContent='Copied ✓';setTimeout(()=>this.textContent='Copy',1200)})">Copy</button></div>
+        <div class="note">◆ Use order number <b>${orderNo}</b> as your payment reference so we can match it.</div>
+      </div>`;
+  } else {
+    payDest.style.display='none';
+  }
 }));
 $$('.pay-cancel',payModal).forEach(b=>b.addEventListener('click',closePay));
 payForms.forEach(form=>form.addEventListener('submit',async e=>{
@@ -772,10 +808,18 @@ payForms.forEach(form=>form.addEventListener('submit',async e=>{
     if(r.ok){
       $('#payMethods').style.display='none';
       payForms.forEach(f=>f.style.display='none');
+      payDest.style.display='none';
       $('#payTitle').style.display='none';payTotal.style.display='none';
-      paySuccess.style.display='block';
-      successDetails.innerHTML=`${d.order_no||'Order'}: <b>${res.order.no}</b><br>TX: <b>${res.tx.id}</b>`;
-      setTimeout(()=>{closePay();if(pendingOrder&&pendingOrder.onSuccess)pendingOrder.onSuccess(res);},3500);
+      if(res.tx.status==='pending'){
+        pendingMsg.style.display='block';
+        $('#pendingNo').textContent=res.order.no;
+        pendingMsg.querySelector('a').href='/track.html?no='+res.order.no;
+        setTimeout(()=>{closePay();if(pendingOrder&&pendingOrder.onSuccess)pendingOrder.onSuccess(res);},5500);
+      }else{
+        paySuccess.style.display='block';
+        $('#successDetails').innerHTML=`${d.order_no||'Order'}: <b>${res.order.no}</b><br>TX: <b>${res.tx.id}</b>`;
+        setTimeout(()=>{closePay();if(pendingOrder&&pendingOrder.onSuccess)pendingOrder.onSuccess(res);},3500);
+      }
     }else{alert(res.error||'Payment failed');btn.disabled=false;btn.textContent=d.confirm||'Confirm payment';}
   }catch(_){alert('Server unreachable');btn.disabled=false;}
 }));
@@ -783,10 +827,12 @@ function closePay(){
   payModal.classList.remove('show');
   methodBtns.forEach(b=>b.classList.remove('selected'));
   payForms.forEach(f=>{f.classList.remove('active');f.style.display='';f.reset();const b=$('.pay-confirm',f);if(b)b.disabled=false;});
-  $('#payMethods').style.display='';$('#payTitle').style.display='';payTotal.style.display='';paySuccess.style.display='none';
+  $('#payMethods').style.display='';$('#payTitle').style.display='';payTotal.style.display='';paySuccess.style.display='none';pendingMsg.style.display='none';payDest.style.display='none';
   currentMethod=null;pendingOrder=null;
 }
 window.MokaPay={open(order){
+  const orderNo='MH-'+(1000+Math.floor(Math.random()*9000));
+  order._orderNo=orderNo;
   pendingOrder=order;
   payTotal.textContent='$'+order.subtotal.toFixed(2);
   payModal.classList.add('show');
@@ -798,7 +844,7 @@ $('#checkoutBtn').onclick=()=>{
   const subtotal=cartTotal();
   window.MokaPay.open({items,pickup,subtotal,onSuccess:()=>{
     cart={};cartSave();updateCartUI();closeCart();
-    toast((D().success||'Payment successful!')+' ✓');
+    toast((D().success||'Payment submitted')+' ✓');
   }});
 };
 
@@ -842,7 +888,6 @@ $('#timerBtn').onclick=()=>{
   },100);
 };
 
-/* ===== shops ===== */
 function renderShops(){
   const now=new Date(),day=now.getDay(),mins=now.getHours()*60+now.getMinutes();
   const d=D();
@@ -859,7 +904,6 @@ function renderShops(){
     </article>`}).join('');
 }
 
-/* ===== stamps ===== */
 let stamps={n:0,last:''};
 try{stamps=JSON.parse(localStorage.getItem('moka-stamps'))||stamps}catch(e){}
 function renderStamps(animate=false){
@@ -879,7 +923,6 @@ $('#stampBtn').onclick=()=>{
   toast(stamps.n>=8?'★':'+'+stamps.n+'/8');
 };
 
-/* ===== events ===== */
 function renderEvents(){
   const d=D();
   $('#ticketList').innerHTML=EVENTS.map((ev,i)=>`
@@ -912,7 +955,6 @@ $('#ticketList').addEventListener('click',async e=>{
   }catch(_){toast('…');b.disabled=false;}
 });
 
-/* ===== posts ===== */
 async function renderPosts(){
   try{
     const posts=await fetch('/api/posts').then(r=>r.json());
@@ -925,7 +967,6 @@ async function renderPosts(){
   }catch(_){}
 }
 
-/* ===== newsletter ===== */
 $('#newsForm').addEventListener('submit',e=>{
   e.preventDefault();
   const inp=$('#newsInput');
@@ -934,7 +975,6 @@ $('#newsForm').addEventListener('submit',e=>{
   e.target.hidden=true;$('#newsOk').hidden=false;
 });
 
-/* ===== ☕ AI chat ===== */
 (function(){
   const fab=$('#chatFab'),win=$('#chatWin'),log=$('#botLog'),inp=$('#botIn');
   let opened=false;
@@ -961,7 +1001,6 @@ $('#newsForm').addEventListener('submit',e=>{
   inp.addEventListener('keydown',e=>{if(e.key==='Enter')send();});
 })();
 
-/* ===== chrome ===== */
 addEventListener('scroll',()=>{
   $('#siteHeader').classList.toggle('scrolled',scrollY>40);
   const h=document.documentElement,p=h.scrollTop/(h.scrollHeight-h.clientHeight);
@@ -973,7 +1012,6 @@ $('#toTop').onclick=()=>scrollTo({top:0,behavior:REDUCED?'auto':'smooth'});
 $('#year').textContent=new Date().getFullYear();
 addEventListener('keydown',e=>{if(e.key==='Escape'){closeCart();closePay();$('#navLinks').classList.remove('open');}});
 
-/* ===== boot ===== */
 renderChips();renderBrew();
 renderShops();setInterval(renderShops,60000);
 renderPosts();
