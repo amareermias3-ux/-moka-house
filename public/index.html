@@ -235,7 +235,7 @@ footer{background:#120d0a;border-top:1px solid var(--line);padding:70px 0 0}
 .foot-grid p,.foot-grid a{color:var(--cream-mute);font-size:.88rem;display:block;padding:.2em 0;transition:color .2s}
 .foot-grid a:hover{color:var(--copper-soft)}
 .foot-brand{font-family:var(--disp);font-weight:900;font-size:1.7rem;margin-bottom:.6rem}
-#toTop{background:none;border:1.5px solid var(--line2);border-radius:4px;padding:.5em 1em;font-family:var(--mono);font-size:.68rem;color:var(--cream-dim);margin-top:1rem;cursor:pointer}
+#toTop{background:none;border:1.5px solid var(--line2);border-radius:4px;padding:.5em 1em;font-family:var(--mono);font-size:.68rem;color:var(--cream-dim);cursor:pointer}
 #toTop:hover{border-color:var(--copper);color:var(--copper)}
 .overlay{position:fixed;inset:0;background:rgba(10,7,5,.7);backdrop-filter:blur(3px);opacity:0;pointer-events:none;transition:opacity .35s;z-index:140}
 .overlay.show{opacity:1;pointer-events:auto}
@@ -599,7 +599,6 @@ const $=(s,c=document)=>c.querySelector(s), $$=(s,c=document)=>[...c.querySelect
 const REDUCED=matchMedia('(prefers-reduced-motion: reduce)').matches;
 const fmt=n=>'$'+n.toFixed(2);
 
-/* ===== 🌍 i18n ===== */
 let LANG=localStorage.getItem('moka-lang')||'en';
 let READY=false;
 const D=()=> (window.__I18N||{})[LANG]||{};
@@ -619,7 +618,6 @@ function applyLang(lang){
 }
 $('#langSwitch').addEventListener('change',e=>applyLang(e.target.value));
 
-/* ===== data ===== */
 const FALLBACK_MENU=[
  {id:'esp',cat:'Espresso',name:'Espresso',price:2.80,desc:'Double ristretto blend — dark cherry, molasses, long finish.',seed:'espresso-shot',tags:['signature']},
  {id:'cor',cat:'Espresso',name:'Cortado',price:3.40,desc:'Equal parts espresso and silky milk in a Gibraltar glass.',seed:'cortado-glass',tags:[]},
@@ -760,7 +758,6 @@ $('#drawerBody').addEventListener('click',e=>{
   if(inc||dec||del){cartSave();updateCartUI();}
 });
 
-/* ===== 💳 payment (real manual-verify) ===== */
 const payModal=$('#payModal'),payTotal=$('#payTotal'),paySuccess=$('#paySuccess'),pendingMsg=$('#pendingMsg'),payDest=$('#payDest');
 const payForms=$$('.pay-form',payModal),methodBtns=$$('.pm-btn',payModal);
 let currentMethod=null,pendingOrder=null,payInfo={};
@@ -840,7 +837,6 @@ $('#checkoutBtn').onclick=()=>{
   }});
 };
 
-/* ===== brew lab ===== */
 let method='v60',dose=15,tState={run:false,done:false,t:0,iv:null};
 const RING_C=2*Math.PI*56;
 function renderChips(){$('#methodChips').innerHTML=Object.entries(METHODS).map(([k,m])=>`<button class="mchip ${k===method?'active':''}" data-m="${k}">${m.label}</button>`).join('');}
@@ -1022,7 +1018,6 @@ tickClock();
 })();
 </script>
 
-<!-- 📲 PWA + Install -->
 <script>
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', () => navigator.serviceWorker.register('/sw.js').catch(() => {}));

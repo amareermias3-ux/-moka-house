@@ -1,5 +1,5 @@
 /* ================================================================
-   MOKA HOUSE — v5.9 (Fixed language switching + credit)
+   MOKA HOUSE — v5.9 (Real payments + credit with correct email)
 ================================================================ */
 import express from 'express';
 import fs from 'fs';
@@ -32,11 +32,11 @@ const MOD_COUNT = 5;
 const MOD_PASS = '#Moderator2026';
 const DEFAULT_MOD_PERMS = { can_menu: true, can_orders: true, can_events: false, can_posts: false, can_wallet: false };
 
-/* ✍️ FULL CREDIT — injected server-side, translated client-side */
+/* ✍️ CREDIT — injected on every page (email corrected) */
 const CREDIT_HTML = `
 <div class="moka-credit" style="display:flex;gap:1.2rem;flex-wrap:wrap;justify-content:center;align-items:center;padding:1.1rem 1rem 1.5rem;font-family:'Space Mono',monospace;font-size:.66rem;letter-spacing:.1em;color:#93866f;border-top:1px solid rgba(241,230,212,.12);margin-top:2.5rem;text-align:center">
   <span data-i18n="bot_credit">☕ ይህ ፕሮጀክት የተሰራው በ</span>&nbsp;<b style="color:#d98e32">ERMIAS AMARE</b>
-  <a href="mailto:amareermias3@gmail.com" style="color:inherit;text-decoration:none;border-bottom:1px dashed #93866f">amareermias3@gmail.com</a>
+  <a href="mailto:amareermias@gmail.com" style="color:inherit;text-decoration:none;border-bottom:1px dashed #93866f">amareermias@gmail.com</a>
   <a href="tel:+251976021007" style="color:inherit;text-decoration:none;border-bottom:1px dashed #93866f">+251 976 021 007</a>
   <a href="tel:+251973011231" style="color:inherit;text-decoration:none;border-bottom:1px dashed #93866f">+251 973 011 231</a>
 </div>`;
@@ -165,7 +165,7 @@ function ensureSeedUsers() {
   db.events = db.events && db.events.length ? db.events : SEED_EVENTS;
   db.transactions = db.transactions || []; db.wallet = db.wallet || { balance: 0, totalReceived: 0 };
   db.sessions = db.sessions || []; db.orders = db.orders || []; db.newsletter = db.newsletter || []; db.activity = db.activity || [];
-  db.settings = db.settings || { payments: { telebirr: '+251976021007', mpesa: '+251973011231', paypal: 'amareermias3@gmail.com', bank: '', crypto: '' } };
+  db.settings = db.settings || { payments: { telebirr: '+251976021007', mpesa: '+251973011231', paypal: 'amareermias@gmail.com', bank: '', crypto: '' } };
   db.settings.payments = db.settings.payments || {};
 }
 ensureSeedUsers();
@@ -284,14 +284,14 @@ function botReply(raw, lang) {
   if (/(stamp|free|ነፃ|ብላሽ|bilaash|kaard|gratis)/.test(t)) return x.stamps;
   if (/(deliver|delivery|ship|አድርስ|geenyu)/.test(t)) return x.delivery;
   if (/(track|order status|ተከታተል|raadi)/.test(t)) return `${d.track_order}: /track.html`;
-  if (/(contact|phone|call|email|ስልክ|ተወከስ)/.test(t)) return `${d.bot_credit} ERMIAS AMARE — amareermias3@gmail.com · +251 976 021 007 · +251 973 011 231`;
+  if (/(contact|phone|call|email|ስልክ|ተወከስ)/.test(t)) return `${d.bot_credit} ERMIAS AMARE — amareermias@gmail.com · +251 976 021 007 · +251 973 011 231`;
   if (/(event|cupping|workshop|tasting|ዝግጅት|munaabad|evento)/.test(t)) return db.events.length ? `${d.bot_events}: ` + db.events.map(e => `${e.title} (${e.day} ${e.mon})`).join(' · ') : d.bot_fallback;
   if (/(news|post|story|update|new|አዲስ|ዜና|war|noticia|nouveau)/.test(t)) {
     const hit = searchContent(t, lang);
     if (hit && hit.startsWith('📰')) return hit;
     return db.posts.length ? x.new + db.posts.slice(0, 3).map(p => `${p.title} — ${p.body}`).join(' ◆ ') : d.bot_fallback;
   }
-  if (/(who|made|creator|ermias|ማን|የተሰራ|sameeyay|quién)/.test(t)) return `${d.bot_credit} ERMIAS AMARE — amareermias3@gmail.com · +251 976 021 007 · +251 973 011 231`;
+  if (/(who|made|creator|ermias|ማን|የተሰራ|sameeyay|quién)/.test(t)) return `${d.bot_credit} ERMIAS AMARE — amareermias@gmail.com · +251 976 021 007 · +251 973 011 231`;
   if (/(brew|v60|chemex|aeropress|ratio|recipe|ማፍያ|qophii)/.test(t)) {
     if (t.includes('chemex')) return 'Chemex: 1:16 · 94°C · ~4:30 · medium-coarse.';
     if (t.includes('aeropress')) return 'AeroPress: 1:15 · 90°C · ~2:30 · medium-fine.';
