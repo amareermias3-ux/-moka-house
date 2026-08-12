@@ -235,8 +235,7 @@ footer{background:#120d0a;border-top:1px solid var(--line);padding:70px 0 0}
 .foot-grid p,.foot-grid a{color:var(--cream-mute);font-size:.88rem;display:block;padding:.2em 0;transition:color .2s}
 .foot-grid a:hover{color:var(--copper-soft)}
 .foot-brand{font-family:var(--disp);font-weight:900;font-size:1.7rem;margin-bottom:.6rem}
-.foot-bar{border-top:1px solid var(--line);padding:1.3rem 0;display:flex;justify-content:space-between;align-items:center;gap:1rem;flex-wrap:wrap;font-family:var(--mono);font-size:.68rem;letter-spacing:.12em;color:var(--cream-mute)}
-#toTop{background:none;border:1.5px solid var(--line2);border-radius:4px;padding:.5em 1em;font-family:var(--mono);font-size:.68rem;color:var(--cream-dim)}
+#toTop{background:none;border:1.5px solid var(--line2);border-radius:4px;padding:.5em 1em;font-family:var(--mono);font-size:.68rem;color:var(--cream-dim);margin-top:1rem;cursor:pointer}
 #toTop:hover{border-color:var(--copper);color:var(--copper)}
 .overlay{position:fixed;inset:0;background:rgba(10,7,5,.7);backdrop-filter:blur(3px);opacity:0;pointer-events:none;transition:opacity .35s;z-index:140}
 .overlay.show{opacity:1;pointer-events:auto}
@@ -504,15 +503,8 @@ footer{background:#120d0a;border-top:1px solid var(--line);padding:70px 0 0}
       <a href="/login.html" data-i18n="staff">Staff login ⚿</a>
       <a href="/register.html" data-i18n="register">Register</a>
       <a href="#top">Instagram ↗</a>
+      <button id="toTop">↑ Back to top</button>
     </div>
-  </div>
-  <div class="wrap foot-bar">
-    <span>© <span id="year">2026</span> Moka House · Built by <b style="color:#e8b56b">ERMIAS AMARE</b> ·
-      <a href="mailto:amareermias3@gmail.com" style="color:inherit">amareermias3@gmail.com</a> ·
-      <a href="tel:+251976021007" style="color:inherit">+251 976 021 007</a> ·
-      <a href="tel:+251973011231" style="color:inherit">+251 973 011 231</a>
-    </span>
-    <button id="toTop">↑</button>
   </div>
 </footer>
 
@@ -1009,7 +1001,6 @@ addEventListener('scroll',()=>{
 $('#navToggle').onclick=()=>$('#navLinks').classList.toggle('open');
 $$('#navLinks a').forEach(a=>a.onclick=()=>$('#navLinks').classList.remove('open'));
 $('#toTop').onclick=()=>scrollTo({top:0,behavior:REDUCED?'auto':'smooth'});
-$('#year').textContent=new Date().getFullYear();
 addEventListener('keydown',e=>{if(e.key==='Escape'){closeCart();closePay();$('#navLinks').classList.remove('open');}});
 
 renderChips();renderBrew();
