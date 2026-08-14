@@ -219,6 +219,12 @@ input[type=range]{width:100%;accent-color:var(--copper);height:4px}
 .rsvp{font-family:var(--mono);font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;border:1.5px solid var(--copper);background:none;color:var(--copper);padding:.6em 1.2em;border-radius:4px;transition:all .2s}
 .rsvp:hover{background:var(--copper);color:var(--espresso)}
 .rsvp.on{background:var(--leaf);border-color:var(--leaf);color:var(--espresso);font-weight:700}
+.story-band{background:linear-gradient(120deg,var(--panel),var(--panel2));border-block:1px solid var(--line);padding:70px 0;position:relative;overflow:hidden}
+.story-band .wrap{display:flex;align-items:center;gap:2.5rem;flex-wrap:wrap}
+.story-band .txt{flex:1;min-width:260px}
+.story-band h3{font-family:var(--disp);font-size:clamp(1.6rem,3.5vw,2.4rem);font-weight:800;margin-bottom:.6rem}
+.story-band p{color:var(--cream-dim);max-width:52ch}
+.story-band .img{width:220px;height:220px;border-radius:50%;object-fit:cover;border:3px solid var(--copper);box-shadow:var(--shadow);animation:spin 40s linear infinite}
 .hello{padding:110px 0 90px}
 .hello-inner{display:flex;justify-content:space-between;align-items:center;gap:2.5rem;flex-wrap:wrap}
 .hello h2{font-family:var(--disp);font-style:italic;font-weight:500;font-size:clamp(2.4rem,5.5vw,4.2rem);letter-spacing:-.02em}
@@ -323,6 +329,7 @@ footer{background:#120d0a;border-top:1px solid var(--line);padding:70px 0 0}
       <li><a href="#shops" data-i18n="shops">Shops</a></li>
       <li><a href="#club" data-i18n="club">Stamp Card</a></li>
       <li><a href="#events" data-i18n="events">Events</a></li>
+      <li><a href="/story.html" style="color:var(--csoft)">Our Story · ታሪችን</a></li>
       <li><a href="/login.html" style="color:var(--copper)" data-i18n="staff">Staff ⚿</a></li>
     </ul>
     <div class="nav-right">
@@ -353,7 +360,7 @@ footer{background:#120d0a;border-top:1px solid var(--line);padding:70px 0 0}
       <div class="mast-cta">
         <a class="btn btn-solid" href="#menu" data-i18n="cta1">Browse the board ↓</a>
         <a class="btn btn-ghost" href="#events" data-i18n="cta2">Book a cupping</a>
-        <a class="btn btn-ghost" href="/quiz.html" style="border-color:var(--leaf);color:var(--leaf)">☕ Find my coffee · ቡናዬን ፈልግ</a>
+        <a class="btn btn-ghost" href="/quiz.html" style="border-color:var(--leaf);color:var(--leaf)">☕ Find my coffee · ቡናዬን ፈል</a>
       </div>
     </div>
     <div class="mast-visual" aria-hidden="true">
@@ -457,6 +464,18 @@ footer{background:#120d0a;border-top:1px solid var(--line);padding:70px 0 0}
   </div>
 </section>
 
+<div class="story-band">
+  <div class="wrap">
+    <div class="txt">
+      <p class="eyebrow">Since 2016</p>
+      <h3 data-i18n="story_h">From a single bean to a family.</h3>
+      <p data-i18n="story_p">We started with one roaster and a dream. Read how a tiny room in Old Harbor became three rooms and thousands of cups.</p>
+      <p style="margin-top:1.2rem"><a class="btn btn-ghost" href="/story.html" style="border-color:var(--csoft);color:var(--csoft)">Read our story · ታሪችንን አንብብ →</a></p>
+    </div>
+    <img class="img" src="https://picsum.photos/seed/coffee-farm-ethiopia/440/440" alt="">
+  </div>
+</div>
+
 <section id="events">
   <div class="wrap">
     <div class="sec-head reveal">
@@ -504,6 +523,7 @@ footer{background:#120d0a;border-top:1px solid var(--line);padding:70px 0 0}
       <a href="/login.html" data-i18n="staff">Staff login ⚿</a>
       <a href="/register.html" data-i18n="register">Register</a>
       <a href="/quiz.html">☕ Find My Coffee Quiz</a>
+      <a href="/story.html">📖 Our Story · ታሪችን</a>
       <a href="#top">Instagram ↗</a>
       <button id="toTop">↑ Back to top</button>
     </div>
@@ -707,7 +727,7 @@ const METHODS={
  aeropress:{label:'AeroPress',dose:[12,20,15],ratio:15,waterLabel:'Water',temp:'90°C',grind:'Medium-fine',total:150,steps:[[0,'Pour all the water','Straight in, saturate everything, no fuss.'],[30,'Stir three times','Break the crust gently, then leave it alone.'],[90,'Cap & flip','Carefully. Confidence, not courage.'],[105,'Press for 30 s','Stop at the hiss — you want syrup, not silt.'],[135,'Bypass to taste','Add hot water until it sings.']]},
  press:{label:'French Press',dose:[20,45,30],ratio:14,waterLabel:'Water',temp:'96°C',grind:'Coarse — breadcrumbs',total:270,steps:[[0,'Pour all the water','Saturate grounds, lid on but don\u2019t plunge.'],[240,'Break & skim','Stir the crust, scoop the foam and floaters.'],[255,'Settle','One quiet minute — let the fines drop.'],[270,'Plunge to the surface','Just below the liquid, no pressing down. Pour gently.']]}
 };
-const TICKER=['Now pouring: Ethiopia Guji — apricot · bergamot · black tea','Roasted on site every Tuesday','Honduras Santa Rita — caramel · red apple','Cold brew tonic on tap all summer','Open cupping every Friday 17:00','Oat, almond & whole — never a surcharge','New: ☕ Find My Coffee taste quiz!','New: Macchiato · Buna Jebena · Sambusa · Chechebsa'];
+const TICKER=['Now pouring: Ethiopia Guji — apricot · bergamot · black tea','Roasted on site every Tuesday','Honduras Santa Rita — caramel · red apple','Cold brew tonic on tap all summer','Open cupping every Friday 17:00','Oat, almond & whole — never a surcharge','New: ☕ Find My Coffee taste quiz!','Read our story — from a single bean to a family 📖','New: Macchiato · Buna Jebena · Sambusa · Chechebsa'];
 const DAYS=['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
 
 const hToStr=h=>{const H=Math.floor(h),M=Math.round((h-H)*60);return String(H).padStart(2,'0')+':'+String(M).padStart(2,'0')};
@@ -724,7 +744,6 @@ setInterval(tickClock,1000);
 
 (()=>{const half=TICKER.map(t=>`<span>◆ ${t}</span>`).join('');$('#marqueeTrack').innerHTML=half+half;})();
 
-/* ===== ✨ Floating beans particles ===== */
 (function(){
   const cv=$('#beans');if(!cv||REDUCED)return;
   const ctx=cv.getContext('2d');let W,H,parts=[];
@@ -747,14 +766,12 @@ setInterval(tickClock,1000);
   })();
 })();
 
-/* ===== 🖱️ cursor glow ===== */
 (function(){
   const g=$('#cursorGlow');if(!g||REDUCED)return;
   addEventListener('mousemove',e=>{g.style.opacity=1;g.style.left=e.clientX+'px';g.style.top=e.clientY+'px';});
   addEventListener('mouseleave',()=>g.style.opacity=0);
 })();
 
-/* ===== 🎯 3D tilt on dishes ===== */
 document.addEventListener('mousemove',e=>{
   if(REDUCED)return;
   const card=e.target.closest('.dish');
@@ -766,7 +783,6 @@ document.addEventListener('mousemove',e=>{
   card.style.transform=`translateY(-5px) rotateX(${-py*6}deg) rotateY(${px*6}deg)`;
 });
 
-/* ===== 🌊 parallax on hero ===== */
 addEventListener('scroll',()=>{
   if(REDUCED)return;
   const mv=$('.mast-visual');if(mv)mv.style.transform=`translateY(${scrollY*.08}px)`;
@@ -934,7 +950,6 @@ $('#checkoutBtn').onclick=()=>{
   }});
 };
 
-/* ===== 👤 My Orders ===== */
 (async()=>{
   try{
     const r=await fetch('/api/admin/whoami');
