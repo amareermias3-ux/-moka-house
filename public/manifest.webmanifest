@@ -1,14 +1,12 @@
 {
-  "name": "Moka House — Roastery & Espresso Bar",
-  "short_name": "Moka House",
-  "description": "Small-batch coffee, roasted on site. Order online · 8 languages · Events. By Ermias Amare.",
+  "name": "ERSCOMAS — Roastery & Espresso Bar",
+  "short_name": "ERSCOMAS",
+  "description": "Small-batch coffee, roasted on site. Order online in 8 languages. Built by Ermias Amare.",
   "start_url": "/",
-  "scope": "/",
   "display": "standalone",
   "background_color": "#171110",
   "theme_color": "#171110",
   "icons": [
-    { "src": "/favicon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any" },
-    { "src": "/favicon.svg", "sizes": "192x192 512x512", "type": "image/svg+xml", "purpose": "maskable" }
+    { "src": "/favicon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any" }
   ]
 }
