@@ -1,46 +1,52 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="icon" type="image/svg+xml" href="/favicon.svg">
 <meta name="theme-color" content="#171110">
 <title>Track your order — Moka House</title>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..900;1,9..144,300..900&family=Space+Grotesk:wght@400;500;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300..900&family=Space+Grotesk:wght@400;500;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
 <style>
-:root{--bg:#171110;--panel:#221a15;--line2:rgba(241,230,212,.28);--cream:#f1e6d4;--cream-mute:#93866f;--copper:#d98e32;--copper-soft:#e8b56b;--leaf:#8fa87e;--tomato:#cf5636;--disp:"Fraunces",serif;--mono:"Space Mono",monospace}
+:root{--bg:#171110;--panel:#221a15;--line:rgba(241,230,212,.28);--cream:#f1e6d4;--cream-dim:#c6b79e;--mute:#93866f;--copper:#d98e32;--csoft:#e8b56b;--leaf:#8fa87e;--tomato:#cf5636;--disp:"Fraunces",serif;--mono:"Space Mono",monospace}
 *{margin:0;padding:0;box-sizing:border-box}
-body{min-height:100svh;background:var(--bg);background-image:radial-gradient(900px 500px at 30% -10%,rgba(217,142,50,.1),transparent 60%);color:var(--cream);font-family:"Space Grotesk",sans-serif;display:grid;place-items:center;padding:24px}
+body{min-height:100svh;background:var(--bg);background-image:radial-gradient(900px 500px at 30% -10%,rgba(217,142,50,.08),transparent 60%);color:var(--cream);font-family:"Space Grotesk",sans-serif;display:grid;place-items:center;padding:24px}
 .lang-switch{position:fixed;top:14px;right:14px;z-index:200;background:#221a15;border:1.5px solid rgba(217,142,50,.6);border-radius:8px;padding:.35em .6em;font-family:var(--mono);font-size:.7rem;color:var(--copper);cursor:pointer}
 [dir="rtl"] .lang-switch{right:auto;left:14px}
-.gate{position:relative;width:min(480px,94vw)}
-.door{position:relative;background:var(--panel);border:1px solid var(--line2);border-radius:12px;padding:2.2rem 2rem 1.8rem;box-shadow:0 24px 60px -20px rgba(0,0,0,.7)}
+.gate{position:relative;width:min(560px,94vw)}
+.door{position:relative;background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:2.2rem 2rem 1.8rem;box-shadow:0 24px 60px -20px rgba(0,0,0,.7)}
 .mark{font-size:2rem;margin-bottom:.5rem}
 h1{font-family:var(--disp);font-weight:900;font-size:1.6rem}
 .sub{font-family:var(--mono);font-size:.6rem;letter-spacing:.26em;text-transform:uppercase;color:var(--copper);margin:.4rem 0 1.5rem}
-label{display:block;font-family:var(--mono);font-size:.58rem;letter-spacing:.18em;text-transform:uppercase;color:var(--cream-mute);margin-bottom:.9rem}
+label{display:block;font-family:var(--mono);font-size:.58rem;letter-spacing:.18em;text-transform:uppercase;color:var(--mute);margin-bottom:.9rem}
 label span.lbl{display:block;margin-bottom:.35rem}
-input{width:100%;background:var(--bg);border:1.5px solid var(--line2);border-radius:6px;padding:.8em 1em;color:var(--cream);font-family:var(--mono);font-size:.95rem;text-transform:uppercase}
+input{width:100%;background:var(--bg);border:1.5px solid var(--line);border-radius:6px;padding:.8em 1em;color:var(--cream);font-family:var(--mono);font-size:.95rem;text-transform:uppercase}
 input:focus{outline:none;border-color:var(--copper)}
-.err{font-family:var(--mono);font-size:.7rem;color:var(--tomato);margin:.6rem 0}
-.go{width:100%;background:var(--copper);color:#191008;border:none;font-family:var(--mono);font-weight:700;font-size:.76rem;letter-spacing:.16em;text-transform:uppercase;padding:1em;border-radius:6px;cursor:pointer}
-.go:hover{background:var(--copper-soft)}
-.res-head{display:flex;justify-content:space-between;align-items:center;margin:1.4rem 0 1rem;font-family:var(--mono)}
-.res-head b{font-size:1.1rem;color:var(--copper-soft)}
-.pill{display:inline-block;font-family:var(--mono);font-size:.6rem;letter-spacing:.12em;text-transform:uppercase;padding:.35em .8em;border-radius:100px;border:1.5px solid var(--copper);color:var(--copper)}
-.steps{display:flex;gap:.4rem;margin:1rem 0 1.4rem}
-.step{flex:1;text-align:center;font-family:var(--mono);font-size:.56rem;letter-spacing:.08em;color:var(--cream-mute);text-transform:uppercase}
-.step .dot{display:grid;place-items:center;height:44px;width:44px;margin:0 auto .4rem;border-radius:50%;border:2px solid var(--line2);font-size:1.1rem;opacity:.4;transition:.3s}
-.step.done .dot{border-color:var(--leaf);background:rgba(143,168,126,.15);opacity:1}
-.step.now .dot{border-color:var(--copper);background:rgba(217,142,50,.15);opacity:1;animation:pulse 1.6s infinite}
-@keyframes pulse{50%{box-shadow:0 0 0 8px rgba(217,142,50,.12)}}
-.items{border-top:1px dashed var(--line2);padding-top:.9rem;font-size:.9rem}
-.items .it{display:flex;justify-content:space-between;padding:.25em 0;color:var(--cream)}
-.items .it span:last-child{font-family:var(--mono);color:var(--cream-mute)}
-.res-meta{display:flex;justify-content:space-between;margin-top:1rem;font-family:var(--mono);font-size:.72rem;color:var(--cream-mute)}
-.res-meta b{color:var(--leaf);font-size:.95rem}
-.back-shop{display:inline-block;margin-top:1.2rem;font-family:var(--mono);font-size:.66rem;letter-spacing:.14em;color:var(--cream-mute);text-decoration:none}
-.back-shop:hover{color:var(--copper-soft)}
+.go{width:100%;background:var(--copper);color:#191008;border:none;font-family:var(--mono);font-weight:700;font-size:.76rem;letter-spacing:.16em;text-transform:uppercase;padding:1em;border-radius:6px;cursor:pointer;margin-top:.3rem}
+.go:hover{background:var(--csoft)}
+.err{font-family:var(--mono);font-size:.7rem;color:var(--tomato);margin:.8rem 0}
+.back-shop{display:inline-block;margin-top:1.2rem;font-family:var(--mono);font-size:.66rem;letter-spacing:.14em;color:var(--mute);text-decoration:none}
+.back-shop:hover{color:var(--csoft)}
+.result{margin-top:1.6rem;border-top:1px dashed var(--line);padding-top:1.4rem}
+.order-head{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:.6rem;margin-bottom:1.2rem}
+.order-no{font-family:var(--mono);font-size:1.2rem;font-weight:700;color:var(--csoft)}
+.order-status{font-family:var(--mono);font-size:.7rem;letter-spacing:.12em;text-transform:uppercase;padding:.4em 1em;border-radius:100px;border:1.5px solid var(--copper);color:var(--copper)}
+.steps{display:flex;align-items:flex-start;gap:0;margin:1.4rem 0}
+.step{flex:1;text-align:center;position:relative}
+.step .dot{width:44px;height:44px;border-radius:50%;border:2.5px solid var(--line);display:grid;place-items:center;margin:0 auto .5rem;font-size:1.1rem;background:var(--bg);transition:.3s;position:relative;z-index:2}
+.step .lbl{font-family:var(--mono);font-size:.58rem;letter-spacing:.1em;text-transform:uppercase;color:var(--mute)}
+.step::before{content:"";position:absolute;top:22px;left:-50%;width:100%;height:2.5px;background:var(--line);z-index:1}
+.step:first-child::before{display:none}
+.step.done .dot{background:var(--leaf);border-color:var(--leaf);color:#191008}
+.step.done::before{background:var(--leaf)}
+.step.done .lbl{color:var(--leaf)}
+.step.now .dot{border-color:var(--copper);color:var(--copper);animation:pulse 1.6s infinite}
+.step.now .lbl{color:var(--copper)}
+@keyframes pulse{50%{box-shadow:0 0 0 8px rgba(217,142,50,.15)}}
+.items{margin-top:1.2rem}
+.items .it{display:flex;justify-content:space-between;padding:.4em 0;border-bottom:1px dashed var(--line);font-size:.9rem}
+.items .it span:last-child{font-family:var(--mono);color:var(--cream-dim)}
+.meta{display:flex;justify-content:space-between;margin-top:1rem;font-family:var(--mono);font-size:.72rem;color:var(--mute)}
+.meta b{color:var(--leaf);font-size:.95rem}
 </style>
 </head>
 <body>
@@ -53,88 +59,106 @@ input:focus{outline:none;border-color:var(--copper)}
   <div class="gate">
     <div class="door">
       <div class="mark">📦</div>
-      <h1 data-i18n-t="track_title">Track your order</h1>
+      <h1 data-i18n="track_title">Track your order</h1>
       <p class="sub">Moka House · Live status</p>
-      <form id="trackForm" autocomplete="off">
-        <label><span class="lbl" data-i18n-t="track_ph">Order # (e.g. MH-1234)</span><input id="orderNo" placeholder="MH-1234" spellcheck="false"></label>
-        <button class="go" type="submit" data-i18n-t="track_btn">Track</button>
+      <form id="trackForm">
+        <label><span class="lbl" data-i18n="track_ph">Order number (e.g. MH-1234)</span><input id="orderNo" placeholder="MH-1234" required></label>
+        <button class="go" type="submit" data-i18n="track_btn">Track ◆</button>
       </form>
       <p class="err" id="err" hidden></p>
-      <div id="result" hidden>
-        <div class="res-head"><b id="rNo"></b><span class="pill" id="rStatus"></span></div>
+      <div class="result" id="result" hidden>
+        <div class="order-head">
+          <span class="order-no" id="rNo"></span>
+          <span class="order-status" id="rStatus"></span>
+        </div>
         <div class="steps" id="rSteps"></div>
         <div class="items" id="rItems"></div>
-        <div class="res-meta"><span id="rPickup"></span><b id="rTotal"></b></div>
+        <div class="meta"><span id="rPickup"></span><b id="rTotal"></b></div>
       </div>
     </div>
   </div>
   <a class="back-shop" href="/" data-i18n="back_shop">← Back to the shop</a>
 </main>
 
+<!-- ✍️ CREDIT — static -->
+<div style="display:flex;gap:1.2rem;flex-wrap:wrap;justify-content:center;align-items:center;padding:1.1rem 1rem 1.5rem;font-family:'Space Mono',monospace;font-size:.66rem;letter-spacing:.1em;color:#93866f;text-align:center;margin-top:2rem">
+  <span data-i18n="bot_credit">Built by</span>&nbsp;<b style="color:#d98e32">ERMIAS AMARE</b>
+  <a href="mailto:amareermias@gmail.com" style="color:inherit;text-decoration:none;border-bottom:1px dashed #93866f">amareermias@gmail.com</a>
+  <a href="tel:+251976021007" style="color:inherit;text-decoration:none;border-bottom:1px dashed #93866f">+251 976 021 007</a>
+</div>
+
 <script>
 const $=s=>document.querySelector(s);
 const TRACK_I18N={
-en:{track_title:'Track your order',track_ph:'Order # (e.g. MH-1234)',track_btn:'Track',st_queued:'Queued',st_brewing:'Brewing',st_ready:'Ready',st_picked:'Picked up',tr_items:'Items',tr_total:'Total',tr_pickup:'Pickup',tr_notfound:'Order not found — check the number.'},
-am:{track_title:'ትዕዛዝን ተከታተል',track_ph:'ትዕዛዝ ቁጥር (ለምሳሌ MH-1234)',track_btn:'ተከታተል',st_queued:'በወረፋ',st_brewing:'በማፍያ ላይ',st_ready:'ተዘጋጅቷል',st_picked:'ተወስዷል',tr_items:'እቃዎች',tr_total:'ድምር',tr_pickup:'መውሰጃ',tr_notfound:'ትዕዛዙ አልተገኘም — ቁጥሩን አረጋጥ።'},
-ar:{track_title:'تتبع طلبك',track_ph:'رقم الطلب (مثلاً MH-1234)',track_btn:'تتبع',st_queued:'في الانتظار',st_brewing:'يُحضَّر',st_ready:'جاهز',st_picked:'تم الاستلام',tr_items:'الأصناف',tr_total:'المجموع',tr_pickup:'الاستلام',tr_notfound:'الطلب غير موجود — تحقق من الرقم.'},
-fr:{track_title:'Suivez votre commande',track_ph:'N° de commande (ex. MH-1234)',track_btn:'Suivre',st_queued:'En file',st_brewing:'Préparation',st_ready:'Prête',st_picked:'Retirée',tr_items:'Articles',tr_total:'Total',tr_pickup:'Retrait',tr_notfound:'Commande introuvable — vérifiez le numéro.'},
-es:{track_title:'Sigue tu pedido',track_ph:'Nº de pedido (ej. MH-1234)',track_btn:'Seguir',st_queued:'En cola',st_brewing:'Preparando',st_ready:'Listo',st_picked:'Recogido',tr_items:'Artículos',tr_total:'Total',tr_pickup:'Recogida',tr_notfound:'Pedido no encontrado — revisa el número.'},
-om:{track_title:'Ajaja kee hordofi',track_ph:'Lak. ajajaa (fkn. MH-1234)',track_btn:'Hordofi',st_queued:'Eeggataa',st_brewing:'Qophaa\'aa',st_ready:'Qophii',st_picked:'Fudhatame',tr_items:'Wanta',tr_total:'Walii gala',tr_pickup:'Fudhachuu',tr_notfound:'Ajajni hin argamne — lakkoofsa mirkaneessi.'},
-ti:{track_title:'ትእዛዝካ ስዓብ',track_ph:'ቁ. ትእዛዝ (ንኣ. MH-1234)',track_btn:'ስዓብ',st_queued:'ኣብ ',st_brewing:'ይዳሎ',st_ready:'ተዳልዩ',st_picked:'ተወሲዱ',tr_items:'እቑ',tr_total:'ድምር',tr_pickup:'ምውሳድ',tr_notfound:'ትእዛዝ ይተረበን — ጽሪ ኣረጋግጽ'},
-so:{track_title:'Raadi dalbashadaada',track_ph:'Nambarka dalbashada (t.d. MH-1234)',track_btn:'Raadi',st_queued:'Saf',st_brewing:'Diyaarin',st_ready:'Diyaar',st_picked:'La qaatay',tr_items:'Alaabta',tr_total:'Wadarta',tr_pickup:'Qaadasho',tr_notfound:'Dalbashadu ma jirto — nambarka hubi.'}
+en:{track_title:'Track your order',track_ph:'Order number (e.g. MH-1234)',track_btn:'Track ◆',st_queued:'Queued',st_brewing:'Brewing',st_ready:'Ready',st_picked:'Picked up',tr_items:'Items',tr_pickup:'Pickup',not_found:'Order not found — check the number.'},
+am:{track_title:'ትዕዛዝን ተታተል',track_ph:'የትዕዛዝ ቁጥር (ለምሳሌ MH-1234)',track_btn:'ተከታተል ◆',st_queued:'በወረፋ',st_brewing:'በማፍያ ላይ',st_ready:'ተዘጋጅቷል',st_picked:'ተወስዷል',tr_items:'እቃዎች',tr_pickup:'መውሰጃ',not_found:'ትዕዛዙ አልተገም — ቁሩን አጋጥ።'},
+ar:{track_title:'تتبع طلبك',track_ph:'رقم الطلب (مثلاً MH-1234)',track_btn:'تتبع ◆',st_queued:'في الانتظار',st_brewing:'يُحضَّر',st_ready:'جاهز',st_picked:'تم الاستلام',tr_items:'الأصناف',tr_pickup:'الاستلام',not_found:'الطلب غير موجود — تحقق من الرقم.'},
+fr:{track_title:'Suivez votre commande',track_ph:'N° de commande (ex. MH-1234)',track_btn:'Suivre ◆',st_queued:'En file',st_brewing:'Préparation',st_ready:'Prête',st_picked:'Retirée',tr_items:'Articles',tr_pickup:'Retrait',not_found:'Commande introuvable — vérifiez le numéro.'},
+es:{track_title:'Sigue tu pedido',track_ph:'Nº de pedido (ej. MH-1234)',track_btn:'Seguir ◆',st_queued:'En cola',st_brewing:'Preparando',st_ready:'Listo',st_picked:'Recogido',tr_items:'Artículos',tr_pickup:'Recogida',not_found:'Pedido no encontrado — revisa el número.'},
+om:{track_title:'Ajaja kee hordofi',track_ph:'Lak. ajajaa (fkn. MH-1234)',track_btn:'Hordofi ◆',st_queued:'Eeggataa',st_brewing:'Qophaa\'aa',st_ready:'Qophii',st_picked:'Fudhatame',tr_items:'Wanta',tr_pickup:'Fudhachuu',not_found:'Ajajni hin argamne — lakkoofsa mirkaneessi.'},
+ti:{track_title:'ትእዛዝካ ስዓብ',track_ph:'ቁ. ትእዛዝ (ንኣ. MH-1234)',track_btn:'ስዓብ ◆',st_queued:'ኣ ወረፋ',st_brewing:'ይዳሎ',st_ready:'ተዳልዩ',st_picked:'ተወሲዱ',tr_items:'እቑ',tr_pickup:'ምውሳድ',not_found:'ትእዛዝ ኣይተረኽበን — ቁጽሪ ኣረጋግጽ'},
+so:{track_title:'Raadi dalbashadaada',track_ph:'Nambarka dalbashada (t.d. MH-1234)',track_btn:'Raadi ◆',st_queued:'Saf',st_brewing:'Diyaarin',st_ready:'Diyaar',st_picked:'La qaatay',tr_items:'Alaabta',tr_pickup:'Qaadasho',not_found:'Dalbashadu ma jirto — nambarka hubi.'}
 };
 let LANG=localStorage.getItem('moka-lang')||'en';
-const D=()=>Object.assign({},(window.__I18N||{})[LANG]||{},TRACK_I18N[LANG]||{});
+window.__I18N=window.__I18N||{};
+const D=()=>Object.assign({},window.__I18N[LANG]||{},TRACK_I18N[LANG]||{});
 function applyLang(lang){
   LANG=lang;localStorage.setItem('moka-lang',lang);
   const d=D();
-  document.querySelectorAll('[data-i18n-t]').forEach(el=>{const v=d[el.dataset.i18nT];if(v!=null)el.textContent=v;});
-  document.querySelectorAll('[data-i18n]').forEach(el=>{const v=d[el.dataset.i18n];if(v!=null)el.textContent=v;});
+  document.querySelectorAll('[data-i18n]').forEach(el=>{
+    const v=d[el.dataset.i18n];
+    if(v!=null)el.textContent=v;
+  });
   document.documentElement.lang=lang;
   document.documentElement.dir=(lang==='ar')?'rtl':'ltr';
-  const sel=$('#langSwitch');if(sel)sel.value=lang;
+  $('#langSwitch').value=lang;
   if(lastOrder)render(lastOrder);
 }
+(async()=>{
+  try{const langs=await fetch('/api/i18n').then(r=>r.json());
+    for(const l of langs){
+      if(!window.__I18N[l]){
+        window.__I18N[l]=await fetch('/api/i18n/'+l).then(r=>r.json());
+      }
+    }
+  }catch{}
+  applyLang(LANG);
+  const urlNo=new URLSearchParams(location.search).get('no');
+  if(urlNo){$('#orderNo').value=urlNo;track(urlNo);}
+})();
 $('#langSwitch').addEventListener('change',e=>applyLang(e.target.value));
 
-const STEPS=[['queued','⏳'],['brewing','☕'],['ready','✅'],['picked-up','🎉']];
-let lastOrder=null,refreshIv=null;
-
+const STEPS=[['queued','⏳','st_queued'],['brewing','☕','st_brewing'],['ready','✅','st_ready'],['picked-up','🎉','st_picked']];
+let lastOrder=null;
 function render(o){
   const d=D();
-  $('#result').hidden=false;$('#err').hidden=true;
+  $('#result').hidden=false;
   $('#rNo').textContent=o.no;
-  const key={queued:'st_queued',brewing:'st_brewing',ready:'st_ready','picked-up':'st_picked'}[o.status]||'st_queued';
-  $('#rStatus').textContent=d[key]||o.status;
+  $('#rStatus').textContent=d['st_'+({queued:'queued',brewing:'brewing',ready:'ready','picked-up':'picked'}[o.status]||'queued')]||o.status;
   const idx=STEPS.findIndex(s=>s[0]===o.status);
-  $('#rSteps').innerHTML=STEPS.map(([k,ic],i)=>`<div class="step ${i<idx?'done':i===idx?'now':''} ${o.status==='picked-up'&&i===3?'done':''}"><div class="dot">${ic}</div>${d[{queued:'st_queued',brewing:'st_brewing',ready:'st_ready','picked-up':'st_picked'}[k]]}</div>`).join('');
-  $('#rItems').innerHTML=`<div class="it" style="color:var(--cream-mute);font-family:var(--mono);font-size:.62rem;letter-spacing:.14em;text-transform:uppercase;margin-bottom:.4rem">${d.tr_items}</div>`+
+  $('#rSteps').innerHTML=STEPS.map(([k,ic,lbl],i)=>{
+    const cls=i<idx?'done':(i===idx?'now':'');
+    return `<div class="step ${cls}"><div class="dot">${i<idx?'✓':ic}</div><div class="lbl">${d[lbl]||k}</div></div>`;
+  }).join('');
+  $('#rItems').innerHTML=`<div style="font-family:var(--mono);font-size:.6rem;letter-spacing:.16em;text-transform:uppercase;color:var(--mute);margin-bottom:.5rem">${d.tr_items||'Items'}</div>`+
     o.items.map(i=>`<div class="it"><span>${i.qty}× ${i.name}</span><span>$${(i.price*i.qty).toFixed(2)}</span></div>`).join('');
-  $('#rPickup').textContent=`${d.tr_pickup}: ${o.pickup}`;
+  $('#rPickup').textContent=`${d.tr_pickup||'Pickup'}: ${o.pickup}`;
   $('#rTotal').textContent='$'+o.subtotal.toFixed(2);
 }
-
-async function track(no,silent){
+async function track(no){
+  $('#err').hidden=true;$('#result').hidden=true;
   try{
-    const r=await fetch('/api/track/'+encodeURIComponent(no));
-    if(!r.ok){lastOrder=null;if(!silent){$('#err').textContent=D().tr_notfound;$('#err').hidden=false;$('#result').hidden=true;}return;}
-    lastOrder=await r.json();render(lastOrder);
-  }catch(_){if(!silent){$('#err').textContent=D().tr_notfound;$('#err').hidden=false;}}
+    const r=await fetch('/api/track/'+encodeURIComponent(no.trim().toUpperCase()));
+    if(!r.ok){$('#err').textContent=D().not_found||'Order not found';$('#err').hidden=false;return;}
+    lastOrder=await r.json();
+    render(lastOrder);
+  }catch(_){$('#err').textContent='Server unreachable';$('#err').hidden=false;}
 }
-
 $('#trackForm').addEventListener('submit',e=>{
   e.preventDefault();
-  const no=$('#orderNo').value.trim().toUpperCase();
-  if(!no)return;
-  $('#orderNo').value=no;
-  track(no,false);
-  clearInterval(refreshIv);
-  refreshIv=setInterval(()=>{if(lastOrder&&!document.hidden)track(lastOrder.no,true);},5000);
+  track($('#orderNo').value);
 });
-
-applyLang(LANG);
-const params=new URLSearchParams(location.search).get('no');
-if(params){$('#orderNo').value=params.toUpperCase();track(params.toUpperCase(),false);}
+setInterval(()=>{if(lastOrder&&!document.hidden)track(lastOrder.no);},8000);
 </script>
 </body>
 </html>
