@@ -1,52 +1,39 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="icon" type="image/svg+xml" href="/favicon.svg">
 <meta name="theme-color" content="#171110">
-<title>Staff entrance — Moka House</title>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..900;1,9..144,300..900&family=Space+Grotesk:wght@400;500;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
-<script src="https://accounts.google.com/gsi/client" async defer></script>
+<title>Log in — Moka House</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300..900&family=Space+Grotesk:wght@400;500;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
 <style>
-:root{--bg:#171110;--panel:#221a15;--line2:rgba(241,230,212,.28);--cream:#f1e6d4;--cream-mute:#93866f;--copper:#d98e32;--copper-soft:#e8b56b;--tomato:#cf5636;--disp:"Fraunces",serif;--mono:"Space Mono",monospace}
+:root{--bg:#171110;--panel:#221a15;--line:rgba(241,230,212,.28);--cream:#f1e6d4;--cream-dim:#c6b79e;--mute:#93866f;--copper:#d98e32;--csoft:#e8b56b;--leaf:#8fa87e;--tomato:#cf5636;--gblue:#4285F4;--disp:"Fraunces",serif;--mono:"Space Mono",monospace}
 *{margin:0;padding:0;box-sizing:border-box}
-body{min-height:100svh;background:var(--bg);background-image:radial-gradient(900px 500px at 70% -10%,rgba(217,142,50,.1),transparent 60%);color:var(--cream);font-family:"Space Grotesk",sans-serif;display:grid;place-items:center;padding:24px}
+body{min-height:100svh;background:var(--bg);background-image:radial-gradient(900px 500px at 30% -10%,rgba(217,142,50,.1),transparent 60%);color:var(--cream);font-family:"Space Grotesk",sans-serif;display:grid;place-items:center;padding:24px}
 .lang-switch{position:fixed;top:14px;right:14px;z-index:200;background:#221a15;border:1.5px solid rgba(217,142,50,.6);border-radius:8px;padding:.35em .6em;font-family:var(--mono);font-size:.7rem;color:var(--copper);cursor:pointer}
 [dir="rtl"] .lang-switch{right:auto;left:14px}
-.gate{position:relative;width:min(420px,94vw)}
-.steam{position:absolute;top:-46px;left:50%;transform:translateX(-50%);display:flex;gap:12px}
-.steam i{width:8px;height:56px;border-radius:50%;background:rgba(241,230,212,.45);filter:blur(6px);animation:rise 3.2s ease-in-out infinite}
-.steam i:nth-child(2){animation-delay:1s;height:70px}
-.steam i:nth-child(3){animation-delay:2s}
-@keyframes rise{0%{transform:translateY(18px);opacity:0}30%{opacity:.8}100%{transform:translateY(-52px);opacity:0}}
-.door{position:relative;background:var(--panel);border:1px solid var(--line2);border-radius:12px;padding:2.4rem 2.1rem 2rem;box-shadow:0 24px 60px -20px rgba(0,0,0,.7)}
-.door.shake{animation:shake .35s}
-@keyframes shake{20%{transform:translateX(-8px)}40%{transform:translateX(7px)}60%{transform:translateX(-5px)}80%{transform:translateX(4px)}}
+.gate{position:relative;width:min(480px,94vw)}
+.door{position:relative;background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:2.2rem 2rem 1.8rem;box-shadow:0 24px 60px -20px rgba(0,0,0,.7)}
 .mark{font-size:2rem;margin-bottom:.5rem}
-h1{font-family:var(--disp);font-weight:900;font-size:1.8rem}
-.sub{font-family:var(--mono);font-size:.62rem;letter-spacing:.28em;text-transform:uppercase;color:var(--copper);margin:.4rem 0 1.7rem}
-label{display:block;font-family:var(--mono);font-size:.6rem;letter-spacing:.2em;text-transform:uppercase;color:var(--cream-mute);margin-bottom:1rem}
-label span.lbl{display:block;margin-bottom:.4rem}
-input{width:100%;background:var(--bg);border:1.5px solid var(--line2);border-radius:6px;padding:.8em 1em;color:var(--cream);font-family:var(--mono);font-size:.9rem;text-transform:none}
+h1{font-family:var(--disp);font-weight:900;font-size:1.6rem}
+.sub{font-family:var(--mono);font-size:.6rem;letter-spacing:.26em;text-transform:uppercase;color:var(--copper);margin:.4rem 0 1.5rem}
+label{display:block;font-family:var(--mono);font-size:.58rem;letter-spacing:.18em;text-transform:uppercase;color:var(--mute);margin-bottom:.9rem}
+label span.lbl{display:block;margin-bottom:.35rem}
+input{width:100%;background:var(--bg);border:1.5px solid var(--line);border-radius:6px;padding:.8em 1em;color:var(--cream);font-family:var(--mono);font-size:.95rem}
 input:focus{outline:none;border-color:var(--copper)}
-.pw-wrap{position:relative;display:block}
-.pw-wrap input{padding-right:3em}
-.peek{position:absolute;right:6px;top:50%;transform:translateY(-50%);background:none;border:none;font-size:1rem;opacity:.6;cursor:pointer}
-.err{font-family:var(--mono);font-size:.7rem;color:var(--tomato);margin:-.2rem 0 .9rem}
-.gstatus{display:none;font-family:var(--mono);font-size:.66rem;line-height:1.7;color:var(--copper-soft);background:rgba(217,142,50,.08);border:1px dashed var(--copper);border-radius:6px;padding:.8em 1em;margin:.9rem 0}
-.go{width:100%;background:var(--copper);color:#191008;border:none;font-family:var(--mono);font-weight:700;font-size:.76rem;letter-spacing:.16em;text-transform:uppercase;padding:1em;border-radius:6px;cursor:pointer}
-.go:hover{background:var(--copper-soft)}
-.go[disabled]{opacity:.5}
-.divider{display:flex;align-items:center;gap:1em;margin:1.2rem 0 1rem;color:var(--cream-mute);font-family:var(--mono);font-size:.56rem;letter-spacing:.26em;text-transform:uppercase}
-.divider::before,.divider::after{content:"";flex:1;border-top:1px dashed var(--line2)}
-.gbtn{display:flex;justify-content:center;min-height:44px}
-.alt{text-align:center;margin-top:1.2rem;font-size:.82rem;color:var(--cream-mute)}
-.alt a{color:var(--copper);text-decoration:none;border-bottom:1px dashed var(--copper)}
-.foot{font-family:var(--mono);font-size:.56rem;letter-spacing:.18em;text-transform:uppercase;color:var(--cream-mute);text-align:center;margin-top:1.1rem}
-.back-shop{display:inline-block;margin-top:1.2rem;font-family:var(--mono);font-size:.66rem;letter-spacing:.14em;color:var(--cream-mute);text-decoration:none}
-.back-shop:hover{color:var(--copper-soft)}
-@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.steam{display:none}}
+.err{font-family:var(--mono);font-size:.7rem;color:var(--tomato);margin:.6rem 0}
+.go{width:100%;background:var(--copper);color:#191008;border:none;font-family:var(--mono);font-weight:700;font-size:.76rem;letter-spacing:.16em;text-transform:uppercase;padding:1em;border-radius:6px;cursor:pointer;margin-top:.3rem}
+.go:hover{background:var(--csoft)}
+.divider{display:flex;align-items:center;gap:.8rem;margin:1.2rem 0;color:var(--mute);font-family:var(--mono);font-size:.6rem;letter-spacing:.2em;text-transform:uppercase}
+.divider::before,.divider::after{content:"";flex:1;height:1px;background:var(--line)}
+.google-btn{width:100%;background:#fff;color:#191008;border:none;font-family:var(--mono);font-weight:700;font-size:.76rem;letter-spacing:.1em;padding:.95em;border-radius:6px;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:.7em}
+.google-btn:hover{background:#f1e6d4}
+.google-btn svg{width:18px;height:18px}
+.swap{display:block;text-align:center;margin-top:1.2rem;font-family:var(--mono);font-size:.72rem;color:var(--mute)}
+.swap a{color:var(--copper);text-decoration:none}
+.swap a:hover{text-decoration:underline}
+.back-shop{display:inline-block;margin-top:1.2rem;font-family:var(--mono);font-size:.66rem;letter-spacing:.14em;color:var(--mute);text-decoration:none}
+.back-shop:hover{color:var(--csoft)}
 </style>
 </head>
 <body>
@@ -57,115 +44,111 @@ input:focus{outline:none;border-color:var(--copper)}
 </select>
 <main style="display:grid;justify-items:center">
   <div class="gate">
-    <div class="steam" aria-hidden="true"><i></i><i></i><i></i></div>
-    <div class="door" id="door">
-      <div class="mark">☕</div>
-      <h1>MOKA HOUSE</h1>
-      <p class="sub">Back door · የአስተዳደር መግያ</p>
-      <form id="loginForm" autocomplete="off">
-        <label><span class="lbl" data-i18n="user_email">Username or Email</span><input id="user" type="text" spellcheck="false" autofocus></label>
-        <label><span class="lbl" data-i18n="password">Password</span>
-          <span class="pw-wrap">
-            <input id="pass" type="password">
-            <button type="button" class="peek" id="peek" aria-label="Show password">👁</button>
-          </span>
-        </label>
-        <p class="err" id="err" hidden></p>
-        <button class="go" id="goBtn" type="submit" data-i18n="unlock">Unlock the back room ◆</button>
+    <div class="door">
+      <div class="mark">⚿</div>
+      <h1 data-i18n="login_title">Log in</h1>
+      <p class="sub">Moka House · Staff & Members</p>
+      <form id="loginForm" autocomplete="on">
+        <label><span class="lbl" data-i18n="login_user">Username or email</span><input id="user" placeholder="erscomas or you@mail.com" autocomplete="username" required></label>
+        <label><span class="lbl" data-i18n="login_pass">Password</span><input id="pass" type="password" autocomplete="current-password" required></label>
+        <button class="go" type="submit" data-i18n="login">Log in</button>
       </form>
-      <div class="gstatus" id="gStatus"></div>
-      <div class="divider" id="divider" hidden><span>or</span></div>
-      <div class="gbtn" id="gBtn"></div>
-      <p class="alt"><span data-i18n="new_here">New here?</span> <a href="/register.html" data-i18n="register">Create an account</a></p>
-      <p class="foot">Staff & customers · sessions last 12 hours</p>
+      <p class="err" id="err" hidden></p>
+      <div class="divider" data-i18n="or">or</div>
+      <button class="google-btn" id="googleBtn" style="display:none">
+        <svg viewBox="0 0 24 24"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg>
+        <span data-i18n="google">Continue with Google</span>
+      </button>
+      <p class="swap"><span data-i18n="no_account">No account?</span> <a href="/register.html" data-i18n="register">Register</a></p>
     </div>
   </div>
   <a class="back-shop" href="/" data-i18n="back_shop">← Back to the shop</a>
 </main>
+
+<!-- ✍️ CREDIT — static -->
+<div style="display:flex;gap:1.2rem;flex-wrap:wrap;justify-content:center;align-items:center;padding:1.1rem 1rem 1.5rem;font-family:'Space Mono',monospace;font-size:.66rem;letter-spacing:.1em;color:#93866f;text-align:center;margin-top:2rem">
+  <span data-i18n="bot_credit">Built by</span>&nbsp;<b style="color:#d98e32">ERMIAS AMARE</b>
+  <a href="mailto:amareermias@gmail.com" style="color:inherit;text-decoration:none;border-bottom:1px dashed #93866f">amareermias@gmail.com</a>
+  <a href="tel:+251976021007" style="color:inherit;text-decoration:none;border-bottom:1px dashed #93866f">+251 976 021 007</a>
+</div>
+
 <script>
-const $ = s => document.querySelector(s);
+const $=s=>document.querySelector(s);
 const LOGIN_I18N={
-en:{user_email:'Username or Email',unlock:'Unlock the back room ◆',new_here:'New here?'},
-am:{user_email:'የተጠሚ ስም ይም ኢሜይል',unlock:'የኋላውን ክፍል ፈት ◆',new_here:'አዲስ ነህ?'},
-ar:{user_email:'اسم المستخدم أو البريد',unlock:'افتح الغرفة الخلفية ◆',new_here:'جديد هنا؟'},
-fr:{user_email:'Nom d\'utilisateur ou e-mail',unlock:'Ouvrir ◆',new_here:'Nouveau ?'},
-es:{user_email:'Usuario o correo',unlock:'Abrir ◆',new_here:'¿Nuevo?'},
-om:{user_email:'Maqaa fayyadamaa ykn imeelii',unlock:'Bani ◆',new_here:'Haaraa?'},
-ti:{user_email:'ስም ተጠቃሚ ወይ ኢመይል',unlock:'ክፈት ◆',new_here:'ሓድሽ?'},
-so:{user_email:'Magaca isticmaale ama iimayl',unlock:'Fur ◆',new_here:'Cusub?'}
+en:{login_title:'Log in',login_user:'Username or email',login_pass:'Password',login:'Log in',or:'or',google:'Continue with Google',no_account:'No account?',register:'Register'},
+am:{login_title:'ግባ',login_user:'ተጠቃሚ ስም ወይም ኢሜይል',login_pass:'የይለፍ ቃል',login:'ግባ',or:'ወይም',google:'በGoogle ቀጥል',no_account:'መለያ የለህም?',register:'ተመዝገብ'},
+ar:{login_title:'دخول',login_user:'اسم المستخدم أو البريد',login_pass:'كلمة المرور',login:'دخول',or:'أو',google:'تابع مع Google',no_account:'ليس لديك حساب؟',register:'تسجيل'},
+fr:{login_title:'Connexion',login_user:'Nom d\'utilisateur ou e-mail',login_pass:'Mot de passe',login:'Connexion',or:'ou',google:'Continuer avec Google',no_account:'Pas de compte?',register:'S\'inscrire'},
+es:{login_title:'Entrar',login_user:'Usuario o correo',login_pass:'Contraseña',login:'Entrar',or:'o',google:'Continuar con Google',no_account:'¿Sin cuenta?',register:'Registrarse'},
+om:{login_title:'Seeni',login_user:'Maqaa ykn imeelii',login_pass:'Jecha darbii',login:'Seeni',or:'ykn',google:'Google waliin itti fufi',no_account:'Herrega hin qabdu?',register:'Galmaa\'i'},
+ti:{login_title:'እቶ',login_user:'ስም ወይ ኢመይል',login_pass:'ፓስዎርድ',login:'እቶ',or:'ወይ',google:'ብGoogle ቀጽል',no_account:'ሕሳብ የብልካን?',register:'ተመዝገብ'},
+so:{login_title:'Soo gal',login_user:'Magac ama iimayl',login_pass:'Furaha',login:'Soo gal',or:'ama',google:'Ku sii wad Google',no_account:'Xisaab ma leedahay?',register:'Is diiwaan geli'}
 };
 let LANG=localStorage.getItem('moka-lang')||'en';
+window.__I18N=window.__I18N||{};
 function applyLang(lang){
   LANG=lang;localStorage.setItem('moka-lang',lang);
-  const d=Object.assign({},(window.__I18N||{})[lang]||{},LOGIN_I18N[lang]||{});
-  document.querySelectorAll('[data-i18n]').forEach(el=>{const v=d[el.dataset.i18n];if(v!=null)el.textContent=v;});
+  const d=Object.assign({},window.__I18N[lang]||{},LOGIN_I18N[lang]||{});
+  document.querySelectorAll('[data-i18n]').forEach(el=>{
+    const v=d[el.dataset.i18n];
+    if(v!=null)el.textContent=v;
+  });
   document.documentElement.lang=lang;
   document.documentElement.dir=(lang==='ar')?'rtl':'ltr';
-  const sel=$('#langSwitch');if(sel)sel.value=lang;
+  $('#langSwitch').value=lang;
 }
+(async()=>{
+  try{const langs=await fetch('/api/i18n').then(r=>r.json());
+    for(const l of langs){
+      if(!window.__I18N[l]){
+        window.__I18N[l]=await fetch('/api/i18n/'+l).then(r=>r.json());
+      }
+    }
+  }catch{}
+  applyLang(LANG);
+})();
 $('#langSwitch').addEventListener('change',e=>applyLang(e.target.value));
 
-function fail(msg){
-  const door=$('#door'),err=$('#err');
-  err.textContent=msg;err.hidden=false;
-  door.classList.remove('shake');void door.offsetWidth;door.classList.add('shake');
-}
-function googleHelp(extra){
-  const s=$('#gStatus');s.style.display='block';
-  s.innerHTML=(extra?'<b>'+extra+'</b><br>':'')+
-    'Google ችግር ከሆነ በ console.cloud.google.com ላይ፦<br>'+
-    '1) OAuth consent screen → External → Test users ውስጥ Gmailህን ጨምር<br>'+
-    '2) Credentials → Client ID → Authorized JavaScript origins → የሳይቱን URL ጨምር<br>'+
-    '3) Save → 5 ደቂ ጠብቅ';
-}
-fetch('/api/admin/check').then(r=>{if(r.ok)location.replace('/admin.html');});
-$('#peek').onclick=()=>{const p=$('#pass');p.type=p.type==='password'?'text':'password';};
+/* Google Sign-In */
+(async()=>{
+  try{
+    const cfg=await fetch('/api/auth/google-config').then(r=>r.json());
+    if(!cfg.enabled)return;
+    $('#googleBtn').style.display='flex';
+    const s=document.createElement('script');
+    s.src='https://accounts.google.com/gsi/client';s.async=true;s.defer=true;
+    document.head.appendChild(s);
+    s.onload=()=>{
+      google.accounts.id.initialize({
+        client_id:cfg.clientId,
+        callback:async({credential})=>{
+          try{
+            const r=await fetch('/api/auth/google',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({credential})});
+            const d=await r.json();
+            if(r.ok)location.href='/';
+            else{$('#err').textContent=d.error||'Google failed';$('#err').hidden=false;}
+          }catch(_){$('#err').textContent='Server unreachable';$('#err').hidden=false;}
+        }
+      });
+      google.accounts.id.renderButton($('#googleBtn'),{type:'standard',theme:'filled_blue',size:'large',width:420});
+    };
+  }catch{}
+})();
 
 $('#loginForm').addEventListener('submit',async e=>{
   e.preventDefault();
-  const btn=$('#goBtn');$('#err').hidden=true;
-  btn.disabled=true;btn.textContent='Checking…';
+  const user=$('#user').value.trim(),pass=$('#pass').value;
+  $('#err').hidden=true;
   try{
-    const r=await fetch('/api/admin/login',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({user:$('#user').value.trim(),pass:$('#pass').value})});
-    const d=await r.json().catch(()=>({}));
-    if(r.ok){location.replace('/admin.html');return;}
-    fail(d.error||'Wrong username or password');
-  }catch(_){fail('Server unreachable — is the site online?');}
-  btn.disabled=false;
+    const r=await fetch('/api/admin/login',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({user,pass})});
+    const d=await r.json();
+    if(r.ok){
+      location.href=(d.role==='customer')?'/':'/admin.html';
+    }else{
+      $('#err').textContent=d.error||'Login failed';$('#err').hidden=false;
+    }
+  }catch(_){$('#err').textContent='Server unreachable';$('#err').hidden=false;}
 });
-
-async function onGoogle(response){
-  try{
-    const r=await fetch('/api/auth/google',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({credential:response.credential})});
-    const d=await r.json().catch(()=>({}));
-    if(r.ok){location.replace('/admin.html');return;}
-    fail(d.error||'Google sign-in failed');googleHelp(d.error);
-  }catch(_){fail('Server unreachable');googleHelp();}
-}
-function onGoogleError(e){
-  let msg='';try{msg=e&&e.getMessage?e.getMessage():(e.type||'blocked');}catch(_){msg='blocked';}
-  googleHelp('Google error: '+msg);
-}
-(async function initGoogle(){
-  const status=$('#gStatus');
-  let cfg;
-  try{cfg=await fetch('/api/auth/google-config').then(r=>r.json());}
-  catch(_){status.style.display='block';status.textContent='⚠️ Server unreachable';return;}
-  if(!cfg.enabled){status.style.display='block';status.textContent='⚠️ Google not configured on server';return;}
-  $('#divider').hidden=false;
-  let tries=0;
-  const tryRender=()=>{
-    if(window.google&&google.accounts){
-      try{
-        google.accounts.id.initialize({client_id:cfg.clientId,callback:onGoogle,error_callback:onGoogleError});
-        google.accounts.id.renderButton($('#gBtn'),{theme:'filled_black',size:'large',shape:'pill',text:'continue_with',width:330,logo_alignment:'center'});
-      }catch(_){googleHelp('Button render failed');}
-    }else if(tries++<40)setTimeout(tryRender,250);
-    else googleHelp('⚠️ Google script failed to load — internet / ad-blocker?');
-  };
-  tryRender();
-})();
-applyLang(LANG);
 </script>
 </body>
 </html>
