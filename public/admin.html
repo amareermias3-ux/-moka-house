@@ -114,6 +114,7 @@ td{padding:.55em .5em;border-bottom:1px dashed var(--line);font-size:.85rem;vert
     <button class="tab-btn" data-tab="ai" id="tabBtnAi" data-i18n="tab_ai">AI Knowledge</button>
     <button class="tab-btn" data-tab="wallet" id="tabBtnWallet" data-i18n="tab_wallet">💰 Wallet</button>
     <button class="tab-btn" data-tab="settings" id="tabBtnSettings" data-i18n="tab_settings">⚙️ Payments</button>
+    <button class="tab-btn" data-tab="security" id="tabBtnSecurity" data-i18n="tab_security">🛡️ Security</button>
     <button class="tab-btn" data-tab="aichat" data-i18n="tab_testai">Test AI</button>
   </div>
 
@@ -270,6 +271,19 @@ td{padding:.55em .5em;border-bottom:1px dashed var(--line);font-size:.85rem;vert
     </div>
   </div>
 
+  <div class="tab-panel" id="tab-security">
+    <div class="grid-2">
+      <div class="panel">
+        <h3 data-i18n="sec_blocked">Blocked IPs</h3>
+        <div id="secBlocked"></div>
+      </div>
+      <div class="panel">
+        <h3 data-i18n="sec_events">Security events</h3>
+        <div id="secEvents" style="max-height:320px;overflow-y:auto;font-family:var(--mono);font-size:.66rem;color:var(--dim)"></div>
+      </div>
+    </div>
+  </div>
+
   <div class="tab-panel" id="tab-aichat">
     <div class="panel" style="max-width:520px">
       <h3 data-i18n="test_bot">Test Barista Bot</h3>
@@ -307,7 +321,6 @@ function myPerms(){
   return{};
 }
 
-/* ===== ⬇ export ===== */
 function download(name,mime,text){
   const a=document.createElement('a');
   a.href=URL.createObjectURL(new Blob([text],{type:mime}));
@@ -316,10 +329,10 @@ function download(name,mime,text){
 const csvEsc=v=>{v=String(v??'');return /[",\n]/.test(v)?'"'+v.replace(/"/g,'""')+'"':v;};
 const toCSV=rows=>rows.map(r=>r.map(csvEsc).join(',')).join('\n');
 
-/* ===== 🌍 i18n (self-contained) ===== */
+/* ===== 🌍 i18n ===== */
 const ADMIN_I18N={
-en:{tab_dash:'📊 Dashboard',tab_orders:'Orders',tab_pending:'⏳ Pending',tab_menu:'Menu',tab_posts:'Posts',tab_events:'Events',tab_team:'Team',tab_ai:'AI Knowledge',tab_wallet:'💰 Wallet',tab_settings:'⚙️ Payments',tab_testai:'Test AI',last7:'Last 7 days revenue',activity:'Recent activity',today_orders:'Orders today',today_revenue:'Revenue today',pending:'Pending',avg_order:'Avg order',top_item:'Top item',total_users:'Users',total_orders:'All orders',all_revenue:'All revenue',orders_board:'Orders board',refresh:'Refresh ⟳',add_item:'Add new item',current_board:'Current board',publish_post:'Publish a post',published:'Published',events_seats:'Events — seats',team_title:'Team, roles & moderator permissions',teach_bot:'Teach the bot',known_answers:'Known answers',test_bot:'Test Barista Bot',f_name:'Name',f_cat:'Category',f_price:'Price',f_desc:'Description',f_title:'Title',f_body:'Body',f_keys:'Keywords (comma separated)',f_ans:'Answer',add:'+ Add',publish:'Publish ◆',send:'Send',wallet:'Wallet',balance:'Balance',total_received:'Total received',transfer:'Transfer',transfer_to:'Transfer to',destination:'Destination',amount:'Amount ($)',reference:'Reference',recent:'Recent transactions'},
-am:{tab_dash:'📊 ዳሽቦርድ',tab_orders:'ትዕዛዞች',tab_pending:'⏳ በመጠባበ',tab_menu:'ኑ',tab_posts:'ፖስቶች',tab_events:'ዝግጅቶች',tab_team:'ቡድን',tab_ai:'AI እውቀት',tab_wallet:'💰 ዋሌት',tab_settings:'⚙️ ፍያዎች',tab_testai:'AI ሞክር',last7:'ያለፉት 7 ቀናት ገ',activity:'የቅርብ እንቅስቃሴ',today_orders:'የዛሬ ትዕዛዞች',today_revenue:'የዛሬ ገቢ',pending:'በመጠባበቅ',avg_order:'አማካይ ዕዛዝ',top_item:'ተወዳጅ ምርት',total_users:'ተጠቃሚዎች',total_orders:'ሁሉም ትዕዛዞች',all_revenue:'ጠቅላላ ገቢ',orders_board:'የትዕዛዝ ሌዳ',refresh:'አድስ ⟳',add_item:'አዲስ እቃ ጨምር',current_board:'የአሁኑ ሜኑ',publish_post:'ፖስት አትም',published:'የታተሙ',events_seats:'ዝግጅቶች — መቀመጫ',team_title:'ቡድን፣ ሚና እና ፈቃዶች',teach_bot:'ቦቱን አስተምር',known_answers:'የታወቁ መልሶች',test_bot:'Barista Bot ሞክር',f_name:'ስም',f_cat:'ምድብ',f_price:'ዋጋ',f_desc:'መግለጫ',f_title:'ርዕስ',f_body:'ይዘት',f_keys:'ቁልፍ ቃላት (በኮማ)',f_ans:'መልስ',add:'+ ጨምር',publish:'አትም ◆',send:'ላክ',wallet:'ዋሌት',balance:'ቀ',total_received:'ቅላላ የገባ',transfer:'ላክ',transfer_to:'ወደ',destination:'መድረሻ',amount:'መጠን ($)',reference:'ማጣሻ',recent:'የቅርብ ግብይቶች'}
+en:{tab_dash:'📊 Dashboard',tab_orders:'Orders',tab_pending:'⏳ Pending',tab_menu:'Menu',tab_posts:'Posts',tab_events:'Events',tab_team:'Team',tab_ai:'AI Knowledge',tab_wallet:'💰 Wallet',tab_settings:'⚙️ Payments',tab_security:'🛡️ Security',tab_testai:'Test AI',last7:'Last 7 days revenue',activity:'Recent activity',today_orders:'Orders today',today_revenue:'Revenue today',pending:'Pending',avg_order:'Avg order',top_item:'Top item',total_users:'Users',total_orders:'All orders',all_revenue:'All revenue',orders_board:'Orders board',refresh:'Refresh ⟳',add_item:'Add new item',current_board:'Current board',publish_post:'Publish a post',published:'Published',events_seats:'Events — seats',team_title:'Team, roles & moderator permissions',teach_bot:'Teach the bot',known_answers:'Known answers',test_bot:'Test Barista Bot',sec_blocked:'Blocked IPs',sec_events:'Security events',sec_none:'No threats detected. All clear. ✓',sec_unblock:'Unblock',f_name:'Name',f_cat:'Category',f_price:'Price',f_desc:'Description',f_title:'Title',f_body:'Body',f_keys:'Keywords (comma separated)',f_ans:'Answer',add:'+ Add',publish:'Publish ◆',send:'Send',wallet:'Wallet',balance:'Balance',total_received:'Total received',transfer:'Transfer',transfer_to:'Transfer to',destination:'Destination',amount:'Amount ($)',reference:'Reference',recent:'Recent transactions'},
+am:{tab_dash:'📊 ሽቦርድ',tab_orders:'ትዕዛዞች',tab_pending:'⏳ በመጠባበቅ',tab_menu:'ሜኑ',tab_posts:'ፖስቶች',tab_events:'ዝግጅቶች',tab_team:'ቡድን',tab_ai:'AI እውቀት',tab_wallet:'💰 ዋሌት',tab_settings:'⚙️ ፍያዎች',tab_security:'🛡️ ደህንነት',tab_testai:'AI ሞክር',last7:'ያለፉት 7 ቀናት ገ',activity:'የርብ እንቅስቃሴ',today_orders:'የዛሬ ትዕዛዞች',today_revenue:'የዛሬ ገቢ',pending:'በመጠባበቅ',avg_order:'አማካይ ትዕዛዝ',top_item:'ተወዳጅ ርት',total_users:'ተጠሚዎች',total_orders:'ሁሉም ትዕዛዞች',all_revenue:'ጠቅላላ ገቢ',orders_board:'የትዕዛዝ ሌዳ',refresh:'አድስ ⟳',add_item:'አዲስ እቃ ጨምር',current_board:'የአሁኑ ሜኑ',publish_post:'ፖስት አትም',published:'የታተሙ',events_seats:'ዝግጅቶች — መቀመጫ',team_title:'ቡድን፣ ሚና እና ፈቃዶች',teach_bot:'ቦቱን አስተምር',known_answers:'የታወቁ መልሶች',test_bot:'Barista Bot ሞክር',sec_blocked:'የታዱ IPs',sec_events:'የደህንነት ክስተቶች',sec_none:'ምንም ስጋት አልተገም። ሁሉም ጥሩ ነው። ✓',sec_unblock:'አገዳ አንሳ',f_name:'ስም',f_cat:'ምድብ',f_price:'ዋጋ',f_desc:'መግለጫ',f_title:'ርዕስ',f_body:'ይዘት',f_keys:'ቁል ቃላት (በኮማ)',f_ans:'መልስ',add:'+ ጨምር',publish:'አትም ◆',send:'ላክ',wallet:'ዋሌት',balance:'ቀሪ',total_received:'ጠቅላላ የገባ',transfer:'ላክ',transfer_to:'ወደ',destination:'መድረሻ',amount:'መጠን ($)',reference:'ማጣሻ',recent:'የቅርብ ግብይቶች'}
 };
 let LANG=localStorage.getItem('moka-lang')||'en';
 window.__I18N=window.__I18N||{};
@@ -428,6 +441,24 @@ $('#pendingBoard').addEventListener('click',async e=>{
   if(r&&confirm('Reject this payment?')){await api(`/api/wallet/reject/${r.dataset.reject}`,{method:'POST'});blip('✕ Rejected');loadPending();loadDash();}
 });
 
+/* ===== 🛡️ security ===== */
+async function loadSecurity(){
+  try{
+    const s=await api('/api/security');
+    const d=dictFor(LANG);
+    $('#secBlocked').innerHTML=s.blocked.length? s.blocked.map(b=>`
+      <div class="row" style="justify-content:space-between;padding:.5rem 0;border-bottom:1px dashed var(--line)">
+        <span style="font-family:var(--mono);font-size:.72rem">${b.ip}</span>
+        <button class="btn sm ghost" data-unblock="${b.ip}">${d.sec_unblock||'Unblock'}</button>
+      </div>`).join('') : `<p style="color:var(--leaf)">${d.sec_none||'No threats. ✓'}</p>`;
+    $('#secEvents').innerHTML=s.events.length? s.events.map(e=>`<div style="padding:.25em 0;border-bottom:1px dashed var(--line)">[${new Date(e.t).toLocaleTimeString()}] <b style="color:var(--copper)">${e.type}</b> ${e.ip} — ${e.detail}</div>`).join('') : `<p style="color:var(--mute)">—</p>`;
+  }catch{}
+}
+$('#secBlocked').addEventListener('click',async e=>{
+  const b=e.target.closest('[data-unblock]');
+  if(b){await api('/api/security/unblock',{method:'POST',body:JSON.stringify({ip:b.dataset.unblock})});blip('Unblocked');loadSecurity();}
+});
+
 /* ===== boot ===== */
 async function boot(){
   ME=await api('/api/admin/whoami');
@@ -438,13 +469,13 @@ async function boot(){
     $('#lockScreen').style.display='block';
     $('#mainArea').style.display='none';
     $('#lockTitle').textContent='☕ '+ME.user;
-    $('#lockMsg').innerHTML='✅ <b>Logged in</b> — ተመዝግበህ ገተሃል (customer)።<br>Admin panel ለራተኞች ቻ ነው፤ ሱቁን ግን በነፃነት ጠቀም';
+    $('#lockMsg').innerHTML='✅ <b>Logged in</b> — ተመዝግበህ ገተሃል (customer)።<br>Admin panel ለተኞች ቻ ነው፤ ሱቁን ግን በነፃነት ጠም';
     const lb=$('#lockLogout'); if(lb) lb.onclick=async()=>{await fetch('/api/admin/logout',{method:'POST'});location.href='/';};
     applyLang(LANG);
     return;
   }
   P=myPerms();
-  if(ME.role!=='admin'){$('#tabBtnTeam').style.display='none';$('#tabBtnAi').style.display='none';$('#tabBtnSettings').style.display='none';}
+  if(ME.role!=='admin'){$('#tabBtnTeam').style.display='none';$('#tabBtnAi').style.display='none';$('#tabBtnSettings').style.display='none';$('#tabBtnSecurity').style.display='none';}
   if(!(ME.role==='admin'||P.can_wallet))$('#tabBtnWallet').style.display='none';
   if(!P.can_orders)$('[data-tab="orders"]').style.display='none';
   if(!P.can_menu)$('[data-tab="menu"]').style.display='none';
@@ -456,7 +487,7 @@ async function boot(){
   if(P.can_menu)loadMenu();
   if(P.can_posts)loadPosts();
   if(P.can_events)loadEvents();
-  if(ME.role==='admin'){loadTeam();loadKnowledge();loadSettings();}
+  if(ME.role==='admin'){loadTeam();loadKnowledge();loadSettings();loadSecurity();setInterval(loadSecurity,10000);}
   if(ME.role==='admin'||P.can_wallet)loadWallet();
   applyLang(LANG);
 }
@@ -471,6 +502,7 @@ $('#tabNav').addEventListener('click',e=>{
   if(b.dataset.tab==='dash')loadDash();
   if(b.dataset.tab==='pending')loadPending();
   if(b.dataset.tab==='settings')loadSettings();
+  if(b.dataset.tab==='security')loadSecurity();
 });
 
 /* ---------- orders ---------- */
