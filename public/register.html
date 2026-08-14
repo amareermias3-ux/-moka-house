@@ -1,43 +1,40 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="icon" type="image/svg+xml" href="/favicon.svg">
 <meta name="theme-color" content="#171110">
-<title>Join the crew — Moka House</title>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..900;1,9..144,300..900&family=Space+Grotesk:wght@400;500;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
-<script src="https://accounts.google.com/gsi/client" async defer></script>
+<title>Register — Moka House</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300..900&family=Space+Grotesk:wght@400;500;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
 <style>
-:root{--bg:#171110;--panel:#221a15;--line2:rgba(241,230,212,.28);--cream:#f1e6d4;--cream-mute:#93866f;--copper:#d98e32;--leaf:#8fa87e;--disp:"Fraunces",serif;--mono:"Space Mono",monospace}
+:root{--bg:#171110;--panel:#221a15;--line:rgba(241,230,212,.28);--cream:#f1e6d4;--cream-dim:#c6b79e;--mute:#93866f;--copper:#d98e32;--csoft:#e8b56b;--leaf:#8fa87e;--tomato:#cf5636;--disp:"Fraunces",serif;--mono:"Space Mono",monospace}
 *{margin:0;padding:0;box-sizing:border-box}
-body{min-height:100svh;background:var(--bg);background-image:radial-gradient(900px 500px at 30% -10%,rgba(143,168,126,.09),transparent 60%);color:var(--cream);font-family:"Space Grotesk",sans-serif;display:grid;place-items:center;padding:24px}
+body{min-height:100svh;background:var(--bg);background-image:radial-gradient(900px 500px at 30% -10%,rgba(143,168,126,.08),transparent 60%);color:var(--cream);font-family:"Space Grotesk",sans-serif;display:grid;place-items:center;padding:24px}
 .lang-switch{position:fixed;top:14px;right:14px;z-index:200;background:#221a15;border:1.5px solid rgba(217,142,50,.6);border-radius:8px;padding:.35em .6em;font-family:var(--mono);font-size:.7rem;color:var(--copper);cursor:pointer}
 [dir="rtl"] .lang-switch{right:auto;left:14px}
-.gate{position:relative;width:min(460px,94vw)}
-.door{position:relative;background:var(--panel);border:1px solid var(--line2);border-radius:12px;padding:2.2rem 2rem 1.8rem;box-shadow:0 24px 60px -20px rgba(0,0,0,.7)}
-.door.shake{animation:shake .35s}
-@keyframes shake{20%{transform:translateX(-8px)}40%{transform:translateX(7px)}60%{transform:translateX(-5px)}80%{transform:translateX(4px)}}
+.gate{position:relative;width:min(520px,94vw)}
+.door{position:relative;background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:2.2rem 2rem 1.8rem;box-shadow:0 24px 60px -20px rgba(0,0,0,.7)}
 .mark{font-size:2rem;margin-bottom:.5rem}
-h1{font-family:var(--disp);font-weight:900;font-size:1.7rem}
+h1{font-family:var(--disp);font-weight:900;font-size:1.6rem}
 .sub{font-family:var(--mono);font-size:.6rem;letter-spacing:.26em;text-transform:uppercase;color:var(--leaf);margin:.4rem 0 1.5rem}
-label{display:block;font-family:var(--mono);font-size:.58rem;letter-spacing:.18em;text-transform:uppercase;color:var(--cream-mute);margin-bottom:.9rem}
+label{display:block;font-family:var(--mono);font-size:.58rem;letter-spacing:.18em;text-transform:uppercase;color:var(--mute);margin-bottom:.9rem}
 label span.lbl{display:block;margin-bottom:.35rem}
-input,select{width:100%;background:var(--bg);border:1.5px solid var(--line2);border-radius:6px;padding:.75em 1em;color:var(--cream);font-family:var(--mono);font-size:.88rem;text-transform:none}
+input,select{width:100%;background:var(--bg);border:1.5px solid var(--line);border-radius:6px;padding:.8em 1em;color:var(--cream);font-family:var(--mono);font-size:.95rem}
 input:focus,select:focus{outline:none;border-color:var(--copper)}
-.hint{font-family:var(--mono);font-size:.52rem;color:var(--cream-mute);margin-top:.3em;text-transform:none;letter-spacing:.06em;display:block}
 .row2{display:grid;grid-template-columns:1fr 1fr;gap:.9rem}
-.err{font-family:var(--mono);font-size:.7rem;color:#cf5636;margin:-.2rem 0 .9rem}
-.gstatus{display:none;font-family:var(--mono);font-size:.66rem;line-height:1.7;color:#e8b56b;background:rgba(217,142,50,.08);border:1px dashed var(--copper);border-radius:6px;padding:.8em 1em;margin:.9rem 0}
-.go{width:100%;background:var(--leaf);color:#191008;border:none;font-family:var(--mono);font-weight:700;font-size:.74rem;letter-spacing:.16em;text-transform:uppercase;padding:1em;border-radius:6px;cursor:pointer}
-.go:hover{filter:brightness(1.12)}
-.go[disabled]{opacity:.5}
-.divider{display:flex;align-items:center;gap:1em;margin:1.1rem 0 .9rem;color:var(--cream-mute);font-family:var(--mono);font-size:.56rem;letter-spacing:.26em;text-transform:uppercase}
-.divider::before,.divider::after{content:"";flex:1;border-top:1px dashed var(--line2)}
-.gbtn{display:flex;justify-content:center;min-height:44px}
-.alt{text-align:center;margin-top:1.1rem;font-size:.82rem;color:var(--cream-mute)}
-.alt a{color:var(--copper);text-decoration:none;border-bottom:1px dashed var(--copper)}
-.back-shop{display:inline-block;margin-top:1.1rem;font-family:var(--mono);font-size:.66rem;letter-spacing:.14em;color:var(--cream-mute);text-decoration:none}
+.err{font-family:var(--mono);font-size:.7rem;color:var(--tomato);margin:.6rem 0}
+.go{width:100%;background:var(--leaf);color:#191008;border:none;font-family:var(--mono);font-weight:700;font-size:.76rem;letter-spacing:.16em;text-transform:uppercase;padding:1em;border-radius:6px;cursor:pointer;margin-top:.3rem}
+.go:hover{filter:brightness(1.1)}
+.divider{display:flex;align-items:center;gap:.8rem;margin:1.2rem 0;color:var(--mute);font-family:var(--mono);font-size:.6rem;letter-spacing:.2em;text-transform:uppercase}
+.divider::before,.divider::after{content:"";flex:1;height:1px;background:var(--line)}
+.google-btn{width:100%;background:#fff;color:#191008;border:none;font-family:var(--mono);font-weight:700;font-size:.76rem;letter-spacing:.1em;padding:.95em;border-radius:6px;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:.7em}
+.google-btn:hover{background:#f1e6d4}
+.google-btn svg{width:18px;height:18px}
+.swap{display:block;text-align:center;margin-top:1.2rem;font-family:var(--mono);font-size:.72rem;color:var(--mute)}
+.swap a{color:var(--copper);text-decoration:none}
+.swap a:hover{text-decoration:underline}
+.back-shop{display:inline-block;margin-top:1.2rem;font-family:var(--mono);font-size:.66rem;letter-spacing:.14em;color:var(--mute);text-decoration:none}
+.back-shop:hover{color:var(--csoft)}
 @media(max-width:520px){.row2{grid-template-columns:1fr}}
 </style>
 </head>
@@ -49,16 +46,16 @@ input:focus,select:focus{outline:none;border-color:var(--copper)}
 </select>
 <main style="display:grid;justify-items:center">
   <div class="gate">
-    <div class="door" id="door">
+    <div class="door">
       <div class="mark">🫘</div>
-      <h1>JOIN THE CREW</h1>
-      <p class="sub">Create your account · መለያ ፍጠር</p>
-      <form id="regForm" autocomplete="off">
-        <label><span class="lbl" data-i18n="full_name">Full name</span><input id="name" type="text" placeholder="Ermias Amare"></label>
-        <label><span class="lbl" data-i18n="email_l">Email</span><input id="email" type="email" placeholder="you@example.com"></label>
+      <h1 data-i18n="reg_title">Create your account</h1>
+      <p class="sub">Moka House · Join the crew</p>
+      <form id="regForm" autocomplete="on">
+        <label><span class="lbl" data-i18n="reg_name">Full name</span><input id="name" placeholder="Ermias Amare" autocomplete="name" required></label>
+        <label><span class="lbl" data-i18n="reg_email">Email</span><input id="email" type="email" placeholder="you@mail.com" autocomplete="email" required></label>
         <div class="row2">
-          <label><span class="lbl" data-i18n="phone_l">Phone number</span><input id="phone" type="tel" placeholder="+2519..."></label>
-          <label><span class="lbl" data-i18n="gender">Gender (optional)</span>
+          <label><span class="lbl" data-i18n="reg_phone">Phone</span><input id="phone" type="tel" placeholder="+2519..." autocomplete="tel"></label>
+          <label><span class="lbl" data-i18n="reg_gender">Gender (optional)</span>
             <select id="gender">
               <option value="">—</option>
               <option value="male" data-i18n="g_male">Male</option>
@@ -67,94 +64,108 @@ input:focus,select:focus{outline:none;border-color:var(--copper)}
             </select>
           </label>
         </div>
-        <label><span class="lbl" data-i18n="password">Password</span><input id="pass" type="password"><span class="hint">At least 6 characters</span></label>
-        <label><span class="lbl" data-i18n="confirm_password">Confirm password</span><input id="pass2" type="password"></label>
-        <p class="err" id="err" hidden></p>
-        <button class="go" id="goBtn" type="submit" data-i18n="create_account">Create account ◆</button>
+        <label><span class="lbl" data-i18n="reg_pass">Password (min 6)</span><input id="pass" type="password" autocomplete="new-password" required minlength="6"></label>
+        <label><span class="lbl" data-i18n="reg_pass2">Confirm password</span><input id="pass2" type="password" autocomplete="new-password" required minlength="6"></label>
+        <button class="go" type="submit" data-i18n="reg_btn">Create account ◆</button>
       </form>
-      <div class="gstatus" id="gStatus"></div>
-      <div class="divider" id="divider" hidden><span>or</span></div>
-      <div class="gbtn" id="gBtn"></div>
-      <p class="alt"><span data-i18n="already">Already have an account?</span> <a href="/login.html" data-i18n="login">Log in</a></p>
+      <p class="err" id="err" hidden></p>
+      <div class="divider" data-i18n="or">or</div>
+      <button class="google-btn" id="googleBtn" style="display:none">
+        <svg viewBox="0 0 24 24"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg>
+        <span data-i18n="google">Sign up with Google</span>
+      </button>
+      <p class="swap"><span data-i18n="have_account">Already have an account?</span> <a href="/login.html" data-i18n="login">Log in</a></p>
     </div>
   </div>
   <a class="back-shop" href="/" data-i18n="back_shop">← Back to the shop</a>
 </main>
+
+<!-- ✍️ CREDIT — static -->
+<div style="display:flex;gap:1.2rem;flex-wrap:wrap;justify-content:center;align-items:center;padding:1.1rem 1rem 1.5rem;font-family:'Space Mono',monospace;font-size:.66rem;letter-spacing:.1em;color:#93866f;text-align:center;margin-top:2rem">
+  <span data-i18n="bot_credit">Built by</span>&nbsp;<b style="color:#d98e32">ERMIAS AMARE</b>
+  <a href="mailto:amareermias@gmail.com" style="color:inherit;text-decoration:none;border-bottom:1px dashed #93866f">amareermias@gmail.com</a>
+  <a href="tel:+251976021007" style="color:inherit;text-decoration:none;border-bottom:1px dashed #93866f">+251 976 021 007</a>
+  <a href="tel:+251973011231" style="color:inherit;text-decoration:none;border-bottom:1px dashed #93866f">+251 973 011 231</a>
+</div>
+
 <script>
-const $ = s => document.querySelector(s);
+const $=s=>document.querySelector(s);
 const REG_I18N={
-en:{full_name:'Full name',email_l:'Email',phone_l:'Phone number',gender:'Gender (optional)',g_male:'Male',g_female:'Female',g_other:'Other'},
-am:{full_name:'ሙሉ ስም',email_l:'ኢሜይል',phone_l:'ስልክ ቁጥር',gender:'ጾታ (አማራጭ)',g_male:'ተባዕላይ',g_female:'ሴት',g_other:'ሌላ'},
-ar:{full_name:'الاسم الكامل',email_l:'البريد الإلكتروني',phone_l:'رقم الهاتف',gender:'الجنس (اختياري)',g_male:'ذكر',g_female:'أنثى',g_other:'آخر'},
-fr:{full_name:'Nom complet',email_l:'E-mail',phone_l:'Téléphone',gender:'Genre (optionnel)',g_male:'Homme',g_female:'Femme',g_other:'Autre'},
-es:{full_name:'Nombre completo',email_l:'Correo',phone_l:'Teléfono',gender:'Género (opcional)',g_male:'Hombre',g_female:'Mujer',g_other:'Otro'},
-om:{full_name:'Maqaa guutuu',email_l:'Imeelii',phone_l:'Bilbila',gender:'Saala (filannoo)',g_male:'Dhala',g_female:'Dubra',g_other:'Kan biro'},
-ti:{full_name:'ምሉእ ስም',email_l:'ኢመይል',phone_l:'ስልኪ',gender:'ጾታ (ኣማራጺ)',g_male:'ተባዕላይ',g_female:'ሰበይቲ',g_other:'ካልእ'},
-so:{full_name:'Magaca oo dhan',email_l:'Iimayl',phone_l:'Telefoon',gender:'Jinsi (ikhtiyaari)',g_male:'Nin',g_female:'Dumar',g_other:'Kale'}
+en:{reg_title:'Create your account',reg_name:'Full name',reg_email:'Email',reg_phone:'Phone',reg_gender:'Gender (optional)',g_male:'Male',g_female:'Female',g_other:'Other',reg_pass:'Password (min 6)',reg_pass2:'Confirm password',reg_btn:'Create account ◆',or:'or',google:'Sign up with Google',have_account:'Already have an account?',login:'Log in'},
+am:{reg_title:'መለያ ፍጠር',reg_name:'ሙሉ ስም',reg_email:'ኢሜይል',reg_phone:'ስልክ',reg_gender:'ጾ (አማራ)',g_male:'ንድ',g_female:'ሴት',g_other:'ሌላ',reg_pass:'የይለፍ ቃል (ቢያንስ 6)',reg_pass2:'የይለፍ ቃል አረጋግጥ',reg_btn:'መለያ ፍጠር ◆',or:'ወይም',google:'በGoogle ተመዝገብ',have_account:'መለያ አለህ?',login:'ግባ'},
+ar:{reg_title:'أنشئ حسابك',reg_name:'الاسم الكامل',reg_email:'البريد',reg_phone:'الهاتف',reg_gender:'الجنس (اختياري)',g_male:'ذكر',g_female:'أنثى',g_other:'آخر',reg_pass:'كلمة المرور (6 على الأقل)',reg_pass2:'تأكيد كلمة المرور',reg_btn:'إنشاء حساب ◆',or:'أو',google:'سجّل عبر Google',have_account:'لديك حساب؟',login:'دخول'},
+fr:{reg_title:'Créez votre compte',reg_name:'Nom complet',reg_email:'E-mail',reg_phone:'Téléphone',reg_gender:'Genre (optionnel)',g_male:'Homme',g_female:'Femme',g_other:'Autre',reg_pass:'Mot de passe (min 6)',reg_pass2:'Confirmer le mot de passe',reg_btn:'Créer un compte ◆',or:'ou',google:'S\'inscrire via Google',have_account:'Déjà un compte?',login:'Connexion'},
+es:{reg_title:'Crea tu cuenta',reg_name:'Nombre completo',reg_email:'Correo',reg_phone:'Teléfono',reg_gender:'Género (opcional)',g_male:'Hombre',g_female:'Mujer',g_other:'Otro',reg_pass:'Contraseña (mín 6)',reg_pass2:'Confirmar contraseña',reg_btn:'Crear cuenta ◆',or:'o',google:'Regístrate con Google',have_account:'¿Ya tienes cuenta?',login:'Entrar'},
+om:{reg_title:'Herrega kee uumi',reg_name:'Maqaa guutuu',reg_email:'Imeelii',reg_phone:'Bilbila',reg_gender:'Saala (filannoo)',g_male:'Dhala',g_female:'Dubra',g_other:'Kan biro',reg_pass:'Jecha darbii (xiiq 6)',reg_pass2:'Jecha darbii mirkaneessi',reg_btn:'Herrega uumi ◆',or:'ykn',google:'Google galmaa\'i',have_account:'Herrega qabdaa?',login:'Seeni'},
+ti:{reg_title:'ሕሳብካ ፍጠር',reg_name:'ምሉእ ስም',reg_email:'ኢመይል',reg_phone:'ስልኪ',reg_gender:'ጾታ (ኣማራጺ)',g_male:'ተባዕላይ',g_female:'ሰበይቲ',g_other:'ካልእ',reg_pass:'ፓስዎርድ (ውሑድ 6)',reg_pass2:'ፓስዎርድ ኣጋጽ',reg_btn:'ሕሳ ፍር ◆',or:'ወይ',google:'ብGoogle ተመዝገብ',have_account:'ሕሳብ ኣለካ?',login:'እቶ'},
+so:{reg_title:'Xisaabtaada samee',reg_name:'Magaca oo dhan',reg_email:'Iimayl',reg_phone:'Telefoon',reg_gender:'Jinsi (ikhtiyaari)',g_male:'Nin',g_female:'Dumar',g_other:'Kale',reg_pass:'Furaha (ugu yaraan 6)',reg_pass2:'Xaqiiji furaha',reg_btn:'Xisaab samee ◆',or:'ama',google:'Ku diiwaan gal Google',have_account:'Xisaab ma leedahay?',login:'Soo gal'}
 };
 let LANG=localStorage.getItem('moka-lang')||'en';
+window.__I18N=window.__I18N||{};
 function applyLang(lang){
   LANG=lang;localStorage.setItem('moka-lang',lang);
-  const d=Object.assign({},(window.__I18N||{})[lang]||{},REG_I18N[lang]||{});
-  document.querySelectorAll('[data-i18n]').forEach(el=>{const v=d[el.dataset.i18n];if(v!=null)el.textContent=v;});
+  const d=Object.assign({},window.__I18N[lang]||{},REG_I18N[lang]||{});
+  document.querySelectorAll('[data-i18n]').forEach(el=>{
+    const v=d[el.dataset.i18n];
+    if(v!=null)el.textContent=v;
+  });
   document.documentElement.lang=lang;
   document.documentElement.dir=(lang==='ar')?'rtl':'ltr';
-  const sel=$('#langSwitch');if(sel)sel.value=lang;
+  $('#langSwitch').value=lang;
 }
+(async()=>{
+  try{const langs=await fetch('/api/i18n').then(r=>r.json());
+    for(const l of langs){
+      if(!window.__I18N[l]){
+        window.__I18N[l]=await fetch('/api/i18n/'+l).then(r=>r.json());
+      }
+    }
+  }catch{}
+  applyLang(LANG);
+})();
 $('#langSwitch').addEventListener('change',e=>applyLang(e.target.value));
 
-function fail(msg){
-  const door=$('#door'),err=$('#err');
-  err.textContent=msg;err.hidden=false;
-  door.classList.remove('shake');void door.offsetWidth;door.classList.add('shake');
-}
-$('#regForm').addEventListener('submit', async e => {
+/* Google Sign-Up */
+(async()=>{
+  try{
+    const cfg=await fetch('/api/auth/google-config').then(r=>r.json());
+    if(!cfg.enabled)return;
+    $('#googleBtn').style.display='flex';
+    const s=document.createElement('script');
+    s.src='https://accounts.google.com/gsi/client';s.async=true;s.defer=true;
+    document.head.appendChild(s);
+    s.onload=()=>{
+      google.accounts.id.initialize({
+        client_id:cfg.clientId,
+        callback:async({credential})=>{
+          try{
+            const r=await fetch('/api/auth/google',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({credential})});
+            const d=await r.json();
+            if(r.ok)location.href='/';
+            else{$('#err').textContent=d.error||'Google failed';$('#err').hidden=false;}
+          }catch(_){$('#err').textContent='Server unreachable';$('#err').hidden=false;}
+        }
+      });
+      google.accounts.id.renderButton($('#googleBtn'),{type:'standard',theme:'filled_blue',size:'large',width:460});
+    };
+  }catch{}
+})();
+
+$('#regForm').addEventListener('submit',async e=>{
   e.preventDefault();
-  const btn=$('#goBtn');$('#err').hidden=true;
-  const name=$('#name').value.trim(), email=$('#email').value.trim(), phone=$('#phone').value.trim(),
-        gender=$('#gender').value, pass=$('#pass').value, pass2=$('#pass2').value;
-  if(name.length<2)return fail('Full name required — ሙሉ ስምህን ጻፍ');
-  if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email))return fail('Valid email required — ትክለኛ ሜይል ጻፍ');
-  if(phone && !/^\+?[0-9]{7,15}$/.test(phone.replace(/\s/g,'')))return fail('Valid phone required — ትክለኛ ልክ ቁጥር ጻፍ');
-  if(pass.length<6)return fail('Password must be at least 6 characters');
-  if(pass!==pass2)return fail('Passwords do not match — የይለፍ ቃላት አይመሳሰሉም');
-  btn.disabled=true;btn.textContent='Creating…';
+  $('#err').hidden=true;
+  const name=$('#name').value.trim(),email=$('#email').value.trim(),
+        phone=$('#phone').value.trim(),gender=$('#gender').value,
+        pass=$('#pass').value,pass2=$('#pass2').value;
+  if(pass!==pass2){$('#err').textContent='Passwords do not match';$('#err').hidden=false;return;}
   try{
     const r=await fetch('/api/admin/register',{method:'POST',headers:{'Content-Type':'application/json'},
       body:JSON.stringify({name,email,phone,gender,pass})});
-    const d=await r.json().catch(()=>({}));
-    if(r.ok){location.replace('/admin.html');return;}
-    fail(d.error||'Registration failed');
-  }catch(_){fail('Server unreachable');}
-  btn.disabled=false;
+    const d=await r.json();
+    if(r.ok){location.href='/';}
+    else{$('#err').textContent=d.error||'Registration failed';$('#err').hidden=false;}
+  }catch(_){$('#err').textContent='Server unreachable';$('#err').hidden=false;}
 });
-
-async function onGoogle(response){
-  try{
-    const r=await fetch('/api/auth/google',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({credential:response.credential})});
-    const d=await r.json().catch(()=>({}));
-    if(r.ok){location.replace('/admin.html');return;}
-    fail(d.error||'Google sign-in failed');
-  }catch(_){fail('Server unreachable');}
-}
-function onGoogleError(e){let m='';try{m=e&&e.getMessage?e.getMessage():'blocked';}catch(_){m='blocked';}fail('Google error: '+m);}
-(async function initGoogle(){
-  let cfg;
-  try{cfg=await fetch('/api/auth/google-config').then(r=>r.json());}catch(_){return;}
-  if(!cfg.enabled)return;
-  $('#divider').hidden=false;
-  let tries=0;
-  const tryRender=()=>{
-    if(window.google&&google.accounts){
-      try{
-        google.accounts.id.initialize({client_id:cfg.clientId,callback:onGoogle,error_callback:onGoogleError});
-        google.accounts.id.renderButton($('#gBtn'),{theme:'filled_black',size:'large',shape:'pill',text:'signup_with',width:380,logo_alignment:'center'});
-      }catch(_){}
-    }else if(tries++<40)setTimeout(tryRender,250);
-  };
-  tryRender();
-})();
-applyLang(LANG);
 </script>
 </body>
 </html>
