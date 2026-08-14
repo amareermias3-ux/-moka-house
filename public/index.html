@@ -499,7 +499,7 @@ footer{background:#120d0a;border-top:1px solid var(--line);padding:70px 0 0}
   </div>
 </footer>
 
-<!-- ✍️ CREDIT — static (ሁሉም ቦታ ይሰል) -->
+<!-- ✍️ CREDIT — static -->
 <div style="display:flex;gap:1.2rem;flex-wrap:wrap;justify-content:center;align-items:center;padding:1.1rem 1rem 1.5rem;font-family:'Space Mono',monospace;font-size:.66rem;letter-spacing:.1em;color:#93866f;border-top:1px solid rgba(241,230,212,.12);margin-top:2.5rem;text-align:center">
   <span data-i18n="bot_credit">Built by</span>&nbsp;<b style="color:#d98e32">ERMIAS AMARE</b>
   <a href="mailto:amareermias@gmail.com" style="color:inherit;text-decoration:none;border-bottom:1px dashed #93866f">amareermias@gmail.com</a>
@@ -509,6 +509,9 @@ footer{background:#120d0a;border-top:1px solid var(--line);padding:70px 0 0}
 
 <!-- 📦 Track order float -->
 <a href="/track.html" style="position:fixed;bottom:24px;left:92px;z-index:160;background:#221a15;border:1.5px solid rgba(217,142,50,.6);color:#e8b56b;border-radius:100px;padding:.7em 1.2em;font-family:'Space Mono',monospace;font-size:.68rem;letter-spacing:.1em;text-decoration:none;box-shadow:0 10px 30px -8px rgba(0,0,0,.6)"><span data-i18n="track_order">Track order</span> 📦</a>
+
+<!-- 👤 My Orders float (login-aware) -->
+<button id="myOrdersFab" style="display:none;position:fixed;bottom:92px;left:24px;z-index:160;background:#221a15;border:1.5px solid rgba(143,168,126,.6);color:#8fa87e;border-radius:100px;padding:.7em 1.2em;font-family:'Space Mono',monospace;font-size:.68rem;letter-spacing:.1em;cursor:pointer;box-shadow:0 10px 30px -8px rgba(0,0,0,.6)">👤 <span data-i18n="my_orders">My Orders</span></button>
 
 <a id="staffFab" href="/login.html" title="Staff login" style="position:fixed;bottom:24px;left:24px;width:52px;height:52px;border-radius:50%;background:#221a15;border:1.5px solid rgba(217,142,50,.6);color:#d98e32;display:grid;place-items:center;font-size:20px;z-index:160;box-shadow:0 10px 30px -8px rgba(0,0,0,.6);text-decoration:none">⚿</a>
 
@@ -534,6 +537,15 @@ footer{background:#120d0a;border-top:1px solid var(--line);padding:70px 0 0}
   var cp=document.getElementById('msCp');if(cp)cp.addEventListener('click',function(){try{navigator.clipboard.writeText(decodeURIComponent(u));cp.textContent='Copied ✓';}catch(e){}});
 })();
 </script>
+
+<!-- 👤 My Orders modal -->
+<div class="pay-modal" id="myOrdersModal">
+  <div class="pay-box">
+    <h3 data-i18n="my_orders">My Orders</h3>
+    <div id="myOrdersList" style="max-height:50vh;overflow-y:auto"></div>
+    <div class="pay-actions"><button class="pay-cancel" id="myOrdersClose" data-i18n="cancel">Cancel</button></div>
+  </div>
+</div>
 
 <div class="overlay" id="overlay"></div>
 <aside class="drawer" id="drawer" aria-label="Your tray" aria-hidden="true">
@@ -624,14 +636,12 @@ const $=(s,c=document)=>c.querySelector(s), $$=(s,c=document)=>[...c.querySelect
 const REDUCED=matchMedia('(prefers-reduced-motion: reduce)').matches;
 const fmt=n=>'$'+n.toFixed(2);
 
-/* ===== 🌍 i18n — fetch-based (ሰርር injection አያስፈልግም) ===== */
 let LANG=localStorage.getItem('moka-lang')||'en';
 let READY=false;
 window.__I18N=window.__I18N||{};
 const D=()=> (window.__I18N[LANG])||{};
 function applyLang(lang){
   LANG=lang;localStorage.setItem('moka-lang',lang);
-  const sel=$('#langSwitch');if(sel)sel.value=lang;
   const doApply=()=>{
     const d=D();
     $$('[data-i18n]').forEach(el=>{
@@ -642,12 +652,11 @@ function applyLang(lang){
     const bi=$('#botIn');if(bi&&d.chat_ph)bi.placeholder=d.chat_ph;
     document.documentElement.lang=lang;
     document.documentElement.dir=(lang==='ar')?'rtl':'ltr';
+    const sel=$('#langSwitch');if(sel)sel.value=lang;
     if(READY){renderTabs();renderMenu();renderEvents();renderStamps();updateCartUI();tickClock();}
   };
   if(window.__I18N[lang]){doApply();}
-  else{
-    fetch('/api/i18n/'+lang).then(r=>r.json()).then(d2=>{window.__I18N[lang]=d2;doApply();}).catch(()=>doApply());
-  }
+  else{fetch('/api/i18n/'+lang).then(r=>r.json()).then(d2=>{window.__I18N[lang]=d2;doApply();}).catch(()=>doApply());}
 }
 $('#langSwitch').addEventListener('change',e=>applyLang(e.target.value));
 
@@ -870,6 +879,36 @@ $('#checkoutBtn').onclick=()=>{
   }});
 };
 
+/* ===== 👤 My Orders (login-aware) ===== */
+(async()=>{
+  try{
+    const r=await fetch('/api/admin/whoami');
+    if(r.ok){$('#myOrdersFab').style.display='inline-flex';}
+  }catch{}
+})();
+$('#myOrdersFab').addEventListener('click',async()=>{
+  $('#myOrdersModal').classList.add('show');
+  const list=$('#myOrdersList');
+  list.innerHTML='<p style="color:var(--cream-mute)">…</p>';
+  const d=D();
+  try{
+    const orders=await fetch('/api/my/orders').then(r=>r.json());
+    if(!orders.length){list.innerHTML=`<p style="color:var(--cream-mute)">${d.empty_tray||'No orders yet.'}</p>`;return;}
+    list.innerHTML=orders.map(o=>`
+      <div style="border:1px solid var(--line);border-radius:8px;padding:.9rem;margin-bottom:.7rem">
+        <div style="display:flex;justify-content:space-between;align-items:center;font-family:var(--mono);font-size:.75rem">
+          <b style="color:var(--copper-soft)">${o.no}</b>
+          <span style="border:1px solid var(--copper);color:var(--copper);border-radius:100px;padding:.2em .7em;font-size:.6rem;text-transform:uppercase">${o.status}</span>
+        </div>
+        <div style="font-size:.82rem;color:var(--cream-dim);margin:.4rem 0">${o.items.map(i=>`${i.qty}× ${i.name}`).join(', ')}</div>
+        <div style="display:flex;justify-content:space-between;font-family:var(--mono);font-size:.7rem;color:var(--mute)">
+          <span>${new Date(o.created).toLocaleString()}</span><b style="color:var(--leaf)">$${o.subtotal.toFixed(2)}</b>
+        </div>
+      </div>`).join('');
+  }catch(_){list.innerHTML='<p style="color:var(--tomato)">Failed to load</p>';}
+});
+$('#myOrdersClose').addEventListener('click',()=>$('#myOrdersModal').classList.remove('show'));
+
 let method='v60',dose=15,tState={run:false,done:false,t:0,iv:null};
 const RING_C=2*Math.PI*56;
 function renderChips(){$('#methodChips').innerHTML=Object.entries(METHODS).map(([k,m])=>`<button class="mchip ${k===method?'active':''}" data-m="${k}">${m.label}</button>`).join('');}
@@ -1030,7 +1069,7 @@ addEventListener('scroll',()=>{
 $('#navToggle').onclick=()=>$('#navLinks').classList.toggle('open');
 $$('#navLinks a').forEach(a=>a.onclick=()=>$('#navLinks').classList.remove('open'));
 $('#toTop').onclick=()=>scrollTo({top:0,behavior:REDUCED?'auto':'smooth'});
-addEventListener('keydown',e=>{if(e.key==='Escape'){closeCart();closePay();$('#navLinks').classList.remove('open');}});
+addEventListener('keydown',e=>{if(e.key==='Escape'){closeCart();closePay();$('#myOrdersModal').classList.remove('show');$('#navLinks').classList.remove('open');}});
 
 renderChips();renderBrew();
 renderShops();setInterval(renderShops,60000);
