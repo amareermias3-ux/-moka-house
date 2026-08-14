@@ -57,7 +57,9 @@ header.scrolled .nav{padding:.7rem 0}
 .nav-links a::after{content:"";position:absolute;left:0;bottom:0;width:0;height:1.5px;background:var(--copper);transition:width .25s}
 .nav-links a:hover{color:var(--cream)}
 .nav-links a:hover::after{width:100%}
-.nav-right{display:flex;gap:.7rem;align-items:center}
+.nav-right{display:flex;gap:.7rem;align-items:center;flex-wrap:wrap}
+.quiz-pill{background:var(--leaf);color:#191008;font-family:var(--mono);font-size:.7rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:.6em 1.1em;border-radius:100px;text-decoration:none;transition:.2s}
+.quiz-pill:hover{filter:brightness(1.1);transform:translateY(-2px)}
 .lang-sel{background:var(--panel);border:1.5px solid var(--line2);border-radius:5px;color:var(--copper);font-family:var(--mono);font-size:.7rem;padding:.5em .4em;cursor:pointer}
 .lang-sel:focus{outline:none;border-color:var(--copper)}
 .cart-btn{font-family:var(--mono);font-size:.74rem;letter-spacing:.14em;text-transform:uppercase;border:1.5px solid var(--line2);background:var(--panel);padding:.7em 1.2em;border-radius:5px;display:flex;gap:.7em;align-items:center;transition:border-color .2s,background .2s}
@@ -324,6 +326,7 @@ footer{background:#120d0a;border-top:1px solid var(--line);padding:70px 0 0}
       <li><a href="/login.html" style="color:var(--copper)" data-i18n="staff">Staff ⚿</a></li>
     </ul>
     <div class="nav-right">
+      <a class="quiz-pill" href="/quiz.html">☕ Quiz</a>
       <select class="lang-sel" id="langSwitch" aria-label="Language">
         <option value="am">አማርኛ</option><option value="en">English</option><option value="ar">العربية</option>
         <option value="fr">Français</option><option value="es">Español</option><option value="om">Afaan Oromoo</option>
@@ -350,6 +353,7 @@ footer{background:#120d0a;border-top:1px solid var(--line);padding:70px 0 0}
       <div class="mast-cta">
         <a class="btn btn-solid" href="#menu" data-i18n="cta1">Browse the board ↓</a>
         <a class="btn btn-ghost" href="#events" data-i18n="cta2">Book a cupping</a>
+        <a class="btn btn-ghost" href="/quiz.html" style="border-color:var(--leaf);color:var(--leaf)">☕ Find my coffee · ቡናዬን ፈልግ</a>
       </div>
     </div>
     <div class="mast-visual" aria-hidden="true">
@@ -499,6 +503,7 @@ footer{background:#120d0a;border-top:1px solid var(--line);padding:70px 0 0}
       <h5 data-i18n="f_elsewhere">Elsewhere</h5>
       <a href="/login.html" data-i18n="staff">Staff login ⚿</a>
       <a href="/register.html" data-i18n="register">Register</a>
+      <a href="/quiz.html">☕ Find My Coffee Quiz</a>
       <a href="#top">Instagram ↗</a>
       <button id="toTop">↑ Back to top</button>
     </div>
@@ -702,7 +707,7 @@ const METHODS={
  aeropress:{label:'AeroPress',dose:[12,20,15],ratio:15,waterLabel:'Water',temp:'90°C',grind:'Medium-fine',total:150,steps:[[0,'Pour all the water','Straight in, saturate everything, no fuss.'],[30,'Stir three times','Break the crust gently, then leave it alone.'],[90,'Cap & flip','Carefully. Confidence, not courage.'],[105,'Press for 30 s','Stop at the hiss — you want syrup, not silt.'],[135,'Bypass to taste','Add hot water until it sings.']]},
  press:{label:'French Press',dose:[20,45,30],ratio:14,waterLabel:'Water',temp:'96°C',grind:'Coarse — breadcrumbs',total:270,steps:[[0,'Pour all the water','Saturate grounds, lid on but don\u2019t plunge.'],[240,'Break & skim','Stir the crust, scoop the foam and floaters.'],[255,'Settle','One quiet minute — let the fines drop.'],[270,'Plunge to the surface','Just below the liquid, no pressing down. Pour gently.']]}
 };
-const TICKER=['Now pouring: Ethiopia Guji — apricot · bergamot · black tea','Roasted on site every Tuesday','Honduras Santa Rita — caramel · red apple','Cold brew tonic on tap all summer','Open cupping every Friday 17:00','Oat, almond & whole — never a surcharge','New: Macchiato · Buna Jebena · Sambusa · Chechebsa'];
+const TICKER=['Now pouring: Ethiopia Guji — apricot · bergamot · black tea','Roasted on site every Tuesday','Honduras Santa Rita — caramel · red apple','Cold brew tonic on tap all summer','Open cupping every Friday 17:00','Oat, almond & whole — never a surcharge','New: ☕ Find My Coffee taste quiz!','New: Macchiato · Buna Jebena · Sambusa · Chechebsa'];
 const DAYS=['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
 
 const hToStr=h=>{const H=Math.floor(h),M=Math.round((h-H)*60);return String(H).padStart(2,'0')+':'+String(M).padStart(2,'0')};
@@ -1141,7 +1146,6 @@ tickClock();
 </script>
 
 <script>
-/* 📲 Install App — moved to LEFT, above the ⚿ key (no overlap) */
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', () => navigator.serviceWorker.register('/sw.js').catch(() => {}));
 }
