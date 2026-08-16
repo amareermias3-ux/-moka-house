@@ -502,6 +502,28 @@ footer{background:#120d0a;border-top:1px solid var(--line);padding:70px 0 0}
   </div>
 </section>
 
+<!-- ⭐ REVIEWS -->
+<section id="reviews" style="background:var(--bg2);border-block:1px solid var(--line)">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div><p class="eyebrow">07</p><h2 class="sec-title">What people <em>say</em></h2></div>
+      <p>Real reviews from our customers.</p>
+    </div>
+    <div id="reviewsGrid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:1.4rem"></div>
+    <div style="margin-top:2rem;max-width:520px">
+      <h3 style="font-family:var(--disp);margin-bottom:1rem">Leave a review ⭐</h3>
+      <input id="rvName" placeholder="Your name" style="width:100%;background:var(--panel);border:1.5px solid var(--line2);border-radius:6px;padding:.8em 1em;color:var(--cream);font-family:var(--mono);margin-bottom:.7rem">
+      <select id="rvRating" style="width:100%;background:var(--panel);border:1.5px solid var(--line2);border-radius:6px;padding:.8em;color:var(--cream);font-family:var(--mono);margin-bottom:.7rem">
+        <option value="5">★★★★★ (5)</option><option value="4">★★★★ (4)</option><option value="3">★★★ (3)</option>
+        <option value="2">★★ (2)</option><option value="1">★ (1)</option>
+      </select>
+      <textarea id="rvText" rows="3" placeholder="Your review..." style="width:100%;background:var(--panel);border:1.5px solid var(--line2);border-radius:6px;padding:.8em 1em;color:var(--cream);font-family:var(--mono);margin-bottom:.7rem"></textarea>
+      <button class="btn btn-solid" id="rvSubmit">Submit review</button>
+      <p id="rvMsg" style="font-family:var(--mono);font-size:.7rem;color:var(--leaf);margin-top:.6rem"></p>
+    </div>
+  </div>
+</section>
+
 <div class="hello">
   <div class="wrap hello-inner reveal">
     <h2 data-i18n="hello_title">Say hello — we'll pour you <b>something good.</b></h2>
@@ -1150,6 +1172,26 @@ async function renderPosts(){
   }catch(_){}
 }
 
+/* ===== ⭐ Reviews ===== */
+async function renderReviews(){
+  try{
+    const rvs=await fetch('/api/reviews').then(r=>r.json());
+    $('#reviewsGrid').innerHTML=rvs.slice(0,6).map(r=>`
+      <article class="reveal in" style="background:var(--panel);border:1px solid var(--line);border-radius:9px;padding:1.4rem">
+        <div style="color:var(--copper);letter-spacing:.15em">${'★'.repeat(r.rating)}${'☆'.repeat(5-r.rating)}</div>
+        <p style="color:var(--cream-dim);font-size:.9rem;margin:.6rem 0">"${r.text}"</p>
+        <p style="font-family:var(--mono);font-size:.66rem;color:var(--mute)">— ${r.name}</p>
+      </article>`).join('')||'<p style="color:var(--cream-mute)">No reviews yet — be the first!</p>';
+  }catch(_){}
+}
+$('#rvSubmit').addEventListener('click',async()=>{
+  const name=$('#rvName').value.trim(),text=$('#rvText').value.trim(),rating=+$('#rvRating').value;
+  if(!name||!text){$('#rvMsg').textContent='Please fill your name and review.';return;}
+  const r=await fetch('/api/reviews',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({name,rating,text})});
+  if(r.ok){$('#rvMsg').textContent='Thanks! Your review is pending approval. ⭐';$('#rvName').value='';$('#rvText').value='';renderReviews();}
+  else $('#rvMsg').textContent='Could not submit review.';
+});
+
 $('#newsForm').addEventListener('submit',e=>{
   e.preventDefault();
   const inp=$('#newsInput');
@@ -1196,7 +1238,7 @@ addEventListener('keydown',e=>{if(e.key==='Escape'){closeCart();closePay();$('#m
 
 renderChips();renderBrew();
 renderShops();setInterval(renderShops,60000);
-renderPosts();
+renderPosts();renderReviews();
 observe();
 tickClock();
 (async function boot(){
