@@ -750,6 +750,23 @@ app.get('/api/stats', requireLogin, (req, res) => {
 app.get('/api/activity', requireLogin, (req, res) => res.json(db.activity));
 app.get('/health', (req, res) => res.json({ ok: true, env: NODE_ENV, users: db.users.length, supabase: sbEnabled, menu: db.menu.length }));
 
+/* ================= 🔑 Forgot password (self-service) ================= */
+app.post('/api/forgot/reset', authLimiter, (req, res) => {
+  const { user, email, phone, newpass } = req.body || {};
+  if (typeof newpass !== 'string' || newpass.length < 6) return res.status(400).json({ error: 'Password ≥ 6 chars' });
+  const em = String(email || '').trim().toLowerCase();
+  const ph = String(phone || '').replace(/\s/g, '');
+  const uname = String(user || '').trim().toLowerCase();
+  const u = db.users.find(x => x.user === uname || (x.email && x.email === em));
+  if (!u) return res.status(404).json({ error: 'Account not found' });
+  if (u.email && em && u.email !== em) return res.status(403).json({ error: 'Details do not match' });
+  if (u.phone && ph && u.phone !== ph) return res.status(403).json({ error: 'Details do not match' });
+  if (!u.email && !u.phone) return res.status(403).json({ error: 'No recovery info — contact the owner' });
+  u.hash = sha(newpass);
+  log(`🔑 Password reset — ${u.user}`); save();
+  res.json({ ok: true });
+});
+
 /* ===== 🚫 404 catch-all ===== */
 app.use((req, res) => {
   if (req.path.startsWith('/api/')) return res.status(404).json({ error: 'Not found' });
