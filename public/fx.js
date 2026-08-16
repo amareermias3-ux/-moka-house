@@ -1,6 +1,6 @@
-/* MOKA HOUSE → ERSCOMAS  |  Motion Pack (fx.js v2) */
+/* ERSCOMAS | fx.js v3 (rebrand + motion + cookie consent) */
 (function(){
-  /* ===== 🏷️ Brand rename (runtime, safe) ===== */
+  /* 🏷️ Brand rename */
   var NAME='ERSCOMAS';
   function walker(root){
     var w=document.createTreeWalker(root,NodeFilter.SHOW_TEXT,{acceptNode:function(n){
@@ -20,7 +20,7 @@
   if(document.readyState==='loading'){document.addEventListener('DOMContentLoaded',doRename);}else{doRename();}
   setTimeout(doRename,400); setTimeout(doRename,1200); setTimeout(doRename,2500);
 
-  /* ===== ✨ styles ===== */
+  /* ✨ styles */
   var st=document.createElement('style');
   st.textContent=".fx-aurora{position:fixed;inset:0;z-index:0;pointer-events:none;opacity:.35;overflow:hidden}.fx-aurora i{position:absolute;width:60vw;height:60vw;border-radius:50%;filter:blur(90px);opacity:.16;animation:fxA 26s ease-in-out infinite alternate}.fx-aurora i:nth-child(1){background:#d98e32;top:-20%;left:-10%}.fx-aurora i:nth-child(2){background:#8fa87e;bottom:-25%;right:-15%;animation-delay:-8s}.fx-aurora i:nth-child(3){background:#e8b56b;top:30%;left:50%;animation-delay:-16s}@keyframes fxA{0%{transform:translate(0,0) scale(1)}50%{transform:translate(6vw,-4vw) scale(1.15)}100%{transform:translate(-6vw,5vw) scale(.95)}}.fx-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:1rem;max-width:1220px;margin:0 auto;padding:2.5rem 26px;position:relative;z-index:2}.fx-stat{text-align:center;background:rgba(34,26,21,.7);border:1px solid rgba(241,230,212,.13);border-radius:12px;padding:1.4rem .8rem;backdrop-filter:blur(6px)}.fx-stat b{display:block;font-family:Fraunces,serif;font-size:2rem;font-weight:900;color:#e8b56b}.fx-stat span{font-family:'Space Mono',monospace;font-size:.62rem;letter-spacing:.16em;text-transform:uppercase;color:#93866f}.fx-ripple{position:relative;overflow:hidden}.fx-ripple .rp{position:absolute;border-radius:50%;background:rgba(241,230,212,.4);transform:scale(0);animation:fxR .6s linear;pointer-events:none}@keyframes fxR{to{transform:scale(4);opacity:0}}@media(max-width:760px){.fx-stats{grid-template-columns:repeat(2,1fr)}}";
   document.head.appendChild(st);
@@ -49,7 +49,7 @@
     }
   }
 
-  /* ripple on buttons */
+  /* ripple */
   document.addEventListener('click',function(e){
     var b=e.target.closest('.btn,.add-btn,.pm-btn,.club-btn,.tab');
     if(!b)return;
@@ -63,4 +63,15 @@
     b.appendChild(s);
     setTimeout(function(){s.remove();},600);
   });
+
+  /* 🍪 Cookie consent */
+  (function(){
+    if(localStorage.getItem('moka-consent'))return;
+    var b=document.createElement('div');
+    b.style.cssText='position:fixed;bottom:0;left:0;right:0;z-index:400;background:#201812;border-top:1px solid rgba(217,142,50,.4);padding:.9rem 1.2rem;display:flex;gap:.8rem;align-items:center;justify-content:center;flex-wrap:wrap;font-family:monospace;font-size:.7rem;color:#c6b79e';
+    b.innerHTML='🍪 We use cookies & analytics to improve your experience. <button id="ccYes" style="background:#d98e32;color:#191008;border:none;border-radius:6px;padding:.6em 1.2em;font-weight:700;cursor:pointer">Accept</button> <button id="ccNo" style="background:none;border:1px solid rgba(241,230,212,.3);color:#c6b79e;border-radius:6px;padding:.6em 1.2em;cursor:pointer">Decline</button>';
+    document.body.appendChild(b);
+    b.querySelector('#ccYes').onclick=function(){localStorage.setItem('moka-consent','1');b.remove();};
+    b.querySelector('#ccNo').onclick=function(){localStorage.setItem('moka-consent','0');b.remove();};
+  })();
 })();
