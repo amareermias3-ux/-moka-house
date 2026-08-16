@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<meta name="theme-color" content="#171110">
+<title>VIP Leaderboard — ERSCOMAS</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300..900&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#171110;color:#f1e6d4;font-family:"Space Grotesk",sans-serif;min-height:100svh;display:grid;place-items:center;padding:24px}
+.card{width:min(520px,94vw);background:#221a15;border:1px solid rgba(241,230,212,.28);border-radius:16px;padding:2rem;box-shadow:0 24px 60px -20px rgba(0,0,0,.7)}
+h1{font-family:Fraunces,serif;font-size:1.8rem;margin:.2rem 0}
+.sub{font-family:"Space Mono",monospace;font-size:.62rem;letter-spacing:.24em;text-transform:uppercase;color:#d98e32;margin-bottom:1.6rem}
+.row{display:flex;align-items:center;gap:.9rem;padding:.8rem .6rem;border-bottom:1px dashed rgba(241,230,212,.15)}
+.rank{font-family:Fraunces,serif;font-weight:900;font-size:1.3rem;width:2.2rem;text-align:center;color:#93866f}
+.row:nth-child(1) .rank{color:#ffd700}.row:nth-child(2) .rank{color:#c0c0c0}.row:nth-child(3) .rank{color:#cd7f32}
+.who{flex:1}
+.who b{display:block}
+.tier{font-family:"Space Mono",monospace;font-size:.62rem;color:#8fa87e}
+.pts{font-family:"Space Mono",monospace;color:#d98e32;font-weight:700}
+.tiers{margin-top:1.6rem;font-family:"Space Mono",monospace;font-size:.66rem;color:#93866f;line-height:1.9}
+a{color:#d98e32}
+</style>
+</head>
+<body>
+<div class="card">
+  <h1>🏆 VIP Leaderboard</h1>
+  <p class="sub">ERSCOMAS · Most loyal coffee lovers</p>
+  <div id="board">Loading…</div>
+  <div class="tiers">
+    🌱 Bean · 1+ pts<br>☕ Brewer · 50+ pts<br>👑 Roaster · 150+ pts<br>
+    <span style="color:#6b5d49">Earn 1 pt per $1 spent. Log in & order to climb!</span>
+  </div>
+  <p style="margin-top:1.4rem"><a href="/">← Back to shop</a></p>
+</div>
+<script>
+(async()=>{
+  try{
+    const top=await fetch('/api/leaderboard').then(r=>r.json());
+    const M=['🥇','','🥉'];
+    $('#board').innerHTML=top.length?top.map((u,i)=>`
+      <div class="row">
+        <div class="rank">${M[i]||'#'+u.rank}</div>
+        <div class="who"><b>${u.name}</b><span class="tier">${u.tier}</span></div>
+        <div class="pts">${u.points} pts</div>
+      </div>`).join(''):'<p style="color:#93866f">No loyal members yet — be the first! ☕</p>';
+  }catch(e){$('#board').textContent='Server unreachable.';}
+})();
+</script>
+</body>
+</html>
