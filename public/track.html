@@ -32,6 +32,10 @@ input{width:100%;background:#171110;border:1.5px solid rgba(241,230,212,.28);bor
 .err{font-family:"Space Mono",monospace;font-size:.72rem;color:#cf5636;margin-top:.8rem}
 .ready-flash{animation:flash 1s ease 3}
 @keyframes flash{50%{background:#8fa87e;color:#191008}}
+.rowbtns{display:flex;gap:.6rem;margin-top:1.4rem}
+.rbtn{flex:1;text-align:center;border-radius:6px;padding:.9em;font-family:"Space Mono",monospace;font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;text-decoration:none}
+.rcpt{background:#d98e32;color:#191008}
+.shopb{background:none;border:1.5px solid rgba(241,230,212,.28);color:#93866f}
 a{color:#d98e32}
 </style>
 </head>
@@ -51,6 +55,10 @@ a{color:#d98e32}
     <div class="steps" id="steps"></div>
     <div class="items" id="items"></div>
     <div class="total"><span data-i18n="t_total">Total</span><b id="tot"></b></div>
+    <div class="rowbtns">
+      <a id="rcLink" class="rbtn rcpt" href="#">🧾 View receipt</a>
+      <a class="rbtn shopb" href="/">← Shop</a>
+    </div>
   </div>
   <p style="margin-top:1.4rem"><a href="/">← Back to shop</a></p>
 </div>
@@ -58,7 +66,7 @@ a{color:#d98e32}
 <script>
 const $=s=>document.querySelector(s);
 const ST=['queued','brewing','ready','picked-up'];
-const ICON={queued:'⏳',brewing:'☕',ready:'✅',picked:'🎉'};
+const ICON={queued:'⏳',brewing:'☕',ready:'✅','picked-up':'🎉'};
 let LANG=localStorage.getItem('moka-lang')||'en';
 let current=null,lastStatus=null,pollIv=null,alertsOn=false;
 
@@ -87,9 +95,10 @@ function notify(status){
 function render(o){
   $('#result').hidden=false;
   const idx=ST.indexOf(o.status);
-  $('#steps').innerHTML=ST.map((s,i)=>`<div class="step ${i<idx?'done':i===idx?'now':''}"><div class="dot">${i<idx?'✓':ICON[s]}</div><div class="lbl">${s}</div></div>`).join('');
+  $('#steps').innerHTML=ST.map((s,i)=>`<div class="step ${i<idx?'done':i===idx?'now':''}"><div class="dot">${i<idx?'✓':ICON[s]||'•'}</div><div class="lbl">${s}</div></div>`).join('');
   $('#items').innerHTML=o.items.map(i=>`<div class="it"><span>${i.qty}× ${i.name}</span><span>$${(i.price*i.qty).toFixed(2)}</span></div>`).join('');
   $('#tot').textContent='$'+o.subtotal.toFixed(2);
+  const rl=$('#rcLink');if(rl)rl.href='/receipt.html?no='+encodeURIComponent(o.no);
 }
 
 async function track(no){
@@ -117,7 +126,7 @@ $('#tf').addEventListener('submit',e=>{
 
 /* auto-load last order */
 (function(){
-  const no= new URLSearchParams(location.search).get('no') || localStorage.getItem('moka-last-order');
+  const no=new URLSearchParams(location.search).get('no')||localStorage.getItem('moka-last-order');
   if(no){$('#no').value=no;track(no.toUpperCase());clearInterval(pollIv);pollIv=setInterval(()=>track(no.toUpperCase()),5000);}
 })();
 </script>
