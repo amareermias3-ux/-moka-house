@@ -55,7 +55,7 @@ td{padding:.55em .5em;border-bottom:1px dashed var(--line);font-size:.85rem;vert
 .pill.admin{border-color:var(--copper);color:var(--copper)}
 .pill.moderator{border-color:var(--leaf);color:var(--leaf)}
 .pill.pending{border-color:var(--csoft);color:var(--csoft);background:rgba(232,181,107,.1)}
-.pill.confirmed{border-color:var(--leaf);color:var(--leaf);background:rgba(143,168,126,.1)}
+.pill.confirmed,.pill.active{border-color:var(--leaf);color:var(--leaf);background:rgba(143,168,126,.1)}
 .pill.rejected{border-color:var(--tomato);color:var(--tomato);background:rgba(207,86,54,.1)}
 .lock-screen{max-width:560px;margin:10vh auto;text-align:center;padding:2.5rem 2rem;background:var(--panel);border:1px solid var(--line2);border-radius:14px}
 .lock-screen .big{font-size:3rem}
@@ -104,46 +104,41 @@ td{padding:.55em .5em;border-bottom:1px dashed var(--line);font-size:.85rem;vert
 
 <main id="mainArea">
   <div class="tabs" id="tabNav">
-    <button class="tab-btn active" data-tab="dash" data-i18n="tab_dash">📊 Dashboard</button>
-    <button class="tab-btn" data-tab="analytics" id="tabBtnAnalytics" data-i18n="tab_analytics">📈 Analytics</button>
-    <button class="tab-btn" data-tab="orders" data-i18n="tab_orders">Orders</button>
-    <button class="tab-btn" data-tab="pending" data-i18n="tab_pending">⏳ Pending</button>
-    <button class="tab-btn" data-tab="menu" data-i18n="tab_menu">Menu</button>
-    <button class="tab-btn" data-tab="posts" data-i18n="tab_posts">Posts</button>
-    <button class="tab-btn" data-tab="events" data-i18n="tab_events">Events</button>
-    <button class="tab-btn" data-tab="team" id="tabBtnTeam" data-i18n="tab_team">Team</button>
-    <button class="tab-btn" data-tab="ai" id="tabBtnAi" data-i18n="tab_ai">AI Knowledge</button>
-    <button class="tab-btn" data-tab="wallet" id="tabBtnWallet" data-i18n="tab_wallet">💰 Wallet</button>
-    <button class="tab-btn" data-tab="settings" id="tabBtnSettings" data-i18n="tab_settings">⚙️ Payments</button>
-    <button class="tab-btn" data-tab="security" id="tabBtnSecurity" data-i18n="tab_security">🛡️ Security</button>
-    <button class="tab-btn" data-tab="aichat" data-i18n="tab_testai">Test AI</button>
+    <button class="tab-btn active" data-tab="dash">📊 Dashboard</button>
+    <button class="tab-btn" data-tab="analytics">📈 Analytics</button>
+    <button class="tab-btn" data-tab="orders">Orders</button>
+    <button class="tab-btn" data-tab="pending">⏳ Pending</button>
+    <button class="tab-btn" data-tab="reviews">⭐ Reviews</button>
+    <button class="tab-btn" data-tab="subs">🔁 Subs</button>
+    <button class="tab-btn" data-tab="menu">Menu</button>
+    <button class="tab-btn" data-tab="posts">Posts</button>
+    <button class="tab-btn" data-tab="events">Events</button>
+    <button class="tab-btn" data-tab="team" id="tabBtnTeam">Team</button>
+    <button class="tab-btn" data-tab="ai" id="tabBtnAi">AI Knowledge</button>
+    <button class="tab-btn" data-tab="wallet" id="tabBtnWallet">💰 Wallet</button>
+    <button class="tab-btn" data-tab="settings" id="tabBtnSettings">⚙️ Payments</button>
+    <button class="tab-btn" data-tab="security" id="tabBtnSecurity">🛡️ Security</button>
+    <button class="tab-btn" data-tab="aichat">Test AI</button>
   </div>
 
   <div class="tab-panel active" id="tab-dash">
     <div class="grid-2">
-      <div class="panel">
-        <h3 data-i18n="last7">Last 7 days revenue</h3>
-        <div id="dashBars" style="display:flex;align-items:flex-end;gap:.5rem;height:160px"></div>
-      </div>
-      <div class="panel">
-        <h3 data-i18n="activity">Recent activity</h3>
-        <div id="dashActivity" style="max-height:160px;overflow-y:auto;font-family:var(--mono);font-size:.66rem;color:var(--dim)"></div>
-      </div>
+      <div class="panel"><h3>Last 7 days revenue</h3><div id="dashBars" style="display:flex;align-items:flex-end;gap:.5rem;height:160px"></div></div>
+      <div class="panel"><h3>Recent activity</h3><div id="dashActivity" style="max-height:160px;overflow-y:auto;font-family:var(--mono);font-size:.66rem;color:var(--dim)"></div></div>
     </div>
     <div class="panel">
       <div style="display:flex;gap:1rem;flex-wrap:wrap">
-        <div class="stat-box"><div class="lbl" data-i18n="today_orders">Orders today</div><div class="val" id="dTodayOrders" style="color:var(--copper)">0</div></div>
-        <div class="stat-box"><div class="lbl" data-i18n="today_revenue">Revenue today</div><div class="val" id="dTodayRev" style="color:var(--leaf)">$0</div></div>
-        <div class="stat-box"><div class="lbl" data-i18n="pending">Pending</div><div class="val" id="dPending" style="color:var(--csoft)">$0</div></div>
-        <div class="stat-box"><div class="lbl" data-i18n="avg_order">Avg order</div><div class="val" id="dAvg">$0</div></div>
-        <div class="stat-box"><div class="lbl" data-i18n="top_item">Top item</div><div class="val" id="dTop" style="font-size:1.1rem">—</div></div>
-        <div class="stat-box"><div class="lbl" data-i18n="total_users">Users</div><div class="val" id="dUsers">0</div></div>
-        <div class="stat-box"><div class="lbl" data-i18n="total_orders">All orders</div><div class="val" id="dOrders">0</div></div>
-        <div class="stat-box"><div class="lbl" data-i18n="all_revenue">All revenue</div><div class="val" id="dAllRev" style="color:var(--leaf)">$0</div></div>
+        <div class="stat-box"><div class="lbl">Orders today</div><div class="val" id="dTodayOrders" style="color:var(--copper)">0</div></div>
+        <div class="stat-box"><div class="lbl">Revenue today</div><div class="val" id="dTodayRev" style="color:var(--leaf)">$0</div></div>
+        <div class="stat-box"><div class="lbl">Pending</div><div class="val" id="dPending" style="color:var(--csoft)">$0</div></div>
+        <div class="stat-box"><div class="lbl">Avg order</div><div class="val" id="dAvg">$0</div></div>
+        <div class="stat-box"><div class="lbl">Top item</div><div class="val" id="dTop" style="font-size:1.1rem">—</div></div>
+        <div class="stat-box"><div class="lbl">Users</div><div class="val" id="dUsers">0</div></div>
+        <div class="stat-box"><div class="lbl">All orders</div><div class="val" id="dOrders">0</div></div>
+        <div class="stat-box"><div class="lbl">All revenue</div><div class="val" id="dAllRev" style="color:var(--leaf)">$0</div></div>
       </div>
     </div>
-    <div class="panel">
-      <h3>⬇ Export / Backup</h3>
+    <div class="panel"><h3>⬇ Export / Backup</h3>
       <div class="row">
         <button class="btn ghost sm" id="expOrders">Orders CSV</button>
         <button class="btn ghost sm" id="expUsers">Users CSV</button>
@@ -153,128 +148,100 @@ td{padding:.55em .5em;border-bottom:1px dashed var(--line);font-size:.85rem;vert
   </div>
 
   <div class="tab-panel" id="tab-analytics">
-    <div class="panel">
-      <h3 data-i18n="an_total">Total views</h3>
-      <div class="stat-box" style="max-width:240px"><div class="lbl" data-i18n="an_total">Total views</div><div class="val" id="anTotal" style="color:var(--copper)">0</div></div>
-    </div>
     <div class="grid-2">
-      <div class="panel"><h3 data-i18n="an_pages">Top pages</h3><div id="anPages"></div></div>
-      <div class="panel"><h3 data-i18n="an_daily">Daily visits</h3><div id="anDaily" style="display:flex;align-items:flex-end;gap:.4rem;height:140px"></div></div>
+      <div class="panel"><h3>Top pages</h3><div id="anPages"></div></div>
+      <div class="panel"><h3>Daily visits</h3><div id="anDaily" style="display:flex;align-items:flex-end;gap:.4rem;height:140px"></div></div>
     </div>
-    <div class="panel"><h3 data-i18n="an_ref">Top referrers</h3><div id="anRef"></div></div>
+    <div class="panel"><h3>Top referrers</h3><div id="anRef"></div></div>
   </div>
 
   <div class="tab-panel" id="tab-orders">
     <div class="panel">
-      <h3 data-i18n="orders_board">Orders board</h3>
-      <div class="row" style="margin-bottom:1rem">
-        <button class="btn ghost sm" id="refreshOrders" data-i18n="refresh">Refresh ⟳</button>
-        <span class="pill" id="queuePill">0 queued</span>
-      </div>
+      <h3>Orders board</h3>
+      <div class="row" style="margin-bottom:1rem"><button class="btn ghost sm" id="refreshOrders">Refresh ⟳</button><span class="pill" id="queuePill">0 queued</span></div>
       <input id="orderSearch" placeholder="Search order # / item…" style="max-width:280px;margin-bottom:.9rem">
       <div id="ordersBoard"></div>
     </div>
   </div>
 
   <div class="tab-panel" id="tab-pending">
-    <div class="panel">
-      <h3>⏳ Pending payments (manual verify)</h3>
-      <p class="hint">Confirm when the money lands in your Telebirr/M-Pesa/bank.</p>
-      <div id="pendingBoard"></div>
-    </div>
+    <div class="panel"><h3>⏳ Pending payments (manual verify)</h3><p class="hint">Confirm when the money lands in your Telebirr/M-Pesa/bank.</p><div id="pendingBoard"></div></div>
+  </div>
+
+  <div class="tab-panel" id="tab-reviews">
+    <div class="panel"><h3>⭐ Customer reviews (moderate)</h3><div id="reviewsAdmin"></div></div>
+  </div>
+
+  <div class="tab-panel" id="tab-subs">
+    <div class="panel"><h3>🔁 Coffee Club subscriptions</h3><div id="subsAdmin"></div></div>
   </div>
 
   <div class="tab-panel" id="tab-menu">
     <div class="grid-2">
-      <div class="panel">
-        <h3 data-i18n="add_item">Add new item</h3>
-        <label data-i18n="f_name">Name</label><input id="mi-name">
-        <label data-i18n="f_cat">Category</label>
-        <select id="mi-cat"><option>Espresso</option><option>Filter</option><option>Cold</option><option>Bakes</option></select>
-        <label data-i18n="f_price">Price</label><input id="mi-price" type="number" step="0.10" min="0.5" value="3.50">
-        <label data-i18n="f_desc">Description</label><textarea id="mi-desc" rows="2"></textarea>
-        <div style="margin-top:1rem"><button class="btn" id="addMenuBtn" data-i18n="add">+ Add</button></div>
+      <div class="panel"><h3>Add new item</h3>
+        <label>Name</label><input id="mi-name">
+        <label>Category</label><select id="mi-cat"><option>Espresso</option><option>Filter</option><option>Cold</option><option>Bakes</option></select>
+        <label>Price</label><input id="mi-price" type="number" step="0.10" min="0.5" value="3.50">
+        <label>Description</label><textarea id="mi-desc" rows="2"></textarea>
+        <div style="margin-top:1rem"><button class="btn" id="addMenuBtn">+ Add</button></div>
       </div>
-      <div class="panel"><h3 data-i18n="current_board">Current board</h3><table id="menuTable"></table></div>
+      <div class="panel"><h3>Current board</h3><table id="menuTable"></table></div>
     </div>
   </div>
 
   <div class="tab-panel" id="tab-posts">
     <div class="grid-2">
-      <div class="panel">
-        <h3 data-i18n="publish_post">Publish a post</h3>
-        <label data-i18n="f_title">Title</label><input id="po-title">
-        <label data-i18n="f_body">Body</label><textarea id="po-body" rows="5"></textarea>
-        <div style="margin-top:1rem"><button class="btn" id="addPostBtn" data-i18n="publish">Publish ◆</button></div>
+      <div class="panel"><h3>Publish a post</h3>
+        <label>Title</label><input id="po-title">
+        <label>Body</label><textarea id="po-body" rows="5"></textarea>
+        <div style="margin-top:1rem"><button class="btn" id="addPostBtn">Publish ◆</button></div>
       </div>
-      <div class="panel"><h3 data-i18n="published">Published</h3><div id="postsList"></div></div>
+      <div class="panel"><h3>Published</h3><div id="postsList"></div></div>
     </div>
   </div>
 
   <div class="tab-panel" id="tab-events">
-    <div class="panel"><h3 data-i18n="events_seats">Events — seats</h3><div id="evList"></div></div>
+    <div class="panel"><h3>Events — seats</h3><div id="evList"></div></div>
   </div>
 
   <div class="tab-panel" id="tab-team">
-    <div class="panel">
-      <h3 data-i18n="team_title">Team, roles & moderator permissions</h3>
-      <p class="hint">customer → staff → moderator → admin</p>
-      <table id="teamTable"></table>
-    </div>
+    <div class="panel"><h3>Team, roles & moderator permissions</h3><p class="hint">customer → staff → moderator → admin</p><table id="teamTable"></table></div>
   </div>
 
   <div class="tab-panel" id="tab-ai">
     <div class="grid-2">
-      <div class="panel">
-        <h3 data-i18n="teach_bot">Teach the bot</h3>
-        <label data-i18n="f_keys">Keywords (comma separated)</label><input id="kn-keys" placeholder="wifi, internet">
-        <label data-i18n="f_ans">Answer</label><textarea id="kn-ans" rows="3"></textarea>
-        <div style="margin-top:1rem"><button class="btn" id="addKnBtn" data-i18n="add">+ Add</button></div>
+      <div class="panel"><h3>Teach the bot</h3>
+        <label>Keywords (comma separated)</label><input id="kn-keys" placeholder="wifi, internet">
+        <label>Answer</label><textarea id="kn-ans" rows="3"></textarea>
+        <div style="margin-top:1rem"><button class="btn" id="addKnBtn">+ Add</button></div>
       </div>
-      <div class="panel"><h3 data-i18n="known_answers">Known answers</h3><div id="knList"></div></div>
+      <div class="panel"><h3>Known answers</h3><div id="knList"></div></div>
     </div>
   </div>
 
   <div class="tab-panel" id="tab-wallet">
     <div class="grid-2">
-      <div class="panel">
-        <h3>💰 <span data-i18n="wallet">Wallet</span></h3>
+      <div class="panel"><h3>💰 Wallet</h3>
         <div style="display:flex;gap:1rem;margin:1rem 0">
-          <div class="stat-box"><div class="lbl" data-i18n="balance">Balance</div><div class="val" id="walletBalance" style="color:var(--copper)">$0.00</div></div>
-          <div class="stat-box"><div class="lbl" data-i18n="total_received">Total received</div><div class="val" id="walletTotal" style="color:var(--leaf)">$0.00</div></div>
+          <div class="stat-box"><div class="lbl">Balance</div><div class="val" id="walletBalance" style="color:var(--copper)">$0.00</div></div>
+          <div class="stat-box"><div class="lbl">Total received</div><div class="val" id="walletTotal" style="color:var(--leaf)">$0.00</div></div>
         </div>
-        <button class="btn ghost sm" id="refreshWallet" data-i18n="refresh">Refresh ⟳</button>
+        <button class="btn ghost sm" id="refreshWallet">Refresh ⟳</button>
       </div>
-      <div class="panel">
-        <h3>↗ <span data-i18n="transfer">Transfer</span></h3>
-        <label data-i18n="transfer_to">Transfer to</label>
-        <select id="tr-dest">
-          <option value="wallet">Other wallet</option>
-          <option value="bank">Bank account</option>
-          <option value="crypto">Crypto wallet</option>
-          <option value="paypal">PayPal email</option>
-          <option value="telebirr">Telebirr</option>
-          <option value="mpesa">M-Pesa</option>
-        </select>
-        <label data-i18n="destination">Destination</label>
-        <input id="tr-to" placeholder="e.g. bc1q... / user@bank.com">
-        <label data-i18n="amount">Amount ($)</label>
-        <input id="tr-amt" type="number" step="0.01" min="0.01" placeholder="100.00">
-        <label data-i18n="reference">Reference</label>
-        <input id="tr-ref" placeholder="e.g. Monthly withdrawal">
-        <div style="margin-top:1rem"><button class="btn" id="transferBtn" data-i18n="send">Send</button></div>
+      <div class="panel"><h3>↗ Transfer</h3>
+        <label>Transfer to</label>
+        <select id="tr-dest"><option value="wallet">Other wallet</option><option value="bank">Bank account</option><option value="crypto">Crypto wallet</option><option value="paypal">PayPal email</option><option value="telebirr">Telebirr</option><option value="mpesa">M-Pesa</option></select>
+        <label>Destination</label><input id="tr-to" placeholder="e.g. bc1q... / user@bank.com">
+        <label>Amount ($)</label><input id="tr-amt" type="number" step="0.01" min="0.01" placeholder="100.00">
+        <label>Reference</label><input id="tr-ref" placeholder="e.g. Monthly withdrawal">
+        <div style="margin-top:1rem"><button class="btn" id="transferBtn">Send</button></div>
       </div>
     </div>
-    <div class="panel">
-      <h3><span data-i18n="recent">Recent transactions</span></h3>
-      <table id="txTable"></table>
-    </div>
+    <div class="panel"><h3>Recent transactions</h3><table id="txTable"></table></div>
   </div>
 
   <div class="tab-panel" id="tab-settings">
-    <div class="panel">
-      <h3>⚙️ Payment destinations</h3>
-      <p class="hint">These are shown to customers at checkout.</p>
+    <div class="panel"><h3>⚙️ Payment destinations</h3><p class="hint">These are shown to customers at checkout.</p>
       <label>Telebirr phone</label><input id="set-telebirr" placeholder="+251976021007">
       <label>M-Pesa phone</label><input id="set-mpesa" placeholder="+251973011231">
       <label>PayPal email</label><input id="set-paypal" placeholder="amareermias@gmail.com">
@@ -286,33 +253,19 @@ td{padding:.55em .5em;border-bottom:1px dashed var(--line);font-size:.85rem;vert
 
   <div class="tab-panel" id="tab-security">
     <div class="grid-2">
-      <div class="panel">
-        <h3 data-i18n="sec_blocked">Blocked IPs</h3>
-        <div id="secBlocked"></div>
-      </div>
-      <div class="panel">
-        <h3 data-i18n="sec_events">Security events</h3>
-        <div id="secEvents" style="max-height:320px;overflow-y:auto;font-family:var(--mono);font-size:.66rem;color:var(--dim)"></div>
-      </div>
+      <div class="panel"><h3>Blocked IPs</h3><div id="secBlocked"></div></div>
+      <div class="panel"><h3>Security events</h3><div id="secEvents" style="max-height:320px;overflow-y:auto;font-family:var(--mono);font-size:.66rem;color:var(--dim)"></div></div>
     </div>
   </div>
 
   <div class="tab-panel" id="tab-aichat">
-    <div class="panel" style="max-width:520px">
-      <h3 data-i18n="test_bot">Test Barista Bot</h3>
+    <div class="panel" style="max-width:520px"><h3>Test Barista Bot</h3>
       <div class="chat-log" id="chatLog"></div>
-      <div class="row"><input id="chatIn" placeholder="Ask the bot…"><button class="btn" id="chatSend" data-i18n="send">Send</button></div>
+      <div class="row"><input id="chatIn" placeholder="Ask the bot…"><button class="btn" id="chatSend">Send</button></div>
     </div>
   </div>
 </main>
 
-<!-- ✍️ CREDIT — static -->
-<div style="display:flex;gap:1.2rem;flex-wrap:wrap;justify-content:center;align-items:center;padding:1.1rem 1rem 1.5rem;font-family:'Space Mono',monospace;font-size:.66rem;letter-spacing:.1em;color:#93866f;border-top:1px solid rgba(241,230,212,.12);margin-top:2.5rem;text-align:center">
-  <span data-i18n="bot_credit">Built by</span>&nbsp;<b style="color:#d98e32">ERMIAS AMARE</b>
-  <a href="mailto:amareermias@gmail.com" style="color:inherit;text-decoration:none;border-bottom:1px dashed #93866f">amareermias@gmail.com</a>
-  <a href="tel:+251976021007" style="color:inherit;text-decoration:none;border-bottom:1px dashed #93866f">+251 976 021 007</a>
-  <a href="tel:+251973011231" style="color:inherit;text-decoration:none;border-bottom:1px dashed #93866f">+251 973 011 231</a>
-</div>
 <div id="blip"></div>
 
 <script>
@@ -333,49 +286,11 @@ function myPerms(){
   if(ME.role==='staff')return{can_orders:1};
   return{};
 }
-
-function download(name,mime,text){
-  const a=document.createElement('a');
-  a.href=URL.createObjectURL(new Blob([text],{type:mime}));
-  a.download=name;a.click();URL.revokeObjectURL(a.href);
-}
+function download(name,mime,text){const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([text],{type:mime}));a.download=name;a.click();URL.revokeObjectURL(a.href);}
 const csvEsc=v=>{v=String(v??'');return /[",\n]/.test(v)?'"'+v.replace(/"/g,'""')+'"':v;};
 const toCSV=rows=>rows.map(r=>r.map(csvEsc).join(',')).join('\n');
 
-/* ===== 🌍 i18n ===== */
-const ADMIN_I18N={
-en:{tab_dash:'📊 Dashboard',tab_analytics:'📈 Analytics',tab_orders:'Orders',tab_pending:'⏳ Pending',tab_menu:'Menu',tab_posts:'Posts',tab_events:'Events',tab_team:'Team',tab_ai:'AI Knowledge',tab_wallet:'💰 Wallet',tab_settings:'⚙️ Payments',tab_security:'🛡️ Security',tab_testai:'Test AI',last7:'Last 7 days revenue',activity:'Recent activity',today_orders:'Orders today',today_revenue:'Revenue today',pending:'Pending',avg_order:'Avg order',top_item:'Top item',total_users:'Users',total_orders:'All orders',all_revenue:'All revenue',an_total:'Total views',an_pages:'Top pages',an_daily:'Daily visits',an_ref:'Top referrers',orders_board:'Orders board',refresh:'Refresh ⟳',add_item:'Add new item',current_board:'Current board',publish_post:'Publish a post',published:'Published',events_seats:'Events — seats',team_title:'Team, roles & moderator permissions',teach_bot:'Teach the bot',known_answers:'Known answers',test_bot:'Test Barista Bot',sec_blocked:'Blocked IPs',sec_events:'Security events',sec_none:'No threats detected. All clear. ✓',sec_unblock:'Unblock',f_name:'Name',f_cat:'Category',f_price:'Price',f_desc:'Description',f_title:'Title',f_body:'Body',f_keys:'Keywords (comma separated)',f_ans:'Answer',add:'+ Add',publish:'Publish ◆',send:'Send',wallet:'Wallet',balance:'Balance',total_received:'Total received',transfer:'Transfer',transfer_to:'Transfer to',destination:'Destination',amount:'Amount ($)',reference:'Reference',recent:'Recent transactions'},
-am:{tab_dash:'📊 ዳሽቦርድ',tab_analytics:'📈 አናሊቲክስ',tab_orders:'ትዕዛዞች',tab_pending:'⏳ በመጠባበ',tab_menu:'ኑ',tab_posts:'ስቶች',tab_events:'ዝግጅቶች',tab_team:'ቡድን',tab_ai:'AI እውቀት',tab_wallet:'💰 ዋሌት',tab_settings:'⚙️ ክያዎች',tab_security:'🛡️ ደህንነት',tab_testai:'AI ሞክር',last7:'ያለፉት 7 ቀናት ገ',activity:'የቅርብ እንቅስቃሴ',today_orders:'የዛሬ ዕዛዞች',today_revenue:'የዛሬ ቢ',pending:'በመጠባበቅ',avg_order:'አማካይ ትዕዛዝ',top_item:'ተወዳጅ ምርት',total_users:'ተጠቃሚዎች',total_orders:'ሁሉም ትዕዛዞች',all_revenue:'ጠቅላላ ገቢ',an_total:'ጠቅላላ ጎብኝች',an_pages:'ተወዳጅ ገጾች',an_daily:'የዕለት ጎብኝዎች',an_ref:'ከየት መጡ',orders_board:'የትዕዛዝ ሌዳ',refresh:'አድስ ⟳',add_item:'አዲስ እቃ ጨምር',current_board:'የአሁኑ ኑ',publish_post:'ፖስት አትም',published:'የታተሙ',events_seats:'ዝግጅቶች — መቀመጫ',team_title:'ቡድን፣ ሚና እና ፈቃዶች',teach_bot:'ቦቱን አስተምር',known_answers:'የታወ መልሶች',test_bot:'Barista Bot ሞክር',sec_blocked:'የታገዱ IPs',sec_events:'የደህንነት ክስተቶች',sec_none:'ምንም ስጋት አልተገም። ሁሉም ጥሩ ነው። ✓',sec_unblock:'አገ አንሳ',f_name:'ስም',f_cat:'ምድብ',f_price:'ዋጋ',f_desc:'መግለጫ',f_title:'ርዕስ',f_body:'ይዘት',f_keys:'ቁልፍ ቃላት (በኮማ)',f_ans:'መልስ',add:'+ ጨምር',publish:'አትም ◆',send:'ላ',wallet:'ዋሌት',balance:'ቀሪ',total_received:'ጠቅላላ የገባ',transfer:'ላክ',transfer_to:'ወደ',destination:'መድረሻ',amount:'መጠን ($)',reference:'ማጣ',recent:'የቅርብ ግብይቶች'}
-};
-let LANG=localStorage.getItem('moka-lang')||'en';
-window.__I18N=window.__I18N||{};
-function dictFor(l){return Object.assign({},window.__I18N[l]||{},ADMIN_I18N[l]||{});}
-function applyLang(lang){
-  LANG=lang;localStorage.setItem('moka-lang',lang);
-  const d=dictFor(lang);
-  $$('[data-i18n]').forEach(el=>{
-    const v=d[el.dataset.i18n];
-    if(v==null)return;
-    if(v.includes('<'))el.innerHTML=v;else el.textContent=v;
-  });
-  document.documentElement.lang=lang;
-  document.documentElement.dir=(lang==='ar')?'rtl':'ltr';
-  $('#langSwitch').value=lang;
-}
-(async()=>{
-  try{const langs=await fetch('/api/i18n').then(r=>r.json());
-    for(const l of langs){
-      if(!window.__I18N[l]){
-        window.__I18N[l]=await fetch('/api/i18n/'+l).then(r=>r.json());
-      }
-    }
-  }catch{}
-  applyLang(LANG);
-  boot();
-})();
-$('#langSwitch').addEventListener('change',e=>applyLang(e.target.value));
-
-/* ===== 📊 dashboard ===== */
+/* ===== dashboard ===== */
 async function loadDash(){
   try{
     const st=await api('/api/stats');
@@ -401,21 +316,22 @@ async function loadDash(){
     $('#dashActivity').innerHTML=act.slice(0,20).map(a=>`<div style="padding:.25em 0;border-bottom:1px dashed var(--line)">◆ ${a.msg} <span style="color:var(--mute)">· ${new Date(a.t).toLocaleTimeString()}</span></div>`).join('')||'<p>—</p>';
   }catch{}
 }
+$('#expOrders').onclick=async()=>{try{const o=await api('/api/orders');const rows=[['order','items','subtotal','tx','status','created']];o.forEach(x=>rows.push([x.no,x.items.map(i=>i.qty+'x '+i.name).join(' | '),x.subtotal.toFixed(2),x.txId||'',x.status,x.created]));download('moka-orders.csv','text/csv',toCSV(rows));blip('Orders CSV ✓');}catch{}};
+$('#expUsers').onclick=async()=>{try{const u=await api('/api/users');const rows=[['user','role','name','email','phone','provider','created']];u.forEach(x=>rows.push([x.user,x.role,x.name||'',x.email||'',x.phone||'',x.provider||'',x.created||'']));download('moka-users.csv','text/csv',toCSV(rows));blip('Users CSV ✓');}catch{}};
+$('#expJson').onclick=async()=>{try{const [o,u,p,e,k,w,t]=await Promise.all([api('/api/orders'),api('/api/users'),api('/api/posts'),api('/api/events'),api('/api/knowledge'),api('/api/wallet/balance').catch(()=>({})),api('/api/wallet/transactions').catch(()=>[])]);download('moka-backup.json','application/json',JSON.stringify({orders:o,users:u,posts:p,events:e,knowledge:k,wallet:w,transactions:t,exported:new Date().toISOString()},null,2));blip('Backup ✓');}catch{}};
 
-/* ===== 📈 analytics ===== */
+/* ===== analytics ===== */
 async function loadAnalytics(){
   try{
     const a=await api('/api/analytics');
-    $('#anTotal').textContent=(a.totalViews||0).toLocaleString();
-    $('#anPages').innerHTML=(a.views||[]).map(([p,v])=>`<div class="row" style="justify-content:space-between;padding:.4rem 0;border-bottom:1px dashed var(--line)"><span style="font-family:var(--mono);font-size:.72rem">${p}</span><b style="color:var(--copper)">${v}</b></div>`).join('')||'<p style="color:var(--mute)">—</p>';
-    const daily=(a.daily||[]).slice().reverse();
-    const max=Math.max(...daily.map(d=>d[1]),1);
-    $('#anDaily').innerHTML=daily.map(([d,v])=>`<div style="flex:1;display:flex;flex-direction:column;justify-content:flex-end;align-items:center;gap:.3rem;height:100%"><div title="${v}" style="width:70%;background:linear-gradient(180deg,var(--csoft),var(--copper));border-radius:4px 4px 0 0;height:${Math.max(4,Math.round(v/max*110))}px"></div><small style="font-family:var(--mono);font-size:.5rem;color:var(--mute)">${d.slice(8)}</small></div>`).join('')||'<p style="color:var(--mute)">—</p>';
-    $('#anRef').innerHTML=(a.referrers||[]).map(([r,v])=>`<div class="row" style="justify-content:space-between;padding:.4rem 0;border-bottom:1px dashed var(--line)"><span style="font-family:var(--mono);font-size:.72rem">${r}</span><b style="color:var(--leaf)">${v}</b></div>`).join('')||'<p style="color:var(--mute)">—</p>';
+    $('#anPages').innerHTML=(a.views||[]).map(([p,v])=>`<div class="row" style="justify-content:space-between;padding:.4rem 0;border-bottom:1px dashed var(--line)"><span style="font-family:var(--mono);font-size:.72rem">${p}</span><b style="color:var(--copper)">${v}</b></div>`).join('')||'<p style="color:var(--mute)">No data yet.</p>';
+    const daily=(a.daily||[]).slice().reverse();const max=Math.max(...daily.map(d=>d[1]),1);
+    $('#anDaily').innerHTML=daily.map(([d,v])=>`<div style="flex:1;display:flex;flex-direction:column;justify-content:flex-end;align-items:center;gap:.3rem;height:100%"><div title="${v}" style="width:70%;background:linear-gradient(180deg,var(--csoft),var(--copper));border-radius:4px 4px 0 0;height:${Math.max(4,Math.round(v/max*110))}px"></div><small style="font-family:var(--mono);font-size:.5rem;color:var(--mute)">${d.slice(8)}</small></div>`).join('')||'<p style="color:var(--mute)">No data.</p>';
+    $('#anRef').innerHTML=(a.referrers||[]).map(([r,v])=>`<div class="row" style="justify-content:space-between;padding:.4rem 0;border-bottom:1px dashed var(--line)"><span style="font-family:var(--mono);font-size:.72rem">${r}</span><b style="color:var(--leaf)">${v}</b></div>`).join('')||'<p style="color:var(--mute)">No referrers.</p>';
   }catch{}
 }
 
-/* ===== ⏳ pending ===== */
+/* ===== pending ===== */
 async function loadPending(){
   try{
     const txs=await api('/api/wallet/transactions');
@@ -428,10 +344,8 @@ async function loadPending(){
         <td style="color:var(--copper);font-weight:700">$${t.amount.toFixed(2)}</td>
         <td style="font-family:var(--mono);font-size:.72rem">${JSON.stringify(t.details||{}).slice(0,40)}</td>
         <td style="color:var(--mute);font-size:.72rem">${new Date(t.created).toLocaleString()}</td>
-        <td>
-          <button class="btn sm" data-confirm="${t.id}" style="background:var(--leaf);border-color:var(--leaf)">✓ Confirm</button>
-          <button class="btn sm danger" data-reject="${t.id}">✕ Reject</button>
-        </td>
+        <td><button class="btn sm" data-confirm="${t.id}" style="background:var(--leaf);border-color:var(--leaf)">✓ Confirm</button>
+        <button class="btn sm danger" data-reject="${t.id}">✕ Reject</button></td>
       </tr>`).join('')+'</table>':'<p style="color:var(--mute)">No pending payments. ✓</p>';
   }catch{}
 }
@@ -441,73 +355,42 @@ $('#pendingBoard').addEventListener('click',async e=>{
   if(r&&confirm('Reject this payment?')){await api(`/api/wallet/reject/${r.dataset.reject}`,{method:'POST'});blip('✕ Rejected');loadPending();loadDash();}
 });
 
-/* ===== 🛡️ security ===== */
-async function loadSecurity(){
+/* ===== reviews moderation ===== */
+async function loadReviewsAdmin(){
   try{
-    const s=await api('/api/security');
-    const d=dictFor(LANG);
-    $('#secBlocked').innerHTML=s.blocked.length? s.blocked.map(b=>`
-      <div class="row" style="justify-content:space-between;padding:.5rem 0;border-bottom:1px dashed var(--line)">
-        <span style="font-family:var(--mono);font-size:.72rem">${b.ip}</span>
-        <button class="btn sm ghost" data-unblock="${b.ip}">${d.sec_unblock||'Unblock'}</button>
-      </div>`).join('') : `<p style="color:var(--leaf)">${d.sec_none||'No threats. ✓'}</p>`;
-    $('#secEvents').innerHTML=s.events.length? s.events.map(e=>`<div style="padding:.25em 0;border-bottom:1px dashed var(--line)">[${new Date(e.t).toLocaleTimeString()}] <b style="color:var(--copper)">${e.type}</b> ${e.ip} — ${e.detail}</div>`).join('') : `<p style="color:var(--mute)">—</p>`;
+    const rvs=await api('/api/reviews/all');
+    $('#reviewsAdmin').innerHTML=rvs.length?rvs.map(r=>`
+      <div style="border-bottom:1px dashed var(--line);padding:.7rem 0">
+        <div style="color:var(--copper)">${'★'.repeat(r.rating)}${'☆'.repeat(5-r.rating)}</div>
+        <p style="color:var(--dim);font-size:.85rem;margin:.3rem 0">"${r.text}" — <b>${r.name}</b> ${r.approved?'<span class="pill active">approved</span>':'<span class="pill pending">pending</span>'}</p>
+        ${r.approved?'':`<button class="btn sm" data-appr="${r.id}" style="background:var(--leaf);border-color:var(--leaf)">✓ Approve</button>`}
+        <button class="btn sm danger" data-delrv="${r.id}">✕ Delete</button>
+      </div>`).join(''):'<p style="color:var(--mute)">No reviews yet.</p>';
   }catch{}
 }
-$('#secBlocked').addEventListener('click',async e=>{
-  const b=e.target.closest('[data-unblock]');
-  if(b){await api('/api/security/unblock',{method:'POST',body:JSON.stringify({ip:b.dataset.unblock})});blip('Unblocked');loadSecurity();}
+$('#reviewsAdmin').addEventListener('click',async e=>{
+  const a=e.target.closest('[data-appr]'),d=e.target.closest('[data-delrv]');
+  if(a){await api(`/api/reviews/${a.dataset.appr}/approve`,{method:'POST'});loadReviewsAdmin();}
+  if(d&&confirm('Delete review?')){await api(`/api/reviews/${d.dataset.delrv}`,{method:'DELETE'});loadReviewsAdmin();}
 });
 
-/* ===== boot ===== */
-async function boot(){
-  ME=await api('/api/admin/whoami');
-  $('#whoAmI').textContent='☕ '+ME.user;
-  const rb=$('#roleBadge');rb.textContent=ME.role;rb.className='role-badge '+ME.role;
-
-  if(ME.role==='customer'){
-    $('#lockScreen').style.display='block';
-    $('#mainArea').style.display='none';
-    $('#lockTitle').textContent='☕ '+ME.user;
-    $('#lockMsg').innerHTML='✅ <b>Logged in</b> — ተመዝግበህ ገብተሃል (customer)።<br>Admin panel ለሠራተኞች ቻ ነው፤ ሱቁን ግን በነፃነት ጠቀም';
-    const lb=$('#lockLogout'); if(lb) lb.onclick=async()=>{await fetch('/api/admin/logout',{method:'POST'});location.href='/';};
-    applyLang(LANG);
-    return;
-  }
-  P=myPerms();
-  if(ME.role!=='admin'){$('#tabBtnTeam').style.display='none';$('#tabBtnAi').style.display='none';$('#tabBtnSettings').style.display='none';$('#tabBtnSecurity').style.display='none';$('#tabBtnAnalytics').style.display='none';}
-  if(!(ME.role==='admin'||P.can_wallet))$('#tabBtnWallet').style.display='none';
-  if(!P.can_orders)$('[data-tab="orders"]').style.display='none';
-  if(!P.can_menu)$('[data-tab="menu"]').style.display='none';
-  if(!P.can_posts)$('[data-tab="posts"]').style.display='none';
-  if(!P.can_events)$('[data-tab="events"]').style.display='none';
-
-  loadDash();loadPending();setInterval(loadPending,8000);
-  if(ME.role==='admin'){loadAnalytics();setInterval(loadAnalytics,15000);}
-  if(P.can_orders){loadOrders();setInterval(loadOrders,4000);}
-  if(P.can_menu)loadMenu();
-  if(P.can_posts)loadPosts();
-  if(P.can_events)loadEvents();
-  if(ME.role==='admin'){loadTeam();loadKnowledge();loadSettings();loadSecurity();setInterval(loadSecurity,10000);}
-  if(ME.role==='admin'||P.can_wallet)loadWallet();
-  applyLang(LANG);
+/* ===== subscriptions ===== */
+async function loadSubsAdmin(){
+  try{
+    const ss=await api('/api/subscriptions');
+    $('#subsAdmin').innerHTML=ss.length?ss.map(s=>`
+      <div style="border-bottom:1px dashed var(--line);padding:.7rem 0">
+        <p style="color:var(--dim);font-size:.85rem"><b>${s.name}</b> · ${s.email} · <b style="color:var(--copper)">${s.plan}</b> ${s.status==='active'?'<span class="pill active">active</span>':'<span class="pill pending">pending</span>'}</p>
+        ${s.status==='active'?'':`<button class="btn sm" data-confsub="${s.id}" style="background:var(--leaf);border-color:var(--leaf)">✓ Activate</button>`}
+      </div>`).join(''):'<p style="color:var(--mute)">No subscriptions yet.</p>';
+  }catch{}
 }
-
-$('#logoutBtn').onclick=async()=>{await fetch('/api/admin/logout',{method:'POST'});location.href='/login.html';};
-$('#tabNav').addEventListener('click',e=>{
-  const b=e.target.closest('.tab-btn');if(!b)return;
-  $$('.tab-btn').forEach(x=>x.classList.remove('active'));
-  $$('.tab-panel').forEach(x=>x.classList.remove('active'));
-  b.classList.add('active');$('#tab-'+b.dataset.tab).classList.add('active');
-  if(b.dataset.tab==='wallet')loadWallet();
-  if(b.dataset.tab==='dash')loadDash();
-  if(b.dataset.tab==='analytics')loadAnalytics();
-  if(b.dataset.tab==='pending')loadPending();
-  if(b.dataset.tab==='settings')loadSettings();
-  if(b.dataset.tab==='security')loadSecurity();
+$('#subsAdmin').addEventListener('click',async e=>{
+  const a=e.target.closest('[data-confsub]');
+  if(a){await api(`/api/subscriptions/${a.dataset.confsub}/confirm`,{method:'POST'});loadSubsAdmin();}
 });
 
-/* ---------- orders ---------- */
+/* ===== orders ===== */
 const NEXT={queued:'brewing',brewing:'ready',ready:'picked-up'};
 let lastOrders=[];
 function renderOrders(){
@@ -522,9 +405,7 @@ function renderOrders(){
     <td>${NEXT[o.status]?`<button class="btn sm" data-adv="${o.no}" data-next="${NEXT[o.status]}">→ ${NEXT[o.status]}</button>`:'✓'}
     <button class="btn sm danger" data-void="${o.no}">✕</button></td></tr>`).join('')+'</table>':'<p style="color:var(--mute)">No orders found.</p>';
 }
-async function loadOrders(){
-  try{lastOrders=await api('/api/orders');renderOrders();}catch{}
-}
+async function loadOrders(){try{lastOrders=await api('/api/orders');renderOrders();}catch{}}
 $('#orderSearch').addEventListener('input',renderOrders);
 $('#ordersBoard').addEventListener('click',async e=>{
   const adv=e.target.closest('[data-adv]'),vo=e.target.closest('[data-void]');
@@ -533,7 +414,7 @@ $('#ordersBoard').addEventListener('click',async e=>{
 });
 $('#refreshOrders').onclick=loadOrders;
 
-/* ---------- menu ---------- */
+/* ===== menu ===== */
 async function loadMenu(){
   const menu=await api('/api/menu');
   $('#menuTable').innerHTML='<tr><th>Item</th><th>Price</th><th>On</th><th></th></tr>'+menu.map(m=>`
@@ -553,7 +434,7 @@ $('#addMenuBtn').onclick=async()=>{
   $('#mi-name').value='';$('#mi-desc').value='';blip('Item added');loadMenu();
 };
 
-/* ---------- posts ---------- */
+/* ===== posts ===== */
 async function loadPosts(){
   const posts=await api('/api/posts');
   $('#postsList').innerHTML=posts.length?posts.map(p=>`
@@ -574,7 +455,7 @@ $('#addPostBtn').onclick=async()=>{
   $('#po-title').value='';$('#po-body').value='';blip('Published ◆');loadPosts();
 };
 
-/* ---------- events ---------- */
+/* ===== events ===== */
 async function loadEvents(){
   const evs=await api('/api/events');
   $('#evList').innerHTML=evs.map(ev=>`<div class="row" style="justify-content:space-between;padding:.6rem 0;border-bottom:1px dashed var(--line)">
@@ -589,7 +470,7 @@ $('#evList').addEventListener('click',async e=>{
   if(i||d)loadEvents();
 });
 
-/* ---------- team ---------- */
+/* ===== team ===== */
 const PERML=[['can_menu','Menu'],['can_orders','Orders'],['can_events','Events'],['can_posts','Posts'],['can_wallet','Wallet']];
 async function loadTeam(){
   const users=await api('/api/users');
@@ -617,7 +498,7 @@ $('#teamTable').addEventListener('change',async e=>{
   if(sel){await api(`/api/users/${sel.dataset.role}/role`,{method:'PATCH',body:JSON.stringify({role:sel.value})});blip(sel.dataset.role+' → '+sel.value);loadTeam();}
 });
 
-/* ---------- AI knowledge ---------- */
+/* ===== ai knowledge ===== */
 async function loadKnowledge(){
   const kn=await api('/api/knowledge');
   $('#knList').innerHTML=kn.length?kn.map(k=>`
@@ -639,14 +520,14 @@ $('#addKnBtn').onclick=async()=>{
   $('#kn-keys').value='';$('#kn-ans').value='';blip('AI learned ✓');loadKnowledge();
 };
 
-/* ---------- wallet ---------- */
+/* ===== wallet ===== */
 async function loadWallet(){
   try{
     const [bal,txs]=await Promise.all([api('/api/wallet/balance'),api('/api/wallet/transactions')]);
     $('#walletBalance').textContent='$'+bal.balance.toFixed(2);
     $('#walletTotal').textContent='$'+bal.totalReceived.toFixed(2);
     const rows=txs.map(t=>`<tr>
-      <td><b>${t.id}</b>${t.type==='outgoing'?' <span class="pill" style="border-color:var(--tomato);color:var(--tomato)">OUT</span>':''}</td>
+      <td><b>${t.id}</b>${t.type==='outgoing'?' <span class="pill rejected">OUT</span>':''}</td>
       <td style="color:var(--mute);font-family:var(--mono);font-size:.7rem">${new Date(t.created).toLocaleString()}</td>
       <td>${t.method||t.destination||''}${t.reference?' · '+t.reference:''}</td>
       <td style="color:${t.type==='outgoing'?'var(--tomato)':'var(--leaf)'};font-weight:700">${t.type==='outgoing'?'−':'+'}$${t.amount.toFixed(2)}</td>
@@ -669,7 +550,7 @@ $('#transferBtn').addEventListener('click',async()=>{
   }catch{}
 });
 
-/* ---------- ⚙️ settings ---------- */
+/* ===== settings ===== */
 async function loadSettings(){
   try{
     const p=await api('/api/payments-info');
@@ -682,24 +563,79 @@ async function loadSettings(){
 }
 $('#saveSettingsBtn').onclick=async()=>{
   await api('/api/settings/payments',{method:'PATCH',body:JSON.stringify({
-    telebirr:$('#set-telebirr').value,
-    mpesa:$('#set-mpesa').value,
-    paypal:$('#set-paypal').value,
-    bank:$('#set-bank').value,
-    crypto:$('#set-crypto').value
+    telebirr:$('#set-telebirr').value,mpesa:$('#set-mpesa').value,paypal:$('#set-paypal').value,bank:$('#set-bank').value,crypto:$('#set-crypto').value
   })});
   blip('Payment destinations saved ✓');
 };
 
-/* ---------- test AI ---------- */
+/* ===== security ===== */
+async function loadSecurity(){
+  try{
+    const s=await api('/api/security');
+    $('#secBlocked').innerHTML=s.blocked.length?s.blocked.map(b=>`
+      <div class="row" style="justify-content:space-between;padding:.5rem 0;border-bottom:1px dashed var(--line)">
+        <span style="font-family:var(--mono);font-size:.72rem">${b.ip}</span>
+        <button class="btn sm ghost" data-unblock="${b.ip}">Unblock</button>
+      </div>`).join(''):'<p style="color:var(--leaf)">No blocked IPs. ✓</p>';
+    $('#secEvents').innerHTML=s.events.length?s.events.map(e=>`<div style="padding:.25em 0;border-bottom:1px dashed var(--line)">[${new Date(e.t).toLocaleTimeString()}] <b style="color:var(--copper)">${e.type}</b> ${e.ip} — ${e.detail}</div>`).join(''):'<p style="color:var(--mute)">—</p>';
+  }catch{}
+}
+$('#secBlocked').addEventListener('click',async e=>{
+  const b=e.target.closest('[data-unblock]');
+  if(b){await api('/api/security/unblock',{method:'POST',body:JSON.stringify({ip:b.dataset.unblock})});blip('Unblocked');loadSecurity();}
+});
+
+/* ===== test AI ===== */
 function cmsg(who,txt){$('#chatLog').innerHTML+=`<div class="cmsg ${who}"><b>${who==='user'?'You':'Bot'}</b>: ${txt}</div>`;$('#chatLog').scrollTop=1e9;}
 $('#chatSend').onclick=async()=>{
   const m=$('#chatIn').value.trim();if(!m)return;
   cmsg('user',m);$('#chatIn').value='';
-  const r=await api('/api/chat',{method:'POST',body:JSON.stringify({message:m,lang:LANG})});
+  const r=await api('/api/chat',{method:'POST',body:JSON.stringify({message:m,lang:'en'})});
   cmsg('bot',r.reply);
 };
 $('#chatIn').addEventListener('keydown',e=>{if(e.key==='Enter')$('#chatSend').click();});
+
+/* ===== boot ===== */
+async function boot(){
+  ME=await api('/api/admin/whoami');
+  $('#whoAmI').textContent='☕ '+ME.user;
+  const rb=$('#roleBadge');rb.textContent=ME.role;rb.className='role-badge '+ME.role;
+  if(ME.role==='customer'){
+    $('#lockScreen').style.display='block';
+    $('#mainArea').style.display='none';
+    $('#lockTitle').textContent='☕ '+ME.user;
+    $('#lockMsg').innerHTML='✅ <b>Logged in</b> as customer.<br>The admin panel is for staff — enjoy the shop!';
+    $('#lockLogout').onclick=async()=>{await fetch('/api/admin/logout',{method:'POST'});location.href='/';};
+    return;
+  }
+  P=myPerms();
+  if(ME.role!=='admin'){$('#tabBtnTeam').style.display='none';$('#tabBtnAi').style.display='none';$('#tabBtnSettings').style.display='none';$('#tabBtnSecurity').style.display='none';}
+  if(!(ME.role==='admin'||P.can_wallet))$('#tabBtnWallet').style.display='none';
+  loadDash();loadPending();loadAnalytics();loadReviewsAdmin();loadSubsAdmin();
+  setInterval(loadPending,8000);
+  if(P.can_orders){loadOrders();setInterval(loadOrders,4000);}
+  if(P.can_menu)loadMenu();
+  if(P.can_posts)loadPosts();
+  if(P.can_events)loadEvents();
+  if(ME.role==='admin'){loadTeam();loadKnowledge();loadSettings();loadSecurity();setInterval(loadSecurity,10000);}
+  if(ME.role==='admin'||P.can_wallet)loadWallet();
+}
+$('#logoutBtn').onclick=async()=>{await fetch('/api/admin/logout',{method:'POST'});location.href='/login.html';};
+$('#tabNav').addEventListener('click',e=>{
+  const b=e.target.closest('.tab-btn');if(!b)return;
+  $$('.tab-btn').forEach(x=>x.classList.remove('active'));
+  $$('.tab-panel').forEach(x=>x.classList.remove('active'));
+  b.classList.add('active');$('#tab-'+b.dataset.tab).classList.add('active');
+  if(b.dataset.tab==='wallet')loadWallet();
+  if(b.dataset.tab==='dash')loadDash();
+  if(b.dataset.tab==='analytics')loadAnalytics();
+  if(b.dataset.tab==='pending')loadPending();
+  if(b.dataset.tab==='reviews')loadReviewsAdmin();
+  if(b.dataset.tab==='subs')loadSubsAdmin();
+  if(b.dataset.tab==='settings')loadSettings();
+  if(b.dataset.tab==='security')loadSecurity();
+});
+boot();
 </script>
 </body>
 </html>
