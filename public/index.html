@@ -270,7 +270,7 @@ footer{background:#120d0a;border-top:1px solid var(--line);padding:70px 0 0}
 .ci-remove:hover{color:var(--tomato)}
 .drawer-foot{border-top:1px solid var(--line);padding:1.4rem 1.6rem;background:#1b140f}
 .pickup-row{display:flex;justify-content:space-between;align-items:center;margin-bottom:1rem;font-family:var(--mono);font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:var(--cream-dim)}
-.pickup-row select{background:var(--panel);color:var(--cream);border:1.5px solid var(--line2);border-radius:4px;padding:.5em .8em;font-family:var(--mono);font-size:.72rem}
+.pickup-row select,.pickup-row input{background:var(--panel);color:var(--cream);border:1.5px solid var(--line2);border-radius:4px;padding:.5em .8em;font-family:var(--mono);font-size:.72rem}
 .subtotal-row{display:flex;justify-content:space-between;font-family:var(--mono);margin-bottom:1.2rem}
 .subtotal-row b{color:var(--copper);font-size:1.1rem}
 .checkout-btn{width:100%;justify-content:center}
@@ -332,7 +332,7 @@ footer{background:#120d0a;border-top:1px solid var(--line);padding:70px 0 0}
       <li><a href="#shops" data-i18n="shops">Shops</a></li>
       <li><a href="#club" data-i18n="club">Stamp Card</a></li>
       <li><a href="#events" data-i18n="events">Events</a></li>
-      <li><a href="/story.html" style="color:var(--csoft)">Our Story · ታሪካችን</a></li>
+      <li><a href="/story.html" style="color:var(--csoft)">Our Story · ታሪችን</a></li>
       <li><a href="/login.html" style="color:var(--copper)" data-i18n="staff">Staff ⚿</a></li>
     </ul>
     <div class="nav-right">
@@ -476,7 +476,7 @@ footer{background:#120d0a;border-top:1px solid var(--line);padding:70px 0 0}
       <p class="eyebrow">Since 2016</p>
       <h3>From a single bean to a family.</h3>
       <p>We started with one roaster and a dream. Read how a tiny room in Old Harbor became three rooms and thousands of cups.</p>
-      <p style="margin-top:1.2rem"><a class="btn btn-ghost" href="/story.html" style="border-color:var(--csoft);color:var(--csoft)">Read our story · ታሪችንን አንብ →</a></p>
+      <p style="margin-top:1.2rem"><a class="btn btn-ghost" href="/story.html" style="border-color:var(--csoft);color:var(--csoft)">Read our story · ታሪችንን አንብብ →</a></p>
     </div>
     <img class="img" src="https://picsum.photos/seed/coffee-farm-ethiopia/440/440" alt="">
   </div>
@@ -529,6 +529,8 @@ footer{background:#120d0a;border-top:1px solid var(--line);padding:70px 0 0}
       <a href="/login.html" data-i18n="staff">Staff login ⚿</a>
       <a href="/register.html" data-i18n="register">Register</a>
       <a href="/quiz.html">☕ Find My Coffee Quiz</a>
+      <a href="/gift.html">🎁 Gift Cards</a>
+      <a href="/wholesale.html">🏢 Wholesale</a>
       <a href="/friends.html">🎁 Moka Friends</a>
       <a href="/story.html">📖 Our Story · ታሪችን</a>
       <a href="#top">Instagram ↗</a>
@@ -590,6 +592,7 @@ footer{background:#120d0a;border-top:1px solid var(--line);padding:70px 0 0}
   <div class="drawer-head"><h3 data-i18n="tray">Your tray</h3><button class="drawer-close" id="drawerClose" aria-label="Close tray">✕</button></div>
   <div class="drawer-body" id="drawerBody"></div>
   <div class="drawer-foot" id="drawerFoot">
+    <div class="pickup-row"><label for="giftCode">Gift / promo code</label><input id="giftCode" placeholder="GIFT-XXXX" style="max-width:170px"></div>
     <div class="pickup-row">
       <label for="pickupSel" data-i18n="pickup">Pickup</label>
       <select id="pickupSel">
@@ -673,7 +676,7 @@ footer{background:#120d0a;border-top:1px solid var(--line);padding:70px 0 0}
 const $=(s,c=document)=>c.querySelector(s), $$=(s,c=document)=>[...c.querySelectorAll(s)];
 const REDUCED=matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-/* ===== 💱 Multi-Currency (live daily rates) ===== */
+/* ===== 💱 Multi-Currency ===== */
 const CURS={USD:'$',ETB:'Br ',EUR:'€',GBP:'£',KES:'KSh ',AED:'AED '};
 let CUR=localStorage.getItem('moka-cur')||'USD';
 let RATES={USD:1,ETB:123,EUR:0.92,GBP:0.79,KES:129,AED:3.67};
@@ -777,7 +780,7 @@ const METHODS={
  aeropress:{label:'AeroPress',dose:[12,20,15],ratio:15,waterLabel:'Water',temp:'90°C',grind:'Medium-fine',total:150,steps:[[0,'Pour all the water','Straight in, saturate everything, no fuss.'],[30,'Stir three times','Break the crust gently, then leave it alone.'],[90,'Cap & flip','Carefully. Confidence, not courage.'],[105,'Press for 30 s','Stop at the hiss — you want syrup, not silt.'],[135,'Bypass to taste','Add hot water until it sings.']]},
  press:{label:'French Press',dose:[20,45,30],ratio:14,waterLabel:'Water',temp:'96°C',grind:'Coarse — breadcrumbs',total:270,steps:[[0,'Pour all the water','Saturate grounds, lid on but don\u2019t plunge.'],[240,'Break & skim','Stir the crust, scoop the foam and floaters.'],[255,'Settle','One quiet minute — let the fines drop.'],[270,'Plunge to the surface','Just below the liquid, no pressing down. Pour gently.']]}
 };
-const TICKER=['Now pouring: Ethiopia Guji — apricot · bergamot · black tea','Roasted on site every Tuesday','Honduras Santa Rita — caramel · red apple','Cold brew tonic on tap all summer','Open cupping every Friday 17:00','Oat, almond & whole — never a surcharge','New: ☕ Find My Coffee taste quiz!','We speak 8 languages & 6 currencies!'];
+const TICKER=['Now pouring: Ethiopia Guji — apricot · bergamot · black tea','Roasted on site every Tuesday','Honduras Santa Rita — caramel · red apple','Cold brew tonic on tap all summer','Open cupping every Friday 17:00','Oat, almond & whole — never a surcharge','New: ☕ Find My Coffee quiz!','🎁 Gift cards available!'];
 const DAYS=['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
 
 const hToStr=h=>{const H=Math.floor(h),M=Math.round((h-H)*60);return String(H).padStart(2,'0')+':'+String(M).padStart(2,'0')};
@@ -955,7 +958,7 @@ payForms.forEach(form=>form.addEventListener('submit',async e=>{
   form.querySelectorAll('input').forEach(inp=>{if(inp.value)details[inp.placeholder||inp.type]=inp.value;});
   try{
     const r=await fetch('/api/wallet/pay',{method:'POST',headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({items:pendingOrder.items,pickup:pendingOrder.pickup,method:currentMethod,details})});
+      body:JSON.stringify({items:pendingOrder.items,pickup:pendingOrder.pickup,method:currentMethod,details,code:(document.getElementById('giftCode')||{}).value||''})});
     const res=await r.json();
     if(r.ok){
       $('#payMethods').style.display='none';
