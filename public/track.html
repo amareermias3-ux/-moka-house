@@ -4,161 +4,122 @@
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="icon" type="image/svg+xml" href="/favicon.svg">
 <meta name="theme-color" content="#171110">
-<title>Track your order — Moka House</title>
+<title>Track your order — ERSCOMAS</title>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300..900&family=Space+Grotesk:wght@400;500;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
 <style>
-:root{--bg:#171110;--panel:#221a15;--line:rgba(241,230,212,.28);--cream:#f1e6d4;--cream-dim:#c6b79e;--mute:#93866f;--copper:#d98e32;--csoft:#e8b56b;--leaf:#8fa87e;--tomato:#cf5636;--disp:"Fraunces",serif;--mono:"Space Mono",monospace}
-*{margin:0;padding:0;box-sizing:border-box}
-body{min-height:100svh;background:var(--bg);background-image:radial-gradient(900px 500px at 30% -10%,rgba(217,142,50,.08),transparent 60%);color:var(--cream);font-family:"Space Grotesk",sans-serif;display:grid;place-items:center;padding:24px}
-.lang-switch{position:fixed;top:14px;right:14px;z-index:200;background:#221a15;border:1.5px solid rgba(217,142,50,.6);border-radius:8px;padding:.35em .6em;font-family:var(--mono);font-size:.7rem;color:var(--copper);cursor:pointer}
-[dir="rtl"] .lang-switch{right:auto;left:14px}
-.gate{position:relative;width:min(560px,94vw)}
-.door{position:relative;background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:2.2rem 2rem 1.8rem;box-shadow:0 24px 60px -20px rgba(0,0,0,.7)}
-.mark{font-size:2rem;margin-bottom:.5rem}
-h1{font-family:var(--disp);font-weight:900;font-size:1.6rem}
-.sub{font-family:var(--mono);font-size:.6rem;letter-spacing:.26em;text-transform:uppercase;color:var(--copper);margin:.4rem 0 1.5rem}
-label{display:block;font-family:var(--mono);font-size:.58rem;letter-spacing:.18em;text-transform:uppercase;color:var(--mute);margin-bottom:.9rem}
-label span.lbl{display:block;margin-bottom:.35rem}
-input{width:100%;background:var(--bg);border:1.5px solid var(--line);border-radius:6px;padding:.8em 1em;color:var(--cream);font-family:var(--mono);font-size:.95rem;text-transform:uppercase}
-input:focus{outline:none;border-color:var(--copper)}
-.go{width:100%;background:var(--copper);color:#191008;border:none;font-family:var(--mono);font-weight:700;font-size:.76rem;letter-spacing:.16em;text-transform:uppercase;padding:1em;border-radius:6px;cursor:pointer;margin-top:.3rem}
-.go:hover{background:var(--csoft)}
-.err{font-family:var(--mono);font-size:.7rem;color:var(--tomato);margin:.8rem 0}
-.back-shop{display:inline-block;margin-top:1.2rem;font-family:var(--mono);font-size:.66rem;letter-spacing:.14em;color:var(--mute);text-decoration:none}
-.back-shop:hover{color:var(--csoft)}
-.result{margin-top:1.6rem;border-top:1px dashed var(--line);padding-top:1.4rem}
-.order-head{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:.6rem;margin-bottom:1.2rem}
-.order-no{font-family:var(--mono);font-size:1.2rem;font-weight:700;color:var(--csoft)}
-.order-status{font-family:var(--mono);font-size:.7rem;letter-spacing:.12em;text-transform:uppercase;padding:.4em 1em;border-radius:100px;border:1.5px solid var(--copper);color:var(--copper)}
-.steps{display:flex;align-items:flex-start;gap:0;margin:1.4rem 0}
-.step{flex:1;text-align:center;position:relative}
-.step .dot{width:44px;height:44px;border-radius:50%;border:2.5px solid var(--line);display:grid;place-items:center;margin:0 auto .5rem;font-size:1.1rem;background:var(--bg);transition:.3s;position:relative;z-index:2}
-.step .lbl{font-family:var(--mono);font-size:.58rem;letter-spacing:.1em;text-transform:uppercase;color:var(--mute)}
-.step::before{content:"";position:absolute;top:22px;left:-50%;width:100%;height:2.5px;background:var(--line);z-index:1}
-.step:first-child::before{display:none}
-.step.done .dot{background:var(--leaf);border-color:var(--leaf);color:#191008}
-.step.done::before{background:var(--leaf)}
-.step.done .lbl{color:var(--leaf)}
-.step.now .dot{border-color:var(--copper);color:var(--copper);animation:pulse 1.6s infinite}
-.step.now .lbl{color:var(--copper)}
-@keyframes pulse{50%{box-shadow:0 0 0 8px rgba(217,142,50,.15)}}
-.items{margin-top:1.2rem}
-.items .it{display:flex;justify-content:space-between;padding:.4em 0;border-bottom:1px dashed var(--line);font-size:.9rem}
-.items .it span:last-child{font-family:var(--mono);color:var(--cream-dim)}
-.meta{display:flex;justify-content:space-between;margin-top:1rem;font-family:var(--mono);font-size:.72rem;color:var(--mute)}
-.meta b{color:var(--leaf);font-size:.95rem}
+body{margin:0;background:#171110;color:#f1e6d4;font-family:"Space Grotesk",sans-serif;min-height:100svh;display:grid;place-items:center;padding:24px}
+.card{width:min(520px,94vw);background:#221a15;border:1px solid rgba(241,230,212,.28);border-radius:16px;padding:2rem;box-shadow:0 24px 60px -20px rgba(0,0,0,.7)}
+.em{font-size:2.6rem}
+h1{font-family:Fraunces,serif;font-size:1.7rem;margin:.4rem 0 .2rem}
+.sub{font-family:"Space Mono",monospace;font-size:.62rem;letter-spacing:.24em;text-transform:uppercase;color:#d98e32;margin-bottom:1.4rem}
+input{width:100%;background:#171110;border:1.5px solid rgba(241,230,212,.28);border-radius:6px;padding:.9em 1em;color:#f1e6d4;font-family:"Space Mono",monospace;font-size:1rem;text-transform:uppercase;margin-bottom:.8rem}
+.go{width:100%;background:#d98e32;color:#191008;border:none;font-family:"Space Mono",monospace;font-weight:700;letter-spacing:.12em;text-transform:uppercase;padding:1em;border-radius:6px;cursor:pointer}
+.notify-btn{width:100%;margin-top:.6rem;background:none;border:1.5px solid #8fa87e;color:#8fa87e;font-family:"Space Mono",monospace;font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;padding:.8em;border-radius:6px;cursor:pointer}
+.notify-btn.on{background:#8fa87e;color:#191008}
+.steps{display:flex;justify-content:space-between;margin:2rem 0 1rem;position:relative}
+.steps::before{content:"";position:absolute;top:22px;left:8%;right:8%;height:2px;background:rgba(241,230,212,.15)}
+.step{text-align:center;position:relative;z-index:1;flex:1}
+.step .dot{width:44px;height:44px;border-radius:50%;border:2.5px solid rgba(241,230,212,.28);background:#171110;display:grid;place-items:center;margin:0 auto .5rem;font-size:1.1rem;transition:.3s}
+.step.done .dot{background:#8fa87e;border-color:#8fa87e}
+.step.now .dot{border-color:#d98e32;color:#d98e32;animation:pulse 1.4s infinite}
+@keyframes pulse{50%{box-shadow:0 0 0 8px rgba(217,142,50,.18)}}
+.step .lbl{font-family:"Space Mono",monospace;font-size:.58rem;letter-spacing:.1em;text-transform:uppercase;color:#93866f}
+.step.done .lbl{color:#8fa87e}.step.now .lbl{color:#d98e32}
+.items{margin-top:1rem}
+.it{display:flex;justify-content:space-between;padding:.4em 0;border-bottom:1px dashed rgba(241,230,212,.15);font-size:.88rem}
+.total{display:flex;justify-content:space-between;margin-top:.8rem;font-family:"Space Mono",monospace}
+.total b{color:#d98e32}
+.err{font-family:"Space Mono",monospace;font-size:.72rem;color:#cf5636;margin-top:.8rem}
+.ready-flash{animation:flash 1s ease 3}
+@keyframes flash{50%{background:#8fa87e;color:#191008}}
+a{color:#d98e32}
 </style>
 </head>
 <body>
-<select class="lang-switch" id="langSwitch" aria-label="Language">
-  <option value="am">አማርኛ</option><option value="en">English</option><option value="ar">العربية</option>
-  <option value="fr">Français</option><option value="es">Español</option><option value="om">Afaan Oromoo</option>
-  <option value="ti">ትግርኛ</option><option value="so">Soomaali</option>
-</select>
-<main style="display:grid;justify-items:center">
-  <div class="gate">
-    <div class="door">
-      <div class="mark">📦</div>
-      <h1 data-i18n="track_title">Track your order</h1>
-      <p class="sub">Moka House · Live status</p>
-      <form id="trackForm">
-        <label><span class="lbl" data-i18n="track_ph">Order number (e.g. MH-1234)</span><input id="orderNo" placeholder="MH-1234" required></label>
-        <button class="go" type="submit" data-i18n="track_btn">Track ◆</button>
-      </form>
-      <p class="err" id="err" hidden></p>
-      <div class="result" id="result" hidden>
-        <div class="order-head">
-          <span class="order-no" id="rNo"></span>
-          <span class="order-status" id="rStatus"></span>
-        </div>
-        <div class="steps" id="rSteps"></div>
-        <div class="items" id="rItems"></div>
-        <div class="meta"><span id="rPickup"></span><b id="rTotal"></b></div>
-      </div>
-    </div>
-  </div>
-  <a class="back-shop" href="/" data-i18n="back_shop">← Back to the shop</a>
-</main>
+<div class="card" id="card">
+  <div class="em">📦</div>
+  <h1 data-i18n="t_title">Track your order</h1>
+  <p class="sub">ERSCOMAS · Live status</p>
+  <form id="tf">
+    <input id="no" placeholder="MH-1234" required>
+    <button class="go" data-i18n="t_go">Track ◆</button>
+    <button type="button" class="notify-btn" id="notifyBtn">🔔 Enable ready alerts</button>
+  </form>
+  <p class="err" id="err" hidden></p>
 
-<!-- ✍️ CREDIT — static -->
-<div style="display:flex;gap:1.2rem;flex-wrap:wrap;justify-content:center;align-items:center;padding:1.1rem 1rem 1.5rem;font-family:'Space Mono',monospace;font-size:.66rem;letter-spacing:.1em;color:#93866f;text-align:center;margin-top:2rem">
-  <span data-i18n="bot_credit">Built by</span>&nbsp;<b style="color:#d98e32">ERMIAS AMARE</b>
-  <a href="mailto:amareermias@gmail.com" style="color:inherit;text-decoration:none;border-bottom:1px dashed #93866f">amareermias@gmail.com</a>
-  <a href="tel:+251976021007" style="color:inherit;text-decoration:none;border-bottom:1px dashed #93866f">+251 976 021 007</a>
+  <div id="result" hidden>
+    <div class="steps" id="steps"></div>
+    <div class="items" id="items"></div>
+    <div class="total"><span data-i18n="t_total">Total</span><b id="tot"></b></div>
+  </div>
+  <p style="margin-top:1.4rem"><a href="/">← Back to shop</a></p>
 </div>
 
 <script>
 const $=s=>document.querySelector(s);
-const TRACK_I18N={
-en:{track_title:'Track your order',track_ph:'Order number (e.g. MH-1234)',track_btn:'Track ◆',st_queued:'Queued',st_brewing:'Brewing',st_ready:'Ready',st_picked:'Picked up',tr_items:'Items',tr_pickup:'Pickup',not_found:'Order not found — check the number.'},
-am:{track_title:'ትዕዛዝን ተታተል',track_ph:'የትዕዛዝ ቁጥር (ለምሳሌ MH-1234)',track_btn:'ተከታተል ◆',st_queued:'በወረፋ',st_brewing:'በማፍያ ላይ',st_ready:'ተዘጋጅቷል',st_picked:'ተወስዷል',tr_items:'እቃዎች',tr_pickup:'መውሰጃ',not_found:'ትዕዛዙ አልተገም — ቁሩን አጋጥ።'},
-ar:{track_title:'تتبع طلبك',track_ph:'رقم الطلب (مثلاً MH-1234)',track_btn:'تتبع ◆',st_queued:'في الانتظار',st_brewing:'يُحضَّر',st_ready:'جاهز',st_picked:'تم الاستلام',tr_items:'الأصناف',tr_pickup:'الاستلام',not_found:'الطلب غير موجود — تحقق من الرقم.'},
-fr:{track_title:'Suivez votre commande',track_ph:'N° de commande (ex. MH-1234)',track_btn:'Suivre ◆',st_queued:'En file',st_brewing:'Préparation',st_ready:'Prête',st_picked:'Retirée',tr_items:'Articles',tr_pickup:'Retrait',not_found:'Commande introuvable — vérifiez le numéro.'},
-es:{track_title:'Sigue tu pedido',track_ph:'Nº de pedido (ej. MH-1234)',track_btn:'Seguir ◆',st_queued:'En cola',st_brewing:'Preparando',st_ready:'Listo',st_picked:'Recogido',tr_items:'Artículos',tr_pickup:'Recogida',not_found:'Pedido no encontrado — revisa el número.'},
-om:{track_title:'Ajaja kee hordofi',track_ph:'Lak. ajajaa (fkn. MH-1234)',track_btn:'Hordofi ◆',st_queued:'Eeggataa',st_brewing:'Qophaa\'aa',st_ready:'Qophii',st_picked:'Fudhatame',tr_items:'Wanta',tr_pickup:'Fudhachuu',not_found:'Ajajni hin argamne — lakkoofsa mirkaneessi.'},
-ti:{track_title:'ትእዛዝካ ስዓብ',track_ph:'ቁ. ትእዛዝ (ንኣ. MH-1234)',track_btn:'ስዓብ ◆',st_queued:'ኣ ወረፋ',st_brewing:'ይዳሎ',st_ready:'ተዳልዩ',st_picked:'ተወሲዱ',tr_items:'እቑ',tr_pickup:'ምውሳድ',not_found:'ትእዛዝ ኣይተረኽበን — ቁጽሪ ኣረጋግጽ'},
-so:{track_title:'Raadi dalbashadaada',track_ph:'Nambarka dalbashada (t.d. MH-1234)',track_btn:'Raadi ◆',st_queued:'Saf',st_brewing:'Diyaarin',st_ready:'Diyaar',st_picked:'La qaatay',tr_items:'Alaabta',tr_pickup:'Qaadasho',not_found:'Dalbashadu ma jirto — nambarka hubi.'}
-};
+const ST=['queued','brewing','ready','picked-up'];
+const ICON={queued:'⏳',brewing:'☕',ready:'✅',picked:'🎉'};
 let LANG=localStorage.getItem('moka-lang')||'en';
-window.__I18N=window.__I18N||{};
-const D=()=>Object.assign({},window.__I18N[LANG]||{},TRACK_I18N[LANG]||{});
-function applyLang(lang){
-  LANG=lang;localStorage.setItem('moka-lang',lang);
-  const d=D();
-  document.querySelectorAll('[data-i18n]').forEach(el=>{
-    const v=d[el.dataset.i18n];
-    if(v!=null)el.textContent=v;
-  });
-  document.documentElement.lang=lang;
-  document.documentElement.dir=(lang==='ar')?'rtl':'ltr';
-  $('#langSwitch').value=lang;
-  if(lastOrder)render(lastOrder);
-}
-(async()=>{
-  try{const langs=await fetch('/api/i18n').then(r=>r.json());
-    for(const l of langs){
-      if(!window.__I18N[l]){
-        window.__I18N[l]=await fetch('/api/i18n/'+l).then(r=>r.json());
-      }
-    }
-  }catch{}
-  applyLang(LANG);
-  const urlNo=new URLSearchParams(location.search).get('no');
-  if(urlNo){$('#orderNo').value=urlNo;track(urlNo);}
-})();
-$('#langSwitch').addEventListener('change',e=>applyLang(e.target.value));
+let current=null,lastStatus=null,pollIv=null,alertsOn=false;
 
-const STEPS=[['queued','⏳','st_queued'],['brewing','☕','st_brewing'],['ready','✅','st_ready'],['picked-up','🎉','st_picked']];
-let lastOrder=null;
-function render(o){
-  const d=D();
-  $('#result').hidden=false;
-  $('#rNo').textContent=o.no;
-  $('#rStatus').textContent=d['st_'+({queued:'queued',brewing:'brewing',ready:'ready','picked-up':'picked'}[o.status]||'queued')]||o.status;
-  const idx=STEPS.findIndex(s=>s[0]===o.status);
-  $('#rSteps').innerHTML=STEPS.map(([k,ic,lbl],i)=>{
-    const cls=i<idx?'done':(i===idx?'now':'');
-    return `<div class="step ${cls}"><div class="dot">${i<idx?'✓':ic}</div><div class="lbl">${d[lbl]||k}</div></div>`;
-  }).join('');
-  $('#rItems').innerHTML=`<div style="font-family:var(--mono);font-size:.6rem;letter-spacing:.16em;text-transform:uppercase;color:var(--mute);margin-bottom:.5rem">${d.tr_items||'Items'}</div>`+
-    o.items.map(i=>`<div class="it"><span>${i.qty}× ${i.name}</span><span>$${(i.price*i.qty).toFixed(2)}</span></div>`).join('');
-  $('#rPickup').textContent=`${d.tr_pickup||'Pickup'}: ${o.pickup}`;
-  $('#rTotal').textContent='$'+o.subtotal.toFixed(2);
-}
-async function track(no){
-  $('#err').hidden=true;$('#result').hidden=true;
-  try{
-    const r=await fetch('/api/track/'+encodeURIComponent(no.trim().toUpperCase()));
-    if(!r.ok){$('#err').textContent=D().not_found||'Order not found';$('#err').hidden=false;return;}
-    lastOrder=await r.json();
-    render(lastOrder);
-  }catch(_){$('#err').textContent='Server unreachable';$('#err').hidden=false;}
-}
-$('#trackForm').addEventListener('submit',e=>{
-  e.preventDefault();
-  track($('#orderNo').value);
+/* 🔔 notifications */
+$('#notifyBtn').addEventListener('click',async()=>{
+  if(!('Notification' in window)){alert('Notifications not supported');return;}
+  const p=await Notification.requestPermission();
+  if(p==='granted'){alertsOn=true;$('#notifyBtn').classList.add('on');$('#notifyBtn').textContent='🔔 Alerts ON';new Notification('ERSCOMAS ☕',{body:'You\'ll be alerted when your order is ready!'});}
+  else $('#notifyBtn').textContent='🔕 Blocked';
 });
-setInterval(()=>{if(lastOrder&&!document.hidden)track(lastOrder.no);},8000);
+function beep(){
+  try{
+    const ctx=new (window.AudioContext||window.webkitAudioContext)();
+    [0,.2,.4].forEach((t,i)=>{const o=ctx.createOscillator(),g=ctx.createGain();o.connect(g);g.connect(ctx.destination);o.frequency.value=880+i*220;g.gain.setValueAtTime(.2,ctx.currentTime+t);g.gain.exponentialRampToValueAtTime(.001,ctx.currentTime+t+.3);o.start(ctx.currentTime+t);o.stop(ctx.currentTime+t+.3);});
+  }catch(e){}
+}
+function notify(status){
+  if(status==='ready'){
+    beep();
+    $('#card').classList.add('ready-flash');setTimeout(()=>$('#card').classList.remove('ready-flash'),3200);
+    if(alertsOn&&'Notification' in window&&Notification.permission==='granted')new Notification('☕ Your order is READY!',{body:'Pick it up at the counter. Enjoy!'});
+  }
+}
+
+/* render */
+function render(o){
+  $('#result').hidden=false;
+  const idx=ST.indexOf(o.status);
+  $('#steps').innerHTML=ST.map((s,i)=>`<div class="step ${i<idx?'done':i===idx?'now':''}"><div class="dot">${i<idx?'✓':ICON[s]}</div><div class="lbl">${s}</div></div>`).join('');
+  $('#items').innerHTML=o.items.map(i=>`<div class="it"><span>${i.qty}× ${i.name}</span><span>$${(i.price*i.qty).toFixed(2)}</span></div>`).join('');
+  $('#tot').textContent='$'+o.subtotal.toFixed(2);
+}
+
+async function track(no){
+  $('#err').hidden=true;
+  try{
+    const r=await fetch('/api/track/'+encodeURIComponent(no));
+    if(!r.ok){$('#err').textContent='Order not found — check the number.';$('#err').hidden=false;$('#result').hidden=true;return;}
+    const o=await r.json();
+    current=o.no;
+    if(lastStatus&&lastStatus!==o.status)notify(o.status);
+    lastStatus=o.status;
+    render(o);
+  }catch(e){$('#err').textContent='Server unreachable';$('#err').hidden=false;}
+}
+
+$('#tf').addEventListener('submit',e=>{
+  e.preventDefault();
+  const no=$('#no').value.trim().toUpperCase();
+  if(!no)return;
+  localStorage.setItem('moka-last-order',no);
+  track(no);
+  clearInterval(pollIv);
+  pollIv=setInterval(()=>track(no),5000);
+});
+
+/* auto-load last order */
+(function(){
+  const no= new URLSearchParams(location.search).get('no') || localStorage.getItem('moka-last-order');
+  if(no){$('#no').value=no;track(no.toUpperCase());clearInterval(pollIv);pollIv=setInterval(()=>track(no.toUpperCase()),5000);}
+})();
 </script>
 </body>
 </html>
