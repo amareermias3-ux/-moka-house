@@ -367,7 +367,7 @@ footer{background:#120d0a;border-top:1px solid var(--line);padding:70px 0 0}
       <div class="mast-cta">
         <a class="btn btn-solid" href="#menu" data-i18n="cta1">Browse the board ↓</a>
         <a class="btn btn-ghost" href="#events" data-i18n="cta2">Book a cupping</a>
-        <a class="btn btn-ghost" href="/quiz.html" style="border-color:var(--leaf);color:var(--leaf)">☕ Find my coffee · ቡናዬን ፈልግ</a>
+        <a class="btn btn-ghost" href="/quiz.html" style="border-color:var(--leaf);color:var(--leaf)">☕ Find my coffee · ቡናዬን ፈል</a>
       </div>
     </div>
     <div class="mast-visual" aria-hidden="true">
@@ -734,17 +734,19 @@ function applyLang(lang){
 }
 $('#langSwitch').addEventListener('change',e=>applyLang(e.target.value));
 
-/* ===== 🖼️ AUTO PRODUCT IMAGES (keyword-matched) ===== */
+/* ===== 🖼️ AUTO PRODUCT IMAGES (unique per item — numeric lock) ===== */
+function hnum(str){var h=7;for(var i=0;i<str.length;i++){h=(h*31+str.charCodeAt(i))%997;}return h+1;}
 function catImg(m){
   var s=(m.seed||'').toLowerCase(), n=(m.name||'').toLowerCase();
   var key=s+' '+n;
-  if(/jebena|buna|ceremony/.test(key))return 'https://loremflickr.com/480/300/ethiopian,coffee,ceremony?lock='+encodeURIComponent(m.id);
-  if(/latte|macchiato|cappuccino|flat|mocha|hazel|honey|vanilla|caramel/.test(key))return 'https://loremflickr.com/480/300/latte,art,coffee?lock='+encodeURIComponent(m.id);
-  if(/espresso|ristretto|doppio|long black|gibraltar|americano/.test(key))return 'https://loremflickr.com/480/300/espresso,coffee?lock='+encodeURIComponent(m.id);
-  if(/cold|iced|nitro|tonic|frappe|coconut|lemon/.test(key))return 'https://loremflickr.com/480/300/iced,coffee?lock='+encodeURIComponent(m.id);
-  if(/v60|chemex|aeropress|siphon|batch|yirgacheffe|sidama|harrar|limu|geisha/.test(key))return 'https://loremflickr.com/480/300/pourover,coffee?lock='+encodeURIComponent(m.id);
-  if(/croissant|bun|sambusa|chechebsa|teff|basque|cookie|brownie|tiramisu|cinnamon|donut|bagel|quiche|banana/.test(key))return 'https://loremflickr.com/480/300/bakery,pastry?lock='+encodeURIComponent(m.id);
-  return 'https://loremflickr.com/480/300/coffee?lock='+encodeURIComponent(m.id);
+  var L=hnum(m.id||m.name);
+  if(/jebena|buna|ceremony/.test(key))return 'https://loremflickr.com/480/300/ethiopian,coffee,ceremony?lock='+L;
+  if(/latte|macchiato|cappuccino|flat|mocha|hazel|honey|vanilla|caramel/.test(key))return 'https://loremflickr.com/480/300/latte,coffee?lock='+L;
+  if(/espresso|ristretto|doppio|long black|gibraltar|americano/.test(key))return 'https://loremflickr.com/480/300/espresso,coffee?lock='+L;
+  if(/cold|iced|nitro|tonic|frappe|coconut|lemon/.test(key))return 'https://loremflickr.com/480/300/iced,coffee?lock='+L;
+  if(/v60|chemex|aeropress|siphon|batch|yirgacheffe|sidama|harrar|limu|geisha/.test(key))return 'https://loremflickr.com/480/300/pourover,coffee?lock='+L;
+  if(/croissant|bun|sambusa|chechebsa|teff|basque|cookie|brownie|tiramisu|cinnamon|donut|bagel|quiche|banana/.test(key))return 'https://loremflickr.com/480/300/bakery,pastry?lock='+L;
+  return 'https://loremflickr.com/480/300/coffee?lock='+L;
 }
 
 const FALLBACK_MENU=[
