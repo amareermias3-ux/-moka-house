@@ -1,4 +1,4 @@
-/* ERSCOMAS | fx.js v3 — brand + motion + NEW DESIGN (theme toggle + polish) */
+/* ERSCOMAS | fx.js v4 — brand + motion + BEAUTIFUL light mode */
 (function(){
   /* ===== 🏷️ Brand rename ===== */
   var NAME='ERSCOMAS';
@@ -19,7 +19,7 @@
   if(document.readyState==='loading'){document.addEventListener('DOMContentLoaded',doRename);}else{doRename();}
   setTimeout(doRename,400); setTimeout(doRename,1200);
 
-  /* ===== 🎨 NEW DESIGN styles ===== */
+  /* ===== 🎨 styles (dark + polished light) ===== */
   var st=document.createElement('style');
   st.textContent=
   /* aurora */
@@ -43,24 +43,42 @@
   ".fx-stat b{display:block;font-family:Fraunces,serif;font-size:2rem;font-weight:900;color:#e8b56b}"+
   ".fx-stat span{font-family:'Space Mono',monospace;font-size:.62rem;letter-spacing:.16em;text-transform:uppercase;color:#93866f}"+
   "@media(max-width:760px){.fx-stats{grid-template-columns:repeat(2,1fr)}}"+
-  /* theme toggle button */
+  /* theme toggle */
   "#themeBtn{position:fixed;top:14px;left:14px;z-index:200;width:44px;height:44px;border-radius:50%;background:#221a15;border:1.5px solid rgba(217,142,50,.6);color:#e8b56b;font-size:18px;cursor:pointer;box-shadow:0 10px 30px -8px rgba(0,0,0,.6)}"+
-  /* ===== LIGHT THEME ===== */
-  "body.fx-light{background:#f7f1e6!important;color:#241a10}"+
-  "body.fx-light .fx-aurora{opacity:.5}"+
-  "body.fx-light header,body.fx-light .dish,body.fx-light .shop,body.fx-light .ticket,body.fx-light .panel,body.fx-light .brew-panel,body.fx-light .stamp-card{background:#fffdf8!important;border-color:rgba(36,26,16,.15)!important}"+
-  "body.fx-light .dish,body.fx-light .shop,body.fx-light .ticket{box-shadow:0 10px 30px -12px rgba(36,26,16,.15)}"+
-  "body.fx-light,body.fx-light .mast-copy,body.fx-light .dish-desc,body.fx-light .sec-head p,body.fx-light .brew-steps p{color:#4a3a28}"+
-  "body.fx-light .rowline h4,body.fx-light .shop-body h3,body.fx-light .ticket-body h4{color:#241a10}"+
-  "body.fx-light .price,body.fx-light .roast-chip b{color:#b3691e}"+
-  "body.fx-light .roast-chip,body.fx-light .tab,body.fx-light .mchip,body.fx-light .cart-btn,body.fx-light .lang-sel{background:#fffdf8!important;color:#4a3a28;border-color:rgba(36,26,16,.2)!important}"+
-  "body.fx-light .tab.active,body.fx-light .mchip.active{background:#d98e32!important;color:#191008!important}"+
-  "body.fx-light .mast-title,body.fx-light .sec-title{background:linear-gradient(90deg,#241a10 20%,#b3691e 40%,#d98e32 50%,#b3691e 60%,#241a10 80%);background-size:200% auto;-webkit-background-clip:text;background-clip:text}"+
-  "body.fx-light .hours td,body.fx-light .addr,body.fx-light .ticket-body p{color:#6b5d49}"+
-  "body.fx-light footer{background:#efe6d6!important}"+
-  "body.fx-light .foot-grid p,body.fx-light .foot-grid a{color:#6b5d49}"+
-  "body.fx-light #themeBtn{background:#fffdf8;color:#b3691e;border-color:rgba(36,26,16,.2)}";
+  /* move Install App so it never overlaps CTAs */
+  "body .fx-install{left:auto!important;right:24px!important;bottom:160px!important}"+
 
+  /* ============ LIGHT THEME (high contrast) ============ */
+  "body.fx-light{background:#f6efe3!important;color:#2a1c10}"+
+  "body.fx-light .fx-aurora{opacity:.22}"+
+  "body.fx-light .noise{opacity:.03}"+
+  "body.fx-light header,body.fx-light header.scrolled{background:rgba(246,239,227,.94)!important;border-color:rgba(42,28,16,.15)!important}"+
+  "body.fx-light .wordmark,body.fx-light .rowline h4,body.fx-light .shop-body h3,body.fx-light .ticket-body h4,body.fx-light .brew-steps h4,body.fx-light .panel h3,body.fx-light .drawer-head h3,body.fx-light .foot-brand{color:#241a10}"+
+  "body.fx-light .wordmark small,body.fx-light .eyebrow,body.fx-light .roast-chip b,body.fx-light .price,body.fx-light .ci-info span,body.fx-light .subtotal-row b,body.fx-light .bnum b,body.fx-light .step-at{color:#b3691e}"+
+  "body.fx-light .nav-links a,body.fx-light .mast-copy,body.fx-light .sec-head p,body.fx-light .dish-desc,body.fx-light .brew-steps p,body.fx-light .ticket-body p,body.fx-light .hours td,body.fx-light .addr,body.fx-light .perks li,body.fx-light .foot-grid p,body.fx-light .foot-grid a,body.fx-light .brew-meta,body.fx-light .bnum span,body.fx-light .slider-row label,body.fx-light .ci-total,body.fx-light .tag,body.fx-light .stamp-msg{color:#5a4632}"+
+  "body.fx-light .dish,body.fx-light .shop,body.fx-light .ticket,body.fx-light .panel,body.fx-light .brew-panel,body.fx-light .fx-stat{background:#fffdf7!important;border-color:rgba(42,28,16,.15)!important;box-shadow:0 10px 30px -14px rgba(42,28,16,.18)}"+
+  "body.fx-light .fx-stat b{color:#b3691e}"+
+  "body.fx-light .fx-stat span{color:#8a7358}"+
+  "body.fx-light .btn-ghost{border-color:rgba(42,28,16,.4)!important;color:#6b4a2a!important}"+
+  "body.fx-light .btn-ghost:hover{background:rgba(179,105,30,.12)!important}"+
+  "body.fx-light .lang-sel,body.fx-light .cart-btn,body.fx-light .tab,body.fx-light .mchip,body.fx-light .pickup-row select,body.fx-light .pickup-row input,body.fx-light .news-form input,body.fx-light #giftCode,body.fx-light #rvName,body.fx-light #rvRating,body.fx-light #rvText{background:#fffdf7!important;color:#2a1c10!important;border-color:rgba(42,28,16,.35)!important}"+
+  "body.fx-light .tab.active,body.fx-light .mchip.active{background:#d98e32!important;color:#191008!important;border-color:#d98e32!important}"+
+  "body.fx-light .clock,body.fx-light .status-pill{color:#6b4a2a;border-color:rgba(42,28,16,.35)!important}"+
+  "body.fx-light .status-pill .dot{background:#3f7d34}"+
+  "body.fx-light .status-pill.closed .dot{background:#cf5636}"+
+  "body.fx-light .seats{color:#3f7d34}body.fx-light .seats.low{color:#cf5636}"+
+  "body.fx-light .rsvp{border-color:#b3691e;color:#b3691e}"+
+  "body.fx-light footer{background:#efe6d6!important;border-color:rgba(42,28,16,.15)!important}"+
+  "body.fx-light .spin-badge circle.c{fill:#fffdf7}"+
+  "body.fx-light .spin-badge text{fill:#b3691e}"+
+  "body.fx-light .marquee{background:#d98e32}"+
+  "body.fx-light .mast-title,body.fx-light .sec-title{background:linear-gradient(90deg,#241a10 20%,#b3691e 40%,#d98e32 50%,#b3691e 60%,#241a10 80%);background-size:200% auto;-webkit-background-clip:text;background-clip:text}"+
+  "body.fx-light #themeBtn{background:#fffdf7;color:#b3691e;border-color:rgba(42,28,16,.3)}"+
+  "body.fx-light .ring .bgc{stroke:rgba(42,28,16,.2)}"+
+  "body.fx-light input::placeholder,body.fx-light textarea::placeholder{color:#a08a6d}"+
+  "body.fx-light .news-ok{color:#3f7d34}"+
+  "body.fx-light .tag.sig{border-color:#b3691e;color:#b3691e}"+
+  "body.fx-light .tag.new{border-color:#3f7d34;color:#3f7d34}";
   document.head.appendChild(st);
 
   /* aurora */
@@ -74,9 +92,17 @@
   if(savedTheme==='light'){document.body.classList.add('fx-light');tb.textContent='🌙';}
   tb.addEventListener('click',function(){
     var light=document.body.classList.toggle('fx-light');
-    tb.textContent=light?'🌙':'☀️';
+    tb.textContent=light?'':'☀️';
     localStorage.setItem('moka-theme',light?'light':'dark');
   });
+
+  /* reposition Install App button (avoid overlap) */
+  function fixInstall(){
+    document.querySelectorAll('button').forEach(function(b){
+      if(/install app/i.test(b.textContent)){ b.classList.add('fx-install'); }
+    });
+  }
+  setTimeout(fixInstall,800); setTimeout(fixInstall,2500);
 
   /* ===== magnetic buttons ===== */
   if(!matchMedia('(prefers-reduced-motion: reduce)').matches){
@@ -110,7 +136,7 @@
     var mq=document.querySelector('.marquee');
     if(mq&&!document.querySelector('.fx-stats')){
       var band=document.createElement('div');band.className='fx-stats';
-      var data=[[120000,'+','Cups poured','የተቀዱ ኩባያዎች'],[11,'','Partner farms','አጋር እርሻዎች'],[10,'','Years roasting','ዓመታት ማጠስ'],[3,'','Shops','ሱቆች']];
+      var data=[[120000,'+','Cups poured','የተቀዱ ኩባያዎች'],[11,'','Partner farms','አጋር እርሻዎች'],[10,'','Years roasting','ዓመት ማጠስ'],[3,'','Shops','ሱቆች']];
       band.innerHTML=data.map(function(d){return '<div class="fx-stat"><b data-n="'+d[0]+'" data-s="'+d[1]+'">0</b><span>'+d[2]+'</span></div>';}).join('');
       mq.parentNode.insertBefore(band,mq.nextSibling);
       var io=new IntersectionObserver(function(es){es.forEach(function(e){
