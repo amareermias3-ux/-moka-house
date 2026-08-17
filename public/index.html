@@ -31,7 +31,7 @@ a{color:inherit;text-decoration:none}
 button{font-family:inherit;cursor:pointer;color:inherit}
 :focus-visible{outline:2px solid var(--copper);outline-offset:3px;border-radius:2px}
 .wrap{max-width:1220px;margin:0 auto;padding:0 26px}
-.tint{filter:sepia(.32) contrast(1.06) brightness(.92)}
+.tint{filter:sepia(.25) contrast(1.05) brightness(.95)}
 .noise{position:fixed;inset:0;z-index:120;pointer-events:none;opacity:.05;mix-blend-mode:overlay;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)'/%3E%3C/svg%3E")}
 #scrollProgress{position:fixed;top:0;left:0;height:3px;width:0;background:linear-gradient(90deg,var(--copper-deep),var(--copper));z-index:200}
 #cursorGlow{position:fixed;width:340px;height:340px;border-radius:50%;pointer-events:none;z-index:1;background:radial-gradient(circle,rgba(217,142,50,.07),transparent 60%);transform:translate(-50%,-50%);transition:opacity .3s;opacity:0}
@@ -734,6 +734,19 @@ function applyLang(lang){
 }
 $('#langSwitch').addEventListener('change',e=>applyLang(e.target.value));
 
+/* ===== 🖼️ AUTO PRODUCT IMAGES (keyword-matched) ===== */
+function catImg(m){
+  var s=(m.seed||'').toLowerCase(), n=(m.name||'').toLowerCase();
+  var key=s+' '+n;
+  if(/jebena|buna|ceremony/.test(key))return 'https://loremflickr.com/480/300/ethiopian,coffee,ceremony?lock='+encodeURIComponent(m.id);
+  if(/latte|macchiato|cappuccino|flat|mocha|hazel|honey|vanilla|caramel/.test(key))return 'https://loremflickr.com/480/300/latte,art,coffee?lock='+encodeURIComponent(m.id);
+  if(/espresso|ristretto|doppio|long black|gibraltar|americano/.test(key))return 'https://loremflickr.com/480/300/espresso,coffee?lock='+encodeURIComponent(m.id);
+  if(/cold|iced|nitro|tonic|frappe|coconut|lemon/.test(key))return 'https://loremflickr.com/480/300/iced,coffee?lock='+encodeURIComponent(m.id);
+  if(/v60|chemex|aeropress|siphon|batch|yirgacheffe|sidama|harrar|limu|geisha/.test(key))return 'https://loremflickr.com/480/300/pourover,coffee?lock='+encodeURIComponent(m.id);
+  if(/croissant|bun|sambusa|chechebsa|teff|basque|cookie|brownie|tiramisu|cinnamon|donut|bagel|quiche|banana/.test(key))return 'https://loremflickr.com/480/300/bakery,pastry?lock='+encodeURIComponent(m.id);
+  return 'https://loremflickr.com/480/300/coffee?lock='+encodeURIComponent(m.id);
+}
+
 const FALLBACK_MENU=[
  {id:'esp',cat:'Espresso',name:'Espresso',price:2.80,desc:'Double ristretto blend.',seed:'espresso-shot',tags:['signature']},
  {id:'mac',cat:'Espresso',name:'Macchiato',price:3.20,desc:'The Addis classic — espresso crowned with sweet steamed milk.',seed:'macchiato-addis',tags:['signature']},
@@ -773,8 +786,8 @@ const FALLBACK_MENU=[
  {id:'coc',cat:'Cold',name:'Coconut Cold Brew',price:5.40,desc:'Cold brew + coconut cream.',seed:'coconut-coldbrew',tags:['new']},
  {id:'kar',cat:'Bakes',name:'Cardamom Bun',price:4.20,desc:'Knotted, buttery, spiced.',seed:'cardamom-bun',tags:['signature']},
  {id:'sam',cat:'Bakes',name:'Sambusa',price:2.50,desc:'Crisp lentil pastry, baked.',seed:'sambusa',tags:[]},
- {id:'che',cat:'Bakes',name:'Chechebsa',price:3.80,desc:'Flaky mitmita flatbread with butter.',seed:'chechebsa',tags:[]},
- {id:'tef',cat:'Bakes',name:'Teff Muffin',price:3.50,desc:'Gluten-free teff & banana muffin.',seed:'teff-muffin',tags:['gf']},
+ {id:'che',cat:'Bakes',name:'Chechebsa',price:3.80,desc:'Flaky mitmita flatbread + butter.',seed:'chechebsa',tags:[]},
+ {id:'tef',cat:'Bakes',name:'Teff Muffin',price:3.50,desc:'Gluten-free teff & banana.',seed:'teff-muffin',tags:['gf']},
  {id:'bas',cat:'Bakes',name:'Basque Cheesecake',price:5.40,desc:'Burnt top, molten centre.',seed:'basque-cheesecake',tags:['gf']},
  {id:'cro',cat:'Bakes',name:'Butter Croissant',price:3.60,desc:'27 layers, French butter.',seed:'croissant',tags:[]},
  {id:'ban',cat:'Bakes',name:'Banana Bread',price:3.90,desc:'Dark, sticky, walnut.',seed:'banana-bread',tags:[]},
@@ -897,7 +910,7 @@ function renderMenu(){
   $('#menuGrid').innerHTML=list.map((m,i)=>{
     const out=m.available===false;
     return `<article class="dish ${out?'soldout':''}" style="transition-delay:${(i%4)*70}ms">
-     <div class="dish-img"><img class="tint" loading="lazy" src="https://picsum.photos/seed/${m.seed}/480/300" alt="${m.name}"><span class="cat-flag">${m.cat}</span></div>
+     <div class="dish-img"><img class="tint" loading="lazy" src="${catImg(m)}" alt="${m.name}"><span class="cat-flag">${m.cat}</span></div>
      <div class="dish-body">
        <div class="rowline"><h4>${m.name}</h4><span class="leader"></span><span class="price">${fmt(m.price)}</span></div>
        <p class="dish-desc">${m.desc}</p>
