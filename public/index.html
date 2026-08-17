@@ -367,7 +367,7 @@ footer{background:#120d0a;border-top:1px solid var(--line);padding:70px 0 0}
       <div class="mast-cta">
         <a class="btn btn-solid" href="#menu" data-i18n="cta1">Browse the board ↓</a>
         <a class="btn btn-ghost" href="#events" data-i18n="cta2">Book a cupping</a>
-        <a class="btn btn-ghost" href="/quiz.html" style="border-color:var(--leaf);color:var(--leaf)">☕ Find my coffee · ቡናዬን ፈል</a>
+        <a class="btn btn-ghost" href="/quiz.html" style="border-color:var(--leaf);color:var(--leaf)">☕ Find my coffee · ቡናዬን ፈልግ</a>
       </div>
     </div>
     <div class="mast-visual" aria-hidden="true">
@@ -558,6 +558,7 @@ footer{background:#120d0a;border-top:1px solid var(--line);padding:70px 0 0}
       <a href="/wholesale.html">🏢 Wholesale</a>
       <a href="/friends.html">🎁 Moka Friends</a>
       <a href="/story.html">📖 Our Story · ታሪችን</a>
+      <a href="/wait.html">🎮 While you wait</a>
       <a href="#top">Instagram ↗</a>
       <button id="toTop">↑ Back to top</button>
     </div>
@@ -766,6 +767,12 @@ const FALLBACK_MENU=[
  {id:'dop',cat:'Espresso',name:'Doppio',price:3.20,desc:'Double espresso, straight.',seed:'doppio',tags:[]},
  {id:'hon',cat:'Espresso',name:'Honey Latte',price:4.80,desc:'Espresso, silky milk and Begemder honey.',seed:'honey-latte',tags:['new']},
  {id:'aff',cat:'Espresso',name:'Affogato',price:5.20,desc:'Vanilla gelato drowned in espresso.',seed:'affogato',tags:['new']},
+ {id:'spl',cat:'Espresso',name:'Spanish Latte',price:5.00,desc:'Espresso + sweet condensed milk.',seed:'spanish-latte',tags:['new']},
+ {id:'wmo',cat:'Espresso',name:'White Mocha',price:5.00,desc:'Espresso + white chocolate + cream.', seed:'white-mocha',tags:['new']},
+ {id:'mat',cat:'Espresso',name:'Matcha Latte',price:5.20,desc:'Ceremonial matcha + steamed milk.',seed:'matcha-latte',tags:['new']},
+ {id:'cha',cat:'Espresso',name:'Chai Latte',price:4.80,desc:'Spiced masala chai + milk.',seed:'chai-latte',tags:['new']},
+ {id:'cor',cat:'Espresso',name:'Cortado',price:4.00,desc:'Half espresso, half warm milk.',seed:'cortado',tags:[]},
+ {id:'emm',cat:'Espresso',name:'Espresso Macchiato',price:3.40,desc:'Espresso "stained" with foam.',seed:'espresso-macchiato',tags:[]},
  {id:'v60',cat:'Filter',name:'V60 · Ethiopia Guji',price:5.40,desc:'Apricot, bergamot, black tea.',seed:'v60-pourover',tags:['signature']},
  {id:'chx',cat:'Filter',name:'Chemex · Colombia',price:5.80,desc:'Santa Rita lot — caramel, red apple.',seed:'chemex-brew',tags:[]},
  {id:'jeb',cat:'Filter',name:'Buna · Jebena',price:4.50,desc:'Traditional ceremony brew + popcorn.',seed:'jebena-buna',tags:['signature']},
@@ -777,6 +784,10 @@ const FALLBACK_MENU=[
  {id:'har',cat:'Filter',name:'Harrar Single',price:5.60,desc:'Wild, blueberry, winey.',seed:'harrar',tags:[]},
  {id:'lim',cat:'Filter',name:'Limu Single',price:5.40,desc:'Balanced, spiced, sweet.',seed:'limu',tags:[]},
  {id:'gei',cat:'Filter',name:'Geisha · Rare',price:7.00,desc:'Limited lot — jasmine, peach.',seed:'geisha',tags:['new']},
+ {id:'mint',cat:'Filter',name:'Ethiopian Mint Tea',price:3.00,desc:'Fresh mint, soothing.',seed:'mint-tea',tags:['new']},
+ {id:'cham',cat:'Filter',name:'Chamomile Tea',price:3.00,desc:'Calming herbal infusion.',seed:'chamomile-tea',tags:['new']},
+ {id:'blk',cat:'Filter',name:'Black Tea',price:2.80,desc:'Strong breakfast tea.',seed:'black-tea',tags:[]},
+ {id:'hot',cat:'Filter',name:'Hot Chocolate',price:4.20,desc:'Belgian chocolate, steamed milk.',seed:'hot-chocolate',tags:['new']},
  {id:'cbt',cat:'Cold',name:'Cold Brew Tonic',price:5.60,desc:'16-hour cold brew over tonic.',seed:'cold-brew-tonic',tags:['signature']},
  {id:'imac',cat:'Cold',name:'Iced Macchiato',price:4.00,desc:'Layered espresso over cold milk.',seed:'iced-macchiato',tags:['new']},
  {id:'ice',cat:'Cold',name:'Iced Americano',price:3.60,desc:'Espresso over ice & water.',seed:'iced-americano',tags:[]},
@@ -786,6 +797,13 @@ const FALLBACK_MENU=[
  {id:'eto',cat:'Cold',name:'Espresso Tonic',price:5.40,desc:'Espresso + tonic + orange.',seed:'espresso-tonic',tags:[]},
  {id:'lem',cat:'Cold',name:'Lemon Espresso',price:5.20,desc:'Bright espresso over lemonade.',seed:'lemon-espresso',tags:['new']},
  {id:'coc',cat:'Cold',name:'Coconut Cold Brew',price:5.40,desc:'Cold brew + coconut cream.',seed:'coconut-coldbrew',tags:['new']},
+ {id:'man',cat:'Cold',name:'Mango Smoothie',price:5.50,desc:'Ripe mango, yogurt, ice.',seed:'mango-smoothie',tags:['new']},
+ {id:'str',cat:'Cold',name:'Strawberry Smoothie',price:5.50,desc:'Fresh strawberries + milk.',seed:'strawberry-smoothie',tags:['new']},
+ {id:'avo',cat:'Cold',name:'Avocado Juice',price:5.80,desc:'The Addis favorite — creamy avocado.',seed:'avocado-juice',tags:['new']},
+ {id:'orj',cat:'Cold',name:'Fresh Orange Juice',price:4.50,desc:'Squeezed to order.',seed:'orange-juice',tags:['new']},
+ {id:'ict',cat:'Cold',name:'Iced Tea',price:4.00,desc:'Peach or lemon, over ice.',seed:'iced-tea',tags:['new']},
+ {id:'lad',cat:'Cold',name:'Mint Lemonade',price:4.00,desc:'Zesty, refreshing, minty.',seed:'mint-lemonade',tags:['new']},
+ {id:'milk',cat:'Cold',name:'Vanilla Milkshake',price:5.50,desc:'Thick, creamy, vanilla bean.',seed:'vanilla-milkshake',tags:['new']},
  {id:'kar',cat:'Bakes',name:'Cardamom Bun',price:4.20,desc:'Knotted, buttery, spiced.',seed:'cardamom-bun',tags:['signature']},
  {id:'sam',cat:'Bakes',name:'Sambusa',price:2.50,desc:'Crisp lentil pastry, baked.',seed:'sambusa',tags:[]},
  {id:'che',cat:'Bakes',name:'Chechebsa',price:3.80,desc:'Flaky mitmita flatbread + butter.',seed:'chechebsa',tags:[]},
@@ -800,6 +818,15 @@ const FALLBACK_MENU=[
  {id:'don',cat:'Bakes',name:'Glazed Donut',price:3.20,desc:'Light, airy, sweet glaze.',seed:'donut',tags:[]},
  {id:'bag',cat:'Bakes',name:'Sesame Bagel',price:3.80,desc:'Boiled, baked, chewy.',seed:'bagel',tags:[]},
  {id:'qui',cat:'Bakes',name:'Spinach Quiche',price:4.80,desc:'Buttery crust, savoury.',seed:'quiche',tags:[]},
+ {id:'sco',cat:'Bakes',name:'Blueberry Scone',price:3.50,desc:'Crumbly, buttery, berry.',seed:'blueberry-scone',tags:['new']},
+ {id:'club',cat:'Bakes',name:'Club Sandwich',price:6.50,desc:'Triple-decker, chicken + egg.',seed:'club-sandwich',tags:['new']},
+ {id:'chk',cat:'Bakes',name:'Chicken Sandwich',price:6.80,desc:'Grilled chicken, garlic aioli.',seed:'chicken-sandwich',tags:['new']},
+ {id:'bur',cat:'Bakes',name:'Beef Burger',price:7.00,desc:'Smashed patty, cheddar, brioche.',seed:'beef-burger',tags:['new']},
+ {id:'piz',cat:'Bakes',name:'Pizza Slice',price:5.50,desc:'Wood-fired, mozzarella.',seed:'pizza-slice',tags:['new']},
+ {id:'pan',cat:'Bakes',name:'Pancake Stack',price:5.50,desc:'Fluffy, maple syrup, butter.',seed:'pancakes',tags:['new']},
+ {id:'waf',cat:'Bakes',name:'Belgian Waffle',price:5.80,desc:'Crisp, deep pockets, berries.',seed:'waffles',tags:['new']},
+ {id:'enk',cat:'Bakes',name:'Enkulal Firfir',price:5.50,desc:'Ethiopian scrambled eggs + spices.',seed:'enkulal-firfir',tags:['new']},
+ {id:'fat',cat:'Bakes',name:'Fatira',price:4.50,desc:'Crispy layered flatbread + honey.',seed:'fatira',tags:['new']},
 ];
 const FALLBACK_EVENTS=[
  {id:'ev1',day:'14',mon:'Aug · Fri',title:'Open Cupping — August Roasts',desc:'Taste six lots side by side with our head roaster. Slurping encouraged.',time:'17:00 · Old Harbor',seats:4},
@@ -820,7 +847,7 @@ const METHODS={
  aeropress:{label:'AeroPress',dose:[12,20,15],ratio:15,waterLabel:'Water',temp:'90°C',grind:'Medium-fine',total:150,steps:[[0,'Pour all the water','Straight in, saturate everything, no fuss.'],[30,'Stir three times','Break the crust gently, then leave it alone.'],[90,'Cap & flip','Carefully. Confidence, not courage.'],[105,'Press for 30 s','Stop at the hiss — you want syrup, not silt.'],[135,'Bypass to taste','Add hot water until it sings.']]},
  press:{label:'French Press',dose:[20,45,30],ratio:14,waterLabel:'Water',temp:'96°C',grind:'Coarse — breadcrumbs',total:270,steps:[[0,'Pour all the water','Saturate grounds, lid on but don\u2019t plunge.'],[240,'Break & skim','Stir the crust, scoop the foam and floaters.'],[255,'Settle','One quiet minute — let the fines drop.'],[270,'Plunge to the surface','Just below the liquid, no pressing down. Pour gently.']]}
 };
-const TICKER=['Now pouring: Ethiopia Guji — apricot · bergamot · black tea','Roasted on site every Tuesday','Honduras Santa Rita — caramel · red apple','Cold brew tonic on tap all summer','Open cupping every Friday 17:00','Oat, almond & whole — never a surcharge','New: ☕ Find My Coffee quiz!','🏆 Climb the VIP Leaderboard!'];
+const TICKER=['Now pouring: Ethiopia Guji — apricot · bergamot · black tea','Roasted on site every Tuesday','Honduras Santa Rita — caramel · red apple','Cold brew tonic on tap all summer','Open cupping every Friday 17:00','Oat, almond & whole — never a surcharge','New: ☕ Find My Coffee quiz!','🏆 Climb the VIP Leaderboard!','🎮 Play while you wait!'];
 const DAYS=['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
 
 const hToStr=h=>{const H=Math.floor(h),M=Math.round((h-H)*60);return String(H).padStart(2,'0')+':'+String(M).padStart(2,'0')};
