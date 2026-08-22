@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<meta name="theme-color" content="#171110">
+<title>Moka Friends — Invite & Earn — ERSCOMAS</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300..900&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#171110;color:#f1e6d4;font-family:"Space Grotesk",sans-serif;min-height:100svh;display:grid;place-items:center;padding:24px}
+.card{width:min(520px,94vw);background:#221a15;border:1px solid rgba(241,230,212,.28);border-radius:16px;padding:2rem;box-shadow:0 24px 60px -20px rgba(0,0,0,.7);text-align:center}
+h1{font-family:Fraunces,serif;font-size:1.8rem;color:#e8b56b}
+.sub{color:#c6b79e;margin:.4rem 0 1.4rem}
+.code{margin:1rem auto;padding:1em;border:2px dashed #d98e32;border-radius:8px;font-family:"Space Mono",monospace;font-size:1.3rem;letter-spacing:.2em;color:#e8b56b}
+.slots{display:flex;gap:.8rem;justify-content:center;margin:1rem 0}
+.slot{width:52px;height:52px;border-radius:50%;border:2px dashed rgba(241,230,212,.3);display:grid;place-items:center;font-size:1.2rem;color:transparent}
+.slot.on{border-style:solid;border-color:#8fa87e;color:#8fa87e}
+.share{display:flex;flex-direction:column;gap:.6rem}
+.share a{padding:.9em;border-radius:6px;font-family:"Space Mono",monospace;font-size:.72rem;font-weight:700;text-decoration:none;text-align:center}
+.wa{background:#25D366;color:#0b3d2e}.tg{background:#229ED9;color:#fff}.fb{background:#1877F2;color:#fff}
+a.back{display:inline-block;margin-top:1.2rem;color:#d98e32}
+</style>
+</head>
+<body>
+<div class="card">
+<div style="font-size:2.4rem">🎁</div>
+<h1>Moka ጓደኞች</h1>
+<p class="sub">3 ጓደችን ጋብዝ → ነፃ መጠጥ አግኝ!</p>
+<div class="code" id="code">MOKA-······</div>
+<div class="slots" id="slots"></div>
+<div class="share">
+  <a class="wa" id="wa">WhatsApp</a>
+  <a class="tg" id="tg">Telegram</a>
+  <a class="fb" id="fb">Facebook</a>
+</div>
+<a class="back" href="/">← Back to shop</a>
+</div>
+<script>
+let code=localStorage.getItem('moka-ref');
+if(!code){code='MOKA-'+Math.random().toString(36).slice(2,6).toUpperCase();localStorage.setItem('moka-ref',code);}
+document.getElementById('code').textContent=code;
+let refs=parseInt(localStorage.getItem('moka-refs')||'0');
+function drawSlots(){document.getElementById('slots').innerHTML=[0,1,2].map(i=>`<div class="slot ${i<refs?'on':''}">✓</div>`).join('');}
+drawSlots();
+const msg=encodeURIComponent('Join me at Moka House! Use my code '+code+' ☕');
+const url=encodeURIComponent(location.origin+'/');
+document.getElementById('wa').href='https://wa.me/?text='+msg+'%20'+url;
+document.getElementById('tg').href='https://t.me/share/url?url='+url+'&text='+msg;
+document.getElementById('fb').href='https://www.facebook.com/sharer/sharer.php?u='+url;
+</script>
+</body>
+</html>
