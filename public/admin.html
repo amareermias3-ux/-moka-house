@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<meta name="theme-color" content="#171110">
+<title>Back of House — Moka House</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300..900&family=Space+Grotesk:wght@400;500;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#171110;--bg2:#1c1512;--panel:#221a15;--panel2:#281e17;--line:rgba(241,230,212,.13);--line2:rgba(241,230,212,.28);--cream:#f1e6d4;--dim:#c6b79e;--mute:#93866f;--copper:#d98e32;--csoft:#e8b56b;--leaf:#8fa87e;--tomato:#cf5636;--disp:"Fraunces",serif;--mono:"Space Mono",monospace}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--bg);color:var(--cream);font-family:"Space Grotesk",sans-serif;font-size:16px;line-height:1.5}
+.topbar{position:sticky;top:0;z-index:50;display:flex;justify-content:space-between;align-items:center;gap:1rem;flex-wrap:wrap;padding:.9rem 1.6rem;background:rgba(23,17,16,.95);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.brand{font-family:var(--disp);font-weight:900;font-size:1.2rem}
+.brand small{font-family:var(--mono);font-size:.58rem;letter-spacing:.26em;text-transform:uppercase;color:var(--copper);display:block}
+.top-right{display:flex;gap:.8rem;align-items:center;font-family:var(--mono);font-size:.72rem;flex-wrap:wrap}
+.who{color:var(--csoft)}
+.role-badge{font-family:var(--mono);font-size:.56rem;letter-spacing:.14em;text-transform:uppercase;padding:.3em .7em;border-radius:100px;border:1px solid var(--line2)}
+.role-badge.admin{border-color:var(--copper);color:var(--copper)}
+.logout,.link-btn{font-family:var(--mono);font-size:.66rem;letter-spacing:.1em;text-transform:uppercase;background:none;border:1.5px solid var(--line2);color:var(--dim);padding:.5em 1em;border-radius:5px;cursor:pointer;text-decoration:none}
+.logout:hover{border-color:var(--tomato);color:var(--tomato)}
+main{max-width:1280px;margin:0 auto;padding:1.4rem}
+.tabs{display:flex;gap:.5rem;flex-wrap:wrap;margin-bottom:1.4rem;border-bottom:1px solid var(--line);padding-bottom:.8rem}
+.tab-btn{font-family:var(--mono);font-size:.7rem;letter-spacing:.12em;text-transform:uppercase;padding:.6em 1.2em;border:1.5px solid var(--line2);border-radius:100px;background:none;color:var(--dim);cursor:pointer}
+.tab-btn.active{background:var(--copper);border-color:var(--copper);color:#191008;font-weight:700}
+.tab-panel{display:none}
+.tab-panel.active{display:block}
+.panel{background:var(--panel);border:1px solid var(--line);border-radius:9px;padding:1.2rem 1.3rem;margin-bottom:1rem}
+.panel h3{font-family:var(--disp);font-size:1.1rem;font-weight:800;margin-bottom:.9rem}
+.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+input,select,textarea{background:var(--bg2);border:1px solid var(--line2);color:var(--cream);border-radius:5px;padding:.55em .7em;font-family:var(--mono);font-size:.8rem;width:100%}
+label{font-family:var(--mono);font-size:.6rem;letter-spacing:.14em;text-transform:uppercase;color:var(--mute);display:block;margin:.7rem 0 .3rem}
+.btn{font-family:var(--mono);font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;padding:.65em 1.2em;border-radius:5px;border:1.5px solid var(--copper);background:var(--copper);color:#191008;font-weight:700;cursor:pointer}
+.btn.ghost{background:none;color:var(--copper)}
+.btn.danger{border-color:var(--tomato);background:var(--tomato);color:#fff}
+.btn.sm{font-size:.58rem;padding:.4em .8em}
+.row{display:flex;gap:.6rem;flex-wrap:wrap;align-items:center}
+table{width:100%;border-collapse:collapse}
+th{text-align:left;font-family:var(--mono);font-size:.58rem;letter-spacing:.16em;text-transform:uppercase;color:var(--mute);padding:.5em;border-bottom:1px solid var(--line)}
+td{padding:.55em .5em;border-bottom:1px dashed var(--line);font-size:.85rem;vertical-align:middle}
+.pill{display:inline-block;font-family:var(--mono);font-size:.54rem;letter-spacing:.1em;text-transform:uppercase;padding:.25em .6em;border-radius:100px;border:1px solid var(--line2);color:var(--dim)}
+.pill.pending{border-color:var(--csoft);color:var(--csoft)}
+.pill.confirmed,.pill.active,.pill.completed{border-color:var(--leaf);color:var(--leaf)}
+.pill.rejected,.pill.cancelled{border-color:var(--tomato);color:var(--tomato)}
+.stat-box{flex:1;min-width:140px;background:var(--panel2);padding:1rem;border-radius:8px;border:1px dashed rgba(217,142,50,.3)}
+.stat-box .lbl{font-family:var(--mono);font-size:.6rem;letter-spacing:.14em;color:var(--mute);text-transform:uppercase}
+.stat-box .val{font-family:var(--disp);font-size:1.6rem;font-weight:800;margin-top:.3rem}
+#blip{position:fixed;bottom:20px;right:20px;background:var(--cream);color:#191008;font-family:var(--mono);font-size:.72rem;padding:.8em 1.2em;border-radius:5px;opacity:0;transform:translateY(10px);transition:.3s;pointer-events:none;z-index:99}
+#blip.show{opacity:1;transform:none}
+#blip.err{background:var(--tomato);color:#fff}
+@media(max-width:820px){.grid-2{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<header class="topbar">
+  <div class="brand">MOKA HOUSE<small>Back of House · Control Panel</small></div>
+  <div class="top-right">
+    <span class="who" id="whoAmI">…</span>
+    <span class="role-badge" id="roleBadge"></span>
+    <a class="link-btn" href="/">Shopfront ↗</a>
+    <button class="logout" id="logoutBtn">Logout ⎋</button>
+  </div>
+</header>
+
+<main id="mainArea">
+  <div class="tabs" id="tabNav">
+    <button class="tab-btn active" data-tab="dash">📊 Dashboard</button>
+    <button class="tab-btn" data-tab="analytics">📈 Analytics</button>
+    <button class="tab-btn" data-tab="orders">Orders</button>
+    <button class="tab-btn" data-tab="pending">⏳ Pending</button>
+    <button class="tab-btn" data-tab="reviews">⭐ Reviews</button>
+    <button class="tab-btn" data-tab="subs">🔁 Subs</button>
+    <button class="tab-btn" data-tab="resv">🪑 Tables</button>
+    <button class="tab-btn" data-tab="menu">Menu</button>
+    <button class="tab-btn" data-tab="posts">Posts</button>
+    <button class="tab-btn" data-tab="events">Events</button>
+    <button class="tab-btn" data-tab="team" id="tabBtnTeam">Team</button>
+    <button class="tab-btn" data-tab="ai" id="tabBtnAi">AI</button>
+    <button class="tab-btn" data-tab="wallet" id="tabBtnWallet">💰 Wallet</button>
+    <button class="tab-btn" data-tab="settings" id="tabBtnSettings">⚙️ Payments</button>
+    <button class="tab-btn" data-tab="security" id="tabBtnSecurity">🛡️ Security</button>
+    <button class="tab-btn" data-tab="aichat">Test AI</button>
+  </div>
+
+  <div class="tab-panel active" id="tab-dash">
+    <div class="panel"><div class="row">
+      <div class="stat-box"><div class="lbl">Orders today</div><div class="val" id="dTodayOrders">0</div></div>
+      <div class="stat-box"><div class="lbl">Revenue today</div><div class="val" id="dTodayRev">$0</div></div>
+      <div class="stat-box"><div class="lbl">Pending</div><div class="val" id="dPending">$0</div></div>
+      <div class="stat-box"><div class="lbl">Top item</div><div class="val" id="dTop" style="font-size:1.1rem">—</div></div>
+    </div></div>
+    <div class="panel"><h3>Recent activity</h3><div id="dashActivity" style="max-height:200px;overflow-y:auto;font-family:var(--mono);font-size:.66rem;color:var(--dim)"></div></div>
+  </div>
+
+  <div class="tab-panel" id="tab-analytics">
+    <div class="grid-2">
+      <div class="panel"><h3>Top pages</h3><div id="anPages"></div></div>
+      <div class="panel"><h3>Top referrers</h3><div id="anRef"></div></div>
+    </div>
+  </div>
+
+  <div class="tab-panel" id="tab-orders">
+    <div class="panel"><h3>Orders board</h3><div id="ordersBoard"></div></div>
+  </div>
+
+  <div class="tab-panel" id="tab-pending">
+    <div class="panel"><h3>⏳ Pending payments</h3><div id="pendingBoard"></div></div>
+  </div>
+
+  <div class="tab-panel" id="tab-reviews">
+    <div class="panel"><h3>⭐ Reviews (moderate)</h3><div id="reviewsAdmin"></div></div>
+  </div>
+
+  <div class="tab-panel" id="tab-subs">
+    <div class="panel"><h3>🔁 Subscriptions</h3><div id="subsAdmin"></div></div>
+  </div>
+
+  <div class="tab-panel" id="tab-resv">
+    <div class="panel"><h3>🪑 Table reservations</h3><div id="resvAdmin"></div></div>
+  </div>
+
+  <div class="tab-panel" id="tab-menu">
+    <div class="grid-2">
+      <div class="panel"><h3>Add item</h3>
+        <label>Name</label><input id="mi-name">
+        <label>Category</label><select id="mi-cat"><option>Espresso</option><option>Filter</option><option>Cold</option><option>Bakes</option></select>
+        <label>Price</label><input id="mi-price" type="number" step="0.10" value="3.50">
+        <label>Description</label><textarea id="mi-desc" rows="2"></textarea>
+        <div style="margin-top:1rem"><button class="btn" id="addMenuBtn">+ Add</button></div>
+      </div>
+      <div class="panel"><h3>Current board</h3><table id="menuTable"></table></div>
+    </div>
+  </div>
+
+  <div class="tab-panel" id="tab-posts">
+    <div class="grid-2">
+      <div class="panel"><h3>Publish</h3>
+        <label>Title</label><input id="po-title">
+        <label>Body</label><textarea id="po-body" rows="4"></textarea>
+        <div style="margin-top:1rem"><button class="btn" id="addPostBtn">Publish ◆</button></div>
+      </div>
+      <div class="panel"><h3>Published</h3><div id="postsList"></div></div>
+    </div>
+  </div>
+
+  <div class="tab-panel" id="tab-events">
+    <div class="panel"><h3>Events — seats</h3><div id="evList"></div></div>
+  </div>
+
+  <div class="tab-panel" id="tab-team">
+    <div class="panel"><h3>Team & roles</h3><table id="teamTable"></table></div>
+  </div>
+
+  <div class="tab-panel" id="tab-ai">
+    <div class="grid-2">
+      <div class="panel"><h3>Teach the bot</h3>
+        <label>Keywords (comma)</label><input id="kn-keys">
+        <label>Answer</label><textarea id="kn-ans" rows="3"></textarea>
+        <div style="margin-top:1rem"><button class="btn" id="addKnBtn">+ Add</button></div>
+      </div>
+      <div class="panel"><h3>Known answers</h3><div id="knList"></div></div>
+    </div>
+  </div>
+
+  <div class="tab-panel" id="tab-wallet">
+    <div class="grid-2">
+      <div class="panel"><h3>💰 Wallet</h3>
+        <div class="row" style="margin-bottom:1rem">
+          <div class="stat-box"><div class="lbl">Balance</div><div class="val" id="walletBalance">$0</div></div>
+          <div class="stat-box"><div class="lbl">Total received</div><div class="val" id="walletTotal">$0</div></div>
+        </div>
+        <button class="btn ghost sm" id="refreshWallet">Refresh ⟳</button>
+      </div>
+      <div class="panel"><h3>Recent transactions</h3><table id="txTable"></table></div>
+    </div>
+  </div>
+
+  <div class="tab-panel" id="tab-settings">
+    <div class="panel"><h3>⚙️ Payment destinations</h3>
+      <label>Telebirr</label><input id="set-telebirr">
+      <label>M-Pesa</label><input id="set-mpesa">
+      <label>PayPal</label><input id="set-paypal">
+      <label>Bank</label><textarea id="set-bank" rows="2"></textarea>
+      <label>Crypto</label><input id="set-crypto">
+      <div style="margin-top:1rem"><button class="btn" id="saveSettingsBtn">Save</button></div>
+    </div>
+  </div>
+
+  <div class="tab-panel" id="tab-security">
+    <div class="grid-2">
+      <div class="panel"><h3>Blocked IPs</h3><div id="secBlocked"></div></div>
+      <div class="panel"><h3>Security events</h3><div id="secEvents" style="max-height:300px;overflow-y:auto;font-family:var(--mono);font-size:.66rem;color:var(--dim)"></div></div>
+    </div>
+  </div>
+
+  <div class="tab-panel" id="tab-aichat">
+    <div class="panel" style="max-width:520px"><h3>Test Barista Bot</h3>
+      <div id="chatLog" style="background:var(--bg2);border:1px solid var(--line);border-radius:8px;height:200px;overflow-y:auto;padding:.8rem;margin-bottom:.6rem"></div>
+      <div class="row"><input id="chatIn" placeholder="Ask…"><button class="btn" id="chatSend">Send</button></div>
+    </div>
+  </div>
+</main>
+
+<div id="blip"></div>
+
+<script>
+const $=s=>document.querySelector(s);
+let ME={user:null,role:null,permissions:null};
+let blipT;
+function blip(m,err){const b=$('#blip');b.textContent=m;b.classList.toggle('err',!!err);b.classList.add('show');clearTimeout(blipT);blipT=setTimeout(()=>b.classList.remove('show'),err?4000:2200);}
+async function api(url,opt={}){
+  const r=await fetch(url,{headers:{'Content-Type':'application/json'},...opt});
+  if(r.status===401){location.href='/login.html';return new Promise(()=>{});}
+  const d=await r.json().catch(()=>({}));
+  if(!r.ok){blip(d.error||'Request failed',true);throw new Error(d.error);}
+  return d;
+}
+
+/* dash */
+async function loadDash(){
+  try{
+    const st=await api('/api/stats');
+    $('#dTodayOrders').textContent=st.orders;
+    $('#dTodayRev').textContent='$'+st.revenue.toFixed(2);
+    $('#dPending').textContent='$'+(st.pendingAmount||0).toFixed(2);
+    $('#dTop').textContent=st.top?st.top.name+' ×'+st.top.qty:'—';
+  }catch{}
+  try{const a=await api('/api/activity');$('#dashActivity').innerHTML=a.slice(0,20).map(x=>`<div style="padding:.25em 0;border-bottom:1px dashed var(--line)">◆ ${x.msg}</div>`).join('');}catch{}
+}
+/* analytics */
+async function loadAnalytics(){
+  try{const a=await api('/api/analytics');
+    $('#anPages').innerHTML=(a.views||[]).map(([p,v])=>`<div class="row" style="justify-content:space-between;padding:.4em 0;border-bottom:1px dashed var(--line)"><span>${p}</span><b>${v}</b></div>`).join('')||'—';
+    $('#anRef').innerHTML=(a.referrers||[]).map(([p,v])=>`<div class="row" style="justify-content:space-between;padding:.4em 0;border-bottom:1px dashed var(--line)"><span>${p}</span><b>${v}</b></div>`).join('')||'—';
+  }catch{}
+}
+/* orders */
+const NEXT={queued:'brewing',brewing:'ready',ready:'picked-up'};
+async function loadOrders(){
+  try{const o=await api('/api/orders');
+    $('#ordersBoard').innerHTML=o.length?`<table><tr><th>Order</th><th>Items</th><th>Total</th><th>Status</th><th></th></tr>`+o.slice(0,30).map(x=>`<tr><td><b>${x.no}</b></td><td>${x.items.map(i=>i.qty+'× '+i.name).join(', ')}</td><td>$${x.subtotal.toFixed(2)}</td><td><span class="pill ${x.status}">${x.status}</span></td><td>${NEXT[x.status]?`<button class="btn sm" data-adv="${x.no}" data-next="${NEXT[x.status]}">→ ${NEXT[x.status]}</button>`:''} <button class="btn sm danger" data-void="${x.no}">✕</button></td></tr>`).join('')+'</table>':'<p>No orders.</p>';
+  }catch{}
+}
+$('#ordersBoard').addEventListener('click',async e=>{
+  const a=e.target.closest('[data-adv]'),v=e.target.closest('[data-void]');
+  if(a){await api(`/api/orders/${a.dataset.adv}`,{method:'PATCH',body:JSON.stringify({status:a.dataset.next})});loadOrders();}
+  if(v&&confirm('Void?')){await api(`/api/orders/${v.dataset.void}`,{method:'DELETE'});loadOrders();}
+});
+/* pending */
+async function loadPending(){
+  try{const t=await api('/api/wallet/transactions');
+    const p=t.filter(x=>x.status==='pending');
+    $('#pendingBoard').innerHTML=p.length?`<table><tr><th>TX</th><th>Order</th><th>Method</th><th>Amount</th><th></th></tr>`+p.map(x=>`<tr><td>${x.id}</td><td>${x.orderNo}</td><td>${x.method}</td><td>$${x.amount.toFixed(2)}</td><td><button class="btn sm" data-conf="${x.id}">✓</button> <button class="btn sm danger" data-rej="${x.id}">✕</button></td></tr>`).join('')+'</table>':'<p>No pending payments. ✓</p>';
+  }catch{}
+}
+$('#pendingBoard').addEventListener('click',async e=>{
+  const c=e.target.closest('[data-conf]'),r=e.target.closest('[data-rej]');
+  if(c){await api(`/api/wallet/confirm/${c.dataset.conf}`,{method:'POST'});blip('Confirmed');loadPending();loadWallet();loadDash();}
+  if(r){await api(`/api/wallet/reject/${r.dataset.rej}`,{method:'POST'});loadPending();}
+});
+/* reviews */
+async function loadReviews(){
+  try{const r=await api('/api/reviews/all');
+    $('#reviewsAdmin').innerHTML=r.length?r.map(x=>`<div style="border-bottom:1px dashed var(--line);padding:.6rem 0"><b>${x.name}</b> ${'★'.repeat(x.rating)} <span class="pill ${x.approved?'active':'pending'}">${x.approved?'approved':'pending'}</span><p style="color:var(--dim);font-size:.85rem">"${x.text}"</p>${x.approved?'':`<button class="btn sm" data-appr="${x.id}">✓ Approve</button>`} <button class="btn sm danger" data-delrv="${x.id}">✕</button></div>`).join(''):'<p>No reviews.</p>';
+  }catch{}
+}
+$('#reviewsAdmin').addEventListener('click',async e=>{
+  const a=e.target.closest('[data-appr]'),d=e.target.closest('[data-delrv]');
+  if(a){await api(`/api/reviews/${a.dataset.appr}/approve`,{method:'POST'});loadReviews();}
+  if(d){await api(`/api/reviews/${d.dataset.delrv}`,{method:'DELETE'});loadReviews();}
+});
+/* subs */
+async function loadSubs(){
+  try{const s=await api('/api/subscriptions');
+    $('#subsAdmin').innerHTML=s.length?s.map(x=>`<div style="border-bottom:1px dashed var(--line);padding:.6rem 0"><b>${x.name}</b> · ${x.email} · ${x.plan} <span class="pill ${x.status}">${x.status}</span>${x.status==='active'?'':` <button class="btn sm" data-confsub="${x.id}">✓ Activate</button>`}</div>`).join(''):'<p>No subscriptions.</p>';
+  }catch{}
+}
+$('#subsAdmin').addEventListener('click',async e=>{const a=e.target.closest('[data-confsub]');if(a){await api(`/api/subscriptions/${a.dataset.confsub}/confirm`,{method:'POST'});loadSubs();}});
+/* reservations */
+async function loadResv(){
+  try{const s=await api('/api/reservations');
+    $('#resvAdmin').innerHTML=s.length?s.map(x=>`<div style="border-bottom:1px dashed var(--line);padding:.6rem 0"><b>${x.name}</b> · ${x.phone} · ${x.people} ppl · ${x.date} ${x.time} · ${x.shop} <span class="pill ${x.status}">${x.status}</span>${x.status==='confirmed'?'':` <button class="btn sm" data-confres="${x.id}">✓ Confirm</button>`}</div>`).join(''):'<p>No reservations.</p>';
+  }catch{}
+}
+$('#resvAdmin').addEventListener('click',async e=>{const a=e.target.closest('[data-confres]');if(a){await api(`/api/reservations/${a.dataset.confres}/confirm`,{method:'POST'});loadResv();}});
+/* menu */
+async function loadMenu(){
+  try{const m=await api('/api/menu');
+    $('#menuTable').innerHTML='<tr><th>Item</th><th>Price</th><th>On</th><th></th></tr>'+m.map(x=>`<tr><td>${x.name}</td><td>$${x.price.toFixed(2)}</td><td><button class="btn sm" data-tgl="${x.id}" data-on="${x.available}">${x.available?'on':'off'}</button></td><td><button class="btn sm danger" data-del="${x.id}">✕</button></td></tr>`).join('');
+  }catch{}
+}
+$('#menuTable').addEventListener('click',async e=>{
+  const t=e.target.closest('[data-tgl]'),d=e.target.closest('[data-del]');
+  if(t){await api(`/api/menu/${t.dataset.tgl}`,{method:'PATCH',body:JSON.stringify({available:t.dataset.on!=='true'})});loadMenu();}
+  if(d){await api(`/api/menu/${d.dataset.del}`,{method:'DELETE'});loadMenu();}
+});
+$('#addMenuBtn').onclick=async()=>{
+  await api('/api/menu',{method:'POST',body:JSON.stringify({name:$('#mi-name').value,cat:$('#mi-cat').value,price:+$('#mi-price').value,desc:$('#mi-desc').value})});
+  blip('Added');loadMenu();
+};
+/* posts */
+async function loadPosts(){
+  try{const p=await api('/api/posts');
+    $('#postsList').innerHTML=p.map(x=>`<div style="border-bottom:1px dashed var(--line);padding:.6rem 0"><b>${x.title}</b><p style="color:var(--dim);font-size:.85rem">${x.body}</p><button class="btn sm danger" data-dpost="${x.id}">✕</button></div>`).join('');
+  }catch{}
+}
+$('#postsList').addEventListener('click',async e=>{const d=e.target.closest('[data-dpost]');if(d){await api(`/api/posts/${d.dataset.dpost}`,{method:'DELETE'});loadPosts();}});
+$('#addPostBtn').onclick=async()=>{await api('/api/posts',{method:'POST',body:JSON.stringify({title:$('#po-title').value,body:$('#po-body').value})});blip('Published');loadPosts();};
+/* events */
+async function loadEvents(){
+  try{const e=await api('/api/events');
+    $('#evList').innerHTML=e.map(x=>`<div class="row" style="justify-content:space-between;padding:.6rem 0;border-bottom:1px dashed var(--line)"><span><b>${x.title}</b> (${x.seats} seats)</span><span><button class="btn sm ghost" data-evd="${x.id}">−</button> <button class="btn sm ghost" data-evi="${x.id}">+</button></span></div>`).join('');
+  }catch{}
+}
+$('#evList').addEventListener('click',async e=>{
+  const i=e.target.closest('[data-evi]'),d=e.target.closest('[data-evd]');
+  if(i){await api(`/api/events/${i.dataset.evi}`,{method:'PATCH',body:JSON.stringify({delta:1})});loadEvents();}
+  if(d){await api(`/api/events/${d.dataset.evd}`,{method:'PATCH',body:JSON.stringify({delta:-1})});loadEvents();}
+});
+/* team */
+async function loadTeam(){
+  try{const u=await api('/api/users');
+    $('#teamTable').innerHTML='<tr><th>User</th><th>Role</th><th></th></tr>'+u.map(x=>`<tr><td><b>${x.user}</b></td><td><select data-role="${x.user}" ${x.user===ME.user?'disabled':''}>${['admin','moderator','staff','customer'].map(r=>`<option ${x.role===r?'selected':''}>${r}</option>`).join('')}</select></td><td><button class="btn sm danger" data-deluser="${x.user}" ${x.user===ME.user?'disabled':''}>✕</button></td></tr>`).join('');
+  }catch{}
+}
+$('#teamTable').addEventListener('change',async e=>{const s=e.target.closest('[data-role]');if(s){await api(`/api/users/${s.dataset.role}/role`,{method:'PATCH',body:JSON.stringify({role:s.value})});blip('Role updated');}});
+$('#teamTable').addEventListener('click',async e=>{const d=e.target.closest('[data-deluser]');if(d&&confirm('Delete?')){await api(`/api/users/${d.dataset.deluser}`,{method:'DELETE'});loadTeam();}});
+/* ai */
+async function loadKnowledge(){
+  try{const k=await api('/api/knowledge');
+    $('#knList').innerHTML=k.map(x=>`<div style="border-bottom:1px dashed var(--line);padding:.6rem 0"><b>${x.keywords.join(', ')}</b><p style="color:var(--dim);font-size:.85rem">${x.answer}</p><button class="btn sm danger" data-delk="${x.id}">✕</button></div>`).join('');
+  }catch{}
+}
+$('#knList').addEventListener('click',async e=>{const d=e.target.closest('[data-delk]');if(d){await api(`/api/knowledge/${d.dataset.delk}`,{method:'DELETE'});loadKnowledge();}});
+$('#addKnBtn').onclick=async()=>{await api('/api/knowledge',{method:'POST',body:JSON.stringify({keywords:$('#kn-keys').value.split(',').map(s=>s.trim()),answer:$('#kn-ans').value})});blip('Learned');loadKnowledge();};
+/* wallet */
+async function loadWallet(){
+  try{const [b,t]=await Promise.all([api('/api/wallet/balance'),api('/api/wallet/transactions')]);
+    $('#walletBalance').textContent='$'+b.balance.toFixed(2);
+    $('#walletTotal').textContent='$'+b.totalReceived.toFixed(2);
+    $('#txTable').innerHTML='<tr><th>TX</th><th>Method</th><th>Amount</th><th>Status</th></tr>'+t.slice(0,15).map(x=>`<tr><td>${x.id}</td><td>${x.method||x.destination||''}</td><td>$${x.amount.toFixed(2)}</td><td><span class="pill ${x.status}">${x.status}</span></td></tr>`).join('');
+  }catch{}
+}
+$('#refreshWallet').onclick=loadWallet;
+/* settings */
+async function loadSettings(){
+  try{const p=await api('/api/payments-info');
+    $('#set-telebirr').value=p.telebirr||'';$('#set-mpesa').value=p.mpesa||'';$('#set-paypal').value=p.paypal||'';$('#set-bank').value=p.bank||'';$('#set-crypto').value=p.crypto||'';
+  }catch{}
+}
+$('#saveSettingsBtn').onclick=async()=>{await api('/api/settings/payments',{method:'PATCH',body:JSON.stringify({telebirr:$('#set-telebirr').value,mpesa:$('#set-mpesa').value,paypal:$('#set-paypal').value,bank:$('#set-bank').value,crypto:$('#set-crypto').value})});blip('Saved');};
+/* security */
+async function loadSecurity(){
+  try{const s=await api('/api/security');
+    $('#secBlocked').innerHTML=s.blocked.length?s.blocked.map(x=>`<div class="row" style="justify-content:space-between;padding:.5em 0;border-bottom:1px dashed var(--line)"><span>${x.ip}</span><button class="btn sm ghost" data-unblock="${x.ip}">Unblock</button></div>`).join(''):'<p>No blocked IPs. ✓</p>';
+    $('#secEvents').innerHTML=s.events.map(x=>`<div style="padding:.25em 0;border-bottom:1px dashed var(--line)">[${new Date(x.t).toLocaleTimeString()}] ${x.type} ${x.ip}</div>`).join('')||'—';
+  }catch{}
+}
+$('#secBlocked').addEventListener('click',async e=>{const b=e.target.closest('[data-unblock]');if(b){await api('/api/security/unblock',{method:'POST',body:JSON.stringify({ip:b.dataset.unblock})});loadSecurity();}});
+/* chat */
+function cmsg(w,t){const l=$('#chatLog');l.innerHTML+=`<div style="margin:.3em 0;color:${w==='user'?'var(--csoft)':'var(--dim)'}"><b>${w}</b>: ${t}</div>`;l.scrollTop=1e9;}
+$('#chatSend').onclick=async()=>{const m=$('#chatIn').value.trim();if(!m)return;cmsg('user',m);$('#chatIn').value='';const r=await api('/api/chat',{method:'POST',body:JSON.stringify({message:m,lang:'en'})});cmsg('bot',r.reply);};
+/* tabs */
+$('#tabNav').addEventListener('click',e=>{
+  const b=e.target.closest('.tab-btn');if(!b)return;
+  document.querySelectorAll('.tab-btn').forEach(x=>x.classList.remove('active'));
+  document.querySelectorAll('.tab-panel').forEach(x=>x.classList.remove('active'));
+  b.classList.add('active');$('#tab-'+b.dataset.tab).classList.add('active');
+  if(b.dataset.tab==='dash')loadDash();
+  if(b.dataset.tab==='analytics')loadAnalytics();
+  if(b.dataset.tab==='orders')loadOrders();
+  if(b.dataset.tab==='pending')loadPending();
+  if(b.dataset.tab==='reviews')loadReviews();
+  if(b.dataset.tab==='subs')loadSubs();
+  if(b.dataset.tab==='resv')loadResv();
+  if(b.dataset.tab==='menu')loadMenu();
+  if(b.dataset.tab==='posts')loadPosts();
+  if(b.dataset.tab==='events')loadEvents();
+  if(b.dataset.tab==='team')loadTeam();
+  if(b.dataset.tab==='ai')loadKnowledge();
+  if(b.dataset.tab==='wallet')loadWallet();
+  if(b.dataset.tab==='settings')loadSettings();
+  if(b.dataset.tab==='security')loadSecurity();
+});
+/* boot */
+(async function boot(){
+  ME=await api('/api/admin/whoami');
+  $('#whoAmI').textContent='☕ '+ME.user;
+  const rb=$('#roleBadge');rb.textContent=ME.role;rb.className='role-badge '+ME.role;
+  if(ME.role!=='admin'){['tabBtnTeam','tabBtnAi','tabBtnSettings','tabBtnSecurity'].forEach(id=>{const e=document.getElementById(id);if(e)e.style.display='none';});}
+  loadDash();loadPending();loadOrders();
+  setInterval(loadPending,8000);
+})();
+$('#logoutBtn').onclick=async()=>{await fetch('/api/admin/logout',{method:'POST'});location.href='/login.html';};
+</script>
+</body>
+</html>
