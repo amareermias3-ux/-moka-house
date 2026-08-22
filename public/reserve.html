@@ -21,23 +21,23 @@ a{color:#d98e32}
 </head>
 <body>
 <div class="card">
-<h1>🪑 Reserve a Table</h1>
-<p class="sub">ERSCOMAS · Book your seat</p>
-<form id="rf">
-  <label>Name</label><input id="rName" required>
-  <label>Phone</label><input id="rPhone" type="tel" placeholder="+251..." required>
-  <div class="row">
-    <div><label>Date</label><input id="rDate" type="date" required></div>
-    <div><label>Time</label><input id="rTime" type="time" required></div>
-  </div>
-  <div class="row">
-    <div><label>People</label><input id="rPeople" type="number" min="1" max="12" value="2"></div>
-    <div><label>Shop</label><select id="rShop"><option>Old Harbor</option><option>Riverside</option><option>Museum Quarter</option></select></div>
-  </div>
-  <button class="go" type="submit">Reserve ◆</button>
-  <p class="msg" id="msg"></p>
-</form>
-<p style="margin-top:1.2rem"><a href="/">← Back to shop</a></p>
+  <h1>🪑 Reserve a Table</h1>
+  <p class="sub">ERSCOMAS · Book your seat</p>
+  <form id="rf">
+    <label>Name</label><input id="rName" required>
+    <label>Phone</label><input id="rPhone" type="tel" placeholder="+251..." required>
+    <div class="row">
+      <div><label>Date</label><input id="rDate" type="date" required></div>
+      <div><label>Time</label><input id="rTime" type="time" required></div>
+    </div>
+    <div class="row">
+      <div><label>People</label><input id="rPeople" type="number" min="1" max="12" value="2"></div>
+      <div><label>Shop</label><select id="rShop"><option>Old Harbor</option><option>Riverside</option><option>Museum Quarter</option></select></div>
+    </div>
+    <button class="go" type="submit">Reserve ◆</button>
+    <p class="msg" id="msg"></p>
+  </form>
+  <p style="margin-top:1.2rem"><a href="/">← Back to shop</a></p>
 </div>
 <script>
 document.getElementById('rf').addEventListener('submit',async e=>{
@@ -45,9 +45,8 @@ document.getElementById('rf').addEventListener('submit',async e=>{
   const body={name:rName.value.trim(),phone:rPhone.value.trim(),date:rDate.value,time:rTime.value,people:rPeople.value,shop:rShop.value};
   const r=await fetch('/api/reserve',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)});
   const d=await r.json();
-  const m=document.getElementById('msg');
-  if(r.ok){m.style.color='#8fa87e';m.textContent='✅ Reserved! We\'ll confirm shortly. ጠረጴው ተይዟል!';e.target.reset();}
-  else{m.style.color='#cf5636';m.textContent=d.error||'Failed';}
+  if(r.ok){msg.textContent='✅ Reserved! We\'ll confirm shortly. ጠረዛ ተይዟል!';e.target.reset();}
+  else{msg.style.color='#cf5636';msg.textContent=d.error||'Failed';}
 });
 </script>
 </body>

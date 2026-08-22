@@ -20,12 +20,15 @@ h1{font-family:Fraunces,serif;font-size:2rem;color:#e8b56b}
 .story b{color:#e8b56b}
 .nav-btns{display:flex;gap:.6rem;margin-top:1rem}
 .nb{flex:1;font-family:"Space Mono",monospace;padding:.8em;border-radius:6px;border:1.5px solid #d98e32;background:none;color:#d98e32;cursor:pointer}
+/* Dama */
 #board{display:grid;grid-template-columns:repeat(8,1fr);gap:2px;max-width:420px;margin:0 auto;border:3px solid #b3691e;border-radius:6px;overflow:hidden}
 .sq{aspect-ratio:1;display:grid;place-items:center;font-size:clamp(14px,4vw,26px);cursor:pointer}
 .sq.light{background:#e8dcc8}.sq.dark{background:#6b4a2a}
 .sq.sel{outline:3px solid #d98e32}
-.pc.r{color:#cf5636}.pc.b{color:#241a10}.pc.king{text-shadow:0 0 6px #ffd700}
+.pc.r{color:#cf5636}.pc.b{color:#241a10}
+.pc.king{text-shadow:0 0 6px #ffd700}
 #turnLbl{text-align:center;font-family:"Space Mono",monospace;margin:.8rem 0;color:#e8b56b}
+/* Trivia */
 .q{font-size:1.05rem;margin-bottom:1rem;color:#e8dcc8}
 .ans{display:block;width:100%;text-align:left;margin:.4rem 0;padding:.8em 1em;border-radius:6px;border:1.5px solid rgba(241,230,212,.28);background:none;color:#f1e6d4;cursor:pointer;font-family:"Space Mono",monospace;font-size:.8rem}
 .ans:hover{border-color:#d98e32}
@@ -38,68 +41,144 @@ a{color:#d98e32}
 <body>
 <div class="wrap">
 <h1>☕ እየጠበቁ እያለ…</h1>
-<p class="sub">ትዕዛዝህ እየተዘጋጀ ነው። እስከዚያ ተዝናና! · Your order is being prepared.</p>
+<p class="sub">ትዕዛዝህ እየተዘጋጀ ነው። እስከዚያ ተዝናና! · Your order is being prepared. Enjoy meanwhile!</p>
 <div class="tabs">
-  <button class="tb active" data-p="stories">📖 ሪኮች</button>
-  <button class="tb" data-p="dama">🎮 ማ</button>
+  <button class="tb active" data-p="stories">📖 ታሪኮች</button>
+  <button class="tb" data-p="dama">🎮 ዳማ</button>
   <button class="tb" data-p="quiz">❓ ጥያቄ</button>
 </div>
+
 <div class="panel active" id="p-stories">
   <div class="story" id="storyBox"></div>
-  <div class="nav-btns"><button class="nb" id="prevS">← ቀዳ</button><button class="nb" id="nextS">ቀጣይ →</button></div>
+  <div class="nav-btns"><button class="nb" id="prevS">← ቀሚ</button><button class="nb" id="nextS">ቀጣይ →</button></div>
 </div>
+
 <div class="panel" id="p-dama">
   <div id="turnLbl"></div>
   <div id="board"></div>
   <div class="nav-btns"><button class="nb" id="resetD">↻ እንደገና ጀምር</button></div>
 </div>
+
 <div class="panel" id="p-quiz">
   <div class="q" id="qBox"></div>
   <div id="aBox"></div>
   <div id="score"></div>
   <div class="nav-btns"><button class="nb" id="nextQ">ቀጣይ ጥያቄ →</button></div>
 </div>
-<p style="margin-top:1.4rem"><a href="/">← ወደ ቅ መለስ</a> · <a href="/track.html">📦 ትዕዛዝህን ተከተል</a></p>
+
+<p style="margin-top:1.4rem"><a href="/">← ወደ ሱቅ ተመለስ</a> · <a href="/track.html">📦 ዕዛዝህን ተከተል</a></p>
 </div>
+
 <script>
+/* tabs */
 document.querySelectorAll('.tb').forEach(b=>b.onclick=()=>{
   document.querySelectorAll('.tb').forEach(x=>x.classList.remove('active'));
   document.querySelectorAll('.panel').forEach(x=>x.classList.remove('active'));
   b.classList.add('active');document.getElementById('p-'+b.dataset.p).classList.add('active');
 });
-/* stories */
+
+/* ===== 📖 stories ===== */
 const STORIES=[
- {t:'የቡና መገኘት',s:'እንደ ታኩ <b>ካልዲ</b> የተባለ አርብቶ አደር በኢትዮጵያ በቆሎቹን የበሉ እባቶች ነቅተው ሲያይ የቡና ፍሬ ተገኘ። ስለዚህ ትዮያ <b>የቡና መገ</b> ት!'},
- {t:'ጀበና ባህል',s:'በኢትዮጵያ የቡና ሥነ-ሥርዓት <b>ጀበና</b> ይላል ቡና ቀርብ ሦስት ዙር — <b>አቦል፣ ቶና፣ በረካ</b>። ሦስተኛው "በረካ" በረከት ይባል።'},
- {t:'ከታ ሳኝ ው',s:'ቡና የሚበቅለው በ<b>ከፍተኛ ቦ</b> (1,500–2,200 ሜትር) ሲን ጣዕሙ የበለጠ ጣል። የኢትዮጵያ ርጋጨፌ እና ሲዳማ በዚህ ይታወቃሉ።'},
- {t:'የመጀመሪያ ስፕሬሶ',s:'<b>ኤስሬሶ</b> ማለት "በጥብቅ" ማለት ነው — በግፊት ውሃ በፍነት በማለፍ የሚዘጅ በ30 ከንድ ውስጥ ይጋጃል!'},
- {t:'ቀለም ምን ይላል?',s:'ቀላል <b>ሮስት</b> (light) አሲዳማ እና አበባማ ጣዕም አለው፤ ጥቁር <b>ሮስት</b> ግን ጠብሎ እና ጥቅጥቅ ያለ ጣዕም። ሁለቱም ከአንድ ፍሬ!'},
- {t:'ቀቃዛ ና ካፌይን',s:'<b>ቀዝቃዛ ና</b> (cold brew) ብዙ ሰዓት ቢቆይም ለስላሳ ነው፤ ገር ን ካይኑ ከትኩስ ቡና ሊበልጥ ይችላል — ለህ ነው የሚያነቃው!'}
+ {t:'የቡና መገኘት',s:'እንደ ዩ ታሪክ፣ <b>ካልዲ</b> የተባለ አርብቶ አደር በኢትዮጵያ በቆሎቹን በሉ የባቸው ነቃቅተው ሲያይ የቡና ፍን አኘ። ስለዚህ ትዮጵያ <b>የቡና መገኛ</b> ናት!'},
+ {t:'ጀበና ባህል',s:'በኢትዮጵያ የቡና ሥነ-ሥርት <b>ጀበና</b> ይላል ቡና ስት ጊዜ ይቀርባል — <b>አቦል፣ ና፣ በረካ</b>። ሦስተኛው "በረካ" በረከት ይባላል።'},
+ {t:'ከፍታ ወሳኝ ነው',s:'ቡና የሚበቅለው በ<b>ከፍተኛ ቦታ</b> (1,500–2,200 ሜትር) ሲን ጣዕሙ የበለጠ ይናል። የኢትዮጵያ ርጋጨፌ እና ሲዳማ በዚህ ታወሉ'},
+ {t:'የመጀመሪያ ስፕሬ',s:'<b>ስፕሬ</b> ለት "በጥነት" ማለት ነው — በግፊት ውሃ በፍጥነት በማለፍ የሚዘጋ። በ30 ሰከንድ ውስጥ ዘጋጃል!'},
+ {t:'ቀለም ምን ይላል?',s:'ቀላል <b>ብቅል</b> (light roast) አሲዳማ እና አበባማ ጣዕም አለው፤ ጥቁር <b>ሮስት</b> ግን ጠብሎ እና ጥቅጥቅ ያለ ጣዕም ሁለም ከአንድ ፍሬ!'},
+ {t:'ካፌይን እውነታ',s:'<b>ቀቃዛ ና</b> (cold brew) ብዙ ሰዓት ቢቆይም ገር ነው፤ ነገር ግን ካፌይኑ ከትኩስ ቡና ሊበልጥ ይችላል — ለዚህ ው የሚያነቃው!'}
 ];
 let si=0;
 function showS(){document.getElementById('storyBox').innerHTML='<b>'+STORIES[si].t+'</b><br>'+STORIES[si].s;}
 document.getElementById('nextS').onclick=()=>{si=(si+1)%STORIES.length;showS();};
 document.getElementById('prevS').onclick=()=>{si=(si-1+STORIES.length)%STORIES.length;showS();};
 showS();
-/* dama */
+
+/* ===== 🎮 Dama (draughts) ===== */
 let B=[],turn='r',sel=null,curMoves=[];
-function initDama(){B=Array(64).fill(null);for(let i=0;i<64;i++){const r=Math.floor(i/8),c=i%8;if((r+c)%2===1){if(r<3)B[i]='b';else if(r>4)B[i]='r';}}turn='r';sel=null;curMoves=[];draw();}
-function draw(){const g=document.getElementById('board');g.innerHTML='';for(let i=0;i<64;i++){const r=Math.floor(i/8),c=i%8;const d=document.createElement('div');d.className='sq '+(((r+c)%2)?'dark':'light');d.dataset.i=i;if(B[i]){const p=document.createElement('span');const king=B[i]===B[i].toUpperCase();p.className='pc '+B[i].toLowerCase()+(king?' king':'');p.textContent=king?'♛':'●';d.appendChild(p);}if(sel===i)d.classList.add('sel');g.appendChild(d);}document.getElementById('turnLbl').textContent=turn==='r'?'🔴 የቀይ ተራ':'⚫ የጥቁር ተራ';}
-function movesFor(i){const p=B[i];if(!p)return[];const res=[];const r=Math.floor(i/8),c=i%8;const king=p===p.toUpperCase();const fwd=(p.toLowerCase()==='r')?-1:1;const dirs=king?[[-1,-1],[-1,1],[1,-1],[1,1]]:[[fwd,-1],[fwd,1]];for(const[dr,dc]of dirs){const nr=r+dr,nc=c+dc;if(nr<0||nr>7||nc<0||nc>7)continue;const ni=nr*8+nc;if(!B[ni])res.push({to:ni,cap:null});else if(B[ni].toLowerCase()!==p.toLowerCase()){const jr=r+2*dr,jc=c+2*dc;if(jr>=0&&jr<=7&&jc>=0&&jc<=7&&!B[jr*8+jc])res.push({to:jr*8+jc,cap:ni});}}return res;}
-document.getElementById('board').addEventListener('click',e=>{const sq=e.target.closest('.sq');if(!sq)return;const i=+sq.dataset.i;if(sel==null){if(B[i]&&B[i].toLowerCase()===turn){sel=i;curMoves=movesFor(i);draw();}return;}const mv=curMoves.find(m=>m.to===i);if(mv){B[i]=B[sel];B[sel]=null;if(mv.cap!=null)B[mv.cap]=null;if(B[i]==='r'&&Math.floor(i/8)===0)B[i]='R';if(B[i]==='b'&&Math.floor(i/8)===7)B[i]='B';sel=null;curMoves=[];turn=(turn==='r')?'b':'r';draw();checkWin();}else{if(B[i]&&B[i].toLowerCase()===turn){sel=i;curMoves=movesFor(i);draw();}else{sel=null;curMoves=[];draw();}}});
-function checkWin(){const rc=B.filter(x=>x&&x.toLowerCase()==='r').length;const bc=B.filter(x=>x&&x.toLowerCase()==='b').length;if(rc===0)document.getElementById('turnLbl').textContent='🏆  ጥር አሸነፈ!';if(bc===0)document.getElementById('turnLbl').textContent='🏆  ቀይ አሸነፈ!';}
+function initDama(){
+  B=Array(64).fill(null);
+  for(let i=0;i<64;i++){const r=Math.floor(i/8),c=i%8;
+    if((r+c)%2===1){ if(r<3)B[i]='b'; else if(r>4)B[i]='r'; } }
+  turn='r';sel=null;curMoves=[];draw();
+}
+function draw(){
+  const g=document.getElementById('board');g.innerHTML='';
+  for(let i=0;i<64;i++){const r=Math.floor(i/8),c=i%8;
+    const d=document.createElement('div');d.className='sq '+(((r+c)%2)?'dark':'light');d.dataset.i=i;
+    if(B[i]){const p=document.createElement('span');
+      const king=B[i]===B[i].toUpperCase();
+      p.className='pc '+B[i].toLowerCase()+(king?' king':'');
+      p.textContent=king?'♛':'●';d.appendChild(p);}
+    if(sel===i)d.classList.add('sel');
+    g.appendChild(d);}
+  document.getElementById('turnLbl').textContent= turn==='r'?'🔴 የቀይ ተራ':'⚫ የጥቁር ተራ';
+}
+function movesFor(i){
+  const p=B[i];if(!p)return[];
+  const res=[];const r=Math.floor(i/8),c=i%8;
+  const king=p===p.toUpperCase();
+  const fwd=(p.toLowerCase()==='r')?-1:1;
+  const dirs=king?[[-1,-1],[-1,1],[1,-1],[1,1]]:[[fwd,-1],[fwd,1]];
+  for(const[dr,dc]of dirs){
+    const nr=r+dr,nc=c+dc;
+    if(nr<0||nr>7||nc<0||nc>7)continue;
+    const ni=nr*8+nc;
+    if(!B[ni])res.push({to:ni,cap:null});
+    else if(B[ni].toLowerCase()!==p.toLowerCase()){
+      const jr=r+2*dr,jc=c+2*dc;
+      if(jr>=0&&jr<7+1&&jc>=0&&jc<=7&&!B[jr*8+jc])res.push({to:jr*8+jc,cap:ni});
+    }
+  }
+  return res;
+}
+document.getElementById('board').addEventListener('click',e=>{
+  const sq=e.target.closest('.sq');if(!sq)return;const i=+sq.dataset.i;
+  if(sel==null){ if(B[i]&&B[i].toLowerCase()===turn){sel=i;curMoves=movesFor(i);draw();} return; }
+  const mv=curMoves.find(m=>m.to===i);
+  if(mv){
+    B[i]=B[sel];B[sel]=null;
+    if(mv.cap!=null)B[mv.cap]=null;
+    if(B[i]==='r'&&Math.floor(i/8)===0)B[i]='R';
+    if(B[i]==='b'&&Math.floor(i/8)===7)B[i]='B';
+    sel=null;curMoves=[];turn=(turn==='r')?'b':'r';
+    draw();checkWin();
+  } else {
+    if(B[i]&&B[i].toLowerCase()===turn){sel=i;curMoves=movesFor(i);draw();}
+    else{sel=null;curMoves=[];draw();}
+  }
+});
+function checkWin(){
+  const rc=B.filter(x=>x&&x.toLowerCase()==='r').length;
+  const bc=B.filter(x=>x&&x.toLowerCase()==='b').length;
+  if(rc===0)document.getElementById('turnLbl').textContent='🏆 ⚫ ጥቁር አሸነፈ!';
+  if(bc===0)document.getElementById('turnLbl').textContent='🏆 🔴 ቀይ አሸነፈ!';
+}
 document.getElementById('resetD').onclick=initDama;
 initDama();
-/* quiz */
+
+/* ===== ❓ trivia ===== */
 const QUIZ=[
- {q:'የቡና መገኛ ሀገር የትኛዋ ናት?',a:['ኢትዮጵያ','ብራል','ኮሎምቢያ'],c:0},
- {q:'"ጀበና" ምንድን ነው?',a:['የቡና ማፍያ ዕቃ','የዳማ ጨዋ','የዳቦ አይነት'],c:0},
- {q:'ኤስፕሬ በምን ያህል ጊዜ ውስጥ ይጋጃል?',a:['~30 ሰከንድ','5 ደቂቃ','1 ሰዓት'],c:0},
- {q:'የቡና ፍሬ ከምን ይገኛል?',a:['ከቡና ቼሪ','ከበቆሎ','ከጤፍ'],c:0},
+ {q:'የቡና መገኛ ሀገር የትኛዋ ናት?',a:['ኢትዮጵያ','ብራል','ኮምቢያ'],c:0},
+ {q:'"ጀበና" ምንድን ነው?',a:['የቡና ማፍያ ዕቃ','የዳማ ጨዋታ','የዳቦ አይነት'],c:0},
+ {q:'ኤስፕሬ በምን ደማ ከን ይዘጋጃል?',a:['~30 ሰከንድ','5 ደቂቃ','1 ሰዓት'],c:0},
+ {q:'የቡና ፍ ከምን ገኛል?',a:['ከቡና ቼሪ','ከበቆሎ','ጤ'],c:0},
  {q:'"በረካ" የትኛው የቡና ዙር ነው?',a:['ሦስተኛው','የመጀመሪያው','አራተኛው'],c:0}
 ];
 let qi=0,score=0;
-function showQ(){const q=QUIZ[qi];document.getElementById('qBox').textContent=(qi+1)+'. '+q.q;const ab=document.getElementById('aBox');ab.innerHTML='';q.a.forEach((opt,i)=>{const b=document.createElement('button');b.className='ans';b.textContent=opt;b.onclick=()=>{ab.querySelectorAll('.ans').forEach(x=>x.disabled=true);if(i===q.c){b.classList.add('good');score++;}else{b.classList.add('bad');ab.children[q.c].classList.add('good');}document.getElementById('score').textContent='ነጥብህ: '+score+' / '+QUIZ.length;};ab.appendChild(b);});}
+function showQ(){
+  const q=QUIZ[qi];
+  document.getElementById('qBox').textContent=(qi+1)+'. '+q.q;
+  const ab=document.getElementById('aBox');ab.innerHTML='';
+  q.a.forEach((opt,i)=>{
+    const b=document.createElement('button');b.className='ans';b.textContent=opt;
+    b.onclick=()=>{
+      ab.querySelectorAll('.ans').forEach(x=>x.disabled=true);
+      if(i===q.c){b.classList.add('good');score++;}
+      else{b.classList.add('bad');ab.children[q.c].classList.add('good');}
+      document.getElementById('score').textContent='ነጥብህ: '+score+' / '+QUIZ.length;
+    };
+    ab.appendChild(b);
+  });
+}
 document.getElementById('nextQ').onclick=()=>{qi=(qi+1)%QUIZ.length;showQ();};
 showQ();
 </script>

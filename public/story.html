@@ -5,40 +5,181 @@
 <link rel="icon" type="image/svg+xml" href="/favicon.svg">
 <meta name="theme-color" content="#171110">
 <title>Our Story — Moka House</title>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300..900&family=Space+Grotesk:wght@400;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300..900&family=Space+Grotesk:wght@400;500;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
 <style>
-body{margin:0;background:#171110;color:#f1e6d4;font-family:"Space Grotesk",sans-serif}
-header{display:flex;justify-content:space-between;padding:1.2rem 2rem;align-items:center}
-.brand{font-family:Fraunces,serif;font-weight:900}
-.hero{height:60vh;background:url('https://picsum.photos/seed/coffee-farm-ethiopia/1600/900') center/cover;display:grid;place-items:center;text-align:center;position:relative}
-.hero::after{content:"";position:absolute;inset:0;background:rgba(23,17,16,.55)}
-.hero div{position:relative;z-index:1}
-.hero h1{font-family:Fraunces,serif;font-size:clamp(2rem,6vw,4rem)}
-section{max-width:800px;margin:0 auto;padding:4rem 1.5rem}
-.tl{border-left:2px solid #d98e32;padding-left:1.5rem;margin:2rem 0}
-.tl .yr{font-family:"Space Mono",monospace;color:#d98e32;font-size:.72rem}
-.tl h3{font-family:Fraunces,serif;margin:.3rem 0}
-.tl p{color:#c6b79e}
-.stats{display:flex;gap:1rem;flex-wrap:wrap;justify-content:center}
-.stat{flex:1;min-width:140px;background:#221a15;border:1px solid rgba(241,230,212,.13);border-radius:12px;padding:1.4rem;text-align:center}
-.stat b{display:block;font-family:Fraunces,serif;font-size:2rem;color:#e8b56b}
-.stat span{font-family:"Space Mono",monospace;font-size:.6rem;letter-spacing:.16em;text-transform:uppercase;color:#93866f}
-a{color:#d98e32}
+:root{--bg:#171110;--bg2:#1c1512;--panel:#221a15;--line:rgba(241,230,212,.13);--line2:rgba(241,230,212,.28);--cream:#f1e6d4;--dim:#c6b79e;--mute:#93866f;--copper:#d98e32;--csoft:#e8b56b;--leaf:#8fa87e;--disp:"Fraunces",serif;--mono:"Space Mono",monospace}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--bg);color:var(--cream);font-family:"Space Grotesk",sans-serif;line-height:1.6;overflow-x:hidden}
+::selection{background:var(--copper);color:#191008}
+a{color:inherit;text-decoration:none}
+.wrap{max-width:1100px;margin:0 auto;padding:0 26px}
+.top{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;justify-content:space-between;align-items:center;padding:1rem 1.6rem;background:rgba(23,17,16,.92);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.brand{font-family:var(--disp);font-weight:900;font-size:1.2rem}
+.top a{font-family:var(--mono);font-size:.7rem;letter-spacing:.12em;text-transform:uppercase;color:var(--dim)}
+.top a:hover{color:var(--copper)}
+.hero{min-height:70vh;display:grid;place-items:center;text-align:center;position:relative;overflow:hidden;padding:120px 20px 60px}
+.hero .bg{position:absolute;inset:0;background:url('https://picsum.photos/seed/coffee-farm-ethiopia/1600/900') center/cover;filter:sepia(.4) brightness(.35);transform:scale(1.1);animation:zoom 20s ease-in-out infinite alternate}
+@keyframes zoom{to{transform:scale(1.25)}}
+.hero .inner{position:relative;z-index:2}
+.eyebrow{font-family:var(--mono);font-size:.7rem;letter-spacing:.3em;text-transform:uppercase;color:var(--copper)}
+.hero h1{font-family:var(--disp);font-weight:900;font-size:clamp(2.6rem,8vw,5.5rem);line-height:1;margin:.6rem 0}
+.hero h1 em{font-style:italic;color:var(--csoft)}
+.hero p{color:var(--dim);max-width:52ch;margin:0 auto}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:1rem;padding:3rem 0}
+.stat{text-align:center;background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:1.6rem 1rem}
+.stat b{display:block;font-family:var(--disp);font-size:2.2rem;font-weight:900;color:var(--copper)}
+.stat span{font-family:var(--mono);font-size:.64rem;letter-spacing:.16em;text-transform:uppercase;color:var(--mute)}
+section{padding:80px 0}
+h2{font-family:var(--disp);font-weight:800;font-size:clamp(1.8rem,4vw,2.8rem);margin-bottom:2rem}
+h2 em{font-style:italic;color:var(--csoft)}
+.timeline{position:relative;margin-left:8px;border-left:2px solid var(--line2);padding-left:2rem}
+.t-item{position:relative;margin-bottom:2.4rem}
+.t-item::before{content:"";position:absolute;left:-2.55rem;top:6px;width:14px;height:14px;border-radius:50%;background:var(--copper);box-shadow:0 0 0 4px rgba(217,142,50,.2)}
+.t-item .yr{font-family:var(--mono);font-size:.7rem;letter-spacing:.2em;color:var(--copper)}
+.t-item h3{font-family:var(--disp);font-size:1.3rem;margin:.2rem 0}
+.t-item p{color:var(--dim);font-size:.92rem;max-width:60ch}
+.gallery{display:flex;gap:1rem;overflow-x:auto;scroll-snap-type:x mandatory;padding-bottom:1rem;scrollbar-width:thin}
+.g-item{flex:0 0 260px;scroll-snap-align:start;border-radius:10px;overflow:hidden;border:1px solid var(--line);position:relative}
+.g-item img{width:100%;height:200px;object-fit:cover;transition:transform .6s;filter:sepia(.3)}
+.g-item:hover img{transform:scale(1.1)}
+.g-item span{position:absolute;bottom:0;left:0;right:0;padding:.5em .8em;background:linear-gradient(transparent,rgba(0,0,0,.8));font-family:var(--mono);font-size:.66rem;letter-spacing:.1em}
+.tst{position:relative;background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:2.4rem;min-height:220px}
+.tst .quote{font-family:var(--disp);font-size:1.2rem;font-style:italic;line-height:1.5}
+.tst .who{margin-top:1.4rem;display:flex;align-items:center;gap:.9rem}
+.tst .who img{width:46px;height:46px;border-radius:50%;object-fit:cover;border:2px solid var(--copper)}
+.tst .who b{display:block}
+.tst .who span{font-family:var(--mono);font-size:.66rem;color:var(--mute)}
+.stars{color:var(--copper);letter-spacing:.15em;margin-bottom:.8rem}
+.tst-nav{display:flex;gap:.6rem;justify-content:center;margin-top:1.4rem}
+.tst-nav button{width:40px;height:40px;border-radius:50%;border:1.5px solid var(--line2);background:none;color:var(--dim);cursor:pointer;font-size:1rem}
+.tst-nav button:hover{border-color:var(--copper);color:var(--copper)}
+.dots{display:flex;gap:.4rem;justify-content:center;margin-top:1rem}
+.dots i{width:8px;height:8px;border-radius:50%;background:var(--line2);transition:.3s}
+.dots i.on{background:var(--copper)}
+.cta{text-align:center;padding:70px 20px;background:var(--bg2);border-block:1px solid var(--line)}
+.cta .btn{display:inline-block;background:var(--copper);color:#191008;font-family:var(--mono);font-weight:700;letter-spacing:.12em;text-transform:uppercase;padding:1em 2.2em;border-radius:6px}
+.cta .btn:hover{background:var(--csoft)}
+@media(max-width:760px){.stats{grid-template-columns:repeat(2,1fr)}}
 </style>
 </head>
 <body>
-<header><span class="brand">MOKA HOUSE</span><a href="/">← Back to shop</a></header>
-<div class="hero"><div><p style="font-family:'Space Mono',monospace;letter-spacing:.24em;font-size:.66rem">SINCE 2016 · ADDIS ABABA</p><h1>From a single bean to a family.</h1><p>We started with one roaster and a dream. Today we pour for thousands — but every cup still gets the same love.</p></div></div>
-<section>
-  <div class="stats">
-    <div class="stat"><b>120,000+</b><span>Cups poured</span></div>
-    <div class="stat"><b>11</b><span>Partner farms</span></div>
-    <div class="stat"><b>10</b><span>Years roasting</span></div>
-    <div class="stat"><b>3</b><span>Shops</span></div>
+<div class="top">
+  <span class="brand">MOKA HOUSE</span>
+  <a href="/" data-i18n="back">← Back to shop</a>
+</div>
+
+<div class="hero">
+  <div class="bg"></div>
+  <div class="inner">
+    <p class="eyebrow" data-i18n="eyebrow">Since 2016 · Addis Ababa</p>
+    <h1 data-i18n="h1">From a <em>single bean</em> to a family.</h1>
+    <p data-i18n="hero_p">We started with one roaster and a dream. Today we pour for thousands — but every cup still gets the same love.</p>
   </div>
-  <div class="tl"><span class="yr">2016</span><h3>The first roaster</h3><p>A tiny room in Old Harbor, one second-hand roaster, and a belief that Ethiopian coffee deserves the world.</p></div>
-  <div class="tl"><span class="yr">2019</span><h3>Direct trade</h3><p>We began buying directly from 11 farms across Guji, Yirgacheffe and Sidama — paying above C-market, always.</p></div>
-  <div class="tl"><span class="yr">2023</span><h3>Three rooms</h3><p>Riverside and Museum Quarter joined the family. One roast, three rooms, one standard.</p></div>
+</div>
+
+<div class="wrap">
+  <div class="stats">
+    <div class="stat"><b data-count="120000">0</b><span data-i18n="st1">Cups poured</span></div>
+    <div class="stat"><b data-count="11">0</b><span data-i18n="st2">Partner farms</span></div>
+    <div class="stat"><b data-count="10">0</b><span data-i18n="st3">Years roasting</span></div>
+    <div class="stat"><b data-count="3">0</b><span data-i18n="st4">Shops</span></div>
+  </div>
+</div>
+
+<section>
+  <div class="wrap">
+    <h2 data-i18n="story_h">Our <em>story</em></h2>
+    <div class="timeline">
+      <div class="t-item"><span class="yr">2016</span><h3 data-i18n="t1t">The first roaster</h3><p data-i18n="t1p">A tiny room in Old Harbor, one second-hand roaster, and a belief that Ethiopian coffee deserves the world.</p></div>
+      <div class="t-item"><span class="yr">2019</span><h3 data-i18n="t2t">Direct trade</h3><p data-i18n="t2p">We began buying directly from 11 farms across Guji, Yirgacheffe and Sidama — paying above C-market, always.</p></div>
+      <div class="t-item"><span class="yr">2023</span><h3 data-i18n="t3t">Three rooms</h3><p data-i18n="t3p">Riverside and Museum Quarter joined the family. One roast, three rooms, one standard.</p></div>
+      <div class="t-item"><span class="yr">2026</span><h3 data-i18n="t4t">Moka House goes online</h3><p data-i18n="t4p">Order online, track your cup, and taste the story — in 8 languages.</p></div>
+    </div>
+  </div>
 </section>
+
+<section style="background:var(--bg2);border-block:1px solid var(--line)">
+  <div class="wrap">
+    <h2 data-i18n="gal_h">Inside the <em>roastery</em></h2>
+    <div class="gallery">
+      <div class="g-item"><img src="https://picsum.photos/seed/coffee-roaster/520/400" alt=""><span>Roasting</span></div>
+      <div class="g-item"><img src="https://picsum.photos/seed/latte-art-pour/520/400" alt=""><span>Latte art</span></div>
+      <div class="g-item"><img src="https://picsum.photos/seed/green-coffee-beans/520/400" alt=""><span>Green beans</span></div>
+      <div class="g-item"><img src="https://picsum.photos/seed/coffee-cupping/520/400" alt=""><span>Cupping</span></div>
+      <div class="g-item"><img src="https://picsum.photos/seed/espresso-machine/520/400" alt=""><span>Espresso bar</span></div>
+      <div class="g-item"><img src="https://picsum.photos/seed/coffee-farm-hills/520/400" alt=""><span>The farms</span></div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <h2 data-i18n="tst_h">What people <em>say</em></h2>
+    <div class="tst" id="tst"></div>
+    <div class="tst-nav"><button id="prev">←</button><button id="next">→</button></div>
+    <div class="dots" id="dots"></div>
+  </div>
+</section>
+
+<div class="cta">
+  <h2 data-i18n="cta_h">Taste the <em>story</em>.</h2>
+  <a class="btn" href="/" data-i18n="cta_b">Order now ☕</a>
+</div>
+
+<div style="display:flex;gap:1.2rem;flex-wrap:wrap;justify-content:center;padding:1.2rem;font-family:var(--mono);font-size:.66rem;color:#93866f;text-align:center">
+  <span data-i18n="credit">Built by</span>&nbsp;<b style="color:#d98e32">ERMIAS AMARE</b>
+  <a href="mailto:amareermias@gmail.com">amareermias@gmail.com</a>
+  <a href="tel:+251976021007">+251 976 021 007</a>
+  <a href="tel:+251973011231">+251 973 011 231</a>
+</div>
+
+<script>
+const $=s=>document.querySelector(s);
+const L={
+en:{back:'← Back to shop',eyebrow:'Since 2016 · Addis Ababa',h1:'From a <em>single bean</em> to a family.',hero_p:'We started with one roaster and a dream. Today we pour for thousands — but every cup still gets the same love.',st1:'Cups poured',st2:'Partner farms',st3:'Years roasting',st4:'Shops',story_h:'Our <em>story</em>',gal_h:'Inside the <em>roastery</em>',tst_h:'What people <em>say</em>',cta_h:'Taste the <em>story</em>.',cta_b:'Order now ☕',credit:'Built by',
+t1t:'The first roaster',t1p:'A tiny room in Old Harbor, one second-hand roaster, and a belief that Ethiopian coffee deserves the world.',t2t:'Direct trade',t2p:'We began buying directly from 11 farms across Guji, Yirgacheffe and Sidama — paying above C-market, always.',t3t:'Three rooms',t3p:'Riverside and Museum Quarter joined the family. One roast, three rooms, one standard.',t4t:'Moka House goes online',t4p:'Order online, track your cup, and taste the story — in 8 languages.'},
+am:{back:'← ወደ ሱቅ',eyebrow:'ከ2016 ጀምሮ · አዲስ አበባ',h1:'ከ<em>አንድ ቡና</em> ወ ቤተሰብ።',hero_p:'በአንድ ማጠቢያ እና በህልም ጀመርን። ዛሬ ለሺች እንቀዳለን — ግን እያንዳንዱ ኩባያ ተመሳሳይ ፍቅር አለው።',st1:'የተቀዱ ኩባያዎች',st2:'አጋር እርሻዎች',st3:'ዓመታት ማጠስ',st4:'ሱቆች',story_h:'የእኛ <em>ታሪ</em>',gal_h:'በ<em>ማጠሻ</em> ውስ',tst_h:'ዎች <em>ምን ይላሉ</em>',cta_h:'ታሪን <em>መው</em>።',cta_b:'አሁን አዝዝ ☕',credit:'የተሰራው በ',
+t1t:'የመጀመሪያው ማጠቢያ',t1p:'በOld Harbor ትንሽ ክፍል፣ አን የተጠቀመ ማጠቢያ፣ እና የኢትዮጵያ ቡና ለዓለም የተገባው የሚል እምነት።',t2t:'ቀጥታ ንግድ',t2p:'ከ11 እርሻዎች ቀጥታ መግዛት ጀመርን — ሁልጊዜ ገበያ በላይ እንከፍላለን።',t3t:'ሦስት ክፍሎች',t3p:'Riverside እና Museum Quarter ተቀላቀሉ። አንድ ጥበስ፣ ሦስት ክፍሎች፣ አንድ ደረጃ።',t4t:'Moka House ወደ ኢንተርኔት',t4p:'በ8 ቋንቋዎች በኢንተርኔት አዝዝ፣ ኩባያህን ተከተል'}
+};
+let LANG=localStorage.getItem('moka-lang')||'en';
+const D=()=>L[LANG]||L.en;
+function applyLang(){
+  const d=D();
+  document.querySelectorAll('[data-i18n]').forEach(el=>{const v=d[el.dataset.i18n];if(v)el.innerHTML=v;});
+  document.documentElement.lang=LANG;
+}
+applyLang();
+
+/* count-up */
+const cio=new IntersectionObserver(es=>es.forEach(e=>{
+  if(!e.isIntersecting)return;
+  const el=e.target,end=+el.dataset.count;let t0=null;
+  function step(t){if(!t0)t0=t;const p=Math.min(1,(t-t0)/1400);
+    el.textContent=Math.floor(end*p).toLocaleString()+(end>=1000?'+':'');
+    if(p<1)requestAnimationFrame(step);}
+  requestAnimationFrame(step);cio.unobserve(el);
+}),{threshold:.5});
+document.querySelectorAll('[data-count]').forEach(el=>cio.observe(el));
+
+/* testimonials */
+const TST=[
+ {n:'Sara Tesfaye',r:'Addis Ababa',s:5,seed:'woman-portrait-1',q:{en:'The best flat white in the city. The story page made me fall in love before I even tasted it.',am:'በከተማው ምርጥ flat white። ታሪኩ ከመቅመሴ በፊት አደረገኝ።'}},
+ {n:'Daniel Bekele',r:'Riverside',s:5,seed:'man-portrait-2',q:{en:'Ordered online, tracked my cup, picked it up hot. Flawless.',am:'በኢንተርኔት አዘዝኩ፣ ተከተልኩ፣ ትስ ተበልኩ። ፍጹም።'}},
+ {n:'Hanna Girma',r:'Museum Quarter',s:5,seed:'woman-portrait-3',q:{en:'The Buna Jebena tastes like my grandmother\'s. I\'m a regular now.',am:'Buna Jebena እንደ አያቴ ይመስላል። አሁን ደምቤ ነ።'}},
+ {n:'Marco Rossi',r:'Tourist · Italy',s:5,seed:'man-portrait-4',q:{en:'I travel for coffee. Moka House is worth the flight.',am:'ለቡና እጓዛለሁ። Moka House በረራው ያስፈልጋል።'}}
+];
+let ti=0;
+function renderTst(){
+  const t=TST[ti],d=D();
+  $('#tst').innerHTML=`<div class="stars">${'★'.repeat(t.s)}</div>
+    <p class="quote">“${t.q[LANG]||t.q.en}”</p>
+    <div class="who"><img src="https://picsum.photos/seed/${t.seed}/100/100" alt=""><div><b>${t.n}</b><span>${t.r}</span></div></div>`;
+  $('#dots').innerHTML=TST.map((_,i)=>`<i class="${i===ti?'on':''}"></i>`).join('');
+}
+$('#next').onclick=()=>{ti=(ti+1)%TST.length;renderTst();};
+$('#prev').onclick=()=>{ti=(ti-1+TST.length)%TST.length;renderTst();};
+setInterval(()=>{ti=(ti+1)%TST.length;renderTst();},6000);
+renderTst();
+</script>
 </body>
 </html>

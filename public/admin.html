@@ -7,9 +7,10 @@
 <title>Back of House — Moka House</title>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300..900&family=Space+Grotesk:wght@400;500;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
 <style>
-:root{--bg:#171110;--bg2:#1c1512;--panel:#221a15;--panel2:#281e17;--line:rgba(241,230,212,.13);--line2:rgba(241,230,212,.28);--cream:#f1e6d4;--dim:#c6b79e;--mute:#93866f;--copper:#d98e32;--csoft:#e8b56b;--leaf:#8fa87e;--tomato:#cf5636;--disp:"Fraunces",serif;--mono:"Space Mono",monospace}
+:root{--bg:#171110;--bg2:#1c1512;--panel:#221a15;--panel2:#281e17;--line:rgba(241,230,212,.13);--line2:rgba(241,230,212,.28);--cream:#f1e6d4;--dim:#c6b79e;--mute:#93866f;--copper:#d98e32;--csoft:#e8b56b;--leaf:#8fa87e;--tomato:#cf5636;--gblue:#4285F4;--disp:"Fraunces",serif;--mono:"Space Mono",monospace}
 *{margin:0;padding:0;box-sizing:border-box}
 body{background:var(--bg);color:var(--cream);font-family:"Space Grotesk",sans-serif;font-size:16px;line-height:1.5}
+::selection{background:var(--copper);color:#191008}
 .topbar{position:sticky;top:0;z-index:50;display:flex;justify-content:space-between;align-items:center;gap:1rem;flex-wrap:wrap;padding:.9rem 1.6rem;background:rgba(23,17,16,.95);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
 .brand{font-family:var(--disp);font-weight:900;font-size:1.2rem}
 .brand small{font-family:var(--mono);font-size:.58rem;letter-spacing:.26em;text-transform:uppercase;color:var(--copper);display:block}
@@ -17,20 +18,30 @@ body{background:var(--bg);color:var(--cream);font-family:"Space Grotesk",sans-se
 .who{color:var(--csoft)}
 .role-badge{font-family:var(--mono);font-size:.56rem;letter-spacing:.14em;text-transform:uppercase;padding:.3em .7em;border-radius:100px;border:1px solid var(--line2)}
 .role-badge.admin{border-color:var(--copper);color:var(--copper)}
-.logout,.link-btn{font-family:var(--mono);font-size:.66rem;letter-spacing:.1em;text-transform:uppercase;background:none;border:1.5px solid var(--line2);color:var(--dim);padding:.5em 1em;border-radius:5px;cursor:pointer;text-decoration:none}
+.role-badge.moderator{border-color:var(--leaf);color:var(--leaf)}
+.role-badge.staff{border-color:var(--dim);color:var(--dim)}
+.role-badge.customer{border-color:var(--mute);color:var(--mute)}
+.lang-sel{background:var(--panel);border:1.5px solid var(--line2);border-radius:5px;color:var(--copper);font-family:var(--mono);font-size:.7rem;padding:.45em .4em;cursor:pointer}
+.logout,.link-btn{font-family:var(--mono);font-size:.66rem;letter-spacing:.1em;text-transform:uppercase;background:none;border:1.5px solid var(--line2);color:var(--dim);padding:.5em 1em;border-radius:5px;cursor:pointer;text-decoration:none;transition:.2s}
 .logout:hover{border-color:var(--tomato);color:var(--tomato)}
+.link-btn:hover{border-color:var(--copper);color:var(--copper)}
 main{max-width:1280px;margin:0 auto;padding:1.4rem}
 .tabs{display:flex;gap:.5rem;flex-wrap:wrap;margin-bottom:1.4rem;border-bottom:1px solid var(--line);padding-bottom:.8rem}
-.tab-btn{font-family:var(--mono);font-size:.7rem;letter-spacing:.12em;text-transform:uppercase;padding:.6em 1.2em;border:1.5px solid var(--line2);border-radius:100px;background:none;color:var(--dim);cursor:pointer}
+.tab-btn{font-family:var(--mono);font-size:.7rem;letter-spacing:.12em;text-transform:uppercase;padding:.6em 1.2em;border:1.5px solid var(--line2);border-radius:100px;background:none;color:var(--dim);cursor:pointer;transition:.2s}
+.tab-btn:hover{border-color:var(--copper);color:var(--cream)}
 .tab-btn.active{background:var(--copper);border-color:var(--copper);color:#191008;font-weight:700}
 .tab-panel{display:none}
-.tab-panel.active{display:block}
+.tab-panel.active{display:block;animation:fadeIn .3s}
+@keyframes fadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
 .panel{background:var(--panel);border:1px solid var(--line);border-radius:9px;padding:1.2rem 1.3rem;margin-bottom:1rem}
 .panel h3{font-family:var(--disp);font-size:1.1rem;font-weight:800;margin-bottom:.9rem}
+.panel .hint{font-family:var(--mono);font-size:.6rem;color:var(--mute);margin:-.5rem 0 1rem}
 .grid-2{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
 input,select,textarea{background:var(--bg2);border:1px solid var(--line2);color:var(--cream);border-radius:5px;padding:.55em .7em;font-family:var(--mono);font-size:.8rem;width:100%}
+input:focus,textarea:focus,select:focus{outline:none;border-color:var(--copper)}
 label{font-family:var(--mono);font-size:.6rem;letter-spacing:.14em;text-transform:uppercase;color:var(--mute);display:block;margin:.7rem 0 .3rem}
-.btn{font-family:var(--mono);font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;padding:.65em 1.2em;border-radius:5px;border:1.5px solid var(--copper);background:var(--copper);color:#191008;font-weight:700;cursor:pointer}
+.btn{font-family:var(--mono);font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;padding:.65em 1.2em;border-radius:5px;border:1.5px solid var(--copper);background:var(--copper);color:#191008;font-weight:700;cursor:pointer;transition:.2s}
+.btn:hover{background:var(--csoft)}
 .btn.ghost{background:none;color:var(--copper)}
 .btn.danger{border-color:var(--tomato);background:var(--tomato);color:#fff}
 .btn.sm{font-size:.58rem;padding:.4em .8em}
@@ -38,16 +49,30 @@ label{font-family:var(--mono);font-size:.6rem;letter-spacing:.14em;text-transfor
 table{width:100%;border-collapse:collapse}
 th{text-align:left;font-family:var(--mono);font-size:.58rem;letter-spacing:.16em;text-transform:uppercase;color:var(--mute);padding:.5em;border-bottom:1px solid var(--line)}
 td{padding:.55em .5em;border-bottom:1px dashed var(--line);font-size:.85rem;vertical-align:middle}
+.perm{display:inline-flex;align-items:center;font-family:var(--mono);font-size:.58rem;color:var(--dim);border:1px solid var(--line2);border-radius:100px;padding:.3em .7em;cursor:pointer;user-select:none;margin:0 .4rem .3rem 0;transition:.2s}
+.perm.on{background:var(--leaf);border-color:var(--leaf);color:#191008;font-weight:700}
 .pill{display:inline-block;font-family:var(--mono);font-size:.54rem;letter-spacing:.1em;text-transform:uppercase;padding:.25em .6em;border-radius:100px;border:1px solid var(--line2);color:var(--dim)}
-.pill.pending{border-color:var(--csoft);color:var(--csoft)}
-.pill.confirmed,.pill.active,.pill.completed{border-color:var(--leaf);color:var(--leaf)}
-.pill.rejected,.pill.cancelled{border-color:var(--tomato);color:var(--tomato)}
+.pill.admin{border-color:var(--copper);color:var(--copper)}
+.pill.moderator{border-color:var(--leaf);color:var(--leaf)}
+.pill.pending{border-color:var(--csoft);color:var(--csoft);background:rgba(232,181,107,.1)}
+.pill.confirmed,.pill.active{border-color:var(--leaf);color:var(--leaf);background:rgba(143,168,126,.1)}
+.pill.rejected{border-color:var(--tomato);color:var(--tomato);background:rgba(207,86,54,.1)}
+.lock-screen{max-width:560px;margin:10vh auto;text-align:center;padding:2.5rem 2rem;background:var(--panel);border:1px solid var(--line2);border-radius:14px}
+.lock-screen .big{font-size:3rem}
+.lock-screen h2{font-family:var(--disp);font-size:1.6rem;margin:.7rem 0 .5rem}
+.lock-screen p{color:var(--dim);margin-bottom:1.4rem}
 .stat-box{flex:1;min-width:140px;background:var(--panel2);padding:1rem;border-radius:8px;border:1px dashed rgba(217,142,50,.3)}
 .stat-box .lbl{font-family:var(--mono);font-size:.6rem;letter-spacing:.14em;color:var(--mute);text-transform:uppercase}
 .stat-box .val{font-family:var(--disp);font-size:1.6rem;font-weight:800;margin-top:.3rem}
+.chat-log{background:var(--bg2);border:1px solid var(--line);border-radius:8px;height:200px;overflow-y:auto;padding:.8rem;margin-bottom:.6rem}
+.cmsg{margin-bottom:.5rem;font-size:.85rem}
+.cmsg.user{color:var(--csoft)}
+.cmsg.bot{color:var(--dim)}
 #blip{position:fixed;bottom:20px;right:20px;background:var(--cream);color:#191008;font-family:var(--mono);font-size:.72rem;padding:.8em 1.2em;border-radius:5px;opacity:0;transform:translateY(10px);transition:.3s;pointer-events:none;z-index:99}
 #blip.show{opacity:1;transform:none}
 #blip.err{background:var(--tomato);color:#fff}
+.pending-row{background:rgba(232,181,107,.05)}
+.pending-row:hover{background:rgba(232,181,107,.1)}
 @media(max-width:820px){.grid-2{grid-template-columns:1fr}}
 </style>
 </head>
@@ -57,10 +82,25 @@ td{padding:.55em .5em;border-bottom:1px dashed var(--line);font-size:.85rem;vert
   <div class="top-right">
     <span class="who" id="whoAmI">…</span>
     <span class="role-badge" id="roleBadge"></span>
+    <select class="lang-sel" id="langSwitch" aria-label="Language">
+      <option value="am">አማርኛ</option><option value="en">English</option><option value="ar">العربية</option>
+      <option value="fr">Français</option><option value="es">Español</option><option value="om">Afaan Oromoo</option>
+      <option value="ti">ትግርኛ</option><option value="so">Soomaali</option>
+    </select>
     <a class="link-btn" href="/">Shopfront ↗</a>
-    <button class="logout" id="logoutBtn">Logout ⎋</button>
+    <button class="logout" id="logoutBtn" data-i18n="logout">Logout ⎋</button>
   </div>
 </header>
+
+<div class="lock-screen" id="lockScreen" style="display:none">
+  <div class="big">✅</div>
+  <h2 id="lockTitle"></h2>
+  <p id="lockMsg"></p>
+  <div class="row" style="justify-content:center;gap:.6rem">
+    <a class="link-btn" href="/" data-i18n="back_shop">← Back to the shop</a>
+    <button class="logout" id="lockLogout" data-i18n="logout">Logout ⎋</button>
+  </div>
+</div>
 
 <main id="mainArea">
   <div class="tabs" id="tabNav">
@@ -70,12 +110,11 @@ td{padding:.55em .5em;border-bottom:1px dashed var(--line);font-size:.85rem;vert
     <button class="tab-btn" data-tab="pending">⏳ Pending</button>
     <button class="tab-btn" data-tab="reviews">⭐ Reviews</button>
     <button class="tab-btn" data-tab="subs">🔁 Subs</button>
-    <button class="tab-btn" data-tab="resv">🪑 Tables</button>
     <button class="tab-btn" data-tab="menu">Menu</button>
     <button class="tab-btn" data-tab="posts">Posts</button>
     <button class="tab-btn" data-tab="events">Events</button>
     <button class="tab-btn" data-tab="team" id="tabBtnTeam">Team</button>
-    <button class="tab-btn" data-tab="ai" id="tabBtnAi">AI</button>
+    <button class="tab-btn" data-tab="ai" id="tabBtnAi">AI Knowledge</button>
     <button class="tab-btn" data-tab="wallet" id="tabBtnWallet">💰 Wallet</button>
     <button class="tab-btn" data-tab="settings" id="tabBtnSettings">⚙️ Payments</button>
     <button class="tab-btn" data-tab="security" id="tabBtnSecurity">🛡️ Security</button>
@@ -83,48 +122,66 @@ td{padding:.55em .5em;border-bottom:1px dashed var(--line);font-size:.85rem;vert
   </div>
 
   <div class="tab-panel active" id="tab-dash">
-    <div class="panel"><div class="row">
-      <div class="stat-box"><div class="lbl">Orders today</div><div class="val" id="dTodayOrders">0</div></div>
-      <div class="stat-box"><div class="lbl">Revenue today</div><div class="val" id="dTodayRev">$0</div></div>
-      <div class="stat-box"><div class="lbl">Pending</div><div class="val" id="dPending">$0</div></div>
-      <div class="stat-box"><div class="lbl">Top item</div><div class="val" id="dTop" style="font-size:1.1rem">—</div></div>
-    </div></div>
-    <div class="panel"><h3>Recent activity</h3><div id="dashActivity" style="max-height:200px;overflow-y:auto;font-family:var(--mono);font-size:.66rem;color:var(--dim)"></div></div>
+    <div class="grid-2">
+      <div class="panel"><h3>Last 7 days revenue</h3><div id="dashBars" style="display:flex;align-items:flex-end;gap:.5rem;height:160px"></div></div>
+      <div class="panel"><h3>Recent activity</h3><div id="dashActivity" style="max-height:160px;overflow-y:auto;font-family:var(--mono);font-size:.66rem;color:var(--dim)"></div></div>
+    </div>
+    <div class="panel">
+      <div style="display:flex;gap:1rem;flex-wrap:wrap">
+        <div class="stat-box"><div class="lbl">Orders today</div><div class="val" id="dTodayOrders" style="color:var(--copper)">0</div></div>
+        <div class="stat-box"><div class="lbl">Revenue today</div><div class="val" id="dTodayRev" style="color:var(--leaf)">$0</div></div>
+        <div class="stat-box"><div class="lbl">Pending</div><div class="val" id="dPending" style="color:var(--csoft)">$0</div></div>
+        <div class="stat-box"><div class="lbl">Avg order</div><div class="val" id="dAvg">$0</div></div>
+        <div class="stat-box"><div class="lbl">Top item</div><div class="val" id="dTop" style="font-size:1.1rem">—</div></div>
+        <div class="stat-box"><div class="lbl">Users</div><div class="val" id="dUsers">0</div></div>
+        <div class="stat-box"><div class="lbl">All orders</div><div class="val" id="dOrders">0</div></div>
+        <div class="stat-box"><div class="lbl">All revenue</div><div class="val" id="dAllRev" style="color:var(--leaf)">$0</div></div>
+      </div>
+    </div>
+    <div class="panel"><h3>⬇ Export / Backup</h3>
+      <div class="row">
+        <button class="btn ghost sm" id="expOrders">Orders CSV</button>
+        <button class="btn ghost sm" id="expUsers">Users CSV</button>
+        <button class="btn ghost sm" id="expJson">Full backup (JSON)</button>
+      </div>
+    </div>
   </div>
 
   <div class="tab-panel" id="tab-analytics">
     <div class="grid-2">
       <div class="panel"><h3>Top pages</h3><div id="anPages"></div></div>
-      <div class="panel"><h3>Top referrers</h3><div id="anRef"></div></div>
+      <div class="panel"><h3>Daily visits</h3><div id="anDaily" style="display:flex;align-items:flex-end;gap:.4rem;height:140px"></div></div>
     </div>
+    <div class="panel"><h3>Top referrers</h3><div id="anRef"></div></div>
   </div>
 
   <div class="tab-panel" id="tab-orders">
-    <div class="panel"><h3>Orders board</h3><div id="ordersBoard"></div></div>
+    <div class="panel">
+      <h3>Orders board</h3>
+      <div class="row" style="margin-bottom:1rem"><button class="btn ghost sm" id="refreshOrders">Refresh ⟳</button><span class="pill" id="queuePill">0 queued</span></div>
+      <input id="orderSearch" placeholder="Search order # / item…" style="max-width:280px;margin-bottom:.9rem">
+      <div id="ordersBoard"></div>
+    </div>
   </div>
 
   <div class="tab-panel" id="tab-pending">
-    <div class="panel"><h3>⏳ Pending payments</h3><div id="pendingBoard"></div></div>
+    <div class="panel"><h3>⏳ Pending payments (manual verify)</h3><p class="hint">Confirm when the money lands in your Telebirr/M-Pesa/bank.</p><div id="pendingBoard"></div></div>
   </div>
 
   <div class="tab-panel" id="tab-reviews">
-    <div class="panel"><h3>⭐ Reviews (moderate)</h3><div id="reviewsAdmin"></div></div>
+    <div class="panel"><h3>⭐ Customer reviews (moderate)</h3><div id="reviewsAdmin"></div></div>
   </div>
 
   <div class="tab-panel" id="tab-subs">
-    <div class="panel"><h3>🔁 Subscriptions</h3><div id="subsAdmin"></div></div>
-  </div>
-
-  <div class="tab-panel" id="tab-resv">
-    <div class="panel"><h3>🪑 Table reservations</h3><div id="resvAdmin"></div></div>
+    <div class="panel"><h3>🔁 Coffee Club subscriptions</h3><div id="subsAdmin"></div></div>
   </div>
 
   <div class="tab-panel" id="tab-menu">
     <div class="grid-2">
-      <div class="panel"><h3>Add item</h3>
+      <div class="panel"><h3>Add new item</h3>
         <label>Name</label><input id="mi-name">
         <label>Category</label><select id="mi-cat"><option>Espresso</option><option>Filter</option><option>Cold</option><option>Bakes</option></select>
-        <label>Price</label><input id="mi-price" type="number" step="0.10" value="3.50">
+        <label>Price</label><input id="mi-price" type="number" step="0.10" min="0.5" value="3.50">
         <label>Description</label><textarea id="mi-desc" rows="2"></textarea>
         <div style="margin-top:1rem"><button class="btn" id="addMenuBtn">+ Add</button></div>
       </div>
@@ -134,9 +191,9 @@ td{padding:.55em .5em;border-bottom:1px dashed var(--line);font-size:.85rem;vert
 
   <div class="tab-panel" id="tab-posts">
     <div class="grid-2">
-      <div class="panel"><h3>Publish</h3>
+      <div class="panel"><h3>Publish a post</h3>
         <label>Title</label><input id="po-title">
-        <label>Body</label><textarea id="po-body" rows="4"></textarea>
+        <label>Body</label><textarea id="po-body" rows="5"></textarea>
         <div style="margin-top:1rem"><button class="btn" id="addPostBtn">Publish ◆</button></div>
       </div>
       <div class="panel"><h3>Published</h3><div id="postsList"></div></div>
@@ -148,13 +205,13 @@ td{padding:.55em .5em;border-bottom:1px dashed var(--line);font-size:.85rem;vert
   </div>
 
   <div class="tab-panel" id="tab-team">
-    <div class="panel"><h3>Team & roles</h3><table id="teamTable"></table></div>
+    <div class="panel"><h3>Team, roles & moderator permissions</h3><p class="hint">customer → staff → moderator → admin</p><table id="teamTable"></table></div>
   </div>
 
   <div class="tab-panel" id="tab-ai">
     <div class="grid-2">
       <div class="panel"><h3>Teach the bot</h3>
-        <label>Keywords (comma)</label><input id="kn-keys">
+        <label>Keywords (comma separated)</label><input id="kn-keys" placeholder="wifi, internet">
         <label>Answer</label><textarea id="kn-ans" rows="3"></textarea>
         <div style="margin-top:1rem"><button class="btn" id="addKnBtn">+ Add</button></div>
       </div>
@@ -165,38 +222,46 @@ td{padding:.55em .5em;border-bottom:1px dashed var(--line);font-size:.85rem;vert
   <div class="tab-panel" id="tab-wallet">
     <div class="grid-2">
       <div class="panel"><h3>💰 Wallet</h3>
-        <div class="row" style="margin-bottom:1rem">
-          <div class="stat-box"><div class="lbl">Balance</div><div class="val" id="walletBalance">$0</div></div>
-          <div class="stat-box"><div class="lbl">Total received</div><div class="val" id="walletTotal">$0</div></div>
+        <div style="display:flex;gap:1rem;margin:1rem 0">
+          <div class="stat-box"><div class="lbl">Balance</div><div class="val" id="walletBalance" style="color:var(--copper)">$0.00</div></div>
+          <div class="stat-box"><div class="lbl">Total received</div><div class="val" id="walletTotal" style="color:var(--leaf)">$0.00</div></div>
         </div>
         <button class="btn ghost sm" id="refreshWallet">Refresh ⟳</button>
       </div>
-      <div class="panel"><h3>Recent transactions</h3><table id="txTable"></table></div>
+      <div class="panel"><h3>↗ Transfer</h3>
+        <label>Transfer to</label>
+        <select id="tr-dest"><option value="wallet">Other wallet</option><option value="bank">Bank account</option><option value="crypto">Crypto wallet</option><option value="paypal">PayPal email</option><option value="telebirr">Telebirr</option><option value="mpesa">M-Pesa</option></select>
+        <label>Destination</label><input id="tr-to" placeholder="e.g. bc1q... / user@bank.com">
+        <label>Amount ($)</label><input id="tr-amt" type="number" step="0.01" min="0.01" placeholder="100.00">
+        <label>Reference</label><input id="tr-ref" placeholder="e.g. Monthly withdrawal">
+        <div style="margin-top:1rem"><button class="btn" id="transferBtn">Send</button></div>
+      </div>
     </div>
+    <div class="panel"><h3>Recent transactions</h3><table id="txTable"></table></div>
   </div>
 
   <div class="tab-panel" id="tab-settings">
-    <div class="panel"><h3>⚙️ Payment destinations</h3>
-      <label>Telebirr</label><input id="set-telebirr">
-      <label>M-Pesa</label><input id="set-mpesa">
-      <label>PayPal</label><input id="set-paypal">
-      <label>Bank</label><textarea id="set-bank" rows="2"></textarea>
-      <label>Crypto</label><input id="set-crypto">
-      <div style="margin-top:1rem"><button class="btn" id="saveSettingsBtn">Save</button></div>
+    <div class="panel"><h3>⚙️ Payment destinations</h3><p class="hint">These are shown to customers at checkout.</p>
+      <label>Telebirr phone</label><input id="set-telebirr" placeholder="+251976021007">
+      <label>M-Pesa phone</label><input id="set-mpesa" placeholder="+251973011231">
+      <label>PayPal email</label><input id="set-paypal" placeholder="amareermias@gmail.com">
+      <label>Bank account details</label><textarea id="set-bank" rows="2" placeholder="Bank name, account #, routing..."></textarea>
+      <label>Crypto wallet address</label><input id="set-crypto" placeholder="bc1q... / 0x...">
+      <div style="margin-top:1rem"><button class="btn" id="saveSettingsBtn">Save destinations</button></div>
     </div>
   </div>
 
   <div class="tab-panel" id="tab-security">
     <div class="grid-2">
       <div class="panel"><h3>Blocked IPs</h3><div id="secBlocked"></div></div>
-      <div class="panel"><h3>Security events</h3><div id="secEvents" style="max-height:300px;overflow-y:auto;font-family:var(--mono);font-size:.66rem;color:var(--dim)"></div></div>
+      <div class="panel"><h3>Security events</h3><div id="secEvents" style="max-height:320px;overflow-y:auto;font-family:var(--mono);font-size:.66rem;color:var(--dim)"></div></div>
     </div>
   </div>
 
   <div class="tab-panel" id="tab-aichat">
     <div class="panel" style="max-width:520px"><h3>Test Barista Bot</h3>
-      <div id="chatLog" style="background:var(--bg2);border:1px solid var(--line);border-radius:8px;height:200px;overflow-y:auto;padding:.8rem;margin-bottom:.6rem"></div>
-      <div class="row"><input id="chatIn" placeholder="Ask…"><button class="btn" id="chatSend">Send</button></div>
+      <div class="chat-log" id="chatLog"></div>
+      <div class="row"><input id="chatIn" placeholder="Ask the bot…"><button class="btn" id="chatSend">Send</button></div>
     </div>
   </div>
 </main>
@@ -204,10 +269,10 @@ td{padding:.55em .5em;border-bottom:1px dashed var(--line);font-size:.85rem;vert
 <div id="blip"></div>
 
 <script>
-const $=s=>document.querySelector(s);
-let ME={user:null,role:null,permissions:null};
+const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
+let ME={user:null,role:null,permissions:null},P={};
 let blipT;
-function blip(m,err){const b=$('#blip');b.textContent=m;b.classList.toggle('err',!!err);b.classList.add('show');clearTimeout(blipT);blipT=setTimeout(()=>b.classList.remove('show'),err?4000:2200);}
+function blip(m,err){const b=$('#blip');b.textContent=m;b.classList.toggle('err',!!err);b.classList.add('show');clearTimeout(blipT);blipT=setTimeout(()=>b.classList.remove('show'),err?4500:2200);}
 async function api(url,opt={}){
   const r=await fetch(url,{headers:{'Content-Type':'application/json'},...opt});
   if(r.status===401){location.href='/login.html';return new Promise(()=>{});}
@@ -215,183 +280,362 @@ async function api(url,opt={}){
   if(!r.ok){blip(d.error||'Request failed',true);throw new Error(d.error);}
   return d;
 }
+function myPerms(){
+  if(ME.role==='admin')return{can_menu:1,can_orders:1,can_events:1,can_posts:1,can_wallet:1};
+  if(ME.role==='moderator')return ME.permissions||{};
+  if(ME.role==='staff')return{can_orders:1};
+  return{};
+}
+function download(name,mime,text){const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([text],{type:mime}));a.download=name;a.click();URL.revokeObjectURL(a.href);}
+const csvEsc=v=>{v=String(v??'');return /[",\n]/.test(v)?'"'+v.replace(/"/g,'""')+'"':v;};
+const toCSV=rows=>rows.map(r=>r.map(csvEsc).join(',')).join('\n');
 
-/* dash */
+/* ===== dashboard ===== */
 async function loadDash(){
   try{
     const st=await api('/api/stats');
     $('#dTodayOrders').textContent=st.orders;
     $('#dTodayRev').textContent='$'+st.revenue.toFixed(2);
-    $('#dPending').textContent='$'+(st.pendingAmount||0).toFixed(2);
-    $('#dTop').textContent=st.top?st.top.name+' ×'+st.top.qty:'—';
+    $('#dPending').textContent='$'+(st.pendingAmount||0).toFixed(2)+' ('+(st.pendingCount||0)+')';
+    $('#dAvg').textContent='$'+(st.avg||0).toFixed(2);
+    $('#dTop').textContent=st.top?`${st.top.name} ×${st.top.qty}`:'—';
   }catch{}
-  try{const a=await api('/api/activity');$('#dashActivity').innerHTML=a.slice(0,20).map(x=>`<div style="padding:.25em 0;border-bottom:1px dashed var(--line)">◆ ${x.msg}</div>`).join('');}catch{}
+  try{
+    const orders=await api('/api/orders');
+    const allRev=orders.reduce((s,o)=>s+o.subtotal,0);
+    $('#dOrders').textContent=orders.length;
+    $('#dAllRev').textContent='$'+allRev.toFixed(2);
+    const days=[...Array(7)].map((_,i)=>{const d=new Date();d.setDate(d.getDate()-(6-i));return d.toISOString().slice(0,10);});
+    const perDay=days.map(day=>orders.filter(o=>o.created.slice(0,10)===day).reduce((s,o)=>s+o.subtotal,0));
+    const max=Math.max(...perDay,1);
+    $('#dashBars').innerHTML=perDay.map((v,i)=>`<div style="flex:1;display:flex;flex-direction:column;justify-content:flex-end;align-items:center;gap:.3rem;height:100%"><div title="$${v.toFixed(2)}" style="width:70%;background:linear-gradient(180deg,var(--csoft),var(--copper));border-radius:4px 4px 0 0;height:${Math.max(4,Math.round(v/max*120))}px"></div><small style="font-family:var(--mono);font-size:.55rem;color:var(--mute)">${days[i].slice(8)}/${days[i].slice(5,7)}</small></div>`).join('');
+  }catch{}
+  try{const users=await api('/api/users');$('#dUsers').textContent=users.length;}catch{}
+  try{
+    const act=await api('/api/activity');
+    $('#dashActivity').innerHTML=act.slice(0,20).map(a=>`<div style="padding:.25em 0;border-bottom:1px dashed var(--line)">◆ ${a.msg} <span style="color:var(--mute)">· ${new Date(a.t).toLocaleTimeString()}</span></div>`).join('')||'<p>—</p>';
+  }catch{}
 }
-/* analytics */
+$('#expOrders').onclick=async()=>{try{const o=await api('/api/orders');const rows=[['order','items','subtotal','tx','status','created']];o.forEach(x=>rows.push([x.no,x.items.map(i=>i.qty+'x '+i.name).join(' | '),x.subtotal.toFixed(2),x.txId||'',x.status,x.created]));download('moka-orders.csv','text/csv',toCSV(rows));blip('Orders CSV ✓');}catch{}};
+$('#expUsers').onclick=async()=>{try{const u=await api('/api/users');const rows=[['user','role','name','email','phone','provider','created']];u.forEach(x=>rows.push([x.user,x.role,x.name||'',x.email||'',x.phone||'',x.provider||'',x.created||'']));download('moka-users.csv','text/csv',toCSV(rows));blip('Users CSV ✓');}catch{}};
+$('#expJson').onclick=async()=>{try{const [o,u,p,e,k,w,t]=await Promise.all([api('/api/orders'),api('/api/users'),api('/api/posts'),api('/api/events'),api('/api/knowledge'),api('/api/wallet/balance').catch(()=>({})),api('/api/wallet/transactions').catch(()=>[])]);download('moka-backup.json','application/json',JSON.stringify({orders:o,users:u,posts:p,events:e,knowledge:k,wallet:w,transactions:t,exported:new Date().toISOString()},null,2));blip('Backup ✓');}catch{}};
+
+/* ===== analytics ===== */
 async function loadAnalytics(){
-  try{const a=await api('/api/analytics');
-    $('#anPages').innerHTML=(a.views||[]).map(([p,v])=>`<div class="row" style="justify-content:space-between;padding:.4em 0;border-bottom:1px dashed var(--line)"><span>${p}</span><b>${v}</b></div>`).join('')||'—';
-    $('#anRef').innerHTML=(a.referrers||[]).map(([p,v])=>`<div class="row" style="justify-content:space-between;padding:.4em 0;border-bottom:1px dashed var(--line)"><span>${p}</span><b>${v}</b></div>`).join('')||'—';
+  try{
+    const a=await api('/api/analytics');
+    $('#anPages').innerHTML=(a.views||[]).map(([p,v])=>`<div class="row" style="justify-content:space-between;padding:.4rem 0;border-bottom:1px dashed var(--line)"><span style="font-family:var(--mono);font-size:.72rem">${p}</span><b style="color:var(--copper)">${v}</b></div>`).join('')||'<p style="color:var(--mute)">No data yet.</p>';
+    const daily=(a.daily||[]).slice().reverse();const max=Math.max(...daily.map(d=>d[1]),1);
+    $('#anDaily').innerHTML=daily.map(([d,v])=>`<div style="flex:1;display:flex;flex-direction:column;justify-content:flex-end;align-items:center;gap:.3rem;height:100%"><div title="${v}" style="width:70%;background:linear-gradient(180deg,var(--csoft),var(--copper));border-radius:4px 4px 0 0;height:${Math.max(4,Math.round(v/max*110))}px"></div><small style="font-family:var(--mono);font-size:.5rem;color:var(--mute)">${d.slice(8)}</small></div>`).join('')||'<p style="color:var(--mute)">No data.</p>';
+    $('#anRef').innerHTML=(a.referrers||[]).map(([r,v])=>`<div class="row" style="justify-content:space-between;padding:.4rem 0;border-bottom:1px dashed var(--line)"><span style="font-family:var(--mono);font-size:.72rem">${r}</span><b style="color:var(--leaf)">${v}</b></div>`).join('')||'<p style="color:var(--mute)">No referrers.</p>';
   }catch{}
 }
-/* orders */
-const NEXT={queued:'brewing',brewing:'ready',ready:'picked-up'};
-async function loadOrders(){
-  try{const o=await api('/api/orders');
-    $('#ordersBoard').innerHTML=o.length?`<table><tr><th>Order</th><th>Items</th><th>Total</th><th>Status</th><th></th></tr>`+o.slice(0,30).map(x=>`<tr><td><b>${x.no}</b></td><td>${x.items.map(i=>i.qty+'× '+i.name).join(', ')}</td><td>$${x.subtotal.toFixed(2)}</td><td><span class="pill ${x.status}">${x.status}</span></td><td>${NEXT[x.status]?`<button class="btn sm" data-adv="${x.no}" data-next="${NEXT[x.status]}">→ ${NEXT[x.status]}</button>`:''} <button class="btn sm danger" data-void="${x.no}">✕</button></td></tr>`).join('')+'</table>':'<p>No orders.</p>';
-  }catch{}
-}
-$('#ordersBoard').addEventListener('click',async e=>{
-  const a=e.target.closest('[data-adv]'),v=e.target.closest('[data-void]');
-  if(a){await api(`/api/orders/${a.dataset.adv}`,{method:'PATCH',body:JSON.stringify({status:a.dataset.next})});loadOrders();}
-  if(v&&confirm('Void?')){await api(`/api/orders/${v.dataset.void}`,{method:'DELETE'});loadOrders();}
-});
-/* pending */
+
+/* ===== pending ===== */
 async function loadPending(){
-  try{const t=await api('/api/wallet/transactions');
-    const p=t.filter(x=>x.status==='pending');
-    $('#pendingBoard').innerHTML=p.length?`<table><tr><th>TX</th><th>Order</th><th>Method</th><th>Amount</th><th></th></tr>`+p.map(x=>`<tr><td>${x.id}</td><td>${x.orderNo}</td><td>${x.method}</td><td>$${x.amount.toFixed(2)}</td><td><button class="btn sm" data-conf="${x.id}">✓</button> <button class="btn sm danger" data-rej="${x.id}">✕</button></td></tr>`).join('')+'</table>':'<p>No pending payments. ✓</p>';
+  try{
+    const txs=await api('/api/wallet/transactions');
+    const pending=txs.filter(t=>t.status==='pending');
+    $('#pendingBoard').innerHTML=pending.length?`<table><tr><th>TX ID</th><th>Order</th><th>Method</th><th>Amount</th><th>Customer</th><th>Time</th><th></th></tr>`+
+      pending.map(t=>`<tr class="pending-row">
+        <td style="font-family:var(--mono);font-size:.7rem">${t.id}</td>
+        <td><b>${t.orderNo}</b></td>
+        <td><span class="pill">${t.method}</span></td>
+        <td style="color:var(--copper);font-weight:700">$${t.amount.toFixed(2)}</td>
+        <td style="font-family:var(--mono);font-size:.72rem">${JSON.stringify(t.details||{}).slice(0,40)}</td>
+        <td style="color:var(--mute);font-size:.72rem">${new Date(t.created).toLocaleString()}</td>
+        <td><button class="btn sm" data-confirm="${t.id}" style="background:var(--leaf);border-color:var(--leaf)">✓ Confirm</button>
+        <button class="btn sm danger" data-reject="${t.id}">✕ Reject</button></td>
+      </tr>`).join('')+'</table>':'<p style="color:var(--mute)">No pending payments. ✓</p>';
   }catch{}
 }
 $('#pendingBoard').addEventListener('click',async e=>{
-  const c=e.target.closest('[data-conf]'),r=e.target.closest('[data-rej]');
-  if(c){await api(`/api/wallet/confirm/${c.dataset.conf}`,{method:'POST'});blip('Confirmed');loadPending();loadWallet();loadDash();}
-  if(r){await api(`/api/wallet/reject/${r.dataset.rej}`,{method:'POST'});loadPending();}
+  const c=e.target.closest('[data-confirm]'),r=e.target.closest('[data-reject]');
+  if(c&&confirm('Confirm this payment landed?')){await api(`/api/wallet/confirm/${c.dataset.confirm}`,{method:'POST'});blip('✓ Confirmed');loadPending();loadWallet();loadDash();}
+  if(r&&confirm('Reject this payment?')){await api(`/api/wallet/reject/${r.dataset.reject}`,{method:'POST'});blip('✕ Rejected');loadPending();loadDash();}
 });
-/* reviews */
-async function loadReviews(){
-  try{const r=await api('/api/reviews/all');
-    $('#reviewsAdmin').innerHTML=r.length?r.map(x=>`<div style="border-bottom:1px dashed var(--line);padding:.6rem 0"><b>${x.name}</b> ${'★'.repeat(x.rating)} <span class="pill ${x.approved?'active':'pending'}">${x.approved?'approved':'pending'}</span><p style="color:var(--dim);font-size:.85rem">"${x.text}"</p>${x.approved?'':`<button class="btn sm" data-appr="${x.id}">✓ Approve</button>`} <button class="btn sm danger" data-delrv="${x.id}">✕</button></div>`).join(''):'<p>No reviews.</p>';
+
+/* ===== reviews moderation ===== */
+async function loadReviewsAdmin(){
+  try{
+    const rvs=await api('/api/reviews/all');
+    $('#reviewsAdmin').innerHTML=rvs.length?rvs.map(r=>`
+      <div style="border-bottom:1px dashed var(--line);padding:.7rem 0">
+        <div style="color:var(--copper)">${'★'.repeat(r.rating)}${'☆'.repeat(5-r.rating)}</div>
+        <p style="color:var(--dim);font-size:.85rem;margin:.3rem 0">"${r.text}" — <b>${r.name}</b> ${r.approved?'<span class="pill active">approved</span>':'<span class="pill pending">pending</span>'}</p>
+        ${r.approved?'':`<button class="btn sm" data-appr="${r.id}" style="background:var(--leaf);border-color:var(--leaf)">✓ Approve</button>`}
+        <button class="btn sm danger" data-delrv="${r.id}">✕ Delete</button>
+      </div>`).join(''):'<p style="color:var(--mute)">No reviews yet.</p>';
   }catch{}
 }
 $('#reviewsAdmin').addEventListener('click',async e=>{
   const a=e.target.closest('[data-appr]'),d=e.target.closest('[data-delrv]');
-  if(a){await api(`/api/reviews/${a.dataset.appr}/approve`,{method:'POST'});loadReviews();}
-  if(d){await api(`/api/reviews/${d.dataset.delrv}`,{method:'DELETE'});loadReviews();}
+  if(a){await api(`/api/reviews/${a.dataset.appr}/approve`,{method:'POST'});loadReviewsAdmin();}
+  if(d&&confirm('Delete review?')){await api(`/api/reviews/${d.dataset.delrv}`,{method:'DELETE'});loadReviewsAdmin();}
 });
-/* subs */
-async function loadSubs(){
-  try{const s=await api('/api/subscriptions');
-    $('#subsAdmin').innerHTML=s.length?s.map(x=>`<div style="border-bottom:1px dashed var(--line);padding:.6rem 0"><b>${x.name}</b> · ${x.email} · ${x.plan} <span class="pill ${x.status}">${x.status}</span>${x.status==='active'?'':` <button class="btn sm" data-confsub="${x.id}">✓ Activate</button>`}</div>`).join(''):'<p>No subscriptions.</p>';
+
+/* ===== subscriptions ===== */
+async function loadSubsAdmin(){
+  try{
+    const ss=await api('/api/subscriptions');
+    $('#subsAdmin').innerHTML=ss.length?ss.map(s=>`
+      <div style="border-bottom:1px dashed var(--line);padding:.7rem 0">
+        <p style="color:var(--dim);font-size:.85rem"><b>${s.name}</b> · ${s.email} · <b style="color:var(--copper)">${s.plan}</b> ${s.status==='active'?'<span class="pill active">active</span>':'<span class="pill pending">pending</span>'}</p>
+        ${s.status==='active'?'':`<button class="btn sm" data-confsub="${s.id}" style="background:var(--leaf);border-color:var(--leaf)">✓ Activate</button>`}
+      </div>`).join(''):'<p style="color:var(--mute)">No subscriptions yet.</p>';
   }catch{}
 }
-$('#subsAdmin').addEventListener('click',async e=>{const a=e.target.closest('[data-confsub]');if(a){await api(`/api/subscriptions/${a.dataset.confsub}/confirm`,{method:'POST'});loadSubs();}});
-/* reservations */
-async function loadResv(){
-  try{const s=await api('/api/reservations');
-    $('#resvAdmin').innerHTML=s.length?s.map(x=>`<div style="border-bottom:1px dashed var(--line);padding:.6rem 0"><b>${x.name}</b> · ${x.phone} · ${x.people} ppl · ${x.date} ${x.time} · ${x.shop} <span class="pill ${x.status}">${x.status}</span>${x.status==='confirmed'?'':` <button class="btn sm" data-confres="${x.id}">✓ Confirm</button>`}</div>`).join(''):'<p>No reservations.</p>';
-  }catch{}
+$('#subsAdmin').addEventListener('click',async e=>{
+  const a=e.target.closest('[data-confsub]');
+  if(a){await api(`/api/subscriptions/${a.dataset.confsub}/confirm`,{method:'POST'});loadSubsAdmin();}
+});
+
+/* ===== orders ===== */
+const NEXT={queued:'brewing',brewing:'ready',ready:'picked-up'};
+let lastOrders=[];
+function renderOrders(){
+  const q=($('#orderSearch').value||'').toLowerCase();
+  const orders=lastOrders.filter(o=>!q||o.no.toLowerCase().includes(q)||o.items.some(i=>i.name.toLowerCase().includes(q))||String(o.txId||'').toLowerCase().includes(q));
+  $('#queuePill').textContent=lastOrders.filter(o=>o.status==='queued').length+' queued';
+  $('#ordersBoard').innerHTML=orders.length?`<table><tr><th>Order</th><th>Items</th><th>Total</th><th>TX</th><th>Status</th><th></th></tr>`+
+    orders.slice(0,30).map(o=>`<tr><td><b>${o.no}</b><br><small style="color:var(--mute)">${new Date(o.created).toLocaleTimeString()}</small></td>
+    <td>${o.items.map(i=>`${i.qty}× ${i.name}`).join(', ')}</td><td>$${o.subtotal.toFixed(2)}</td>
+    <td style="font-family:var(--mono);font-size:.66rem;color:var(--mute)">${o.txId||'—'}</td>
+    <td><span class="pill">${o.status}</span></td>
+    <td>${NEXT[o.status]?`<button class="btn sm" data-adv="${o.no}" data-next="${NEXT[o.status]}">→ ${NEXT[o.status]}</button>`:'✓'}
+    <button class="btn sm danger" data-void="${o.no}">✕</button></td></tr>`).join('')+'</table>':'<p style="color:var(--mute)">No orders found.</p>';
 }
-$('#resvAdmin').addEventListener('click',async e=>{const a=e.target.closest('[data-confres]');if(a){await api(`/api/reservations/${a.dataset.confres}/confirm`,{method:'POST'});loadResv();}});
-/* menu */
+async function loadOrders(){try{lastOrders=await api('/api/orders');renderOrders();}catch{}}
+$('#orderSearch').addEventListener('input',renderOrders);
+$('#ordersBoard').addEventListener('click',async e=>{
+  const adv=e.target.closest('[data-adv]'),vo=e.target.closest('[data-void]');
+  if(adv){await api(`/api/orders/${adv.dataset.adv}`,{method:'PATCH',body:JSON.stringify({status:adv.dataset.next})});loadOrders();loadDash();}
+  if(vo&&confirm('Void '+vo.dataset.void+'?')){await api(`/api/orders/${vo.dataset.void}`,{method:'DELETE'});loadOrders();loadDash();}
+});
+$('#refreshOrders').onclick=loadOrders;
+
+/* ===== menu ===== */
 async function loadMenu(){
-  try{const m=await api('/api/menu');
-    $('#menuTable').innerHTML='<tr><th>Item</th><th>Price</th><th>On</th><th></th></tr>'+m.map(x=>`<tr><td>${x.name}</td><td>$${x.price.toFixed(2)}</td><td><button class="btn sm" data-tgl="${x.id}" data-on="${x.available}">${x.available?'on':'off'}</button></td><td><button class="btn sm danger" data-del="${x.id}">✕</button></td></tr>`).join('');
-  }catch{}
+  const menu=await api('/api/menu');
+  $('#menuTable').innerHTML='<tr><th>Item</th><th>Price</th><th>On</th><th></th></tr>'+menu.map(m=>`
+    <tr style="${m.available?'':'opacity:.45'}"><td>${m.name}<small style="color:var(--mute)">${m.cat}</small></td>
+    <td>$${m.price.toFixed(2)}</td>
+    <td><button class="btn sm ${m.available?'':'ghost'}" data-tgl="${m.id}" data-on="${m.available}">${m.available?'on':'off'}</button></td>
+    <td><button class="btn sm danger" data-del="${m.id}">✕</button></td></tr>`).join('');
 }
 $('#menuTable').addEventListener('click',async e=>{
   const t=e.target.closest('[data-tgl]'),d=e.target.closest('[data-del]');
   if(t){await api(`/api/menu/${t.dataset.tgl}`,{method:'PATCH',body:JSON.stringify({available:t.dataset.on!=='true'})});loadMenu();}
-  if(d){await api(`/api/menu/${d.dataset.del}`,{method:'DELETE'});loadMenu();}
+  if(d&&confirm('Delete item?')){await api(`/api/menu/${d.dataset.del}`,{method:'DELETE'});loadMenu();}
 });
 $('#addMenuBtn').onclick=async()=>{
-  await api('/api/menu',{method:'POST',body:JSON.stringify({name:$('#mi-name').value,cat:$('#mi-cat').value,price:+$('#mi-price').value,desc:$('#mi-desc').value})});
-  blip('Added');loadMenu();
+  const name=$('#mi-name').value.trim();if(!name)return blip('Name required',true);
+  await api('/api/menu',{method:'POST',body:JSON.stringify({name,cat:$('#mi-cat').value,price:+$('#mi-price').value,desc:$('#mi-desc').value})});
+  $('#mi-name').value='';$('#mi-desc').value='';blip('Item added');loadMenu();
 };
-/* posts */
+
+/* ===== posts ===== */
 async function loadPosts(){
-  try{const p=await api('/api/posts');
-    $('#postsList').innerHTML=p.map(x=>`<div style="border-bottom:1px dashed var(--line);padding:.6rem 0"><b>${x.title}</b><p style="color:var(--dim);font-size:.85rem">${x.body}</p><button class="btn sm danger" data-dpost="${x.id}">✕</button></div>`).join('');
-  }catch{}
+  const posts=await api('/api/posts');
+  $('#postsList').innerHTML=posts.length?posts.map(p=>`
+    <div style="border-bottom:1px dashed var(--line);padding:.7rem 0">
+      <b>${p.title}</b> <span class="pill">${p.author}</span>
+      <p style="color:var(--dim);font-size:.85rem;margin:.3rem 0">${p.body}</p>
+      <button class="btn sm danger" data-dpost="${p.id}">Delete</button>
+    </div>`).join(''):'<p style="color:var(--mute)">No posts yet.</p>';
 }
-$('#postsList').addEventListener('click',async e=>{const d=e.target.closest('[data-dpost]');if(d){await api(`/api/posts/${d.dataset.dpost}`,{method:'DELETE'});loadPosts();}});
-$('#addPostBtn').onclick=async()=>{await api('/api/posts',{method:'POST',body:JSON.stringify({title:$('#po-title').value,body:$('#po-body').value})});blip('Published');loadPosts();};
-/* events */
+$('#postsList').addEventListener('click',async e=>{
+  const d=e.target.closest('[data-dpost]');
+  if(d&&confirm('Delete post?')){await api(`/api/posts/${d.dataset.dpost}`,{method:'DELETE'});loadPosts();}
+});
+$('#addPostBtn').onclick=async()=>{
+  const title=$('#po-title').value.trim(),body=$('#po-body').value.trim();
+  if(!title||!body)return blip('Title and body required',true);
+  await api('/api/posts',{method:'POST',body:JSON.stringify({title,body})});
+  $('#po-title').value='';$('#po-body').value='';blip('Published ◆');loadPosts();
+};
+
+/* ===== events ===== */
 async function loadEvents(){
-  try{const e=await api('/api/events');
-    $('#evList').innerHTML=e.map(x=>`<div class="row" style="justify-content:space-between;padding:.6rem 0;border-bottom:1px dashed var(--line)"><span><b>${x.title}</b> (${x.seats} seats)</span><span><button class="btn sm ghost" data-evd="${x.id}">−</button> <button class="btn sm ghost" data-evi="${x.id}">+</button></span></div>`).join('');
-  }catch{}
+  const evs=await api('/api/events');
+  $('#evList').innerHTML=evs.map(ev=>`<div class="row" style="justify-content:space-between;padding:.6rem 0;border-bottom:1px dashed var(--line)">
+    <div><b>${ev.title}</b><br><small style="color:var(--mute)">${ev.day} ${ev.mon} · ${ev.time}</small></div>
+    <div class="row"><button class="btn sm ghost" data-evd="${ev.id}">−</button><b style="font-family:var(--mono)">${ev.seats}</b><button class="btn sm ghost" data-evi="${ev.id}">+</button></div>
+  </div>`).join('')||'<p style="color:var(--mute)">No events.</p>';
 }
 $('#evList').addEventListener('click',async e=>{
   const i=e.target.closest('[data-evi]'),d=e.target.closest('[data-evd]');
-  if(i){await api(`/api/events/${i.dataset.evi}`,{method:'PATCH',body:JSON.stringify({delta:1})});loadEvents();}
-  if(d){await api(`/api/events/${d.dataset.evd}`,{method:'PATCH',body:JSON.stringify({delta:-1})});loadEvents();}
+  if(i)await api(`/api/events/${i.dataset.evi}`,{method:'PATCH',body:JSON.stringify({delta:1})});
+  if(d)await api(`/api/events/${d.dataset.evd}`,{method:'PATCH',body:JSON.stringify({delta:-1})});
+  if(i||d)loadEvents();
 });
-/* team */
+
+/* ===== team ===== */
+const PERML=[['can_menu','Menu'],['can_orders','Orders'],['can_events','Events'],['can_posts','Posts'],['can_wallet','Wallet']];
 async function loadTeam(){
-  try{const u=await api('/api/users');
-    $('#teamTable').innerHTML='<tr><th>User</th><th>Role</th><th></th></tr>'+u.map(x=>`<tr><td><b>${x.user}</b></td><td><select data-role="${x.user}" ${x.user===ME.user?'disabled':''}>${['admin','moderator','staff','customer'].map(r=>`<option ${x.role===r?'selected':''}>${r}</option>`).join('')}</select></td><td><button class="btn sm danger" data-deluser="${x.user}" ${x.user===ME.user?'disabled':''}>✕</button></td></tr>`).join('');
-  }catch{}
+  const users=await api('/api/users');
+  $('#teamTable').innerHTML='<tr><th>User</th><th>Role</th><th>Permissions</th><th>Actions</th></tr>'+users.map(u=>{
+    const isMe=u.user===ME.user;
+    const permCell=u.role==='moderator'
+      ?PERML.map(([k,l])=>`<span class="perm ${u.permissions&&u.permissions[k]?'on':''}" data-perm="${k}" data-user="${u.user}">${l}</span>`).join('')
+      :`<span class="pill ${u.role}">${u.role==='admin'?'full control':u.role==='staff'?'orders only':'shop only'}</span>`;
+    const roleSel=`<select data-role="${u.user}" ${isMe?'disabled':''} style="min-width:110px">
+      ${['admin','moderator','staff','customer'].map(r=>`<option ${u.role===r?'selected':''}>${r}</option>`).join('')}</select>`;
+    return `<tr><td><b>${u.user}</b>${u.name?' ('+u.name+')':''}${u.provider==='google'?' <span class="pill" style="border-color:var(--gblue);color:var(--gblue)">G</span>':''}${isMe?' <span class="pill">you</span>':''}<br><small style="color:var(--mute)">${u.email||''} ${u.phone||''}</small></td>
+      <td>${roleSel}</td><td>${permCell}</td>
+      <td><button class="btn sm danger" data-deluser="${u.user}" ${isMe?'disabled':''}>✕</button></td></tr>`;
+  }).join('');
 }
-$('#teamTable').addEventListener('change',async e=>{const s=e.target.closest('[data-role]');if(s){await api(`/api/users/${s.dataset.role}/role`,{method:'PATCH',body:JSON.stringify({role:s.value})});blip('Role updated');}});
-$('#teamTable').addEventListener('click',async e=>{const d=e.target.closest('[data-deluser]');if(d&&confirm('Delete?')){await api(`/api/users/${d.dataset.deluser}`,{method:'DELETE'});loadTeam();}});
-/* ai */
+$('#teamTable').addEventListener('click',async e=>{
+  const pm=e.target.closest('[data-perm]'),del=e.target.closest('[data-deluser]');
+  if(pm){const on=!pm.classList.contains('on');
+    await api(`/api/users/${pm.dataset.user}/permissions`,{method:'PATCH',body:JSON.stringify({permissions:{[pm.dataset.perm]:on}})});
+    blip(`${pm.dataset.user} → ${pm.dataset.perm} ${on?'granted':'revoked'}`);loadTeam();}
+  if(del&&confirm('Delete '+del.dataset.deluser+'?')){await api(`/api/users/${del.dataset.deluser}`,{method:'DELETE'});loadTeam();}
+});
+$('#teamTable').addEventListener('change',async e=>{
+  const sel=e.target.closest('[data-role]');
+  if(sel){await api(`/api/users/${sel.dataset.role}/role`,{method:'PATCH',body:JSON.stringify({role:sel.value})});blip(sel.dataset.role+' → '+sel.value);loadTeam();}
+});
+
+/* ===== ai knowledge ===== */
 async function loadKnowledge(){
-  try{const k=await api('/api/knowledge');
-    $('#knList').innerHTML=k.map(x=>`<div style="border-bottom:1px dashed var(--line);padding:.6rem 0"><b>${x.keywords.join(', ')}</b><p style="color:var(--dim);font-size:.85rem">${x.answer}</p><button class="btn sm danger" data-delk="${x.id}">✕</button></div>`).join('');
-  }catch{}
+  const kn=await api('/api/knowledge');
+  $('#knList').innerHTML=kn.length?kn.map(k=>`
+    <div style="border-bottom:1px dashed var(--line);padding:.6rem 0">
+      <b style="color:var(--copper)">${k.keywords.join(', ')}</b>
+      <p style="color:var(--dim);font-size:.85rem">${k.answer}</p>
+      <button class="btn sm danger" data-delk="${k.id}">Delete</button>
+    </div>`).join(''):'<p style="color:var(--mute)">No custom knowledge yet.</p>';
 }
-$('#knList').addEventListener('click',async e=>{const d=e.target.closest('[data-delk]');if(d){await api(`/api/knowledge/${d.dataset.delk}`,{method:'DELETE'});loadKnowledge();}});
-$('#addKnBtn').onclick=async()=>{await api('/api/knowledge',{method:'POST',body:JSON.stringify({keywords:$('#kn-keys').value.split(',').map(s=>s.trim()),answer:$('#kn-ans').value})});blip('Learned');loadKnowledge();};
-/* wallet */
+$('#knList').addEventListener('click',async e=>{
+  const d=e.target.closest('[data-delk]');
+  if(d){await api(`/api/knowledge/${d.dataset.delk}`,{method:'DELETE'});loadKnowledge();}
+});
+$('#addKnBtn').onclick=async()=>{
+  const keywords=$('#kn-keys').value.split(',').map(s=>s.trim()).filter(Boolean);
+  const answer=$('#kn-ans').value.trim();
+  if(!keywords.length||!answer)return blip('Keywords and answer required',true);
+  await api('/api/knowledge',{method:'POST',body:JSON.stringify({keywords,answer})});
+  $('#kn-keys').value='';$('#kn-ans').value='';blip('AI learned ✓');loadKnowledge();
+};
+
+/* ===== wallet ===== */
 async function loadWallet(){
-  try{const [b,t]=await Promise.all([api('/api/wallet/balance'),api('/api/wallet/transactions')]);
-    $('#walletBalance').textContent='$'+b.balance.toFixed(2);
-    $('#walletTotal').textContent='$'+b.totalReceived.toFixed(2);
-    $('#txTable').innerHTML='<tr><th>TX</th><th>Method</th><th>Amount</th><th>Status</th></tr>'+t.slice(0,15).map(x=>`<tr><td>${x.id}</td><td>${x.method||x.destination||''}</td><td>$${x.amount.toFixed(2)}</td><td><span class="pill ${x.status}">${x.status}</span></td></tr>`).join('');
+  try{
+    const [bal,txs]=await Promise.all([api('/api/wallet/balance'),api('/api/wallet/transactions')]);
+    $('#walletBalance').textContent='$'+bal.balance.toFixed(2);
+    $('#walletTotal').textContent='$'+bal.totalReceived.toFixed(2);
+    const rows=txs.map(t=>`<tr>
+      <td><b>${t.id}</b>${t.type==='outgoing'?' <span class="pill rejected">OUT</span>':''}</td>
+      <td style="color:var(--mute);font-family:var(--mono);font-size:.7rem">${new Date(t.created).toLocaleString()}</td>
+      <td>${t.method||t.destination||''}${t.reference?' · '+t.reference:''}</td>
+      <td style="color:${t.type==='outgoing'?'var(--tomato)':'var(--leaf)'};font-weight:700">${t.type==='outgoing'?'−':'+'}$${t.amount.toFixed(2)}</td>
+      <td><span class="pill ${t.status}">${t.status}</span></td>
+    </tr>`).join('');
+    $('#txTable').innerHTML='<tr><th>ID</th><th>Date</th><th>Method</th><th>Amount</th><th>Status</th></tr>'+(rows||'<tr><td colspan="5" style="text-align:center;color:var(--mute);padding:2rem">No transactions yet</td></tr>');
   }catch{}
 }
 $('#refreshWallet').onclick=loadWallet;
-/* settings */
-async function loadSettings(){
-  try{const p=await api('/api/payments-info');
-    $('#set-telebirr').value=p.telebirr||'';$('#set-mpesa').value=p.mpesa||'';$('#set-paypal').value=p.paypal||'';$('#set-bank').value=p.bank||'';$('#set-crypto').value=p.crypto||'';
+$('#transferBtn').addEventListener('click',async()=>{
+  const dest=$('#tr-dest').value,to=$('#tr-to').value.trim(),amt=parseFloat($('#tr-amt').value),ref=$('#tr-ref').value.trim();
+  if(!to)return blip('Destination required',true);
+  if(!amt||amt<=0)return blip('Valid amount required',true);
+  if(!confirm(`Transfer $${amt.toFixed(2)} to ${dest} at ${to}?`))return;
+  try{
+    const r=await api('/api/wallet/transfer',{method:'POST',body:JSON.stringify({destination:dest,amount:amt,reference:`${to} · ${ref}`})});
+    blip(`Transferred — ${r.txId}. New balance: $${r.newBalance.toFixed(2)}`);
+    $('#tr-to').value='';$('#tr-amt').value='';$('#tr-ref').value='';
+    loadWallet();
   }catch{}
-}
-$('#saveSettingsBtn').onclick=async()=>{await api('/api/settings/payments',{method:'PATCH',body:JSON.stringify({telebirr:$('#set-telebirr').value,mpesa:$('#set-mpesa').value,paypal:$('#set-paypal').value,bank:$('#set-bank').value,crypto:$('#set-crypto').value})});blip('Saved');};
-/* security */
-async function loadSecurity(){
-  try{const s=await api('/api/security');
-    $('#secBlocked').innerHTML=s.blocked.length?s.blocked.map(x=>`<div class="row" style="justify-content:space-between;padding:.5em 0;border-bottom:1px dashed var(--line)"><span>${x.ip}</span><button class="btn sm ghost" data-unblock="${x.ip}">Unblock</button></div>`).join(''):'<p>No blocked IPs. ✓</p>';
-    $('#secEvents').innerHTML=s.events.map(x=>`<div style="padding:.25em 0;border-bottom:1px dashed var(--line)">[${new Date(x.t).toLocaleTimeString()}] ${x.type} ${x.ip}</div>`).join('')||'—';
-  }catch{}
-}
-$('#secBlocked').addEventListener('click',async e=>{const b=e.target.closest('[data-unblock]');if(b){await api('/api/security/unblock',{method:'POST',body:JSON.stringify({ip:b.dataset.unblock})});loadSecurity();}});
-/* chat */
-function cmsg(w,t){const l=$('#chatLog');l.innerHTML+=`<div style="margin:.3em 0;color:${w==='user'?'var(--csoft)':'var(--dim)'}"><b>${w}</b>: ${t}</div>`;l.scrollTop=1e9;}
-$('#chatSend').onclick=async()=>{const m=$('#chatIn').value.trim();if(!m)return;cmsg('user',m);$('#chatIn').value='';const r=await api('/api/chat',{method:'POST',body:JSON.stringify({message:m,lang:'en'})});cmsg('bot',r.reply);};
-/* tabs */
-$('#tabNav').addEventListener('click',e=>{
-  const b=e.target.closest('.tab-btn');if(!b)return;
-  document.querySelectorAll('.tab-btn').forEach(x=>x.classList.remove('active'));
-  document.querySelectorAll('.tab-panel').forEach(x=>x.classList.remove('active'));
-  b.classList.add('active');$('#tab-'+b.dataset.tab).classList.add('active');
-  if(b.dataset.tab==='dash')loadDash();
-  if(b.dataset.tab==='analytics')loadAnalytics();
-  if(b.dataset.tab==='orders')loadOrders();
-  if(b.dataset.tab==='pending')loadPending();
-  if(b.dataset.tab==='reviews')loadReviews();
-  if(b.dataset.tab==='subs')loadSubs();
-  if(b.dataset.tab==='resv')loadResv();
-  if(b.dataset.tab==='menu')loadMenu();
-  if(b.dataset.tab==='posts')loadPosts();
-  if(b.dataset.tab==='events')loadEvents();
-  if(b.dataset.tab==='team')loadTeam();
-  if(b.dataset.tab==='ai')loadKnowledge();
-  if(b.dataset.tab==='wallet')loadWallet();
-  if(b.dataset.tab==='settings')loadSettings();
-  if(b.dataset.tab==='security')loadSecurity();
 });
-/* boot */
-(async function boot(){
+
+/* ===== settings ===== */
+async function loadSettings(){
+  try{
+    const p=await api('/api/payments-info');
+    $('#set-telebirr').value=p.telebirr||'';
+    $('#set-mpesa').value=p.mpesa||'';
+    $('#set-paypal').value=p.paypal||'';
+    $('#set-bank').value=p.bank||'';
+    $('#set-crypto').value=p.crypto||'';
+  }catch{}
+}
+$('#saveSettingsBtn').onclick=async()=>{
+  await api('/api/settings/payments',{method:'PATCH',body:JSON.stringify({
+    telebirr:$('#set-telebirr').value,mpesa:$('#set-mpesa').value,paypal:$('#set-paypal').value,bank:$('#set-bank').value,crypto:$('#set-crypto').value
+  })});
+  blip('Payment destinations saved ✓');
+};
+
+/* ===== security ===== */
+async function loadSecurity(){
+  try{
+    const s=await api('/api/security');
+    $('#secBlocked').innerHTML=s.blocked.length?s.blocked.map(b=>`
+      <div class="row" style="justify-content:space-between;padding:.5rem 0;border-bottom:1px dashed var(--line)">
+        <span style="font-family:var(--mono);font-size:.72rem">${b.ip}</span>
+        <button class="btn sm ghost" data-unblock="${b.ip}">Unblock</button>
+      </div>`).join(''):'<p style="color:var(--leaf)">No blocked IPs. ✓</p>';
+    $('#secEvents').innerHTML=s.events.length?s.events.map(e=>`<div style="padding:.25em 0;border-bottom:1px dashed var(--line)">[${new Date(e.t).toLocaleTimeString()}] <b style="color:var(--copper)">${e.type}</b> ${e.ip} — ${e.detail}</div>`).join(''):'<p style="color:var(--mute)">—</p>';
+  }catch{}
+}
+$('#secBlocked').addEventListener('click',async e=>{
+  const b=e.target.closest('[data-unblock]');
+  if(b){await api('/api/security/unblock',{method:'POST',body:JSON.stringify({ip:b.dataset.unblock})});blip('Unblocked');loadSecurity();}
+});
+
+/* ===== test AI ===== */
+function cmsg(who,txt){$('#chatLog').innerHTML+=`<div class="cmsg ${who}"><b>${who==='user'?'You':'Bot'}</b>: ${txt}</div>`;$('#chatLog').scrollTop=1e9;}
+$('#chatSend').onclick=async()=>{
+  const m=$('#chatIn').value.trim();if(!m)return;
+  cmsg('user',m);$('#chatIn').value='';
+  const r=await api('/api/chat',{method:'POST',body:JSON.stringify({message:m,lang:'en'})});
+  cmsg('bot',r.reply);
+};
+$('#chatIn').addEventListener('keydown',e=>{if(e.key==='Enter')$('#chatSend').click();});
+
+/* ===== boot ===== */
+async function boot(){
   ME=await api('/api/admin/whoami');
   $('#whoAmI').textContent='☕ '+ME.user;
   const rb=$('#roleBadge');rb.textContent=ME.role;rb.className='role-badge '+ME.role;
-  if(ME.role!=='admin'){['tabBtnTeam','tabBtnAi','tabBtnSettings','tabBtnSecurity'].forEach(id=>{const e=document.getElementById(id);if(e)e.style.display='none';});}
-  loadDash();loadPending();loadOrders();
+  if(ME.role==='customer'){
+    $('#lockScreen').style.display='block';
+    $('#mainArea').style.display='none';
+    $('#lockTitle').textContent='☕ '+ME.user;
+    $('#lockMsg').innerHTML='✅ <b>Logged in</b> as customer.<br>The admin panel is for staff — enjoy the shop!';
+    $('#lockLogout').onclick=async()=>{await fetch('/api/admin/logout',{method:'POST'});location.href='/';};
+    return;
+  }
+  P=myPerms();
+  if(ME.role!=='admin'){$('#tabBtnTeam').style.display='none';$('#tabBtnAi').style.display='none';$('#tabBtnSettings').style.display='none';$('#tabBtnSecurity').style.display='none';}
+  if(!(ME.role==='admin'||P.can_wallet))$('#tabBtnWallet').style.display='none';
+  loadDash();loadPending();loadAnalytics();loadReviewsAdmin();loadSubsAdmin();
   setInterval(loadPending,8000);
-})();
+  if(P.can_orders){loadOrders();setInterval(loadOrders,4000);}
+  if(P.can_menu)loadMenu();
+  if(P.can_posts)loadPosts();
+  if(P.can_events)loadEvents();
+  if(ME.role==='admin'){loadTeam();loadKnowledge();loadSettings();loadSecurity();setInterval(loadSecurity,10000);}
+  if(ME.role==='admin'||P.can_wallet)loadWallet();
+}
 $('#logoutBtn').onclick=async()=>{await fetch('/api/admin/logout',{method:'POST'});location.href='/login.html';};
+$('#tabNav').addEventListener('click',e=>{
+  const b=e.target.closest('.tab-btn');if(!b)return;
+  $$('.tab-btn').forEach(x=>x.classList.remove('active'));
+  $$('.tab-panel').forEach(x=>x.classList.remove('active'));
+  b.classList.add('active');$('#tab-'+b.dataset.tab).classList.add('active');
+  if(b.dataset.tab==='wallet')loadWallet();
+  if(b.dataset.tab==='dash')loadDash();
+  if(b.dataset.tab==='analytics')loadAnalytics();
+  if(b.dataset.tab==='pending')loadPending();
+  if(b.dataset.tab==='reviews')loadReviewsAdmin();
+  if(b.dataset.tab==='subs')loadSubsAdmin();
+  if(b.dataset.tab==='settings')loadSettings();
+  if(b.dataset.tab==='security')loadSecurity();
+});
+boot();
 </script>
 </body>
 </html>

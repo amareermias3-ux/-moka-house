@@ -5,40 +5,42 @@
 <link rel="icon" type="image/svg+xml" href="/favicon.svg">
 <meta name="theme-color" content="#171110">
 <title>Wholesale — ERSCOMAS</title>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300..900&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300..900&family=Space+Grotesk:wght@400;500;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
 <style>
-body{margin:0;background:#171110;color:#f1e6d4;font-family:"Space Grotesk",sans-serif;min-height:100svh;display:grid;place-items:center;padding:24px}
-.card{width:min(520px,94vw);background:#221a15;border:1px solid rgba(241,230,212,.28);border-radius:16px;padding:2rem;box-shadow:0 24px 60px -20px rgba(0,0,0,.7)}
-h1{font-family:Fraunces,serif;font-size:1.8rem;color:#e8b56b}
-.sub{font-family:"Space Mono",monospace;font-size:.62rem;letter-spacing:.24em;text-transform:uppercase;color:#d98e32;margin:.2rem 0 1.4rem}
-label{display:block;font-family:"Space Mono",monospace;font-size:.62rem;letter-spacing:.14em;text-transform:uppercase;color:#93866f;margin:.8rem 0 .3rem}
-input,textarea{width:100%;background:#171110;border:1.5px solid rgba(241,230,212,.28);border-radius:6px;padding:.8em 1em;color:#f1e6d4;font-family:"Space Mono",monospace}
-.go{width:100%;margin-top:1.2rem;background:#d98e32;color:#191008;border:none;font-family:"Space Mono",monospace;font-weight:700;letter-spacing:.12em;text-transform:uppercase;padding:1em;border-radius:6px;cursor:pointer}
-.msg{font-family:"Space Mono",monospace;font-size:.72rem;margin-top:.8rem;color:#8fa87e}
+body{margin:0;background:#171110;color:#f1e6d4;font-family:"Space Grotesk",sans-serif;line-height:1.7}
+.wrap{max-width:760px;margin:0 auto;padding:90px 24px 60px}
+h1{font-family:Fraunces,serif;font-size:2.4rem;color:#e8b56b}
+h2{font-family:Fraunces,serif;color:#e8b56b;margin-top:2rem}
+p,li{color:#c6b79e}
 a{color:#d98e32}
+.top{position:fixed;top:0;left:0;right:0;background:rgba(23,17,16,.92);backdrop-filter:blur(8px);padding:1rem 1.6rem;display:flex;justify-content:space-between}
+.brand{font-family:Fraunces,serif;font-weight:900}
+.card{background:#221a15;border:1px solid rgba(241,230,212,.13);border-radius:12px;padding:1.6rem;margin-top:1.4rem}
+.btn{display:inline-block;background:#d98e32;color:#191008;font-family:"Space Mono",monospace;font-weight:700;padding:.9em 1.8em;border-radius:6px;text-decoration:none}
 </style>
 </head>
 <body>
-<div class="card">
-<h1>🏢 Wholesale</h1>
-<p class="sub">ERSCOMAS · Beans for your business</p>
-<form id="wf">
-  <label>Business name</label><input id="b" required>
-  <label>Contact email</label><input id="e" type="email" required>
-  <label>Monthly volume (kg)</label><input id="v" type="number" min="1" value="10">
-  <label>Notes</label><textarea id="n" rows="3"></textarea>
-  <button class="go">Request pricing ◆</button>
-  <p class="msg" id="msg"></p>
-</form>
-<p style="margin-top:1.2rem"><a href="/">← Back to shop</a></p>
+<div class="top"><span class="brand">ERSCOMAS</span><a href="/">← Shop</a></div>
+<div class="wrap">
+  <h1>Wholesale &amp; Cafés</h1>
+  <p>We supply freshly-roasted single-origin beans to cafés, restaurants and hotels. Partner with us.</p>
+
+  <div class="card">
+    <h2>What we offer</h2>
+    <ul>
+      <li>Single-origin Ethiopian beans (Guji, Yirgacheffe, Sidama, Harrar, Limu)</li>
+      <li>Custom roast profiles for your brand</li>
+      <li>Barista training &amp; equipment advice</li>
+      <li>Reliable weekly delivery</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <h2>Become a partner</h2>
+    <p>Email us your business name, location and estimated monthly volume. We'll reply within 24h.</p>
+    <a class="btn" href="mailto:amareermias@gmail.com?subject=Wholesale%20Inquiry%20—%20ERSCOMAS">📧 Contact Wholesale</a>
+    <p style="margin-top:1rem">Or call <a href="tel:+251976021007">+251 976 021 007</a> · <a href="tel:+251973011231">+251 973 011 231</a></p>
+  </div>
 </div>
-<script>
-document.getElementById('wf').addEventListener('submit',e=>{
-  e.preventDefault();
-  const body='Wholesale request — '+b.value+' | '+e.value+' | '+v.value+'kg | '+n.value;
-  location.href='mailto:amareermias@gmail.com?subject='+encodeURIComponent('Wholesale — '+b.value)+'&body='+encodeURIComponent(body);
-  document.getElementById('msg').textContent='✅ Opening your email…';
-});
-</script>
 </body>
 </html>

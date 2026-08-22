@@ -4,49 +4,98 @@
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="icon" type="image/svg+xml" href="/favicon.svg">
 <meta name="theme-color" content="#171110">
-<title>Moka Friends — Invite & Earn — ERSCOMAS</title>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300..900&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<title>Moka Friends — Invite & Earn — Moka House</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300..900&family=Space+Grotesk:wght@400;500;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
 <style>
-body{margin:0;background:#171110;color:#f1e6d4;font-family:"Space Grotesk",sans-serif;min-height:100svh;display:grid;place-items:center;padding:24px}
-.card{width:min(520px,94vw);background:#221a15;border:1px solid rgba(241,230,212,.28);border-radius:16px;padding:2rem;box-shadow:0 24px 60px -20px rgba(0,0,0,.7);text-align:center}
-h1{font-family:Fraunces,serif;font-size:1.8rem;color:#e8b56b}
-.sub{color:#c6b79e;margin:.4rem 0 1.4rem}
-.code{margin:1rem auto;padding:1em;border:2px dashed #d98e32;border-radius:8px;font-family:"Space Mono",monospace;font-size:1.3rem;letter-spacing:.2em;color:#e8b56b}
-.slots{display:flex;gap:.8rem;justify-content:center;margin:1rem 0}
-.slot{width:52px;height:52px;border-radius:50%;border:2px dashed rgba(241,230,212,.3);display:grid;place-items:center;font-size:1.2rem;color:transparent}
-.slot.on{border-style:solid;border-color:#8fa87e;color:#8fa87e}
-.share{display:flex;flex-direction:column;gap:.6rem}
-.share a{padding:.9em;border-radius:6px;font-family:"Space Mono",monospace;font-size:.72rem;font-weight:700;text-decoration:none;text-align:center}
-.wa{background:#25D366;color:#0b3d2e}.tg{background:#229ED9;color:#fff}.fb{background:#1877F2;color:#fff}
-a.back{display:inline-block;margin-top:1.2rem;color:#d98e32}
+:root{--bg:#171110;--panel:#221a15;--line:rgba(241,230,212,.13);--line2:rgba(241,230,212,.28);--cream:#f1e6d4;--dim:#c6b79e;--mute:#93866f;--copper:#d98e32;--csoft:#e8b56b;--leaf:#8fa87e;--disp:"Fraunces",serif;--mono:"Space Mono",monospace}
+*{margin:0;padding:0;box-sizing:border-box}
+body{min-height:100svh;background:var(--bg);background-image:radial-gradient(900px 500px at 70% -10%,rgba(217,142,50,.1),transparent 60%);color:var(--cream);font-family:"Space Grotesk",sans-serif;display:grid;place-items:center;padding:24px}
+.home{position:fixed;top:14px;left:14px;z-index:200;background:#221a15;border:1.5px solid rgba(217,142,50,.6);border-radius:8px;padding:.35em .8em;font-family:var(--mono);font-size:.7rem;color:var(--copper);text-decoration:none}
+.card{width:min(520px,94vw);background:var(--panel);border:1px solid var(--line2);border-radius:16px;padding:2.2rem 2rem;box-shadow:0 24px 60px -20px rgba(0,0,0,.7);text-align:center}
+.em{font-size:3rem}
+h1{font-family:var(--disp);font-weight:900;font-size:clamp(1.6rem,5vw,2.4rem);margin:.4rem 0}
+.sub{color:var(--dim);font-size:.92rem;margin-bottom:1.6rem}
+.code{background:var(--bg);border:2px dashed var(--copper);border-radius:10px;padding:1em;font-family:var(--mono);font-size:1.2rem;letter-spacing:.2em;color:var(--csoft);margin-bottom:1rem;cursor:pointer}
+.progress{display:flex;gap:.6rem;justify-content:center;margin:1.4rem 0}
+.p-dot{width:44px;height:44px;border-radius:50%;border:2.5px dashed var(--line2);display:grid;place-items:center;font-size:1.1rem;color:transparent;transition:.3s}
+.p-dot.on{background:var(--leaf);border-style:solid;border-color:var(--leaf);color:#191008;transform:rotate(-8deg)}
+.share{display:grid;gap:.7rem;margin:1.4rem 0}
+.sh{border:none;border-radius:8px;padding:.95em;font-family:var(--mono);font-size:.8rem;font-weight:700;letter-spacing:.08em;cursor:pointer;color:#fff;transition:.2s}
+.sh:hover{filter:brightness(1.1);transform:translateY(-2px)}
+.sh.wa{background:#25D366;color:#0b3d2e}.sh.tg{background:#229ED9}.sh.fb{background:#1877F2}.sh.cp{background:var(--cream);color:#191008}
+.coupon{display:none;background:var(--leaf);color:#191008;border-radius:12px;padding:1.6rem;margin-top:1.4rem;animation:pop .5s cubic-bezier(.2,1.4,.4,1)}
+.coupon.show{display:block}
+@keyframes pop{from{transform:scale(.8);opacity:0}}
+.coupon b{font-family:var(--mono);font-size:1.4rem;letter-spacing:.2em;display:block;margin-top:.4rem}
+.note{font-family:var(--mono);font-size:.66rem;color:var(--mute);margin-top:1.2rem}
 </style>
 </head>
 <body>
+<a class="home" href="/">← <span data-i18n="home">Shop</span></a>
 <div class="card">
-<div style="font-size:2.4rem">🎁</div>
-<h1>Moka ጓደኞች</h1>
-<p class="sub">3 ጓደችን ጋብዝ → ነፃ መጠጥ አግኝ!</p>
-<div class="code" id="code">MOKA-······</div>
-<div class="slots" id="slots"></div>
-<div class="share">
-  <a class="wa" id="wa">WhatsApp</a>
-  <a class="tg" id="tg">Telegram</a>
-  <a class="fb" id="fb">Facebook</a>
+  <div class="em">🎁</div>
+  <h1 data-i18n="h1">Moka Friends</h1>
+  <p class="sub" data-i18n="sub">Invite 3 friends to Moka House → get a <b>FREE drink</b>!</p>
+  <div class="code" id="code" title="Tap to copy">……</div>
+  <div class="progress" id="prog"></div>
+  <div class="share">
+    <button class="sh wa" data-net="wa">WhatsApp</button>
+    <button class="sh tg" data-net="tg">Telegram</button>
+    <button class="sh fb" data-net="fb">Facebook</button>
+    <button class="sh cp" data-net="cp" data-i18n="copy">Copy my link 🔗</button>
+  </div>
+  <div class="coupon" id="coupon">
+    <span data-i18n="won">🎉 You unlocked a FREE drink!</span>
+    <b id="couponCode"></b>
+    <p style="font-size:.75rem;margin-top:.6rem" data-i18n="show">Show this at the counter.</p>
+  </div>
+  <p class="note" data-i18n="note">Share with 3 friends to unlock your reward.</p>
 </div>
-<a class="back" href="/">← Back to shop</a>
-</div>
+
 <script>
-let code=localStorage.getItem('moka-ref');
-if(!code){code='MOKA-'+Math.random().toString(36).slice(2,6).toUpperCase();localStorage.setItem('moka-ref',code);}
-document.getElementById('code').textContent=code;
-let refs=parseInt(localStorage.getItem('moka-refs')||'0');
-function drawSlots(){document.getElementById('slots').innerHTML=[0,1,2].map(i=>`<div class="slot ${i<refs?'on':''}">✓</div>`).join('');}
-drawSlots();
-const msg=encodeURIComponent('Join me at Moka House! Use my code '+code+' ☕');
-const url=encodeURIComponent(location.origin+'/');
-document.getElementById('wa').href='https://wa.me/?text='+msg+'%20'+url;
-document.getElementById('tg').href='https://t.me/share/url?url='+url+'&text='+msg;
-document.getElementById('fb').href='https://www.facebook.com/sharer/sharer.php?u='+url;
+const $=s=>document.querySelector(s);
+const L={
+en:{home:'Shop',h1:'Moka Friends',sub:'Invite 3 friends to Moka House → get a <b>FREE drink</b>!',copy:'Copy my link 🔗',won:'🎉 You unlocked a FREE drink!',show:'Show this at the counter.',note:'Share with 3 friends to unlock your reward.'},
+am:{home:'ሱ',h1:'Moka ጓደች',sub:'3 ጓደኞች ወደ Moka House ጋብዝ → <b>ነፃ መጠጥ</b> አግኝ!',copy:'ልንኬን ቅዳ 🔗',won:'🎉 ነፃ መጠጥ ከፈትክ!',show:'በካውንተር ላይ አሳይ።',note:'ለመክፈት ከ3 ጓደኞች ጋር አጋራ።'},
+ar:{home:'المتجر',h1:'أصدقاء موكا',sub:'ادعُ 3 أصدقاء → احصل على <b>مشروب مجاني</b>!',copy:'انسخ رابطي 🔗',won:'🎉 فتحت مشروباً مجانياً!',show:'أظهره عند الكاونتر.',note:'شارك مع 3 أصدقاء لفتح جائزتك.'},
+fr:{home:'Boutique',h1:'Amis Moka',sub:'Invitez 3 amis → gagnez une <b>boisson GRATUITE</b>!',copy:'Copier mon lien 🔗',won:'🎉 Boisson gratuite débloquée!',show:'Montrez-le au comptoir.',note:'Partagez avec 3 amis.'},
+es:{home:'Tienda',h1:'Amigos Moka',sub:'Invita a 3 amigos → ¡gana una <b>bebida GRATIS</b>!',copy:'Copiar mi enlace 🔗',won:'🎉 ¡Bebida gratis desbloqueada!',show:'Muéstralo en el mostrador.',note:'Comparte con 3 amigos.'},
+om:{home:'Suqii',h1:'Hiriyoota Moka',sub:'Hiriyoota 3 affeeri → <b>dhugaata BILISAA</b> argadhu!',copy:'Link koo waraabi 🔗',won:'🎉 Dhugaata bilisaa banatte!',show:'Kaawuntara irratti agarsiisi.',note:'Hiriyoota 3 waliin qoodi.'},
+ti:{home:'ዱኳን',h1:'የቖታ Moka',sub:'3 የቖታ ድም → <b>ነጻ መስተ</b> ርኸብ!',copy:'ሊንከይ ቅዳሕ 🔗',won:'🎉 ነጻ መስተ ከፊትካ!',show:'ኣ ካውንተር ኣርእይ።',note:'ምስ 3 የቖታ ተፈል።'},
+so:{home:'Dukaan',h1:'Saaxiibbada Moka',sub:'3 saaxiib marti qaado → <b>cabitaan BILAASH</b> hel!',copy:'Koobiyee linkayga 🔗',won:'🎉 Cabitaan bilaash ayaad furtay!',show:'Meesha khaanadaha tus.',note:'La wadaag 3 saaxiib.'}
+};
+let LANG=localStorage.getItem('moka-lang')||'en';
+const D=()=>L[LANG]||L.en;
+function applyLang(){const d=D();document.querySelectorAll('[data-i18n]').forEach(el=>{const v=d[el.dataset.i18n];if(v)el.innerHTML=v;});document.documentElement.lang=LANG;}
+applyLang();
+
+/* referral code */
+let ref=localStorage.getItem('moka-ref');
+if(!ref){ref='MOKA-'+Math.random().toString(36).slice(2,7).toUpperCase();localStorage.setItem('moka-ref',ref);}
+$('#code').textContent=ref;
+$('#code').onclick=()=>{navigator.clipboard.writeText(ref);};
+
+/* shares progress */
+let shares=+ (localStorage.getItem('moka-shares')||0);
+function renderProg(){
+  $('#prog').innerHTML=[0,1,2].map(i=>`<div class="p-dot ${i<shares?'on':''}">${i<shares?'✓':''}</div>`).join('');
+  if(shares>=3){
+    $('#coupon').classList.add('show');
+    $('#couponCode').textContent='FREE-'+ref;
+  }
+}
+renderProg();
+
+const msg=encodeURIComponent('☕ Moka House — the best coffee in town! Join me: moka-house.vercel.app (my code: '+ref+')');
+const url=encodeURIComponent('https://moka-house.vercel.app/');
+document.querySelectorAll('.sh').forEach(b=>b.addEventListener('click',()=>{
+  const n=b.dataset.net;
+  if(n==='wa')open('https://wa.me/?text='+msg);
+  if(n==='tg')open('https://t.me/share/url?url='+url+'&text='+msg);
+  if(n==='fb')open('https://www.facebook.com/sharer/sharer.php?u='+url);
+  if(n==='cp')navigator.clipboard.writeText('https://moka-house.vercel.app/?ref='+ref);
+  if(shares<3){shares++;localStorage.setItem('moka-shares',shares);renderProg();}
+}));
 </script>
 </body>
 </html>
