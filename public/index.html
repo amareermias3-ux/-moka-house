@@ -559,7 +559,6 @@ footer{background:#120d0a;border-top:1px solid var(--line);padding:70px 0 0}
       <a href="/friends.html">🎁 Moka Friends</a>
       <a href="/story.html">📖 Our Story · ታሪችን</a>
       <a href="/wait.html">🎮 While you wait</a>
-      <a href="/reserve.html">🪑 Reserve a Table</a>
       <a href="#top">Instagram ↗</a>
       <button id="toTop">↑ Back to top</button>
     </div>
@@ -769,7 +768,7 @@ const FALLBACK_MENU=[
  {id:'hon',cat:'Espresso',name:'Honey Latte',price:4.80,desc:'Espresso, silky milk and Begemder honey.',seed:'honey-latte',tags:['new']},
  {id:'aff',cat:'Espresso',name:'Affogato',price:5.20,desc:'Vanilla gelato drowned in espresso.',seed:'affogato',tags:['new']},
  {id:'spl',cat:'Espresso',name:'Spanish Latte',price:5.00,desc:'Espresso + sweet condensed milk.',seed:'spanish-latte',tags:['new']},
- {id:'wmo',cat:'Espresso',name:'White Mocha',price:5.00,desc:'Espresso + white chocolate + cream.',seed:'white-mocha',tags:['new']},
+ {id:'wmo',cat:'Espresso',name:'White Mocha',price:5.00,desc:'Espresso + white chocolate + cream.', seed:'white-mocha',tags:['new']},
  {id:'mat',cat:'Espresso',name:'Matcha Latte',price:5.20,desc:'Ceremonial matcha + steamed milk.',seed:'matcha-latte',tags:['new']},
  {id:'cha',cat:'Espresso',name:'Chai Latte',price:4.80,desc:'Spiced masala chai + milk.',seed:'chai-latte',tags:['new']},
  {id:'cor',cat:'Espresso',name:'Cortado',price:4.00,desc:'Half espresso, half warm milk.',seed:'cortado',tags:[]},
@@ -848,7 +847,7 @@ const METHODS={
  aeropress:{label:'AeroPress',dose:[12,20,15],ratio:15,waterLabel:'Water',temp:'90°C',grind:'Medium-fine',total:150,steps:[[0,'Pour all the water','Straight in, saturate everything, no fuss.'],[30,'Stir three times','Break the crust gently, then leave it alone.'],[90,'Cap & flip','Carefully. Confidence, not courage.'],[105,'Press for 30 s','Stop at the hiss — you want syrup, not silt.'],[135,'Bypass to taste','Add hot water until it sings.']]},
  press:{label:'French Press',dose:[20,45,30],ratio:14,waterLabel:'Water',temp:'96°C',grind:'Coarse — breadcrumbs',total:270,steps:[[0,'Pour all the water','Saturate grounds, lid on but don\u2019t plunge.'],[240,'Break & skim','Stir the crust, scoop the foam and floaters.'],[255,'Settle','One quiet minute — let the fines drop.'],[270,'Plunge to the surface','Just below the liquid, no pressing down. Pour gently.']]}
 };
-const TICKER=['Now pouring: Ethiopia Guji — apricot · bergamot · black tea','Roasted on site every Tuesday','Honduras Santa Rita — caramel · red apple','Cold brew tonic on tap all summer','Open cupping every Friday 17:00','Oat, almond & whole — never a surcharge','New: ☕ Find My Coffee quiz!','🏆 Climb the VIP Leaderboard!','🎮 Play while you wait!','🪑 Reserve your table!'];
+const TICKER=['Now pouring: Ethiopia Guji — apricot · bergamot · black tea','Roasted on site every Tuesday','Honduras Santa Rita — caramel · red apple','Cold brew tonic on tap all summer','Open cupping every Friday 17:00','Oat, almond & whole — never a surcharge','New: ☕ Find My Coffee quiz!','🏆 Climb the VIP Leaderboard!','🎮 Play while you wait!'];
 const DAYS=['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
 
 const hToStr=h=>{const H=Math.floor(h),M=Math.round((h-H)*60);return String(H).padStart(2,'0')+':'+String(M).padStart(2,'0')};
