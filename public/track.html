@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<meta name="theme-color" content="#171110">
+<title>Track your order — ERSCOMAS</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300..900&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#171110;color:#f1e6d4;font-family:"Space Grotesk",sans-serif;min-height:100svh;display:grid;place-items:center;padding:24px}
+.card{width:min(520px,94vw);background:#221a15;border:1px solid rgba(241,230,212,.28);border-radius:16px;padding:2rem;box-shadow:0 24px 60px -20px rgba(0,0,0,.7)}
+h1{font-family:Fraunces,serif;font-size:1.8rem;color:#e8b56b}
+.sub{font-family:"Space Mono",monospace;font-size:.62rem;letter-spacing:.24em;text-transform:uppercase;color:#d98e32;margin:.2rem 0 1.4rem}
+input{width:100%;background:#171110;border:1.5px solid rgba(241,230,212,.28);border-radius:6px;padding:.9em 1em;color:#f1e6d4;font-family:"Space Mono",monospace;font-size:1rem;text-transform:uppercase}
+.go{width:100%;margin-top:.8rem;background:#d98e32;color:#191008;border:none;font-family:"Space Mono",monospace;font-weight:700;letter-spacing:.12em;text-transform:uppercase;padding:1em;border-radius:6px;cursor:pointer}
+.steps{display:flex;justify-content:space-between;margin:1.6rem 0;position:relative}
+.steps::before{content:"";position:absolute;top:22px;left:8%;right:8%;height:2px;background:rgba(241,230,212,.15)}
+.step{text-align:center;position:relative;z-index:1;flex:1}
+.step .dot{width:44px;height:44px;border-radius:50%;border:2.5px solid rgba(241,230,212,.28);background:#171110;display:grid;place-items:center;margin:0 auto .5rem;font-size:1.1rem}
+.step.done .dot{background:#8fa87e;border-color:#8fa87e}
+.step.now .dot{border-color:#d98e32;color:#d98e32;animation:pulse 1.4s infinite}
+@keyframes pulse{50%{box-shadow:0 0 0 8px rgba(217,142,50,.18)}}
+.step .lbl{font-family:"Space Mono",monospace;font-size:.58rem;letter-spacing:.1em;text-transform:uppercase;color:#93866f}
+.items .it{display:flex;justify-content:space-between;padding:.4em 0;border-bottom:1px dashed rgba(241,230,212,.15);font-size:.88rem}
+.total{display:flex;justify-content:space-between;margin-top:.8rem;font-family:"Space Mono",monospace}
+.total b{color:#d98e32}
+.err{font-family:"Space Mono",monospace;font-size:.72rem;color:#cf5636;margin-top:.8rem}
+.links{display:flex;gap:.6rem;margin-top:1.2rem}
+.links a{flex:1;text-align:center;padding:.8em;border-radius:6px;font-family:"Space Mono",monospace;font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;text-decoration:none}
+.wait{background:#8fa87e;color:#191008;font-weight:700}
+.back{border:1.5px solid rgba(241,230,212,.28);color:#93866f}
+</style>
+</head>
+<body>
+<div class="card">
+<h1>📦 Track your order</h1>
+<p class="sub">ERSCOMAS · Live status</p>
+<form id="tf"><input id="no" placeholder="MH-1234" required><button class="go">Track ◆</button></form>
+<p class="err" id="err" hidden></p>
+<div id="res" hidden>
+  <div class="steps" id="steps"></div>
+  <div class="items" id="items"></div>
+  <div class="total"><span>Total</span><b id="tot"></b></div>
+  <div class="links"><a class="wait" href="/wait.html">🎮 Play while you wait</a><a class="back" href="/">← Shop</a></div>
+</div>
+</div>
+<script>
+const ST=['queued','brewing','ready','picked-up'];
+const IC={queued:'⏳',brewing:'☕',ready:'✅','picked-up':'🎉'};
+let last=null,poll=null;
+function draw(o){
+  document.getElementById('res').hidden=false;
+  const i=ST.indexOf(o.status);
+  document.getElementById('steps').innerHTML=ST.map((s,k)=>`<div class="step ${k<i?'done':k===i?'now':''}"><div class="dot">${k<i?'✓':IC[s]}</div><div class="lbl">${s}</div></div>`).join('');
+  document.getElementById('items').innerHTML=o.items.map(x=>`<div class="it"><span>${x.qty}× ${x.name}</span><span>$${(x.price*x.qty).toFixed(2)}</span></div>`).join('');
+  document.getElementById('tot').textContent='$'+o.subtotal.toFixed(2);
+}
+function notify(){ try{ if('Notification' in window && Notification.permission==='granted') new Notification('☕ Your order is READY!',{body:'Pick it up at the counter. Enjoy!'});}catch(e){} }
+async function track(no){
+  const e=document.getElementById('err');e.hidden=true;
+  try{
+    const r=await fetch('/api/track/'+encodeURIComponent(no));
+    if(!r.ok){e.textContent='Order not found.';e.hidden=true===false;e.hidden=false;document.getElementById('res').hidden=true;return;}
+    const o=await r.json();
+    if(last && last!==o.status && o.status==='ready')notify();
+    last=o.status;draw(o);
+  }catch(_){e.textContent='Server unreachable';e.hidden=false;}
+}
+document.getElementById('tf').addEventListener('submit',e=>{
+  e.preventDefault();
+  const no=document.getElementById('no').value.trim().toUpperCase();
+  if(!no)return;
+  clearInterval(poll);track(no);poll=setInterval(()=>track(no),5000);
+});
+(function(){
+  const q=new URLSearchParams(location.search).get('no')||localStorage.getItem('moka-last-order');
+  if(q){document.getElementById('no').value=q;track(q.toUpperCase());poll=setInterval(()=>track(q.toUpperCase()),5000);}
+})();
+</script>
+</body>
+</html>
