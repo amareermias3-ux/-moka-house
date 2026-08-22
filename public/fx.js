@@ -1,8 +1,6 @@
-/* ERSCOMAS | fx.js v5 — everything waits for DOM (works on Vercel) */
+/* ERSCOMAS | fx.js v5 — brand + motion + light mode (DOM-ready) */
 (function(){
   var NAME='ERSCOMAS';
-
-  /* ===== 🏷️ Brand rename (safe, waits for DOM) ===== */
   function walker(root){
     var w=document.createTreeWalker(root,NodeFilter.SHOW_TEXT,{acceptNode:function(n){
       var p=n.parentNode; if(!p) return NodeFilter.FILTER_REJECT;
@@ -18,7 +16,6 @@
   }
   function doRename(){ try{ walker(document.body); setTitle(); }catch(e){} }
 
-  /* ===== 🎨 styles ===== */
   var st=document.createElement('style');
   st.textContent=
   ".fx-aurora{position:fixed;inset:0;z-index:0;pointer-events:none;opacity:.35;overflow:hidden}"+
@@ -39,10 +36,8 @@
   "@media(max-width:760px){.fx-stats{grid-template-columns:repeat(2,1fr)}}"+
   "#themeBtn{position:fixed;top:14px;left:14px;z-index:200;width:44px;height:44px;border-radius:50%;background:#221a15;border:1.5px solid rgba(217,142,50,.6);color:#e8b56b;font-size:18px;cursor:pointer;box-shadow:0 10px 30px -8px rgba(0,0,0,.6)}"+
   "body .fx-install{left:auto!important;right:24px!important;bottom:160px!important}"+
-  /* LIGHT THEME */
   "body.fx-light{background:#f6efe3!important;color:#2a1c10}"+
-  "body.fx-light .fx-aurora{opacity:.22}"+
-  "body.fx-light .noise{opacity:.03}"+
+  "body.fx-light .fx-aurora{opacity:.22}body.fx-light .noise{opacity:.03}"+
   "body.fx-light header,body.fx-light header.scrolled{background:rgba(246,239,227,.94)!important;border-color:rgba(42,28,16,.15)!important}"+
   "body.fx-light .wordmark,body.fx-light .rowline h4,body.fx-light .shop-body h3,body.fx-light .ticket-body h4,body.fx-light .brew-steps h4,body.fx-light .panel h3,body.fx-light .drawer-head h3,body.fx-light .foot-brand{color:#241a10}"+
   "body.fx-light .wordmark small,body.fx-light .eyebrow,body.fx-light .roast-chip b,body.fx-light .price,body.fx-light .ci-info span,body.fx-light .subtotal-row b,body.fx-light .bnum b,body.fx-light .step-at{color:#b3691e}"+
@@ -66,15 +61,10 @@
   "body.fx-light .tag.sig{border-color:#b3691e;color:#b3691e}body.fx-light .tag.new{border-color:#3f7d34;color:#3f7d34}";
   document.head.appendChild(st);
 
-  /* ===== everything that needs <body> runs here ===== */
   function init(){
     if(document.body.dataset.fxInit)return; document.body.dataset.fxInit='1';
-
-    /* aurora */
     var au=document.createElement('div');au.className='fx-aurora';au.innerHTML='<i></i><i></i><i></i>';
     document.body.insertBefore(au,document.body.firstChild);
-
-    /* theme toggle */
     var tb=document.createElement('button');tb.id='themeBtn';tb.textContent='☀️';tb.title='Toggle theme';
     document.body.appendChild(tb);
     if(localStorage.getItem('moka-theme')==='light'){document.body.classList.add('fx-light');tb.textContent='🌙';}
@@ -83,18 +73,12 @@
       tb.textContent=light?'🌙':'☀️';
       localStorage.setItem('moka-theme',light?'light':'dark');
     });
-
-    /* Friends float (only if not already injected) */
     if(!document.getElementById('fxFriends')){
       var f=document.createElement('a');f.id='fxFriends';f.href='/friends.html';f.textContent='🎁 Friends';
       f.style.cssText='position:fixed;bottom:228px;left:24px;z-index:160;background:#8fa87e;color:#191008;border:none;border-radius:100px;padding:.7em 1.2em;font-family:monospace;font-size:.68rem;font-weight:700;letter-spacing:.1em;text-decoration:none;box-shadow:0 10px 30px -8px rgba(0,0,0,.6)';
       document.body.appendChild(f);
     }
-
-    /* reposition Install App */
     document.querySelectorAll('button').forEach(function(b){ if(/install app/i.test(b.textContent)) b.classList.add('fx-install'); });
-
-    /* magnetic */
     if(!matchMedia('(prefers-reduced-motion: reduce)').matches){
       document.addEventListener('mousemove',function(e){
         var b=e.target.closest('.btn,.add-btn,.club-btn');
@@ -105,8 +89,6 @@
         b.style.transform='translate('+(dx*6)+'px,'+(dy*6)+'px)';
       });
     }
-
-    /* ripple */
     document.addEventListener('click',function(e){
       var b=e.target.closest('.btn,.add-btn,.pm-btn,.club-btn,.tab');
       if(!b)return;
@@ -117,13 +99,11 @@
       s.style.left=(e.clientX-r.left-d/2)+'px';s.style.top=(e.clientY-r.top-d/2)+'px';
       b.appendChild(s);setTimeout(function(){s.remove();},600);
     });
-
-    /* stats band (homepage) */
     if((location.pathname==='/'||location.pathname==='/index.html')){
       var mq=document.querySelector('.marquee');
       if(mq&&!document.querySelector('.fx-stats')){
         var band=document.createElement('div');band.className='fx-stats';
-        var data=[[120000,'+','Cups poured','የተቀዱ ኩባያዎች'],[11,'','Partner farms','አጋር እርሻዎች'],[10,'','Years roasting','ዓመታት ማጠስ'],[3,'','Shops','ሱቆች']];
+        var data=[[120000,'+','Cups poured','የተቀ ኩባያዎች'],[11,'','Partner farms','አጋር እርሻዎች'],[10,'','Years roasting','ዓመታት ማጠስ'],[3,'','Shops','ሱቆች']];
         band.innerHTML=data.map(function(d){return '<div class="fx-stat"><b data-n="'+d[0]+'" data-s="'+d[1]+'">0</b><span>'+d[2]+'</span></div>';}).join('');
         mq.parentNode.insertBefore(band,mq.nextSibling);
         var io=new IntersectionObserver(function(es){es.forEach(function(e){
@@ -137,11 +117,8 @@
         band.querySelectorAll('b').forEach(function(b){io.observe(b);});
       }
     }
-
     doRename();
   }
-
-  if(document.readyState==='loading'){document.addEventListener('DOMContentLoaded',init);}
-  else{init();}
+  if(document.readyState==='loading'){document.addEventListener('DOMContentLoaded',init);}else{init();}
   setTimeout(doRename,600); setTimeout(doRename,1500);
 })();
