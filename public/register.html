@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<meta name="theme-color" content="#171110">
+<title>Register — ERSCOMAS</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300..900&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#171110;color:#f1e6d4;font-family:"Space Grotesk",sans-serif;min-height:100svh;display:grid;place-items:center;padding:24px}
+.card{width:min(440px,94vw);background:#221a15;border:1px solid rgba(241,230,212,.28);border-radius:16px;padding:2rem;box-shadow:0 24px 60px -20px rgba(0,0,0,.7)}
+h1{font-family:Fraunces,serif;font-size:1.8rem;color:#e8b56b}
+.sub{font-family:"Space Mono",monospace;font-size:.62rem;letter-spacing:.24em;text-transform:uppercase;color:#d98e32;margin:.2rem 0 1.4rem}
+label{display:block;font-family:"Space Mono",monospace;font-size:.62rem;letter-spacing:.14em;text-transform:uppercase;color:#93866f;margin:.8rem 0 .3rem}
+input{width:100%;background:#171110;border:1.5px solid rgba(241,230,212,.28);border-radius:6px;padding:.9em 1em;color:#f1e6d4;font-family:"Space Mono",monospace}
+.go{width:100%;margin-top:1.2rem;background:#d98e32;color:#191008;border:none;font-family:"Space Mono",monospace;font-weight:700;letter-spacing:.12em;text-transform:uppercase;padding:1em;border-radius:6px;cursor:pointer}
+.msg{font-family:"Space Mono",monospace;font-size:.72rem;margin-top:.8rem;color:#8fa87e}
+.links{display:flex;justify-content:space-between;margin-top:1.2rem;font-size:.8rem}
+a{color:#d98e32}
+</style>
+</head>
+<body>
+<div class="card">
+<h1>✨ Create account</h1>
+<p class="sub">ERSCOMAS · Join the family</p>
+<form id="rf">
+  <label>Full name</label><input id="n" required>
+  <label>Email</label><input id="e" type="email" required>
+  <label>Phone</label><input id="ph" type="tel" placeholder="+251...">
+  <label>Password (≥6)</label><input id="p" type="password" minlength="6" required>
+  <button class="go">Register ◆</button>
+  <p class="msg" id="msg"></p>
+</form>
+<div class="links"><a href="/login.html">Log in</a><a href="/">← Shop</a></div>
+</div>
+<script>
+document.getElementById('rf').addEventListener('submit',async e=>{
+  e.preventDefault();
+  const r=await fetch('/api/admin/register',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({name:n.value.trim(),email:e.value.trim(),phone:ph.value.trim(),pass:p.value})});
+  const d=await r.json();
+  const m=document.getElementById('msg');
+  if(r.ok){m.textContent='✅ Account created! Redirecting…';setTimeout(()=>location.href='/admin.html',900);}
+  else{m.style.color='#cf5636';m.textContent=d.error||'Failed';}
+});
+</script>
+</body>
+</html>

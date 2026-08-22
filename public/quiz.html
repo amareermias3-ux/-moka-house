@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<meta name="theme-color" content="#171110">
+<title>Find My Coffee — ERSCOMAS</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300..900&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#171110;color:#f1e6d4;font-family:"Space Grotesk",sans-serif;min-height:100svh;display:grid;place-items:center;padding:24px}
+.card{width:min(520px,94vw);background:#221a15;border:1px solid rgba(241,230,212,.28);border-radius:16px;padding:2rem;box-shadow:0 24px 60px -20px rgba(0,0,0,.7)}
+h1{font-family:Fraunces,serif;font-size:1.8rem;color:#e8b56b}
+.q{margin:1.2rem 0;font-size:1.05rem}
+.opt{display:block;width:100%;text-align:left;margin:.4rem 0;padding:.9em 1em;border-radius:6px;border:1.5px solid rgba(241,230,212,.28);background:none;color:#f1e6d4;cursor:pointer}
+.opt:hover{border-color:#d98e32}
+.result{text-align:center}
+.result .big{font-size:3rem}
+.result h2{font-family:Fraunces,serif;color:#e8b56b}
+a{color:#d98e32}
+</style>
+</head>
+<body>
+<div class="card" id="card"></div>
+<script>
+const QS=[
+ {q:'How do you like your coffee?',o:[['Strong & bold','bold'],['Smooth & creamy','creamy'],['Fruity & bright','bright']]},
+ {q:'Hot or cold?',o:[['Hot ☕','hot'],['Iced 🧊','cold']]},
+ {q:'Sweetness?',o:[['Not sweet','dry'],['A little sweet','sweet']]}
+];
+let i=0,ans=[];
+function render(){
+  const c=document.getElementById('card');
+  if(i<QS.length){
+    c.innerHTML='<h1>☕ Find my coffee</h1><div class="q">'+(i+1)+'. '+QS[i].q+'</div>'+QS[i].o.map(o=>'<button class="opt" data-v="'+o[1]+'">'+o[0]+'</button>').join('');
+    c.querySelectorAll('.opt').forEach(b=>b.onclick=()=>{ans.push(b.dataset.v);i++;render();});
+  }else{
+    let pick='Espresso';
+    if(ans.includes('creamy')&&ans.includes('hot'))pick='Flat White';
+    if(ans.includes('sweet')&&ans.includes('hot'))pick='Caramel Latte';
+    if(ans.includes('cold'))pick=ans.includes('bright')?'Cold Brew Tonic':'Iced Mocha';
+    if(ans.includes('bright')&&ans.includes('hot'))pick='V60 · Ethiopia Guji';
+    c.innerHTML='<div class="result"><div class="big">🎉</div><h2>'+pick+'</h2><p>Perfect for you!</p><a href="/#menu">See it on the board →</a></div>';
+  }
+}
+render();
+</script>
+</body>
+</html>

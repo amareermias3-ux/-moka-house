@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<meta name="theme-color" content="#171110">
+<title>Wholesale — ERSCOMAS</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300..900&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#171110;color:#f1e6d4;font-family:"Space Grotesk",sans-serif;min-height:100svh;display:grid;place-items:center;padding:24px}
+.card{width:min(520px,94vw);background:#221a15;border:1px solid rgba(241,230,212,.28);border-radius:16px;padding:2rem;box-shadow:0 24px 60px -20px rgba(0,0,0,.7)}
+h1{font-family:Fraunces,serif;font-size:1.8rem;color:#e8b56b}
+.sub{font-family:"Space Mono",monospace;font-size:.62rem;letter-spacing:.24em;text-transform:uppercase;color:#d98e32;margin:.2rem 0 1.4rem}
+label{display:block;font-family:"Space Mono",monospace;font-size:.62rem;letter-spacing:.14em;text-transform:uppercase;color:#93866f;margin:.8rem 0 .3rem}
+input,textarea{width:100%;background:#171110;border:1.5px solid rgba(241,230,212,.28);border-radius:6px;padding:.8em 1em;color:#f1e6d4;font-family:"Space Mono",monospace}
+.go{width:100%;margin-top:1.2rem;background:#d98e32;color:#191008;border:none;font-family:"Space Mono",monospace;font-weight:700;letter-spacing:.12em;text-transform:uppercase;padding:1em;border-radius:6px;cursor:pointer}
+.msg{font-family:"Space Mono",monospace;font-size:.72rem;margin-top:.8rem;color:#8fa87e}
+a{color:#d98e32}
+</style>
+</head>
+<body>
+<div class="card">
+<h1>🏢 Wholesale</h1>
+<p class="sub">ERSCOMAS · Beans for your business</p>
+<form id="wf">
+  <label>Business name</label><input id="b" required>
+  <label>Contact email</label><input id="e" type="email" required>
+  <label>Monthly volume (kg)</label><input id="v" type="number" min="1" value="10">
+  <label>Notes</label><textarea id="n" rows="3"></textarea>
+  <button class="go">Request pricing ◆</button>
+  <p class="msg" id="msg"></p>
+</form>
+<p style="margin-top:1.2rem"><a href="/">← Back to shop</a></p>
+</div>
+<script>
+document.getElementById('wf').addEventListener('submit',e=>{
+  e.preventDefault();
+  const body='Wholesale request — '+b.value+' | '+e.value+' | '+v.value+'kg | '+n.value;
+  location.href='mailto:amareermias@gmail.com?subject='+encodeURIComponent('Wholesale — '+b.value)+'&body='+encodeURIComponent(body);
+  document.getElementById('msg').textContent='✅ Opening your email…';
+});
+</script>
+</body>
+</html>

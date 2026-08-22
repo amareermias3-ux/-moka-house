@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<meta name="theme-color" content="#171110">
+<title>Our Story — Moka House</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300..900&family=Space+Grotesk:wght@400;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#171110;color:#f1e6d4;font-family:"Space Grotesk",sans-serif}
+header{display:flex;justify-content:space-between;padding:1.2rem 2rem;align-items:center}
+.brand{font-family:Fraunces,serif;font-weight:900}
+.hero{height:60vh;background:url('https://picsum.photos/seed/coffee-farm-ethiopia/1600/900') center/cover;display:grid;place-items:center;text-align:center;position:relative}
+.hero::after{content:"";position:absolute;inset:0;background:rgba(23,17,16,.55)}
+.hero div{position:relative;z-index:1}
+.hero h1{font-family:Fraunces,serif;font-size:clamp(2rem,6vw,4rem)}
+section{max-width:800px;margin:0 auto;padding:4rem 1.5rem}
+.tl{border-left:2px solid #d98e32;padding-left:1.5rem;margin:2rem 0}
+.tl .yr{font-family:"Space Mono",monospace;color:#d98e32;font-size:.72rem}
+.tl h3{font-family:Fraunces,serif;margin:.3rem 0}
+.tl p{color:#c6b79e}
+.stats{display:flex;gap:1rem;flex-wrap:wrap;justify-content:center}
+.stat{flex:1;min-width:140px;background:#221a15;border:1px solid rgba(241,230,212,.13);border-radius:12px;padding:1.4rem;text-align:center}
+.stat b{display:block;font-family:Fraunces,serif;font-size:2rem;color:#e8b56b}
+.stat span{font-family:"Space Mono",monospace;font-size:.6rem;letter-spacing:.16em;text-transform:uppercase;color:#93866f}
+a{color:#d98e32}
+</style>
+</head>
+<body>
+<header><span class="brand">MOKA HOUSE</span><a href="/">← Back to shop</a></header>
+<div class="hero"><div><p style="font-family:'Space Mono',monospace;letter-spacing:.24em;font-size:.66rem">SINCE 2016 · ADDIS ABABA</p><h1>From a single bean to a family.</h1><p>We started with one roaster and a dream. Today we pour for thousands — but every cup still gets the same love.</p></div></div>
+<section>
+  <div class="stats">
+    <div class="stat"><b>120,000+</b><span>Cups poured</span></div>
+    <div class="stat"><b>11</b><span>Partner farms</span></div>
+    <div class="stat"><b>10</b><span>Years roasting</span></div>
+    <div class="stat"><b>3</b><span>Shops</span></div>
+  </div>
+  <div class="tl"><span class="yr">2016</span><h3>The first roaster</h3><p>A tiny room in Old Harbor, one second-hand roaster, and a belief that Ethiopian coffee deserves the world.</p></div>
+  <div class="tl"><span class="yr">2019</span><h3>Direct trade</h3><p>We began buying directly from 11 farms across Guji, Yirgacheffe and Sidama — paying above C-market, always.</p></div>
+  <div class="tl"><span class="yr">2023</span><h3>Three rooms</h3><p>Riverside and Museum Quarter joined the family. One roast, three rooms, one standard.</p></div>
+</section>
+</body>
+</html>
